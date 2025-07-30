@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Shared.SRealtyRealty.Enums.Mandatory;
+namespace Shared.SRealtyRealty.Enums.Required;
 
 public enum AdvertLifetimeEnum
 {

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Shared.SRealtyRealty.Enums.Mandatory;
+using Shared.SRealtyRealty.Enums.Required;
 
 namespace Server.Entities.SRealityRealty;
 

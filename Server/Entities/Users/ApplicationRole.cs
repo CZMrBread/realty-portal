@@ -9,5 +9,7 @@ public class ApplicationRole: IdentityRole<Guid>, ITimeStampedEntity
     
     public const string SuperAdmin = "SuperAdmin";
     public const string Admin = "Admin";
+    public const string RealtyAgencyAdmin = "RealtyAgencyAdmin";
+    public const string RealtyAgent = "RealtyAgent";
     public const string User = "User";
 }
