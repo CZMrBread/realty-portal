@@ -1,8 +1,8 @@
-﻿namespace Shared.SRealtyRealty.Enums.Required;
+﻿namespace Shared.SRealtyRealty.Enums;
 
-public enum AdvertPriceUnit
+public enum AdvertPriceUnitEnum
 {
-    PerRealty =  1,  
+    PerRealty = 1,
     PerMonth = 2,
     PerSquareMeter = 3,
     PerSquareMeterPerMonth = 4,
