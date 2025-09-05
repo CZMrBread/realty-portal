@@ -12,13 +12,38 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="wwwroot\appsettings.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+        <ProjectReference Include="..\Shared\Shared.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Shared\Shared.csproj" />
+        <Content Update="wwwroot\lib\**\*.*">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+        <Content Update="wwwroot\appsettings.Development.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
+
+    <Target Name="CopyBootstrapFromNode" BeforeTargets="Build">
+        <!-- Cleaning -->
+        <RemoveDir Directories="wwwroot\lib"/>
+        <MakeDir Directories="wwwroot\lib\bootstrap\css"/>
+        <MakeDir Directories="wwwroot\lib\bootstrap\js"/>
+        <MakeDir Directories="wwwroot\lib\bootstrap-icons\font\fonts"/>
+
+        <!-- Bootstrap CSS & JS bundle -->
+        <Copy SourceFiles="node_modules\bootstrap\dist\css\bootstrap.min.css"
+              DestinationFiles="wwwroot\lib\bootstrap\css\bootstrap.min.css"/>
+        <Copy SourceFiles="node_modules\bootstrap\dist\js\bootstrap.bundle.min.js"
+              DestinationFiles="wwwroot\lib\bootstrap\js\bootstrap.bundle.min.js"/>
+
+        <!-- Bootstrap Icons: CSS + fonts -->
+        <Copy SourceFiles="node_modules\bootstrap-icons\font\fonts\bootstrap-icons.woff2"
+              DestinationFiles="wwwroot\lib\bootstrap-icons\font\fonts\bootstrap-icons.woff2"/>
+        <Copy SourceFiles="node_modules\bootstrap-icons\font\fonts\bootstrap-icons.woff"
+              DestinationFiles="wwwroot\lib\bootstrap-icons\font\fonts\bootstrap-icons.woff" Condition="Exists('node_modules\bootstrap-icons\font\fonts\bootstrap-icons.woff')"/>
+        <Copy SourceFiles="node_modules\bootstrap-icons\font\bootstrap-icons.css"
+              DestinationFiles="wwwroot\lib\bootstrap-icons\font\bootstrap-icons.css"/>
+    </Target>
 
 </Project>

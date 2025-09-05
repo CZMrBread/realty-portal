@@ -1,0 +1,41 @@
+@using Client.Services
+@inject AuthService AuthService
+
+@if (isLoading)
+{
+    <div class="text-center p-4">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else if (AuthService.IsAuthenticated)
+{
+    @ChildContent
+}
+else
+{
+    <div class="alert alert-warning">
+        <h4>Authentication Required</h4>
+        <p>You need to be logged in to access this content.</p>
+        <a href="/login" class="btn btn-primary">Login</a>
+    </div>
+}
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!AuthService.IsAuthenticated)
+        {
+            // Try to refresh token on first load
+            await AuthService.RefreshTokenAsync();
+        }
+        
+        isLoading = false;
+        StateHasChanged();
+    }
+}

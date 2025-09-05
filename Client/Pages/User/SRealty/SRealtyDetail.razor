@@ -1,0 +1,10 @@
+@page "/user/srealty/{RealtyId:guid}"
+
+<AuthorizeView>
+    <h2>SRealty Detail</h2>
+    <p>Property ID: @RealtyId</p>
+</AuthorizeView>
+
+@code {
+    [Parameter] public Guid RealtyId { get; set; }
+}
