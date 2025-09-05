@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Shared.SRealtyRealty.Enums.Required;
+using Shared.SRealtyRealty.Enums;
 
-namespace Server.Entities.SRealityRealty;
+namespace Server.Entities.SRealtyRealty;
 
-public interface ISRealtyRealty : ITimeStampedEntity
-{
-    [Key] public Guid Id { get; set; }
+public interface ISRealtyRealty
+{ 
     public Guid RealtyAgencyId { get; set; }
     public double Price { get; set; }
     public AdvertPriceCurrencyEnum AdvertPriceCurrency { get; set; }
-    public AdvertPriceUnit AdvertPriceUnit { get; set; }
+    public AdvertPriceUnitEnum AdvertPriceUnit { get; set; }
     public AdvertLifetimeEnum AdvertLifetime { get; set; }
     public AdvertTypeEnum AdvertType { get; set; }
     public AdvertSubtypeEnum AdvertSubtype { get; set; }

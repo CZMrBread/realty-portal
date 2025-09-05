@@ -1,11 +1,13 @@
-﻿namespace Server.Entities.RealtyAgency;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class RealtyAgencyEntity: ITimeStampedEntity
+namespace Server.Entities.RealtyAgency;
+
+public class RealtyAgencyEntity : ITimeStampedEntity
 {
-    public Guid Id { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
-    
     public string Name { get; set; } = string.Empty;
-    
+
+    [Key] public Guid Id { get; set; }
+
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
 }

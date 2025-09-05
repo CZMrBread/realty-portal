@@ -1,10 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace Server.Entities;
+namespace Server.Entities.Users;
 
-public class ApplicationUser: IdentityUser<Guid>,ITimeStampedEntity
+public class ApplicationUser : IdentityUser<Guid>, ITimeStampedEntity
 {
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public ApplicationUser()
+    {
+        Id = Guid.CreateVersion7();
+        CreatedAt = DateTimeOffset.UtcNow;
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public ApplicationUser(string userName) : this()
+    {
+        UserName = userName;
+    }
+
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
+
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 }

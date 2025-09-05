@@ -1,54 +1,17 @@
 using System.Text;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using Server.Database.Endpoints;
 using Scalar.AspNetCore;
 using Server.Database;
-using Server.Entities;
+using Server.Entities.Users;
+using Server.Endpoints.User;
+using Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen(options =>
-    {
-        options.SwaggerDoc("v1", new OpenApiInfo
-        {
-            Title = "Scalar API",
-            Version = "v1",
-            Description = "A simple example of a Scalar API with authentication and authorization."
-        });
-        options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
-        {
-            Name = JwtBearerDefaults.AuthenticationScheme,
-            Type = SecuritySchemeType.Http,
-            Scheme = JwtBearerDefaults.AuthenticationScheme,
-            BearerFormat = "JWT",
-            In = ParameterLocation.Header,
-            Description = "Enter 'Bearer' [space] and then your token",
-        });
-        options.AddSecurityRequirement(new OpenApiSecurityRequirement
-        {
-            {
-                new OpenApiSecurityScheme
-                {
-                    Reference = new OpenApiReference
-                    {
-                        Type = ReferenceType.SecurityScheme,
-                        Id = JwtBearerDefaults.AuthenticationScheme
-                    }
-                },
-                []
-            }
-        });
-    }
-    );
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -58,7 +21,29 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
-builder.Services.AddAuthorization();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration["DbConnectionString"]);
+});
+
+builder.Services.AddIdentityCore<ApplicationUser>(options =>
+{
+    options.Password.RequiredLength = 6;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    
+    options.User.RequireUniqueEmail = true;
+    options.SignIn.RequireConfirmedEmail = false;
+})
+.AddRoles<ApplicationRole>()
+.AddRoleManager<RoleManager<ApplicationRole>>()
+.AddSignInManager<SignInManager<ApplicationUser>>()
+.AddEntityFrameworkStores<AppDbContext>()
+.AddDefaultTokenProviders();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -68,42 +53,39 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "http://localhost:5094/",
-            ValidAudience = "http://localhost:5094/",
-            // ValidAlgorithms = [SecurityAlgorithms.HmacSha512],
-            IssuerSigningKey = new SymmetricSecurityKey("a9ee59cf6f8bbd8bbe2485119bdb7b7334db052ac99a1a69a04c0efdd892fece"u8.ToArray())
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidAlgorithms = new[] { SecurityAlgorithms.HmacSha256 },
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]!)),
+            ClockSkew = TimeSpan.Zero
         };
     });
-builder.Services.AddAuthorization();
-builder.Services.AddDbContext<AppDbContext>(options =>
+
+builder.Services.AddAuthorization(options =>
 {
-    options.UseNpgsql(builder.Configuration["DbConnectionString"]);
+    options.AddPolicy("SuperAdminOnly", policy => 
+        policy.RequireRole(ApplicationRole.SuperAdmin));
+    options.AddPolicy("AdminOrAbove", policy => 
+        policy.RequireRole(ApplicationRole.SuperAdmin, ApplicationRole.Admin));
+    options.AddPolicy("RealtyAgencyAdminOrAbove", policy => 
+        policy.RequireRole(ApplicationRole.SuperAdmin, ApplicationRole.Admin, ApplicationRole.RealtyAgencyAdmin));
 });
 
-var app = builder.Build();
+builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddConsole().SetMinimumLevel(LogLevel.Debug));
+builder.Services.AddScoped<JWTTokenGenerator>();
 
+var app = builder.Build();
+app.UseAuthentication();
+app.UseAuthorization();
+var apiGroup = app.MapGroup("api");
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapSwagger();
-    app.MapScalarApiReference(options =>
-        {
-            options.WithOpenApiRoutePattern("swagger/v1/swagger.json");
-            options.AddHttpAuthentication(JwtBearerDefaults.AuthenticationScheme, scheme => scheme.Token = JwtBearerDefaults.AuthenticationScheme);
-        }
-    );
+    app.MapScalarApiReference();
 }
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.UseHttpsRedirection();
+apiGroup.MapUserEndpoints();
 
-app.MapTestEndpoints();
 app.UseCors();
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
