@@ -2,4 +2,18 @@
 
 <AuthorizeView>
     <h2>SRealty List</h2>
+    @foreach(var realty in RealtyList)
+    {
+        <p>@realty</p>
+    }
 </AuthorizeView>
+
+
+@code {
+    private List<string> RealtyList = new List<string>
+    {
+        "Property 1",
+        "Property 2",
+        "Property 3"
+    };
+}

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using Server.Database;
+using Server.Endpoints.SRealty;
 using Server.Entities.Users;
 using Server.Endpoints.User;
 using Server.Services;
@@ -86,6 +87,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 apiGroup.MapUserEndpoints();
+apiGroup.MapSRealtyEndpoints();
 
 app.UseCors();
 app.Run();
