@@ -1,4 +1,6 @@
-using NetTopologySuite.Geometries;
+
+
+using System.Drawing;
 
 namespace Shared.SRealtyRealty.ValueObjects;
 
@@ -34,18 +36,5 @@ public record Location
     {
         City = city;
         InaccuracyLevel = inaccuracyLevel;
-    }
-
-    public Location WithCoordinates(double latitude, double longitude)
-    {
-        var geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
-        var coordinates = geometryFactory.CreatePoint(new Coordinate(longitude, latitude));
-
-        return this with
-        {
-            Latitude = latitude,
-            Longitude = longitude,
-            Coordinates = coordinates
-        };
     }
 }

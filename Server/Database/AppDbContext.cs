@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Server.Entities;
+using Server.Entities.RealtyAgency;
+using Server.Entities.SRealtyRealty;
 using Server.Entities.Users;
 
 namespace Server.Database;
@@ -10,33 +12,14 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 {
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     public DbSet<ApplicationRole> ApplicationRoles { get; set; }
-    public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
+    public DbSet<SRealtyPropertyEntity> SRealtyProperties { get; set; }
+    public DbSet<RealtyAgencyEntity> RealtyAgencies { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<ApplicationUser>()
-            .Property(u => u.Id)
-            .ValueGeneratedNever();
-        builder.Entity<ApplicationRole>()
-            .Property(r => r.Id)
-            .ValueGeneratedNever();
-
-        builder.Entity<RefreshToken>(entity =>
-        {
-            entity.HasKey(rt => rt.Id);
-            entity.Property(rt => rt.Id)
-                .ValueGeneratedNever();
-            
-            entity.HasOne(rt => rt.User)
-                .WithMany(u => u.RefreshTokens)
-                .HasForeignKey(rt => rt.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasIndex(rt => rt.Token)
-                .IsUnique();
-        });
-
         base.OnModelCreating(builder);
+        builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -55,7 +38,15 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     {
         var entries = ChangeTracker.Entries<ITimeStampedEntity>();
         foreach (var entry in entries)
-            if (entry.State == EntityState.Modified)
-                entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
+            switch (entry.State)
+            {
+                case EntityState.Modified:
+                    entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
+                    break;
+                case EntityState.Added:
+                    entry.Entity.CreatedAt = DateTimeOffset.UtcNow;
+                    entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
+                    break;
+            }
     }
 }

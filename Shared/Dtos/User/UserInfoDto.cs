@@ -1,6 +1,6 @@
 namespace Shared.Dtos.User;
 
-public sealed record UserInfoDTO
+public sealed record UserInfoDto
 {
     public Guid Id { get; set; }
     public string UserName { get; set; } = string.Empty;

@@ -1,5 +1,5 @@
 using System.Net.Http.Json;
-using System.Text.Json;
+using Microsoft.AspNetCore.Components;
 using Shared.Dtos.User;
 
 namespace Client.Services;
@@ -7,136 +7,211 @@ namespace Client.Services;
 public class AuthService
 {
     private readonly HttpClient _httpClient;
-    private string? _accessToken;
-    private string? _refreshToken;
+    private readonly CookieService _cookieService;
+    private readonly NavigationManager _navigationManager;
+    private UserInfoDto? _currentUser;
+    private bool _isInitialized = false;
 
-    public AuthService(HttpClient httpClient)
+    private const string AccessTokenCookie = "accessToken";
+    private const string RefreshTokenCookie = "refreshToken";
+
+    public bool IsAuthenticated { get; private set; }
+    public UserInfoDto? CurrentUser => _currentUser;
+
+    public AuthService(HttpClient httpClient, CookieService cookieService, NavigationManager navigationManager)
     {
         _httpClient = httpClient;
+        _cookieService = cookieService;
+        _navigationManager = navigationManager;
     }
 
-    public async Task<AuthResult> RegisterAsync(UserRegistrationDTO registrationDto)
+    public async Task InitializeAsync()
     {
-        try
+        if (_isInitialized) return;
+
+        var accessToken = await _cookieService.GetCookieAsync(AccessTokenCookie);
+        if (!string.IsNullOrEmpty(accessToken))
         {
-            var response = await _httpClient.PostAsJsonAsync("auth/register", registrationDto);
-            
-            if (response.IsSuccessStatusCode)
+            // Try to verify the token by calling /auth/me
+            if (await TryAuthenticateWithTokenAsync(accessToken))
             {
-                var authDto = await response.Content.ReadFromJsonAsync<UserAuthenticationDTO>();
-                if (authDto != null)
-                {
-                    _accessToken = authDto.AccessToken;
-                    _refreshToken = authDto.RefreshToken;
-                    return new AuthResult { Success = true, User = authDto.User };
-                }
+                await SetAuthenticationStateAsync(true);
             }
-            
-            var errorContent = await response.Content.ReadAsStringAsync();
-            return new AuthResult { Success = false, Error = errorContent };
-        }
-        catch (Exception ex)
-        {
-            return new AuthResult { Success = false, Error = ex.Message };
-        }
-    }
-
-    public async Task<AuthResult> LoginAsync(UserLoginDTO loginDto)
-    {
-        try
-        {
-            var response = await _httpClient.PostAsJsonAsync("auth/login", loginDto);
-            
-            if (response.IsSuccessStatusCode)
+            else
             {
-                var authDto = await response.Content.ReadFromJsonAsync<UserAuthenticationDTO>();
-                if (authDto != null)
-                {
-                    _accessToken = authDto.AccessToken;
-                    _refreshToken = authDto.RefreshToken;
-                    return new AuthResult { Success = true, User = authDto.User };
-                }
+                // Token might be expired, try to refresh
+                await TryRefreshTokenAsync();
             }
-            
-            return new AuthResult { Success = false, Error = "Invalid username or password" };
         }
-        catch (Exception ex)
-        {
-            return new AuthResult { Success = false, Error = ex.Message };
-        }
+
+        _isInitialized = true;
     }
 
-    public async Task<UserInfoDTO?> GetCurrentUserAsync()
+    public async Task<AuthResult> RegisterAsync(UserRegistrationDto registrationDto)
     {
-        if (string.IsNullOrEmpty(_accessToken))
-            return null;
+        var response = await _httpClient.PostAsJsonAsync("auth/register", registrationDto);
 
-        try
+        if (response.IsSuccessStatusCode)
         {
-            _httpClient.DefaultRequestHeaders.Authorization = 
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _accessToken);
-
-            var response = await _httpClient.GetAsync("auth/me");
-            if (response.IsSuccessStatusCode)
+            var authDto = await response.Content.ReadFromJsonAsync<UserAuthenticationDto>();
+            if (authDto != null)
             {
-                return await response.Content.ReadFromJsonAsync<UserInfoDTO>();
+                await SetTokensAsync(authDto);
+                await SetAuthenticationStateAsync(true, authDto.User);
+                return new AuthResult { Success = true, User = authDto.User };
             }
-            
-            return null;
         }
-        catch
-        {
-            return null;
-        }
+
+        var errorContent = await response.Content.ReadAsStringAsync();
+        return new AuthResult { Success = false, Error = errorContent };
     }
 
-    public async Task<bool> RefreshTokenAsync()
+    public async Task<AuthResult> LoginAsync(UserLoginDto loginDto)
     {
-        if (string.IsNullOrEmpty(_refreshToken))
+        var response = await _httpClient.PostAsJsonAsync("auth/login", loginDto);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var authDto = await response.Content.ReadFromJsonAsync<UserAuthenticationDto>();
+            if (authDto != null)
+            {
+                await SetTokensAsync(authDto);
+                await SetAuthenticationStateAsync(true, authDto.User);
+                return new AuthResult { Success = true, User = authDto.User };
+            }
+        }
+
+        return new AuthResult { Success = false, Error = "Invalid username or password" };
+    }
+
+    public async Task<bool> CheckAuthenticationAsync()
+    {
+        if (!_isInitialized)
+        {
+            await InitializeAsync();
+        }
+
+        if (!IsAuthenticated)
             return false;
 
-        try
+        var accessToken = await _cookieService.GetCookieAsync(AccessTokenCookie);
+        if (string.IsNullOrEmpty(accessToken))
         {
-            var refreshDto = new RefreshTokenDTO { RefreshToken = _refreshToken };
-            var response = await _httpClient.PostAsJsonAsync("auth/refresh", refreshDto);
-            
-            if (response.IsSuccessStatusCode)
-            {
-                var authDto = await response.Content.ReadFromJsonAsync<UserAuthenticationDTO>();
-                if (authDto != null)
-                {
-                    _accessToken = authDto.AccessToken;
-                    _refreshToken = authDto.RefreshToken;
-                    return true;
-                }
-            }
-        }
-        catch
-        {
-            // Token refresh failed
+            await SetAuthenticationStateAsync(false);
+            return false;
         }
 
-        // If refresh fails, logout user
-        Logout();
+        // Try to use the token - if it fails, try to refresh
+        if (!await TryAuthenticateWithTokenAsync(accessToken))
+        {
+            var refreshed = await TryRefreshTokenAsync();
+            if (!refreshed)
+            {
+                await LogoutAndRedirectAsync();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public async Task<UserInfoDto?> GetCurrentUserAsync()
+    {
+        if (!await CheckAuthenticationAsync())
+            return null;
+
+        if (_currentUser != null)
+            return _currentUser;
+
+        await LoadCurrentUserAsync();
+        return _currentUser;
+    }
+
+    public async Task LogoutAndRedirectAsync()
+    {
+        await ClearTokensAsync();
+        await SetAuthenticationStateAsync(false);
+        _navigationManager.NavigateTo("/", forceLoad: true);
+    }
+
+    private async Task<bool> TryAuthenticateWithTokenAsync(string accessToken)
+    {
+        _httpClient.DefaultRequestHeaders.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+        var response = await _httpClient.GetAsync("auth/me");
+        if (response.IsSuccessStatusCode)
+        {
+            _currentUser = await response.Content.ReadFromJsonAsync<UserInfoDto>();
+            return true;
+        }
+
         return false;
     }
 
-    public void Logout()
+    private async Task<bool> TryRefreshTokenAsync()
     {
-        _accessToken = null;
-        _refreshToken = null;
+        var refreshToken = await _cookieService.GetCookieAsync(RefreshTokenCookie);
+        if (string.IsNullOrEmpty(refreshToken))
+        {
+            await SetAuthenticationStateAsync(false);
+            return false;
+        }
+
+        var refreshDto = new RefreshTokenDto { RefreshToken = refreshToken };
+        var response = await _httpClient.PostAsJsonAsync("auth/refresh", refreshDto);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var authDto = await response.Content.ReadFromJsonAsync<UserAuthenticationDto>();
+            if (authDto != null)
+            {
+                await SetTokensAsync(authDto);
+                await SetAuthenticationStateAsync(true, authDto.User);
+                return true;
+            }
+        }
+
+        await SetAuthenticationStateAsync(false);
+        return false;
+    }
+
+    private async Task SetTokensAsync(UserAuthenticationDto authDto)
+    {
+        await _cookieService.SetCookieAsync(AccessTokenCookie, authDto.AccessToken, authDto.AccessTokenExpiration);
+        await _cookieService.SetCookieAsync(RefreshTokenCookie, authDto.RefreshToken, authDto.RefreshTokenExpiration);
+
+        _httpClient.DefaultRequestHeaders.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authDto.AccessToken);
+    }
+
+    private async Task ClearTokensAsync()
+    {
+        await _cookieService.DeleteCookieAsync(AccessTokenCookie);
+        await _cookieService.DeleteCookieAsync(RefreshTokenCookie);
         _httpClient.DefaultRequestHeaders.Authorization = null;
     }
 
-    public bool IsAuthenticated => !string.IsNullOrEmpty(_accessToken);
-
-    public void SetAuthHeader()
+    private Task SetAuthenticationStateAsync(bool isAuthenticated, UserInfoDto? user = null)
     {
-        if (!string.IsNullOrEmpty(_accessToken))
+        IsAuthenticated = isAuthenticated;
+        _currentUser = user;
+
+        if (!isAuthenticated)
         {
-            _httpClient.DefaultRequestHeaders.Authorization = 
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _accessToken);
+            _currentUser = null;
         }
+
+        return Task.CompletedTask;
+    }
+
+    private async Task LoadCurrentUserAsync()
+    {
+        var accessToken = await _cookieService.GetCookieAsync(AccessTokenCookie);
+        if (string.IsNullOrEmpty(accessToken))
+            return;
+
+        await TryAuthenticateWithTokenAsync(accessToken);
     }
 }
 
@@ -144,5 +219,5 @@ public class AuthResult
 {
     public bool Success { get; set; }
     public string? Error { get; set; }
-    public UserInfoDTO? User { get; set; }
+    public UserInfoDto? User { get; set; }
 }

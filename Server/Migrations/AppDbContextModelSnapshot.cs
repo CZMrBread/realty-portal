@@ -17,7 +17,7 @@ namespace Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.8")
+                .HasAnnotation("ProductVersion", "9.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -125,6 +125,266 @@ namespace Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Server.Entities.RealtyAgency.RealtyAgencyEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RegistrationNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TaxNumber")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RealtyAgencies");
+                });
+
+            modelBuilder.Entity("Server.Entities.SRealtyRealty.SRealtyPropertyEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("AdvertFunction")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AdvertLifetime")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("AdvertPrice")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("AdvertPriceCurrency")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AdvertPriceUnit")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("AdvertRkId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("AdvertSubtype")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AdvertType")
+                        .HasColumnType("integer");
+
+                    b.Property<double?>("Altitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<int?>("ApartmentNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("ApplicationUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool?>("Balcony")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("BalconyArea")
+                        .HasColumnType("integer");
+
+                    b.Property<bool?>("Basin")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("BasinArea")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("BuildingCondition")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("BuildingType")
+                        .HasColumnType("integer");
+
+                    b.Property<bool?>("Cellar")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("CellarArea")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CircuitBreaker")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CityPart")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.PrimitiveCollection<int[]>("Electricity")
+                        .HasColumnType("integer[]");
+
+                    b.Property<int?>("Elevator")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("EnergyEfficiencyCertificate")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("EnergyEfficiencyRating")
+                        .HasColumnType("integer");
+
+                    b.Property<double?>("EnergyPerformanceSummary")
+                        .HasColumnType("double precision");
+
+                    b.Property<int?>("EstateArea")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("FloorNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<bool?>("FtvPanels")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("Furnished")
+                        .HasColumnType("integer");
+
+                    b.Property<bool?>("Garage")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("GarageArea")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("GarageCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("GardenArea")
+                        .HasColumnType("integer");
+
+                    b.PrimitiveCollection<int[]>("Gas")
+                        .HasColumnType("integer[]");
+
+                    b.PrimitiveCollection<int[]>("Gully")
+                        .HasColumnType("integer[]");
+
+                    b.PrimitiveCollection<int[]>("Heating")
+                        .HasColumnType("integer[]");
+
+                    b.PrimitiveCollection<int[]>("HeatingElement")
+                        .HasColumnType("integer[]");
+
+                    b.PrimitiveCollection<int[]>("HeatingSource")
+                        .HasColumnType("integer[]");
+
+                    b.Property<string>("HouseNumber")
+                        .HasColumnType("text");
+
+                    b.Property<int>("InaccuracyLevel")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("InternetConnectionProvider")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("InternetConnectionSpeed")
+                        .HasColumnType("integer");
+
+                    b.PrimitiveCollection<int[]>("InternetConnectionType")
+                        .HasColumnType("integer[]");
+
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<bool?>("Loggia")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("LoggiaArea")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ObjectType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("OrientationNumber")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("ParkingCount")
+                        .HasColumnType("integer");
+
+                    b.Property<bool?>("ParkingLots")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("PhaseDistribution")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PropertyDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RealtyAgentId")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("RealtyAgentRkId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int?>("RuianId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("RuianLevel")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("text");
+
+                    b.PrimitiveCollection<int[]>("Telecommunication")
+                        .HasColumnType("integer[]");
+
+                    b.Property<bool?>("Terrace")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("TerraceArea")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UirId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UirLevel")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("UsableArea")
+                        .HasColumnType("integer");
+
+                    b.PrimitiveCollection<int[]>("Water")
+                        .HasColumnType("integer[]");
+
+                    b.PrimitiveCollection<int[]>("WaterHeatingSource")
+                        .HasColumnType("integer[]");
+
+                    b.PrimitiveCollection<int[]>("WellType")
+                        .HasColumnType("integer[]");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("SRealityProperties");
+                });
+
             modelBuilder.Entity("Server.Entities.Users.ApplicationRole", b =>
                 {
                     b.Property<Guid>("Id")
@@ -202,6 +462,9 @@ namespace Server.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<Guid?>("RealtyAgencyEntityId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -224,10 +487,12 @@ namespace Server.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
+                    b.HasIndex("RealtyAgencyEntityId");
+
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Server.Entities.Users.RefreshToken", b =>
+            modelBuilder.Entity("Server.Entities.Users.RefreshTokenEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -312,7 +577,21 @@ namespace Server.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Server.Entities.Users.RefreshToken", b =>
+            modelBuilder.Entity("Server.Entities.SRealtyRealty.SRealtyPropertyEntity", b =>
+                {
+                    b.HasOne("Server.Entities.Users.ApplicationUser", null)
+                        .WithMany("SRealtyProperties")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("Server.Entities.Users.ApplicationUser", b =>
+                {
+                    b.HasOne("Server.Entities.RealtyAgency.RealtyAgencyEntity", null)
+                        .WithMany("RealtyAgent")
+                        .HasForeignKey("RealtyAgencyEntityId");
+                });
+
+            modelBuilder.Entity("Server.Entities.Users.RefreshTokenEntity", b =>
                 {
                     b.HasOne("Server.Entities.Users.ApplicationUser", "User")
                         .WithMany("RefreshTokens")
@@ -323,9 +602,16 @@ namespace Server.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Server.Entities.RealtyAgency.RealtyAgencyEntity", b =>
+                {
+                    b.Navigation("RealtyAgent");
+                });
+
             modelBuilder.Entity("Server.Entities.Users.ApplicationUser", b =>
                 {
                     b.Navigation("RefreshTokens");
+
+                    b.Navigation("SRealtyProperties");
                 });
 #pragma warning restore 612, 618
         }

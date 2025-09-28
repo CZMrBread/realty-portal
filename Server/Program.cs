@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +9,7 @@ using Server.Database;
 using Server.Endpoints.SRealty;
 using Server.Entities.Users;
 using Server.Endpoints.User;
+using Server.Entities.SRealtyRealty;
 using Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -61,6 +63,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
+builder.Services.AddScoped<SRealtyHandlers>();
 
 builder.Services.AddAuthorization(options =>
 {
@@ -72,12 +75,28 @@ builder.Services.AddAuthorization(options =>
         policy.RequireRole(ApplicationRole.SuperAdmin, ApplicationRole.Admin, ApplicationRole.RealtyAgencyAdmin));
 });
 
-builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddConsole().SetMinimumLevel(LogLevel.Debug));
-builder.Services.AddScoped<JWTTokenGenerator>();
+builder.Services.AddScoped<JwtTokenGenerator>();
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope()) {
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await dbContext.Database.MigrateAsync();
+}
+using (var scope = app.Services.CreateScope()) {
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+    foreach (var role in ApplicationRole.AllRoles) {
+        if (await roleManager.RoleExistsAsync(role))
+            continue;
+        await roleManager.CreateAsync(new ApplicationRole { Name = role });
+    }
+}
+
+
+app.UseCors();
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
 var apiGroup = app.MapGroup("api");
 if (app.Environment.IsDevelopment())
 {
@@ -85,9 +104,6 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-app.UseHttpsRedirection();
 apiGroup.MapUserEndpoints();
 apiGroup.MapSRealtyEndpoints();
-
-app.UseCors();
 app.Run();

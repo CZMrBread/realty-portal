@@ -15,17 +15,25 @@ public enum BuildingTypeEnum
         DescriptionEn = "Stone construction building", Icon = "bi-gem")]
     Stone = 3,
 
+    [SRealtyEnums(DisplayNameCz = "Montovaná", DisplayNameEn = "Prefabricated",
+        DescriptionCz = "Montovaná stavba z prefabrikovaných dílů",
+        DescriptionEn = "Prefabricated building from prefabricated parts", Icon = "bi-box-seam")]
+    Prefabricated = 4,
     [SRealtyEnums(DisplayNameCz = "Panelová", DisplayNameEn = "Panel", DescriptionCz = "Panelová konstrukce",
         DescriptionEn = "Panel construction building", Icon = "bi-grid-3x3")]
-    Panel = 4,
+    Panel = 5,
 
     [SRealtyEnums(DisplayNameCz = "Skeletová", DisplayNameEn = "Skeleton",
         DescriptionCz = "Železobetonová skeletová konstrukce", DescriptionEn = "Reinforced concrete frame construction",
         Icon = "bi-building-gear")]
-    Skeleton = 5,
+    Skeleton = 6,
 
     [SRealtyEnums(DisplayNameCz = "Smíšená", DisplayNameEn = "Mixed",
         DescriptionCz = "Kombinace různých stavebních materiálů",
         DescriptionEn = "Combination of various construction materials", Icon = "bi-layers")]
-    Mixed = 6
+    Mixed = 7,
+    
+    [SRealtyEnums(DisplayNameCz = "Modulární", DisplayNameEn = "Modular",
+        DescriptionCz = "Stavba z modulů", DescriptionEn = "Building from modules", Icon = "bi-boxes")]
+    Modular = 8
 }

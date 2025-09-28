@@ -1,4 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using Server.Filters;
+using Server.Services;
 using Shared.Dtos.SRealty.RealtyImport;
 
 namespace Server.Endpoints.SRealty;
@@ -9,21 +12,31 @@ public static class SRealtyEndpoints
     {
         var group = app.MapGroup("/srealty").WithTags("SRealty");
 
-        group.MapPost("create", (SrealityAdvertDto srealityAdvertDto) =>
-        {
-            var validationResults = new List<ValidationResult>();
-            var validationContext = new ValidationContext(srealityAdvertDto);
-
-            if (!Validator.TryValidateObject(srealityAdvertDto, validationContext, validationResults, true))
+        group.MapPost("create",
+                ([FromBody] SRealityAdvertDto sRealityAdvertDto) => { return Results.Ok(sRealityAdvertDto); })
+            .AddEndpointFilter<ValidationFilter>()
+            .WithName("CreateSRealty")
+            .WithOpenApi();
+        group.MapPut("update/{id:Guid}",
+            async (Guid id, SRealityAdvertDto sRealityAdvertDto, SRealtyHandlers service) =>
             {
-                return Results.BadRequest(new {message="Validation failed", erros = validationResults});
+                return Results.Ok(sRealityAdvertDto);
+            });
+        group.MapPut("update/rkid/{rkid}",
+            async (string rkid, SRealityAdvertDto sRealityAdvertDto, SRealtyHandlers service) =>
+            {
+                return Results.Ok(sRealityAdvertDto);
+            });
+        group.MapGet("/get/{id:Guid}", async (Guid id, SRealtyHandlers service) =>
+        {
+            var property = await service.GetByIdAsync(id);
+            if (property == null)
+            {
+                return Results.NotFound();
             }
 
-            return Results.Ok(srealityAdvertDto);
-        }).WithName("CreateSRealty").WithOpenApi();
-        // group.MapPut("update/{id:Guid}", SRealtyHandlers.UpdateSRealty).WithName("UpdateSRealty");
-        group.MapGet("/get/{id:Guid}", () => Results.Ok("Hello")).WithName("GetSRealtyById").WithOpenApi();
+            return Results.Ok(property);
+        }).WithName("GetSRealtyById").WithOpenApi();
         group.MapGet("/get/rkid/{rkId}", () => Results.Ok("Hello")).WithName("GetSRealtyByRkId").WithOpenApi();
     }
-    
 }

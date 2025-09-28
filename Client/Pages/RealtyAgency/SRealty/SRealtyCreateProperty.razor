@@ -1,0 +1,57 @@
+@page "/agency/srealty/property/create"
+@using Shared.Dtos.SRealty.RealtyImport
+@using Client.Components.SRealty
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<AuthorizeView>
+    <div class="container mt-4">
+        <h2>Create SRealty Property</h2>
+
+        <SRealtyPropertyForm PropertyDto="@propertyDto"
+                            OnValidSubmit="@HandleValidSubmit"
+                            OnCancel="@HandleCancel"
+                            IsSubmitting="@isSubmitting"
+                            SubmitButtonText="Create Property" />
+    </div>
+</AuthorizeView>
+
+@code {
+    private SRealtyAdvertCoreDto propertyDto = new();
+    private bool isSubmitting = false;
+
+    private async Task HandleValidSubmit(SRealtyAdvertCoreDto dto)
+    {
+        isSubmitting = true;
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync("/srealty/create", dto);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/agency/srealty");
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error creating property: {errorContent}");
+                // TODO: Show error message to user
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception creating property: {ex.Message}");
+            // TODO: Show error message to user
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+
+    private void HandleCancel()
+    {
+        Navigation.NavigateTo("/agency/srealty");
+    }
+}

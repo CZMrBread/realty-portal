@@ -12,15 +12,15 @@ using Server.Database;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250826193940_RefreshToken")]
-    partial class RefreshToken
+    [Migration("20250928174511_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.8")
+                .HasAnnotation("ProductVersion", "9.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -128,6 +128,63 @@ namespace Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Server.Entities.RealtyAgency.RealtyAgencyEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RegistrationNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TaxNumber")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RealtyAgencies");
+                });
+
+            modelBuilder.Entity("Server.Entities.SRealtyRealty.SRealtyPropertyEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ApplicationUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("SRealityProperties");
+                });
+
             modelBuilder.Entity("Server.Entities.Users.ApplicationRole", b =>
                 {
                     b.Property<Guid>("Id")
@@ -205,6 +262,9 @@ namespace Server.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<Guid?>("RealtyAgencyEntityId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -227,10 +287,12 @@ namespace Server.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
+                    b.HasIndex("RealtyAgencyEntityId");
+
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Server.Entities.Users.RefreshToken", b =>
+            modelBuilder.Entity("Server.Entities.Users.RefreshTokenEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -315,7 +377,21 @@ namespace Server.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Server.Entities.Users.RefreshToken", b =>
+            modelBuilder.Entity("Server.Entities.SRealtyRealty.SRealtyPropertyEntity", b =>
+                {
+                    b.HasOne("Server.Entities.Users.ApplicationUser", null)
+                        .WithMany("SRealtyProperties")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("Server.Entities.Users.ApplicationUser", b =>
+                {
+                    b.HasOne("Server.Entities.RealtyAgency.RealtyAgencyEntity", null)
+                        .WithMany("RealtyAgent")
+                        .HasForeignKey("RealtyAgencyEntityId");
+                });
+
+            modelBuilder.Entity("Server.Entities.Users.RefreshTokenEntity", b =>
                 {
                     b.HasOne("Server.Entities.Users.ApplicationUser", "User")
                         .WithMany("RefreshTokens")
@@ -326,9 +402,16 @@ namespace Server.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Server.Entities.RealtyAgency.RealtyAgencyEntity", b =>
+                {
+                    b.Navigation("RealtyAgent");
+                });
+
             modelBuilder.Entity("Server.Entities.Users.ApplicationUser", b =>
                 {
                     b.Navigation("RefreshTokens");
+
+                    b.Navigation("SRealtyProperties");
                 });
 #pragma warning restore 612, 618
         }

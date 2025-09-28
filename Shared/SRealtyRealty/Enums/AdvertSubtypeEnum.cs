@@ -1,4 +1,6 @@
-﻿namespace Shared.SRealtyRealty.Enums;
+﻿using Shared.Validation.Attributes;
+
+namespace Shared.SRealtyRealty.Enums;
 
 public enum AdvertSubtypeEnum
 {
@@ -181,10 +183,3 @@ public enum AdvertSubtypeEnum
     ApartmentsCommercial = 57
 }
 
-public static class AdvertSubtypeEnumExtensions
-{
-    public static bool IsValidSubtype(this AdvertSubtypeEnum subtype, AdvertTypeEnum type)
-    {
-        return subtype.IsValidForType(type);
-    }
-}

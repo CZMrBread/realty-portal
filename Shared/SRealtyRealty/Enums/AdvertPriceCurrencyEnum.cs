@@ -2,7 +2,7 @@
 
 public enum AdvertPriceCurrencyEnum
 {
-    [SRealtyEnums(DisplayNameCz = "CZK", DisplayNameEn = "CZK")]
+    [SRealtyEnums(DisplayNameCz = "Kč", DisplayNameEn = "Czech crown")]
     CZK = 1,
 
     [SRealtyEnums(DisplayNameCz = "USD", DisplayNameEn = "USD")]

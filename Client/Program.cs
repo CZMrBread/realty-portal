@@ -9,5 +9,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 var uri = new Uri(builder.Configuration["ServerAPI"]!);
 builder.Services.AddScoped(_ => new HttpClient { BaseAddress = uri });
+builder.Services.AddScoped<CookieService>();
 builder.Services.AddScoped<AuthService>();
 await builder.Build().RunAsync();

@@ -24,18 +24,14 @@ else
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    
+
     private bool isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
-        if (!AuthService.IsAuthenticated)
-        {
-            // Try to refresh token on first load
-            await AuthService.RefreshTokenAsync();
-        }
-        
-        isLoading = false;
+        await AuthService.CheckAuthenticationAsync();
+
+       isLoading = false;
         StateHasChanged();
     }
 }

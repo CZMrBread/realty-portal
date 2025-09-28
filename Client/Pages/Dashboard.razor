@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4>Welcome, @currentUser.UserName!</h4>
-                        <button class="btn btn-outline-danger" @onclick="HandleLogout">
+                        <button class="btn btn-outline-danger" @onclick="HandleLogoutAsync">
                             <i class="bi bi-box-arrow-right"></i> Logout
                         </button>
                     </div>
@@ -77,7 +77,7 @@
 </div>
 
 @code {
-    private UserInfoDTO? currentUser;
+    private UserInfoDto? currentUser;
     private bool isLoading = true;
 
     protected override async Task OnInitializedAsync()
@@ -88,32 +88,16 @@
     private async Task LoadUserInfo()
     {
         isLoading = true;
-        try
-        {
-            if (AuthService.IsAuthenticated)
-            {
-                AuthService.SetAuthHeader();
-                currentUser = await AuthService.GetCurrentUserAsync();
-                
-                if (currentUser == null)
-                {
-                    // Token might be expired, redirect to login
-                    Navigation.NavigateTo("/login");
-                }
-            }
-            else
-            {
-                Navigation.NavigateTo("/login");
-            }
-        }
-        catch
+
+        currentUser = await AuthService.GetCurrentUserAsync();
+
+        if (currentUser == null)
         {
             Navigation.NavigateTo("/login");
         }
-        finally
-        {
-            isLoading = false;
-        }
+
+        isLoading = false;
+        StateHasChanged();
     }
 
     private async Task RefreshUserInfo()
@@ -121,9 +105,8 @@
         await LoadUserInfo();
     }
 
-    private void HandleLogout()
+    private async Task HandleLogoutAsync()
     {
-        AuthService.Logout();
-        Navigation.NavigateTo("/login");
+        await AuthService.LogoutAndRedirectAsync();
     }
 }

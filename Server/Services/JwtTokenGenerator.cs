@@ -11,13 +11,17 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 
 namespace Server.Services;
 
-public class JWTTokenGenerator
+public class JwtTokenGenerator
 {
+    private const int RefreshTokenSize = 64;
+    private const int AccessTokenExpiryMinutes = 60;
+    private const int RefreshTokenExpiryDays = 7;
+    
     private readonly IConfiguration _configuration;
     private readonly AppDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public JWTTokenGenerator(IConfiguration configuration, AppDbContext context, UserManager<ApplicationUser> userManager)
+    public JwtTokenGenerator(IConfiguration configuration, AppDbContext context, UserManager<ApplicationUser> userManager)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _context = context ?? throw new ArgumentNullException(nameof(context));
@@ -35,7 +39,7 @@ public class JWTTokenGenerator
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(15),
+            Expires = DateTime.UtcNow.AddSeconds(5),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256),
             Issuer = _configuration["Jwt:Issuer"],
             Audience = _configuration["Jwt:Audience"]
@@ -45,12 +49,12 @@ public class JWTTokenGenerator
         return tokenHandler.WriteToken(token);
     }
 
-    public async Task<RefreshToken> GenerateRefreshTokenAsync(ApplicationUser user, string? ipAddress = null)
+    public async Task<RefreshTokenEntity> GenerateRefreshTokenAsync(ApplicationUser user, string? ipAddress = null)
     {
-        var refreshToken = new RefreshToken
+        var refreshToken = new RefreshTokenEntity
         {
             Token = GenerateRandomToken(),
-            ExpiresAt = DateTime.UtcNow.AddDays(7),
+            ExpiresAt = DateTime.UtcNow.AddDays(RefreshTokenExpiryDays),
             UserId = user.Id
         };
 
@@ -62,7 +66,7 @@ public class JWTTokenGenerator
         return refreshToken;
     }
 
-    public async Task<(string AccessToken, RefreshToken RefreshToken)> RefreshTokenAsync(string token, string? ipAddress = null)
+    public async Task<(string AccessToken, RefreshTokenEntity RefreshToken)> RefreshTokenAsync(string token, string? ipAddress = null)
     {
         var refreshToken = await _context.RefreshTokens
             .Include(rt => rt.User)
@@ -135,7 +139,7 @@ public class JWTTokenGenerator
 
     private static string GenerateRandomToken()
     {
-        var randomBytes = new byte[64];
+        var randomBytes = new byte[RefreshTokenSize];
         using var rng = RandomNumberGenerator.Create();
         rng.GetBytes(randomBytes);
         return Convert.ToBase64String(randomBytes);

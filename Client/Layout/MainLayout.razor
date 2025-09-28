@@ -37,7 +37,7 @@
                     @if (AuthService.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <button class="btn btn-outline-light" @onclick="HandleLogout">
+                            <button class="btn btn-outline-light" @onclick="HandleLogoutAsync">
                                 <i class="bi bi-box-arrow-right"></i> Logout
                             </button>
                         </li>
@@ -62,9 +62,9 @@
 </div>
 
 @code{
-    private void HandleLogout()
+    private async Task HandleLogoutAsync()
     {
-        AuthService.Logout();
+        await AuthService.LogoutAndRedirectAsync();
         StateHasChanged();
     }
 }

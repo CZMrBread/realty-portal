@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Dtos.User;
 
-public sealed record UserLoginDTO
+public sealed record UserLoginDto
 {
     [Required]
     public string Username { get; set; } = string.Empty;

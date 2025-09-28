@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Server.Entities.Users;
 
-public class RefreshToken : ITimeStampedEntity
+public class RefreshTokenEntity : ITimeStampedEntity
 {
     public Guid Id { get; set; } = Guid.CreateVersion7();
 

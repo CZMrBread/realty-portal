@@ -1,4 +1,4 @@
-﻿namespace Shared.SRealtyRealty.Enums;
+﻿namespace Shared.Validation.Attributes;
 
 [AttributeUsage(AttributeTargets.Field)]
 public class ValidForTypeAttribute<T> : Attribute where T : Enum

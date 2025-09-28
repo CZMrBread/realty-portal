@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Dtos.User;
 
-public sealed record UserRegistrationDTO
+public sealed record UserRegistrationDto
 {
     [Required]
     [StringLength(50, MinimumLength = 3)]

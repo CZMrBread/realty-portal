@@ -1,6 +1,4 @@
-﻿using Shared.SRealtyRealty.Enums.Attributes;
-
-namespace Shared.SRealtyRealty.Enums;
+﻿namespace Shared.SRealtyRealty.Enums;
 
 public enum AdvertRoomCountEnum
 {

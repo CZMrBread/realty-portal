@@ -1,0 +1,176 @@
+@using Shared.Dtos.SRealty.RealtyImport
+@using Shared.SRealtyRealty.Enums
+@using System.ComponentModel.DataAnnotations
+
+<EditForm Model="@PropertyDto" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger mb-3" />
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Advert Function</label>
+                <InputSelect @bind-Value="PropertyDto.AdvertFunction" class="form-select">
+                    <option value="">Select Function</option>
+                    @foreach (var function in Enum.GetValues<AdvertFunctionEnum>())
+                    {
+                        <option value="@function">@function.GetDisplayNameCz()</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.AdvertFunction)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Advert Lifetime</label>
+                <InputSelect @bind-Value="PropertyDto.AdvertLifetime" class="form-select">
+                    <option value="">Select Lifetime</option>
+                    @foreach (var lifetime in Enum.GetValues<AdvertLifetimeEnum>())
+                    {
+                        <option value="@lifetime">@lifetime.GetDisplayNameCz()</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.AdvertLifetime)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Property Type</label>
+                <InputSelect @bind-Value="PropertyDto.AdvertType" class="form-select" @onchange="OnAdvertTypeChanged">
+                    <option value="">Select Type</option>
+                    @foreach (var type in Enum.GetValues<AdvertTypeEnum>())
+                    {
+                        <option value="@type">@type.GetDisplayNameCz()</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.AdvertType)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Property Subtype</label>
+                <InputSelect @bind-Value="PropertyDto.AdvertSubtype" class="form-select">
+                    <option value="">Select Subtype</option>
+                    @foreach (var subtype in GetValidSubtypes())
+                    {
+                        <option value="@subtype">@subtype.GetDisplayNameCz()</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.AdvertSubtype)" class="text-danger" />
+                @if (PropertyDto.AdvertType != default && PropertyDto.AdvertSubtype != default && !PropertyDto.AdvertSubtype.IsValidSubtype(PropertyDto.AdvertType))
+                {
+                    <div class="text-danger small mt-1">
+                        @PropertyDto.AdvertType.GetValidSubtypesErrorMessage(PropertyDto.AdvertSubtype)
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <InputNumber @bind-Value="PropertyDto.AdvertPrice" class="form-control" placeholder="Enter price" />
+                <ValidationMessage For="@(() => PropertyDto.AdvertPrice)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Currency</label>
+                <InputSelect @bind-Value="PropertyDto.AdvertPriceCurrency" class="form-select">
+                    <option value="">Select Currency</option>
+                    @foreach (var currency in Enum.GetValues<AdvertPriceCurrencyEnum>())
+                    {
+                        <option value="@currency">@currency.GetDisplayNameCz()</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.AdvertPriceCurrency)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Price Unit</label>
+                <InputSelect @bind-Value="PropertyDto.AdvertPriceUnit" class="form-select">
+                    <option value="">Select Unit</option>
+                    @foreach (var unit in Enum.GetValues<AdvertPriceUnitEnum>())
+                    {
+                        <option value="@unit">@unit.GetDisplayNameCz()</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.AdvertPriceUnit)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">City</label>
+                <InputText @bind-Value="PropertyDto.City" class="form-control" placeholder="Enter city" />
+                <ValidationMessage For="@(() => PropertyDto.City)" class="text-danger" />
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Property Description</label>
+        <InputTextArea @bind-Value="PropertyDto.PropertyDescription" class="form-control" rows="4" placeholder="Enter property description" />
+        <ValidationMessage For="@(() => PropertyDto.PropertyDescription)" class="text-danger" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Inaccuracy Level</label>
+        <InputNumber @bind-Value="PropertyDto.InaccuracyLevel" class="form-control" />
+        <ValidationMessage For="@(() => PropertyDto.InaccuracyLevel)" class="text-danger" />
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Advert RK ID (Optional)</label>
+                <InputText @bind-Value="PropertyDto.AdvertRkId" class="form-control" placeholder="Enter advert RK ID" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Seller RK ID (Optional)</label>
+                <InputText @bind-Value="PropertyDto.RealtyAgentId" class="form-control" placeholder="Enter seller RK ID" />
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" disabled="@IsSubmitting">
+            @if (IsSubmitting)
+            {
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            }
+            @SubmitButtonText
+        </button>
+        <button type="button" class="btn btn-secondary" @onclick="@OnCancel">
+            Cancel
+        </button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public SRealtyAdvertCoreDto PropertyDto { get; set; } = new();
+    [Parameter] public EventCallback<SRealtyAdvertCoreDto> OnValidSubmit { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public bool IsSubmitting { get; set; } = false;
+    [Parameter] public string SubmitButtonText { get; set; } = "Submit";
+
+    private IEnumerable<AdvertSubtypeEnum> GetValidSubtypes()
+    {
+        if (PropertyDto.AdvertType == default)
+            return Enum.GetValues<AdvertSubtypeEnum>();
+
+        return Enum.GetValues<AdvertSubtypeEnum>()
+            .Where(subtype => subtype.IsValidSubtype(PropertyDto.AdvertType));
+    }
+
+    private void OnAdvertTypeChanged(ChangeEventArgs e)
+    {
+        if (Enum.TryParse<AdvertTypeEnum>(e.Value?.ToString(), out var selectedType))
+        {
+            PropertyDto.AdvertType = selectedType;
+            // Reset subtype when type changes
+            PropertyDto.AdvertSubtype = default;
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await OnValidSubmit.InvokeAsync(PropertyDto);
+    }
+}

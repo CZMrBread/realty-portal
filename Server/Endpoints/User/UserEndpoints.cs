@@ -56,10 +56,10 @@ public static class UserEndpoints
     }
 
     public static async Task<IResult> RegisterAsync(
-        UserRegistrationDTO registrationDto,
+        UserRegistrationDto registrationDto,
         UserManager<ApplicationUser> userManager,
         RoleManager<ApplicationRole> roleManager,
-        JWTTokenGenerator tokenGenerator)
+        JwtTokenGenerator tokenGenerator)
     {
         try
         {
@@ -97,13 +97,13 @@ public static class UserEndpoints
             var refreshToken = await tokenGenerator.GenerateRefreshTokenAsync(user);
             var roles = await userManager.GetRolesAsync(user);
 
-            var response = new UserAuthenticationDTO
+            var response = new UserAuthenticationDto
             {
                 AccessToken = accessToken,
                 RefreshToken = refreshToken.Token,
                 AccessTokenExpiration = DateTime.UtcNow.AddMinutes(15),
                 RefreshTokenExpiration = refreshToken.ExpiresAt,
-                User = new UserInfoDTO
+                User = new UserInfoDto
                 {
                     Id = user.Id,
                     UserName = user.UserName ?? string.Empty,
@@ -121,10 +121,10 @@ public static class UserEndpoints
     }
 
     public static async Task<IResult> LoginAsync(
-        UserLoginDTO loginDto,
+        UserLoginDto loginDto,
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
-        JWTTokenGenerator tokenGenerator)
+        JwtTokenGenerator tokenGenerator)
     {
         try
         {
@@ -146,13 +146,13 @@ public static class UserEndpoints
             var refreshToken = await tokenGenerator.GenerateRefreshTokenAsync(user);
             var roles = await userManager.GetRolesAsync(user);
 
-            var response = new UserAuthenticationDTO
+            var response = new UserAuthenticationDto
             {
                 AccessToken = accessToken,
                 RefreshToken = refreshToken.Token,
                 AccessTokenExpiration = DateTime.UtcNow.AddMinutes(15),
                 RefreshTokenExpiration = refreshToken.ExpiresAt,
-                User = new UserInfoDTO
+                User = new UserInfoDto
                 {
                     Id = user.Id,
                     UserName = user.UserName ?? string.Empty,
@@ -170,19 +170,31 @@ public static class UserEndpoints
     }
 
     public static async Task<IResult> RefreshTokenAsync(
-        RefreshTokenDTO refreshTokenDto,
-        JWTTokenGenerator tokenGenerator)
+        RefreshTokenDto refreshTokenDto,
+        JwtTokenGenerator tokenGenerator,
+        UserManager<ApplicationUser> userManager)
     {
         try
         {
             var (accessToken, refreshToken) = await tokenGenerator.RefreshTokenAsync(refreshTokenDto.RefreshToken);
             await tokenGenerator.RevokeTokenAsync(refreshTokenDto.RefreshToken);
-            var response = new
+
+            var user = refreshToken.User;
+            var roles = await userManager.GetRolesAsync(user);
+
+            var response = new UserAuthenticationDto
             {
                 AccessToken = accessToken,
                 RefreshToken = refreshToken.Token,
                 AccessTokenExpiration = DateTime.UtcNow.AddMinutes(15),
-                RefreshTokenExpiration = refreshToken.ExpiresAt
+                RefreshTokenExpiration = refreshToken.ExpiresAt,
+                User = new UserInfoDto
+                {
+                    Id = user.Id,
+                    UserName = user.UserName ?? string.Empty,
+                    Email = user.Email ?? string.Empty,
+                    Roles = roles
+                }
             };
 
             return Results.Ok(response);
@@ -198,8 +210,8 @@ public static class UserEndpoints
     }
 
     public static async Task<IResult> RevokeTokenAsync(
-        RefreshTokenDTO refreshTokenDto,
-        JWTTokenGenerator tokenGenerator,
+        RefreshTokenDto refreshTokenDto,
+        JwtTokenGenerator tokenGenerator,
         ClaimsPrincipal user)
     {
         try
@@ -239,7 +251,7 @@ public static class UserEndpoints
 
             var roles = await userManager.GetRolesAsync(user);
 
-            var userInfo = new UserInfoDTO
+            var userInfo = new UserInfoDto
             {
                 Id = user.Id,
                 UserName = user.UserName ?? string.Empty,
@@ -257,7 +269,7 @@ public static class UserEndpoints
 
     public static async Task<IResult> LogoutAsync(
         ClaimsPrincipal principal,
-        JWTTokenGenerator tokenGenerator)
+        JwtTokenGenerator tokenGenerator)
     {
         try
         {

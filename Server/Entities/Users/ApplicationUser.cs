@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Server.Entities.SRealtyRealty;
 
 namespace Server.Entities.Users;
 
@@ -19,5 +20,8 @@ public class ApplicationUser : IdentityUser<Guid>, ITimeStampedEntity
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+    public ICollection<RefreshTokenEntity> RefreshTokens { get; set; } = new List<RefreshTokenEntity>();
+    
+    public ICollection<SRealtyPropertyEntity> SRealtyProperties { get; set; } = new List<SRealtyPropertyEntity>();
+    
 }
