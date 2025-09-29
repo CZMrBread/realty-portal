@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using Microsoft.EntityFrameworkCore;
+using Shared.Dtos.SRealty.RealtyImport;
 using Shared.SRealtyRealty.Enums;
 using Shared.SRealtyRealty.Interfaces;
 using Shared.SRealtyRealty.ValueObjects;
@@ -11,6 +12,12 @@ namespace Server.Entities.SRealtyRealty;
 [Table("SRealityProperties")]
 public sealed class SRealtyPropertyEntity : ITimeStampedEntity, ISRealtyProperty
 {
+    public SRealtyPropertyEntity()
+    {
+        Id = Guid.CreateVersion7();
+    }
+    
+    [Key]
     public Guid Id { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
@@ -38,20 +45,20 @@ public sealed class SRealtyPropertyEntity : ITimeStampedEntity, ISRealtyProperty
     public string? RealtyAgentId { get; set; }
     public Guid? RealtyAgentRkId { get; set; }
     public AdvertSubtypeEnum AdvertSubtype { get; set; }
-    public bool? Balcony { get; set; }
+    public bool Balcony { get; set; }
     public int? BalconyArea { get; set; }
-    public bool? Basin { get; set; }
+    public bool Basin { get; set; }
     public int? BasinArea { get; set; }
-    public bool? Cellar { get; set; }
+    public bool Cellar { get; set; }
     public int? CellarArea { get; set; }
-    public bool? Garage { get; set; }
+    public bool Garage { get; set; }
     public int? GarageArea { get; set; }
     public int? GarageCount { get; set; }
-    public bool? Loggia { get; set; }
+    public bool Loggia { get; set; }
     public int? LoggiaArea { get; set; }
-    public bool? ParkingLots { get; set; }
+    public bool ParkingLots { get; set; }
     public int? ParkingCount { get; set; }
-    public bool? Terrace { get; set; }
+    public bool Terrace { get; set; }
     public int? TerraceArea { get; set; }
     public int? GardenArea { get; set; }
     public ElevatorEnum? Elevator { get; set; }
@@ -63,10 +70,10 @@ public sealed class SRealtyPropertyEntity : ITimeStampedEntity, ISRealtyProperty
     public int? EstateArea { get; set; }
     public int? FloorNumber { get; set; }
     public int? UsableArea { get; set; }
-    public CircuitBreakerEnum CircuitBreaker { get; set; }
+    public CircuitBreakerEnum? CircuitBreaker { get; set; }
     public List<ElectricityTypeEnum>? Electricity { get; set; }
-    public PhaseCountEnum PhaseDistribution { get; set; }
-    public bool? FtvPanels { get; set; }
+    public PhaseCountEnum? PhaseDistribution { get; set; }
+    public bool FtvPanels { get; set; }
     public List<GasTypeEnum>? Gas { get; set; }
     public List<SewerageTypeEnum>? Gully { get; set; }
     public List<HeatingEnum>? Heating { get; set; }
@@ -82,4 +89,84 @@ public sealed class SRealtyPropertyEntity : ITimeStampedEntity, ISRealtyProperty
     public EnergyRatingEnum? EnergyEfficiencyRating { get; set; }
     public EnergyPerformanceCertificateEnum? EnergyEfficiencyCertificate { get; set; }
     public double? EnergyPerformanceSummary { get; set; }
+
+    public SRealityAdvertDto ToDto()
+    {
+        return new SRealityAdvertDto
+        {
+            AdvertFunction = AdvertFunction,
+            AdvertLifetime = AdvertLifetime,
+            AdvertPrice = AdvertPrice,
+            AdvertPriceCurrency = AdvertPriceCurrency,
+            AdvertPriceUnit = AdvertPriceUnit,
+            AdvertType = AdvertType,
+            PropertyDescription = PropertyDescription,
+            City = City,
+            Altitude = Altitude,
+            Latitude = Latitude,
+            RuianId = RuianId,
+            RuianLevel = RuianLevel,
+            UirId = UirId,
+            UirLevel = UirLevel,
+            CityPart = CityPart,
+            OrientationNumber = OrientationNumber,
+            Street = Street,
+            HouseNumber = HouseNumber,
+            InaccuracyLevel = InaccuracyLevel,
+            AdvertRkId = AdvertRkId,
+            RealtyAgentId = RealtyAgentId,
+            RealtyAgentRkId = RealtyAgentRkId,
+            AdvertSubtype = AdvertSubtype,
+
+            // Boolean features
+            Balcony = Balcony,
+            Basin = Basin,
+            Cellar = Cellar,
+            Garage = Garage,
+            Loggia = Loggia,
+            ParkingLots = ParkingLots,
+            Terrace = Terrace,
+            FtvPanels = FtvPanels,
+
+            // Area properties
+            BalconyArea = BalconyArea,
+            BasinArea = BasinArea,
+            CellarArea = CellarArea,
+            GarageArea = GarageArea,
+            GarageCount = GarageCount,
+            LoggiaArea = LoggiaArea,
+            ParkingCount = ParkingCount,
+            TerraceArea = TerraceArea,
+            GardenArea = GardenArea,
+
+            // Building properties
+            BuildingCondition = BuildingCondition,
+            BuildingType = BuildingType,
+            ObjectType = ObjectType,
+            Furnished = Furnished,
+            Elevator = Elevator,
+            ApartmentNumber = ApartmentNumber,
+            EstateArea = EstateArea,
+            FloorNumber = FloorNumber,
+            UsableArea = UsableArea,
+
+            // Utilities
+            CircuitBreaker = CircuitBreaker,
+            Electricity = Electricity,
+            PhaseDistribution = PhaseDistribution,
+            Gas = Gas,
+            Gully = Gully,
+            Heating = Heating,
+            HeatingElement = HeatingElement,
+            HeatingSource = HeatingSource,
+            WaterHeatingSource = WaterHeatingSource,
+            WellType = WellType,
+            Water = Water,
+
+            // Internet & Communications
+            InternetConnectionProvider = InternetConnectionProvider,
+            InternetConnectionSpeed = InternetConnectionSpeed,
+            InternetConnectionType = InternetConnectionType
+        };
+    }
 }

@@ -13,7 +13,11 @@ public static class SRealtyEndpoints
         var group = app.MapGroup("/srealty").WithTags("SRealty");
 
         group.MapPost("create",
-                ([FromBody] SRealityAdvertDto sRealityAdvertDto) => { return Results.Ok(sRealityAdvertDto); })
+                async ([FromBody] SRealityAdvertDto sRealityAdvertDto, SRealtyHandlers service) =>
+                {
+                    var createdEntity = await service.CreateFromDtoAsync(sRealityAdvertDto);
+                    return Results.Ok(createdEntity);
+                })
             .AddEndpointFilter<ValidationFilter>()
             .WithName("CreateSRealty")
             .WithOpenApi();
@@ -38,5 +42,11 @@ public static class SRealtyEndpoints
             return Results.Ok(property);
         }).WithName("GetSRealtyById").WithOpenApi();
         group.MapGet("/get/rkid/{rkId}", () => Results.Ok("Hello")).WithName("GetSRealtyByRkId").WithOpenApi();
+        
+        group.MapGet("/get/all", async (SRealtyHandlers service) =>
+        {
+            var properties = await service.GetAllAsync();
+            return Results.Ok(properties);
+        }).WithName("GetAllSRealty").WithOpenApi();
     }
 }

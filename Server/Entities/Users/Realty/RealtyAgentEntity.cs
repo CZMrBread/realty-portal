@@ -1,15 +1,22 @@
-﻿using Server.Entities.RealtyAgency;
+﻿using System.ComponentModel.DataAnnotations;
+using Server.Entities.RealtyAgency;
+using Server.Entities.SRealtyRealty;
 
 namespace Server.Entities.Users.Realty;
 
-public class RealtyAgentEntity: ApplicationUser
+public class RealtyAgentEntity : ApplicationUser
 {
+    public RealtyAgentEntity()
+    {
+    }
+
     public RealtyAgentEntity(RealtyAgencyEntity realtyAgency)
     {
         RealtyAgency = realtyAgency;
     }
 
-    public Guid RealtyAgencyId { get; set; }
     public RealtyAgencyEntity RealtyAgency { get; set; }
-    
+    [MaxLength(64)]
+    public string? RealtyAgentRkId { get; set; } = null;
+    public ICollection<SRealtyPropertyEntity> SRealtyProperties { get; set; } = new List<SRealtyPropertyEntity>();
 }

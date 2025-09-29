@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Shared.SRealtyRealty.Enums;
 using Shared.SRealtyRealty.Interfaces;
 using Shared.SRealtyRealty.ValueObjects;
+using Shared.Validation;
 using Shared.Validation.Attributes;
 
 namespace Shared.Dtos.SRealty.RealtyImport;

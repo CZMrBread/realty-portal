@@ -17,16 +17,16 @@
 </AuthorizeView>
 
 @code {
-    private SRealtyAdvertCoreDto propertyDto = new();
+    private SRealityAdvertDto propertyDto = new();
     private bool isSubmitting = false;
 
-    private async Task HandleValidSubmit(SRealtyAdvertCoreDto dto)
+    private async Task HandleValidSubmit(SRealityAdvertDto dto)
     {
         isSubmitting = true;
 
         try
         {
-            var response = await Http.PostAsJsonAsync("/srealty/create", dto);
+            var response = await Http.PostAsJsonAsync("srealty/create", dto);
 
             if (response.IsSuccessStatusCode)
             {

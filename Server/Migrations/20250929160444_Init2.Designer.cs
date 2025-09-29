@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Server.Database;
@@ -11,9 +12,11 @@ using Server.Database;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250929160444_Init2")]
+    partial class Init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,13 +199,13 @@ namespace Server.Migrations
                     b.Property<int?>("ApartmentNumber")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Balcony")
+                    b.Property<bool?>("Balcony")
                         .HasColumnType("boolean");
 
                     b.Property<int?>("BalconyArea")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Basin")
+                    b.Property<bool?>("Basin")
                         .HasColumnType("boolean");
 
                     b.Property<int?>("BasinArea")
@@ -214,7 +217,7 @@ namespace Server.Migrations
                     b.Property<int?>("BuildingType")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Cellar")
+                    b.Property<bool?>("Cellar")
                         .HasColumnType("boolean");
 
                     b.Property<int?>("CellarArea")
@@ -254,13 +257,13 @@ namespace Server.Migrations
                     b.Property<int?>("FloorNumber")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("FtvPanels")
+                    b.Property<bool?>("FtvPanels")
                         .HasColumnType("boolean");
 
                     b.Property<int?>("Furnished")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("Garage")
+                    b.Property<bool?>("Garage")
                         .HasColumnType("boolean");
 
                     b.Property<int?>("GarageArea")
@@ -305,7 +308,7 @@ namespace Server.Migrations
                     b.Property<double?>("Latitude")
                         .HasColumnType("double precision");
 
-                    b.Property<bool>("Loggia")
+                    b.Property<bool?>("Loggia")
                         .HasColumnType("boolean");
 
                     b.Property<int?>("LoggiaArea")
@@ -320,7 +323,7 @@ namespace Server.Migrations
                     b.Property<int?>("ParkingCount")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("ParkingLots")
+                    b.Property<bool?>("ParkingLots")
                         .HasColumnType("boolean");
 
                     b.Property<int?>("PhaseDistribution")
@@ -351,7 +354,7 @@ namespace Server.Migrations
                     b.PrimitiveCollection<int[]>("Telecommunication")
                         .HasColumnType("integer[]");
 
-                    b.Property<bool>("Terrace")
+                    b.Property<bool?>("Terrace")
                         .HasColumnType("boolean");
 
                     b.Property<int?>("TerraceArea")
@@ -432,6 +435,11 @@ namespace Server.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(34)
+                        .HasColumnType("character varying(34)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -478,11 +486,6 @@ namespace Server.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.Property<string>("UserType")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("character varying(21)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -496,7 +499,7 @@ namespace Server.Migrations
 
                     b.ToTable("AspNetUsers", (string)null);
 
-                    b.HasDiscriminator<string>("UserType").HasValue("User");
+                    b.HasDiscriminator().HasValue("ApplicationUser");
 
                     b.UseTphMappingStrategy();
                 });
@@ -548,14 +551,14 @@ namespace Server.Migrations
 
                     b.HasIndex("RealtyAgencyId");
 
-                    b.HasDiscriminator().HasValue("RealtyAgent");
+                    b.HasDiscriminator().HasValue("RealtyAgentEntity");
                 });
 
             modelBuilder.Entity("Server.Entities.Users.Realty.RealtyAgencyAdminEntity", b =>
                 {
                     b.HasBaseType("Server.Entities.Users.Realty.RealtyAgentEntity");
 
-                    b.HasDiscriminator().HasValue("RealtyAgencyAdmin");
+                    b.HasDiscriminator().HasValue("RealtyAgencyAdminEntity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

@@ -1,11 +1,14 @@
 @using Shared.Dtos.SRealty.RealtyImport
 @using Shared.SRealtyRealty.Enums
 @using System.ComponentModel.DataAnnotations
+@using System.Reflection
 
 <EditForm Model="@PropertyDto" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary class="text-danger mb-3" />
 
+    <!-- Basic Information Section -->
+    <h5 class="mb-3">Basic Information</h5>
     <div class="row">
         <div class="col-md-6">
             <div class="mb-3">
@@ -95,9 +98,9 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">City</label>
-                <InputText @bind-Value="PropertyDto.City" class="form-control" placeholder="Enter city" />
-                <ValidationMessage For="@(() => PropertyDto.City)" class="text-danger" />
+                <label class="form-label">Inaccuracy Level</label>
+                <InputNumber @bind-Value="PropertyDto.InaccuracyLevel" class="form-control" />
+                <ValidationMessage For="@(() => PropertyDto.InaccuracyLevel)" class="text-danger" />
             </div>
         </div>
     </div>
@@ -108,12 +111,689 @@
         <ValidationMessage For="@(() => PropertyDto.PropertyDescription)" class="text-danger" />
     </div>
 
-    <div class="mb-3">
-        <label class="form-label">Inaccuracy Level</label>
-        <InputNumber @bind-Value="PropertyDto.InaccuracyLevel" class="form-control" />
-        <ValidationMessage For="@(() => PropertyDto.InaccuracyLevel)" class="text-danger" />
+    <!-- Location Section -->
+    <h5 class="mb-3 mt-4">Location</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">City</label>
+                <InputText @bind-Value="PropertyDto.City" class="form-control" placeholder="Enter city" />
+                <ValidationMessage For="@(() => PropertyDto.City)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">City Part</label>
+                <InputText @bind-Value="PropertyDto.CityPart" class="form-control" placeholder="Enter city part" />
+                <ValidationMessage For="@(() => PropertyDto.CityPart)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">Street</label>
+                <InputText @bind-Value="PropertyDto.Street" class="form-control" placeholder="Enter street" />
+                <ValidationMessage For="@(() => PropertyDto.Street)" class="text-danger" />
+            </div>
+        </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">House Number</label>
+                <InputText @bind-Value="PropertyDto.HouseNumber" class="form-control" placeholder="Enter house number" />
+                <ValidationMessage For="@(() => PropertyDto.HouseNumber)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Orientation Number</label>
+                <InputText @bind-Value="PropertyDto.OrientationNumber" class="form-control" placeholder="Enter orientation number" />
+                <ValidationMessage For="@(() => PropertyDto.OrientationNumber)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Latitude</label>
+                <InputNumber @bind-Value="PropertyDto.Latitude" class="form-control" placeholder="Enter latitude" />
+                <ValidationMessage For="@(() => PropertyDto.Latitude)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Altitude</label>
+                <InputNumber @bind-Value="PropertyDto.Altitude" class="form-control" placeholder="Enter altitude" />
+                <ValidationMessage For="@(() => PropertyDto.Altitude)" class="text-danger" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Property Details Section -->
+    <h5 class="mb-3 mt-4">Property Details</h5>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Building Type</label>
+                <InputSelect @bind-Value="PropertyDto.BuildingType" class="form-select">
+                    <option value="">Select Building Type</option>
+                    @if (typeof(BuildingTypeEnum).IsEnum)
+                    {
+                        @foreach (var value in Enum.GetValues<BuildingTypeEnum>())
+                        {
+                            <option value="@value">@value.GetDisplayNameCz()</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.BuildingType)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Building Condition</label>
+                <InputSelect @bind-Value="PropertyDto.BuildingCondition" class="form-select">
+                    <option value="">Select Building Condition</option>
+                    @if (typeof(BuildingConditionEnum).IsEnum)
+                    {
+                        @foreach (var value in Enum.GetValues<BuildingConditionEnum>())
+                        {
+                            <option value="@value">@value.GetDisplayNameCz()</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.BuildingCondition)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Object Type</label>
+                <InputSelect @bind-Value="PropertyDto.ObjectType" class="form-select">
+                    <option value="">Select Object Type</option>
+                    @if (typeof(ObjectTypeEnum).IsEnum)
+                    {
+                        @foreach (var value in Enum.GetValues<ObjectTypeEnum>())
+                        {
+                            <option value="@value">@value.GetDisplayNameCz()</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.ObjectType)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Furnished</label>
+                <InputSelect @bind-Value="PropertyDto.Furnished" class="form-select">
+                    <option value="">Select Furnishing</option>
+                    @if (typeof(FurnishingEnum).IsEnum)
+                    {
+                        @foreach (var value in Enum.GetValues<FurnishingEnum>())
+                        {
+                            <option value="@value">@value.GetDisplayNameCz()</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.Furnished)" class="text-danger" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Areas Section -->
+    <h5 class="mb-3 mt-4">Areas & Dimensions</h5>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Usable Area (m²)</label>
+                <InputNumber @bind-Value="PropertyDto.UsableArea" class="form-control" placeholder="Enter usable area" />
+                <ValidationMessage For="@(() => PropertyDto.UsableArea)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Estate Area (m²)</label>
+                <InputNumber @bind-Value="PropertyDto.EstateArea" class="form-control" placeholder="Enter estate area" />
+                <ValidationMessage For="@(() => PropertyDto.EstateArea)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Garden Area (m²)</label>
+                <InputNumber @bind-Value="PropertyDto.GardenArea" class="form-control" placeholder="Enter garden area" />
+                <ValidationMessage For="@(() => PropertyDto.GardenArea)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <label class="form-label">Floor Number</label>
+                <InputNumber @bind-Value="PropertyDto.FloorNumber" class="form-control" placeholder="Enter floor number" />
+                <ValidationMessage For="@(() => PropertyDto.FloorNumber)" class="text-danger" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Apartment Number</label>
+                <InputNumber @bind-Value="PropertyDto.ApartmentNumber" class="form-control" placeholder="Enter apartment number" />
+                <ValidationMessage For="@(() => PropertyDto.ApartmentNumber)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Elevator</label>
+                <InputSelect @bind-Value="PropertyDto.Elevator" class="form-select">
+                    <option value="">Select Elevator Type</option>
+                    @if (typeof(ElevatorEnum).IsEnum)
+                    {
+                        @foreach (var value in Enum.GetValues<ElevatorEnum>())
+                        {
+                            <option value="@value">@value.GetDisplayNameCz()</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.Elevator)" class="text-danger" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <h5 class="mb-3 mt-4">Property Features</h5>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Boolean Features as Checkboxes -->
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputCheckbox @bind-Value="PropertyDto.Balcony" class="form-check-input" id="balcony" />
+                    <label class="form-check-label" for="balcony">Balcony</label>
+                </div>
+                @if (PropertyDto.Balcony)
+                {
+                    <div class="mt-2">
+                        <label class="form-label">Balcony Area (m²)</label>
+                        <InputNumber @bind-Value="PropertyDto.BalconyArea" class="form-control" placeholder="Enter balcony area" />
+                        <ValidationMessage For="@(() => PropertyDto.BalconyArea)" class="text-danger" />
+                    </div>
+                }
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputCheckbox @bind-Value="PropertyDto.Basin" class="form-check-input" id="basin" />
+                    <label class="form-check-label" for="basin">Basin</label>
+                </div>
+                @if (PropertyDto.Basin)
+                {
+                    <div class="mt-2">
+                        <label class="form-label">Basin Area (m²)</label>
+                        <InputNumber @bind-Value="PropertyDto.BasinArea" class="form-control" placeholder="Enter basin area" />
+                        <ValidationMessage For="@(() => PropertyDto.BasinArea)" class="text-danger" />
+                    </div>
+                }
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputCheckbox @bind-Value="PropertyDto.Cellar" class="form-check-input" id="cellar" />
+                    <label class="form-check-label" for="cellar">Cellar</label>
+                </div>
+                @if (PropertyDto.Cellar)
+                {
+                    <div class="mt-2">
+                        <label class="form-label">Cellar Area (m²)</label>
+                        <InputNumber @bind-Value="PropertyDto.CellarArea" class="form-control" placeholder="Enter cellar area" />
+                        <ValidationMessage For="@(() => PropertyDto.CellarArea)" class="text-danger" />
+                    </div>
+                }
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputCheckbox @bind-Value="PropertyDto.Garage" class="form-check-input" id="garage" />
+                    <label class="form-check-label" for="garage">Garage</label>
+                </div>
+                @if (PropertyDto.Garage)
+                {
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label class="form-label">Garage Area (m²)</label>
+                            <InputNumber @bind-Value="PropertyDto.GarageArea" class="form-control" placeholder="Enter garage area" />
+                            <ValidationMessage For="@(() => PropertyDto.GarageArea)" class="text-danger" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Garage Count</label>
+                            <InputNumber @bind-Value="PropertyDto.GarageCount" class="form-control" placeholder="Enter garage count" />
+                            <ValidationMessage For="@(() => PropertyDto.GarageCount)" class="text-danger" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputCheckbox @bind-Value="PropertyDto.Loggia" class="form-check-input" id="loggia" />
+                    <label class="form-check-label" for="loggia">Loggia</label>
+                </div>
+                @if (PropertyDto.Loggia)
+                {
+                    <div class="mt-2">
+                        <label class="form-label">Loggia Area (m²)</label>
+                        <InputNumber @bind-Value="PropertyDto.LoggiaArea" class="form-control" placeholder="Enter loggia area" />
+                        <ValidationMessage For="@(() => PropertyDto.LoggiaArea)" class="text-danger" />
+                    </div>
+                }
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputCheckbox @bind-Value="PropertyDto.Terrace" class="form-check-input" id="terrace" />
+                    <label class="form-check-label" for="terrace">Terrace</label>
+                </div>
+                @if (PropertyDto.Terrace)
+                {
+                    <div class="mt-2">
+                        <label class="form-label">Terrace Area (m²)</label>
+                        <InputNumber @bind-Value="PropertyDto.TerraceArea" class="form-control" placeholder="Enter terrace area" />
+                        <ValidationMessage For="@(() => PropertyDto.TerraceArea)" class="text-danger" />
+                    </div>
+                }
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputCheckbox @bind-Value="PropertyDto.ParkingLots" class="form-check-input" id="parking" />
+                    <label class="form-check-label" for="parking">Parking Lots</label>
+                </div>
+                @if (PropertyDto.ParkingLots)
+                {
+                    <div class="mt-2">
+                        <label class="form-label">Parking Count</label>
+                        <InputNumber @bind-Value="PropertyDto.ParkingCount" class="form-control" placeholder="Enter parking count" />
+                        <ValidationMessage For="@(() => PropertyDto.ParkingCount)" class="text-danger" />
+                    </div>
+                }
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputCheckbox @bind-Value="PropertyDto.FtvPanels" class="form-check-input" id="ftvpanels" />
+                    <label class="form-check-label" for="ftvpanels">FTV Panels</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Utilities Section -->
+    <h5 class="mb-3 mt-4">Utilities & Infrastructure</h5>
+
+    <!-- Electricity -->
+    <div class="mb-3">
+        <label class="form-label">Electricity Types</label>
+        @if (typeof(ElectricityTypeEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var electricityValues = Enum.GetValues<ElectricityTypeEnum>();
+                }
+                @foreach (var value in electricityValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="electricity-@value"
+                                   checked="@(PropertyDto.Electricity?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.Electricity), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="electricity-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Circuit Breaker</label>
+                <InputSelect @bind-Value="PropertyDto.CircuitBreaker" class="form-select">
+                    <option value="">Select Circuit Breaker</option>
+                    @if (typeof(CircuitBreakerEnum).IsEnum)
+                    {
+                        @foreach (var value in Enum.GetValues<CircuitBreakerEnum>())
+                        {
+                            <option value="@value">@value.GetDisplayNameCz()</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.CircuitBreaker)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Phase Distribution</label>
+                <InputSelect @bind-Value="PropertyDto.PhaseDistribution" class="form-select">
+                    <option value="">Select Phase Distribution</option>
+                    @if (typeof(PhaseCountEnum).IsEnum)
+                    {
+                        @foreach (var value in Enum.GetValues<PhaseCountEnum>())
+                        {
+                            <option value="@value">@value.GetDisplayNameCz()</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.PhaseDistribution)" class="text-danger" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Gas -->
+    <div class="mb-3">
+        <label class="form-label">Gas Types</label>
+        @if (typeof(GasTypeEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var gasValues = Enum.GetValues<GasTypeEnum>();
+                }
+                @foreach (var value in gasValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="gas-@value"
+                                   checked="@(PropertyDto.Gas?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.Gas), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="gas-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Water -->
+    <div class="mb-3">
+        <label class="form-label">Water Types</label>
+        @if (typeof(WaterTypeEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var waterValues = Enum.GetValues<WaterTypeEnum>();
+                }
+                @foreach (var value in waterValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="water-@value"
+                                   checked="@(PropertyDto.Water?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.Water), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="water-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Sewerage -->
+    <div class="mb-3">
+        <label class="form-label">Sewerage Types</label>
+        @if (typeof(SewerageTypeEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var sewerageValues = Enum.GetValues<SewerageTypeEnum>();
+                }
+                @foreach (var value in sewerageValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="sewerage-@value"
+                                   checked="@(PropertyDto.Gully?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.Gully), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="sewerage-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Heating Section -->
+    <h5 class="mb-3 mt-4">Heating</h5>
+
+    <!-- Heating Types -->
+    <div class="mb-3">
+        <label class="form-label">Heating Types</label>
+        @if (typeof(HeatingEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var heatingValues = Enum.GetValues<HeatingEnum>();
+                }
+                @foreach (var value in heatingValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="heating-@value"
+                                   checked="@(PropertyDto.Heating?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.Heating), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="heating-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Heating Elements -->
+    <div class="mb-3">
+        <label class="form-label">Heating Elements</label>
+        @if (typeof(HeatingElementEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var heatingElementValues = Enum.GetValues<HeatingElementEnum>();
+                }
+                @foreach (var value in heatingElementValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="heatingelement-@value"
+                                   checked="@(PropertyDto.HeatingElement?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.HeatingElement), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="heatingelement-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Heating Sources -->
+    <div class="mb-3">
+        <label class="form-label">Heating Sources</label>
+        @if (typeof(HeatingSourceEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var heatingSourceValues = Enum.GetValues<HeatingSourceEnum>();
+                }
+                @foreach (var value in heatingSourceValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="heatingsource-@value"
+                                   checked="@(PropertyDto.HeatingSource?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.HeatingSource), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="heatingsource-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Water Heating Sources -->
+    <div class="mb-3">
+        <label class="form-label">Water Heating Sources</label>
+        @if (typeof(WaterHeatingSourceEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var waterHeatingSourceValues = Enum.GetValues<WaterHeatingSourceEnum>();
+                }
+                @foreach (var value in waterHeatingSourceValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="waterheatingsource-@value"
+                                   checked="@(PropertyDto.WaterHeatingSource?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.WaterHeatingSource), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="waterheatingsource-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Well Types -->
+    <div class="mb-3">
+        <label class="form-label">Well Types</label>
+        @if (typeof(WellTypeEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var wellTypeValues = Enum.GetValues<WellTypeEnum>();
+                }
+                @foreach (var value in wellTypeValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="welltype-@value"
+                                   checked="@(PropertyDto.WellType?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.WellType), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="welltype-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Internet & Communications -->
+    <h5 class="mb-3 mt-4">Internet & Communications</h5>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Internet Connection Provider</label>
+                <InputText @bind-Value="PropertyDto.InternetConnectionProvider" class="form-control" placeholder="Enter provider" />
+                <ValidationMessage For="@(() => PropertyDto.InternetConnectionProvider)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Internet Connection Speed (Mbps)</label>
+                <InputNumber @bind-Value="PropertyDto.InternetConnectionSpeed" class="form-control" placeholder="Enter speed" />
+                <ValidationMessage For="@(() => PropertyDto.InternetConnectionSpeed)" class="text-danger" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Internet Connection Types -->
+    <div class="mb-3">
+        <label class="form-label">Internet Connection Types</label>
+        @if (typeof(InternetConnectionTypeEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var internetConnectionValues = Enum.GetValues<InternetConnectionTypeEnum>();
+                }
+                @foreach (var value in internetConnectionValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="internetconnection-@value"
+                                   checked="@(PropertyDto.InternetConnectionType?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.InternetConnectionType), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="internetconnection-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Telecommunication Types -->
+    <div class="mb-3">
+        <label class="form-label">Telecommunication Types</label>
+        @if (typeof(TelecommunicationTypeEnum).IsEnum)
+        {
+            <div class="row">
+                @{
+                    var telecomValues = Enum.GetValues<TelecommunicationTypeEnum>();
+                }
+                @foreach (var value in telecomValues)
+                {
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="telecommunication-@value"
+                                   checked="@(PropertyDto.Telecommunication?.Contains(value) == true)"
+                                   @onchange="@((e) => ToggleListEnum(nameof(PropertyDto.Telecommunication), value, (bool)e.Value!))" />
+                            <label class="form-check-label" for="telecommunication-@value">@value.GetDisplayNameCz()</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Energy Efficiency -->
+    <h5 class="mb-3 mt-4">Energy Efficiency</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">Energy Efficiency Rating</label>
+                <InputSelect @bind-Value="PropertyDto.EnergyEfficiencyRating" class="form-select">
+                    <option value="">Select Energy Rating</option>
+                    @if (typeof(EnergyRatingEnum).IsEnum)
+                    {
+                        @foreach (var value in Enum.GetValues<EnergyRatingEnum>())
+                        {
+                            <option value="@value">@value.GetDisplayNameCz()</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.EnergyEfficiencyRating)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">Energy Efficiency Certificate</label>
+                <InputSelect @bind-Value="PropertyDto.EnergyEfficiencyCertificate" class="form-select">
+                    <option value="">Select Certificate</option>
+                    @if (typeof(EnergyPerformanceCertificateEnum).IsEnum)
+                    {
+                        @foreach (var value in Enum.GetValues<EnergyPerformanceCertificateEnum>())
+                        {
+                            <option value="@value">@value.GetDisplayNameCz()</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => PropertyDto.EnergyEfficiencyCertificate)" class="text-danger" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">Energy Performance Summary</label>
+                <InputNumber @bind-Value="PropertyDto.EnergyPerformanceSummary" class="form-control" placeholder="Enter energy performance" />
+                <ValidationMessage For="@(() => PropertyDto.EnergyPerformanceSummary)" class="text-danger" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Information -->
+    <h5 class="mb-3 mt-4">Additional Information</h5>
     <div class="row">
         <div class="col-md-6">
             <div class="mb-3">
@@ -144,8 +824,8 @@
 </EditForm>
 
 @code {
-    [Parameter] public SRealtyAdvertCoreDto PropertyDto { get; set; } = new();
-    [Parameter] public EventCallback<SRealtyAdvertCoreDto> OnValidSubmit { get; set; }
+    [Parameter] public SRealityAdvertDto PropertyDto { get; set; } = new();
+    [Parameter] public EventCallback<SRealityAdvertDto> OnValidSubmit { get; set; }
     [Parameter] public EventCallback OnCancel { get; set; }
     [Parameter] public bool IsSubmitting { get; set; } = false;
     [Parameter] public string SubmitButtonText { get; set; } = "Submit";
@@ -164,7 +844,6 @@
         if (Enum.TryParse<AdvertTypeEnum>(e.Value?.ToString(), out var selectedType))
         {
             PropertyDto.AdvertType = selectedType;
-            // Reset subtype when type changes
             PropertyDto.AdvertSubtype = default;
         }
     }
@@ -172,5 +851,28 @@
     private async Task HandleValidSubmit()
     {
         await OnValidSubmit.InvokeAsync(PropertyDto);
+    }
+
+    private void ToggleListEnum<T>(string propertyName, T enumValue, bool isChecked) where T : Enum
+    {
+        var property = typeof(SRealityAdvertDto).GetProperty(propertyName);
+        if (property == null) return;
+
+        var currentList = property.GetValue(PropertyDto) as List<T> ?? new List<T>();
+
+        if (isChecked)
+        {
+            if (!currentList.Contains(enumValue))
+            {
+                currentList.Add(enumValue);
+            }
+        }
+        else
+        {
+            currentList.Remove(enumValue);
+        }
+
+        property.SetValue(PropertyDto, currentList.Count > 0 ? currentList : null);
+        StateHasChanged();
     }
 }

@@ -36,7 +36,7 @@
 @code {
     [Parameter] public Guid RealtyId { get; set; }
 
-    private SRealtyAdvertCoreDto? propertyDto;
+    private SRealityAdvertDto? propertyDto;
     private bool isLoading = true;
     private bool isSubmitting = false;
 
@@ -54,20 +54,20 @@
             var response = await Http.GetAsync($"/srealty/get/{RealtyId}");
             if (response.IsSuccessStatusCode)
             {
-                propertyDto = await response.Content.ReadFromJsonAsync<SRealtyAdvertCoreDto>();
+                propertyDto = await response.Content.ReadFromJsonAsync<SRealityAdvertDto>();
             }
             else
             {
                 Console.WriteLine($"Failed to load property: {response.StatusCode}");
                 // For now, create empty Dto for testing
-                propertyDto = new SRealtyAdvertCoreDto { Id = RealtyId };
+                propertyDto = new SRealityAdvertDto { Id = RealtyId };
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Exception loading property: {ex.Message}");
             // For now, create empty Dto for testing
-            propertyDto = new SRealtyAdvertCoreDto { Id = RealtyId };
+            propertyDto = new SRealityAdvertDto { Id = RealtyId };
         }
         finally
         {
@@ -75,7 +75,7 @@
         }
     }
 
-    private async Task HandleValidSubmit(SRealtyAdvertCoreDto dto)
+    private async Task HandleValidSubmit(SRealityAdvertDto dto)
     {
         isSubmitting = true;
 

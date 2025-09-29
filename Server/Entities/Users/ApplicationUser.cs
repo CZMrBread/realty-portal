@@ -22,6 +22,4 @@ public class ApplicationUser : IdentityUser<Guid>, ITimeStampedEntity
 
     public ICollection<RefreshTokenEntity> RefreshTokens { get; set; } = new List<RefreshTokenEntity>();
     
-    public ICollection<SRealtyPropertyEntity> SRealtyProperties { get; set; } = new List<SRealtyPropertyEntity>();
-    
 }

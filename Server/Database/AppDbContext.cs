@@ -4,6 +4,7 @@ using Server.Entities;
 using Server.Entities.RealtyAgency;
 using Server.Entities.SRealtyRealty;
 using Server.Entities.Users;
+using Server.Entities.Users.Realty;
 
 namespace Server.Database;
 
@@ -15,6 +16,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
     public DbSet<SRealtyPropertyEntity> SRealtyProperties { get; set; }
     public DbSet<RealtyAgencyEntity> RealtyAgencies { get; set; }
+    public DbSet<RealtyAgentEntity> RealtyAgents { get; set; }
+    public DbSet<RealtyAgencyAdminEntity> RealtyAgencyAdmins { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

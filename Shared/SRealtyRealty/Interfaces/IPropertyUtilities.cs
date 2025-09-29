@@ -4,10 +4,10 @@ namespace Shared.SRealtyRealty.Interfaces;
 
 public interface IPropertyUtilities
 {
-    CircuitBreakerEnum CircuitBreaker { get; set; }
+    CircuitBreakerEnum? CircuitBreaker { get; set; }
     List<ElectricityTypeEnum>? Electricity { get; set; } 
-    PhaseCountEnum PhaseDistribution { get; set; }
-    bool? FtvPanels { get; set; }
+    PhaseCountEnum? PhaseDistribution { get; set; }
+    bool FtvPanels { get; set; } 
     List<GasTypeEnum>? Gas { get; set; }
     List<SewerageTypeEnum>? Gully { get; set; }
     List<HeatingEnum>? Heating { get; set; }
