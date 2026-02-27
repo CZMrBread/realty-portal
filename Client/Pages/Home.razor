@@ -8,7 +8,7 @@
     <div class="hero-section text-center mb-5">
         <h1 class="display-4">Welcome to Realty Portal</h1>
         <p class="lead">Your comprehensive real estate management platform</p>
-        
+
         @if (AuthService.IsAuthenticated)
         {
             <div class="mt-4">
@@ -28,35 +28,5 @@
                 </a>
             </div>
         }
-    </div>
-    
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-house-door display-4 text-primary"></i>
-                    <h5 class="card-title mt-3">Property Management</h5>
-                    <p class="card-text">Manage your real estate properties with ease</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-people display-4 text-success"></i>
-                    <h5 class="card-title mt-3">Client Management</h5>
-                    <p class="card-text">Keep track of your clients and their preferences</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-graph-up display-4 text-info"></i>
-                    <h5 class="card-title mt-3">Analytics</h5>
-                    <p class="card-text">Get insights into your real estate business</p>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

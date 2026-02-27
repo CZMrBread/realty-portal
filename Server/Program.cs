@@ -14,6 +14,8 @@ using Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddOpenApi();
 builder.Services.AddCors(options =>
 {
@@ -25,10 +27,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration["DbConnectionString"]);
-});
+builder.AddNpgsqlDbContext<AppDbContext>("sqldata");
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
 {
@@ -65,15 +64,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddScoped<SRealtyHandlers>();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("SuperAdminOnly", policy => 
-        policy.RequireRole(ApplicationRole.SuperAdmin));
-    options.AddPolicy("AdminOrAbove", policy => 
-        policy.RequireRole(ApplicationRole.SuperAdmin, ApplicationRole.Admin));
-    options.AddPolicy("RealtyAgencyAdminOrAbove", policy => 
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("SuperAdminOnly", policy => 
+        policy.RequireRole(ApplicationRole.SuperAdmin))
+    .AddPolicy("AdminOrAbove", policy => 
+        policy.RequireRole(ApplicationRole.SuperAdmin, ApplicationRole.Admin))
+    .AddPolicy("RealtyAgencyAdminOrAbove", policy => 
         policy.RequireRole(ApplicationRole.SuperAdmin, ApplicationRole.Admin, ApplicationRole.RealtyAgencyAdmin));
-});
 
 builder.Services.AddScoped<JwtTokenGenerator>();
 

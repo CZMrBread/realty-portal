@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
@@ -15,9 +15,11 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite" />
         <PackageReference Include="Scalar.AspNetCore" />
         <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\realty-portal.ServiceDefaults\realty-portal.ServiceDefaults.csproj" />
         <ProjectReference Include="..\Shared\Shared.csproj"/>
     </ItemGroup>
 
