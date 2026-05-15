@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Server.Filters;
 using Server.Services;
@@ -12,41 +13,72 @@ public static class SRealtyEndpoints
     {
         var group = app.MapGroup("/srealty").WithTags("SRealty");
 
-        group.MapPost("create",
-                async ([FromBody] SRealityAdvertDto sRealityAdvertDto, SRealtyHandlers service) =>
-                {
-                    var createdEntity = await service.CreateFromDtoAsync(sRealityAdvertDto);
-                    return Results.Ok(createdEntity);
-                })
-            .AddEndpointFilter<ValidationFilter>()
-            .WithName("CreateSRealty")
-            .WithOpenApi();
-        group.MapPut("update/{id:Guid}",
-            async (Guid id, SRealityAdvertDto sRealityAdvertDto, SRealtyHandlers service) =>
+        group.MapPost("create", CreateSRealtyAdvert)
+            .WithName(nameof(CreateSRealtyAdvert))
+            .AddOpenApiOperationTransformer((operation, context, ct) => 
             {
-                return Results.Ok(sRealityAdvertDto);
+                return Task.CompletedTask;
             });
-        group.MapPut("update/rkid/{rkid}",
-            async (string rkid, SRealityAdvertDto sRealityAdvertDto, SRealtyHandlers service) =>
+        group.MapPut("update/{id:Guid}", UpdateSRealtyAdvert)
+            .WithName(nameof(UpdateSRealtyAdvert))
+            .AddOpenApiOperationTransformer((operation, context, ct) => 
             {
-                return Results.Ok(sRealityAdvertDto);
+                return Task.CompletedTask;
             });
-        group.MapGet("/get/{id:Guid}", async (Guid id, SRealtyHandlers service) =>
-        {
-            var property = await service.GetByIdAsync(id);
-            if (property == null)
+        group.MapPut("update/rkid/{rkid}", UpdateSRealtyAdvertByRkId)
+            .WithName(nameof(UpdateSRealtyAdvertByRkId))
+            .AddOpenApiOperationTransformer((operation, context, ct) => 
             {
-                return Results.NotFound();
-            }
+                return Task.CompletedTask;
+            });
+        group.MapGet("/get/{id:Guid}", GetSRealtyAdvert)
+            .WithName(nameof(GetSRealtyAdvert))
+            .AddOpenApiOperationTransformer((operation, context, ct) => 
+            {
+                return Task.CompletedTask;
+            });
+        group.MapGet("/get/rkid/{rkId}", GetSRealtyAdvertByRkId)
+            .WithName(nameof(GetSRealtyAdvertByRkId))
+            .AddOpenApiOperationTransformer((operation, context, ct) => 
+            {
+                return Task.CompletedTask;
+            });
+        group.MapGet("/get/all", GetAllSRealtyAdverts)
+            .WithName(nameof(GetAllSRealtyAdverts))
+            .AddOpenApiOperationTransformer((operation, context, ct) => 
+            {
+                return Task.CompletedTask;
+            });
+    }
 
-            return Results.Ok(property);
-        }).WithName("GetSRealtyById").WithOpenApi();
-        group.MapGet("/get/rkid/{rkId}", () => Results.Ok("Hello")).WithName("GetSRealtyByRkId").WithOpenApi();
-        
-        group.MapGet("/get/all", async (SRealtyHandlers service) =>
-        {
-            var properties = await service.GetAllAsync();
-            return Results.Ok(properties);
-        }).WithName("GetAllSRealty").WithOpenApi();
+    internal static async Task<IResult> GetSRealtyAdvert(Guid id)
+    {
+        return TypedResults.Ok();
+    }
+
+    internal static async Task<IResult> GetSRealtyAdvertByRkId(string rkId)
+    {
+        return TypedResults.Ok();
+    }
+
+    internal static async Task<IResult> CreateSRealtyAdvert()
+    {
+        return TypedResults.Ok();
+    }
+
+    internal static async Task<IResult> UpdateSRealtyAdvert(Guid id)
+    {
+        return TypedResults.Ok();
+    }
+
+    internal static async Task<IResult> UpdateSRealtyAdvertByRkId(string rkId)
+    {
+        return TypedResults.Ok();
+    }
+
+    internal static async Task<IResult> GetAllSRealtyAdverts([FromQuery, Range(1, int.MaxValue)] int page = 1,
+        [FromQuery, Range(1, 50)] int pageSize = 20)
+    {
+        return TypedResults.Ok();
     }
 }

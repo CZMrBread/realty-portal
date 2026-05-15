@@ -10,6 +10,7 @@ using Server.Endpoints.SRealty;
 using Server.Entities.Users;
 using Server.Endpoints.User;
 using Server.Entities.SRealtyRealty;
+using Server.Filters;
 using Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -101,6 +102,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+apiGroup.AddEndpointFilter<ValidationFilter>();
 apiGroup.MapUserEndpoints();
 apiGroup.MapSRealtyEndpoints();
 app.Run();
