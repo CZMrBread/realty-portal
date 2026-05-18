@@ -5,8 +5,9 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Server.Database;
 using Server.Entities.Users;
+using Server.Shared.Database;
+using Server.User;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Server.Services;
@@ -16,12 +17,13 @@ public class JwtTokenGenerator
     private const int RefreshTokenSize = 64;
     private const int AccessTokenExpiryMinutes = 60;
     private const int RefreshTokenExpiryDays = 7;
-    
+
     private readonly IConfiguration _configuration;
     private readonly AppDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public JwtTokenGenerator(IConfiguration configuration, AppDbContext context, UserManager<ApplicationUser> userManager)
+    public JwtTokenGenerator(IConfiguration configuration, AppDbContext context,
+        UserManager<ApplicationUser> userManager)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _context = context ?? throw new ArgumentNullException(nameof(context));
@@ -32,10 +34,10 @@ public class JwtTokenGenerator
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
-        
+
         var roles = await _userManager.GetRolesAsync(user);
         var claims = await GetClaimsAsync(user, roles);
-        
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
@@ -66,7 +68,8 @@ public class JwtTokenGenerator
         return refreshToken;
     }
 
-    public async Task<(string AccessToken, RefreshTokenEntity RefreshToken)> RefreshTokenAsync(string token, string? ipAddress = null)
+    public async Task<(string AccessToken, RefreshTokenEntity RefreshToken)> RefreshTokenAsync(string token,
+        string? ipAddress = null)
     {
         var refreshToken = await _context.RefreshTokens
             .Include(rt => rt.User)
@@ -84,7 +87,7 @@ public class JwtTokenGenerator
         }
 
         var newRefreshToken = await GenerateRefreshTokenAsync(user, ipAddress);
-        
+
         refreshToken.ReplacedByToken = newRefreshToken.Token;
 
         await _context.SaveChangesAsync();
@@ -112,7 +115,7 @@ public class JwtTokenGenerator
         _context.RemoveRange(tokens);
         await _context.SaveChangesAsync();
     }
-    
+
 
     private async Task<List<Claim>> GetClaimsAsync(ApplicationUser user, IList<string> roles)
     {
@@ -149,8 +152,8 @@ public class JwtTokenGenerator
     {
         var cutoffDate = DateTime.UtcNow.AddDays(-30);
         var expiredTokens = await _context.RefreshTokens
-            .Where(rt => rt.UserId == user.Id && 
-                        (rt.ExpiresAt <= DateTime.UtcNow || rt.CreatedAt <= cutoffDate))
+            .Where(rt => rt.UserId == user.Id &&
+                         (rt.ExpiresAt <= DateTime.UtcNow || rt.CreatedAt <= cutoffDate))
             .ToListAsync();
 
         _context.RefreshTokens.RemoveRange(expiredTokens);

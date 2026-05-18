@@ -10,7 +10,7 @@ public enum InternetConnectionTypeEnum
 
     [SRealtyEnums(DisplayNameCz = "Optické vlákno", DisplayNameEn = "Fiber Optic")]
     FiberOptic = 3,
-    
+
     [SRealtyEnums(DisplayNameCz = "Bezdrátové", DisplayNameEn = "Wireless")]
     Wireless = 4
 }

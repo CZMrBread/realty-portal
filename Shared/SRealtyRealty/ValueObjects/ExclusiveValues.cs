@@ -15,5 +15,4 @@ public sealed record ExclusiveValues<TValue1, TValue2>()
     {
         return (Value1 is not null && Value2 is null) || (Value1 is null && Value2 is not null);
     }
-    
 }

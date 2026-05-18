@@ -19,17 +19,16 @@ public enum BuildingConditionEnum
 
     [SRealtyEnums(DisplayNameCz = "Novostavba", DisplayNameEn = "New building")]
     NewBuilding = 6,
-    
+
     [SRealtyEnums(DisplayNameCz = "K demolici", DisplayNameEn = "To demolish")]
     ToDemolish = 7,
-    
+
     [SRealtyEnums(DisplayNameCz = "Před rekonstrukcí", DisplayNameEn = "Before renovation")]
     BeforeRenovation = 8,
-    
+
     [SRealtyEnums(DisplayNameCz = "Po rekonstrukci", DisplayNameEn = "After renovation")]
     AfterRenovation = 9,
-    
+
     [SRealtyEnums(DisplayNameCz = "V rekonstrukci", DisplayNameEn = "In renovation")]
     InRenovation = 10
-    
 }

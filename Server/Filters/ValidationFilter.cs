@@ -47,5 +47,4 @@ public class ValidationFilter : IEndpointFilter
 
         return await next(context);
     }
-
 }

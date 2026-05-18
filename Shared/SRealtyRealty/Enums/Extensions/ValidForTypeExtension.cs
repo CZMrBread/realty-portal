@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Shared.Validation.Attributes;
+using Shared.Shared.Attributes;
 
 namespace Shared.SRealtyRealty.Enums;
 

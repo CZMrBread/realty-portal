@@ -7,13 +7,13 @@ public enum SewerageTypeEnum
 
     [SRealtyEnums(DisplayNameCz = "Čistička odpadních vod pro celý objekt", DisplayNameEn = "Object treatment plant")]
     ObjectTreatmentPlant = 2,
-    
+
     [SRealtyEnums(DisplayNameCz = "Septik", DisplayNameEn = "Septic tank")]
     SepticTank = 3,
-    
+
     [SRealtyEnums(DisplayNameCz = "Jímka", DisplayNameEn = "Cesspool")]
     Cesspool = 4,
-    
+
     [SRealtyEnums(DisplayNameCz = "Trativod", DisplayNameEn = "Drainage")]
     Drainage = 5
 }

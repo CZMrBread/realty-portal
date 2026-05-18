@@ -49,6 +49,7 @@ public class CookieService
 
     public async Task DeleteCookieAsync(string name)
     {
-        await _jsRuntime.InvokeVoidAsync("eval", $"document.cookie = '{name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC'");
+        await _jsRuntime.InvokeVoidAsync("eval",
+            $"document.cookie = '{name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC'");
     }
 }

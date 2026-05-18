@@ -16,7 +16,7 @@ public interface IPropertyCore
     string City { get; set; }
     int InaccuracyLevel { get; set; }
     string? AdvertRkId { get; set; }
-    
+
     string? RealtyAgentId { get; set; }
     Guid? RealtyAgentRkId { get; set; }
     AdvertSubtypeEnum AdvertSubtype { get; set; }
@@ -31,6 +31,7 @@ public interface IPropertyCore
             AdvertPriceUnit = value.Unit;
         }
     }
+
     PropertyDescription Description
     {
         get => new PropertyDescription(PropertyDescription);

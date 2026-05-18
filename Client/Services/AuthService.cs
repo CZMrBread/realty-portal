@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components;
-using Shared.Dtos.User;
+using Shared.User;
 
 namespace Client.Services;
 

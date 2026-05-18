@@ -1,4 +1,4 @@
-﻿using Shared.Validation.Attributes;
+﻿using Shared.Shared.Attributes;
 
 namespace Shared.SRealtyRealty.Enums;
 
@@ -182,4 +182,3 @@ public enum AdvertSubtypeEnum
     [ValidForType<AdvertTypeEnum>(AdvertTypeEnum.Commercial)]
     ApartmentsCommercial = 57
 }
-

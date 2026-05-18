@@ -11,6 +11,4 @@ public interface IPropertyConstruction
     int? EstateArea { get; set; }
     int? FloorNumber { get; set; }
     int? UsableArea { get; set; }
-    
-    
 }

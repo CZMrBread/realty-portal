@@ -1,6 +1,4 @@
-﻿
-
-namespace Shared.SRealtyRealty.Enums;
+﻿namespace Shared.SRealtyRealty.Enums;
 
 public enum WellTypeEnum
 {

@@ -4,7 +4,7 @@ public enum HeatingSourceEnum
 {
     [SRealtyEnums(DescriptionCz = "WAW", DescriptionEn = "WAW")]
     WAW = 1,
-    
+
     GasCondensingBoiler = 2,
     GasBoiler = 3,
     ElectricBoiler = 4,

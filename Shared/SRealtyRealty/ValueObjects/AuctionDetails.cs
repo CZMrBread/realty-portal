@@ -24,7 +24,8 @@ public record AuctionDetails
 
     public float? MinimumBid { get; init; }
 
-    public AuctionDetails(DateTime auctionDate, string auctionPlace, AuctionKindEnum auctionKind, BiddingTypeEnum biddingType)
+    public AuctionDetails(DateTime auctionDate, string auctionPlace, AuctionKindEnum auctionKind,
+        BiddingTypeEnum biddingType)
     {
         AuctionDate = auctionDate;
         AuctionPlace = auctionPlace;

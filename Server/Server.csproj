@@ -24,8 +24,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Endpoints\RealtyAgency\"/>
-        <Folder Include="Migrations\"/>
+        <Folder Include="Entities\RealtyAgency\" />
+        <Folder Include="Entities\SRealtyRealty\" />
+        <Folder Include="Entities\Users\Realty\" />
     </ItemGroup>
 
 </Project>

@@ -13,5 +13,4 @@ public interface IPropertyLocation
     string? OrientationNumber { get; set; }
     string? Street { get; set; }
     string? HouseNumber { get; set; }
-    
 }

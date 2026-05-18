@@ -5,13 +5,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
-using Server.Database;
-using Server.Endpoints.SRealty;
 using Server.Entities.Users;
-using Server.Endpoints.User;
-using Server.Entities.SRealtyRealty;
+using Server.SRealty;
 using Server.Filters;
 using Server.Services;
+using Server.Shared.Database;
+using Server.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,21 +30,21 @@ builder.Services.AddCors(options =>
 builder.AddNpgsqlDbContext<AppDbContext>("sqldata");
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
-{
-    options.Password.RequiredLength = 6;
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = false;
-    
-    options.User.RequireUniqueEmail = true;
-    options.SignIn.RequireConfirmedEmail = false;
-})
-.AddRoles<ApplicationRole>()
-.AddRoleManager<RoleManager<ApplicationRole>>()
-.AddSignInManager<SignInManager<ApplicationUser>>()
-.AddEntityFrameworkStores<AppDbContext>()
-.AddDefaultTokenProviders();
+    {
+        options.Password.RequiredLength = 6;
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireNonAlphanumeric = false;
+
+        options.User.RequireUniqueEmail = true;
+        options.SignIn.RequireConfirmedEmail = false;
+    })
+    .AddRoles<ApplicationRole>()
+    .AddRoleManager<RoleManager<ApplicationRole>>()
+    .AddSignInManager<SignInManager<ApplicationUser>>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -63,26 +62,30 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
-builder.Services.AddScoped<SRealtyHandlers>();
+builder.Services.AddScoped<SRealtyService>();
 
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("SuperAdminOnly", policy => 
+    .AddPolicy("SuperAdminOnly", policy =>
         policy.RequireRole(ApplicationRole.SuperAdmin))
-    .AddPolicy("AdminOrAbove", policy => 
+    .AddPolicy("AdminOrAbove", policy =>
         policy.RequireRole(ApplicationRole.SuperAdmin, ApplicationRole.Admin))
-    .AddPolicy("RealtyAgencyAdminOrAbove", policy => 
+    .AddPolicy("RealtyAgencyAdminOrAbove", policy =>
         policy.RequireRole(ApplicationRole.SuperAdmin, ApplicationRole.Admin, ApplicationRole.RealtyAgencyAdmin));
 
 builder.Services.AddScoped<JwtTokenGenerator>();
 
 var app = builder.Build();
-using (var scope = app.Services.CreateScope()) {
+using (var scope = app.Services.CreateScope())
+{
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await dbContext.Database.MigrateAsync();
 }
-using (var scope = app.Services.CreateScope()) {
+
+using (var scope = app.Services.CreateScope())
+{
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-    foreach (var role in ApplicationRole.AllRoles) {
+    foreach (var role in ApplicationRole.AllRoles)
+    {
         if (await roleManager.RoleExistsAsync(role))
             continue;
         await roleManager.CreateAsync(new ApplicationRole { Name = role });

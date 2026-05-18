@@ -35,4 +35,4 @@ public record PropertyAreas
     public int? NoLiveTotalArea { get; init; }
 
     public double? CeilingHeight { get; init; }
-} 
+}
