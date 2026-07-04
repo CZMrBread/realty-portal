@@ -5,12 +5,10 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Server.Entities.Users;
 using Server.Shared.Database;
-using Server.User;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace Server.Services;
+namespace Server.User;
 
 public class JwtTokenGenerator
 {
