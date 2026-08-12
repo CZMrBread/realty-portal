@@ -75,8 +75,9 @@ builder.Services.AddAuthorizationBuilder()
 builder.Services.AddScoped<JwtTokenGenerator>();
 
 var app = builder.Build();
-using (var scope = app.Services.CreateScope())
+if (!app.Environment.IsEnvironment("Testing"))
 {
+    using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await dbContext.Database.MigrateAsync();
 }
@@ -110,3 +111,5 @@ apiGroup.AddEndpointFilter<ValidationFilter>();
 apiGroup.MapUserEndpoints();
 apiGroup.MapSRealtyEndpoints();
 app.Run();
+
+public partial class Program;
