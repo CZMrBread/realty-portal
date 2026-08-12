@@ -21,6 +21,20 @@
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Components\SRealty\SRealtyPropertyForm.razor" />
+      <_ContentIncludedByDefault Remove="Pages\RealtyAgency\SRealty\SRealtyCreateProperty.razor" />
+      <_ContentIncludedByDefault Remove="Pages\RealtyAgency\SRealty\SRealtyUpdateProperty.razor" />
+      <_ContentIncludedByDefault Remove="Pages\User\Realty\RealtyDetail.razor" />
+      <_ContentIncludedByDefault Remove="Pages\User\Realty\RealtyList.razor" />
+      <_ContentIncludedByDefault Remove="Pages\User\SRealty\SRealtyDetail.razor" />
+      <_ContentIncludedByDefault Remove="Pages\User\SRealty\SRealtyList.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Pages\" />
+    </ItemGroup>
+
     <Target Name="CopyBootstrapFromNode" BeforeTargets="Build">
         <!-- Cleaning -->
         <RemoveDir Directories="wwwroot\lib"/>

@@ -10,12 +10,14 @@ var db = postgres.AddDatabase("sqldata");
 // 2. Define your Server (API)
 var api = builder.AddProject<Projects.Server>("backend-api")
     .WithReference(db)
+    .WaitFor(db)
     .WithReference(redis)
     .WithExternalHttpEndpoints();
 
 // 3. Define your Blazor WASM Client
-var client = builder.AddProject<Projects.Client>("client")
+builder.AddProject<Projects.Client>("client")
     .WithReference(api)
+    .WaitFor(api)
     .WithExternalHttpEndpoints();
 
 builder.Build().Run();

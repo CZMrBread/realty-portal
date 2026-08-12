@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
@@ -5,11 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
-using Server.Entities.Users;
-using Server.SRealty;
+using Server.Features.SRealty;
+using Server.Features.User;
 using Server.Filters;
-using Server.Shared.Database;
-using Server.User;
+using Server.Infrastructure.Authentication;
+using Server.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -105,6 +106,7 @@ if (app.Environment.IsDevelopment())
 }
 
 apiGroup.AddEndpointFilter<ValidationFilter>();
+
 apiGroup.MapUserEndpoints();
 apiGroup.MapSRealtyEndpoints();
 app.Run();
