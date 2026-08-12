@@ -1,0 +1,34 @@
+@inject AuthStateService AuthState
+
+@if (_isLoading)
+{
+    <div class="text-center p-4">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else if (AuthState.IsAuthenticated)
+{
+    @ChildContent
+}
+else
+{
+    <div class="alert alert-warning">
+        <h4>Authentication Required</h4>
+        <p>You need to be logged in to access this content.</p>
+        <a href="/login" class="btn btn-primary">Login</a>
+    </div>
+}
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await AuthState.EnsureAuthenticatedAsync();
+        _isLoading = false;
+    }
+}

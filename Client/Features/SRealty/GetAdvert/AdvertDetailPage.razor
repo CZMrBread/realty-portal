@@ -1,0 +1,14 @@
+@page "/srealty/{Id:guid}"
+
+<PageTitle>Advert Detail</PageTitle>
+
+<div class="container mt-4">
+    <h1>Advert Detail</h1>
+
+    @* TODO: load advert from GET srealty/get/{Id} once the server slice is implemented *@
+    <p>Advert @Id</p>
+</div>
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+}
