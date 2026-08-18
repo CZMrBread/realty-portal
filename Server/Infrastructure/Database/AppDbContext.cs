@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Server.Features.Adverts.Domain;
 using Server.Features.RealtyAgency;
 using Server.Features.RealtyAgent;
 using Server.Features.SRealty;
@@ -13,7 +14,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     public DbSet<ApplicationRole> ApplicationRoles { get; set; }
     public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
-    public DbSet<SRealtyPropertyEntity> SRealtyProperties { get; set; }
+    public DbSet<SrealityAdvertEntity> SrealityAdverts { get; set; }
     public DbSet<RealtyAgencyEntity> RealtyAgencies { get; set; }
     public DbSet<RealtyAgentEntity> RealtyAgents { get; set; }
     public DbSet<RealtyAgencyAdminEntity> RealtyAgencyAdmins { get; set; }

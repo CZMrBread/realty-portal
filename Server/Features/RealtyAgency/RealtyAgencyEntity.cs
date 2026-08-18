@@ -6,8 +6,16 @@ namespace Server.Features.RealtyAgency;
 
 public sealed class RealtyAgencyEntity : ITimeStampedEntity
 {
+    public RealtyAgencyEntity(string Name, string RegistrationNumber, string Email)
+    {
+        Id = Guid.NewGuid();
+        CreatedAt = DateTimeOffset.UtcNow;
+        UpdatedAt = DateTimeOffset.UtcNow;
+        this.Name = Name;
+        this.RegistrationNumber = RegistrationNumber;
+        this.Email = Email;
+    }
     [Key] public Guid Id { get; set; }
-
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
 

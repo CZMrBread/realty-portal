@@ -6,9 +6,9 @@ namespace Shared.Shared.Attributes;
 public class RequiredIfValueAttribute : ValidationAttribute
 {
     private string PropertyName { get; }
-    private object[] Values { get; }
+    private object?[] Values { get; }
 
-    public RequiredIfValueAttribute(string propertyName, params object[] values)
+    public RequiredIfValueAttribute(string propertyName, params object?[] values)
     {
         PropertyName = propertyName;
         Values = values;

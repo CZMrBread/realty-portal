@@ -52,7 +52,7 @@ public static class UserEndpoints
 
             return Results.Ok(response);
         }
-        catch (SecurityTokenException ex)
+        catch (SecurityTokenException)
         {
             return Results.Unauthorized();
         }

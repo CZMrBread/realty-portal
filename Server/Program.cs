@@ -1,16 +1,14 @@
-using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using Server.Features.SRealty;
 using Server.Features.User;
-using Server.Filters;
 using Server.Infrastructure.Authentication;
 using Server.Infrastructure.Database;
+using Server.Infrastructure.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,7 +60,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
-builder.Services.AddScoped<SRealtyService>();
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("SuperAdminOnly", policy =>
@@ -112,4 +109,7 @@ apiGroup.MapUserEndpoints();
 apiGroup.MapSRealtyEndpoints();
 app.Run();
 
-public partial class Program;
+namespace Server
+{
+    public partial class Program;
+}

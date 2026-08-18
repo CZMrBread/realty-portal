@@ -1,4 +1,4 @@
-namespace Server.Features.SRealty.GetAdvertDetails;
+namespace Server.Features.SRealty.GetAdvert;
 
 public class GetAdvert
 {

@@ -10,8 +10,10 @@ public class RealtyAgentEntity : ApplicationUser
     public RealtyAgentEntity(string userName) : base(userName)
     {
     }
+    
+    
 
-    public RealtyAgencyEntity RealtyAgency { get; set; }
+    public RealtyAgencyEntity? RealtyAgency { get; set; }
     [MaxLength(64)] public string? RealtyAgentRkId { get; set; } = null;
-    public ICollection<SRealtyPropertyEntity> SRealtyProperties { get; set; } = new List<SRealtyPropertyEntity>();
+    // public ICollection<SRealtyPropertyEntity> SRealtyProperties { get; set; } = new List<SRealtyPropertyEntity>();
 }

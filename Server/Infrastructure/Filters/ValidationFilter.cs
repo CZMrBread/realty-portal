@@ -1,8 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Server.Filters;
+namespace Server.Infrastructure.Filters;
 
 public class ValidationFilter : IEndpointFilter
 {
