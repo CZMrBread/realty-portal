@@ -4,17 +4,24 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
+using Server.Features.RealtyAgency;
+using Server.Features.RealtyAgent;
 using Server.Features.SRealty;
+using Server.Features.SRealty.Advert;
+using Server.Features.SRealty.Photo;
 using Server.Features.User;
 using Server.Infrastructure.Authentication;
 using Server.Infrastructure.Database;
-using Server.Infrastructure.Filters;
+using Shared.RealtyAgent;
+using Shared.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
 builder.Services.AddOpenApi();
+builder.Services.AddValidation();
+builder.Services.AddProblemDetails();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -26,6 +33,10 @@ builder.Services.AddCors(options =>
 });
 
 builder.AddNpgsqlDbContext<AppDbContext>("sqldata");
+
+// the only cache in the application: whole responses, in the Redis instance Aspire registers as "cache"
+builder.Services.AddOutputCache();
+builder.AddRedisOutputCache("cache");
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
     {
@@ -56,20 +67,27 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             ValidAlgorithms = new[] { SecurityAlgorithms.HmacSha256 },
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]!)),
-            ClockSkew = TimeSpan.Zero
+            IssuerSigningKey = JwtSigningKey.Create(builder.Configuration),
+            ClockSkew = TimeSpan.FromSeconds(30)
         };
     });
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("SuperAdminOnly", policy =>
-        policy.RequireRole(ApplicationRole.SuperAdmin))
-    .AddPolicy("AdminOrAbove", policy =>
-        policy.RequireRole(ApplicationRole.SuperAdmin, ApplicationRole.Admin))
-    .AddPolicy("RealtyAgencyAdminOrAbove", policy =>
-        policy.RequireRole(ApplicationRole.SuperAdmin, ApplicationRole.Admin, ApplicationRole.RealtyAgencyAdmin));
+        policy.RequireRole(UserRoles.SuperAdmin))
+    // the token says whether the caller may act as an agent; which agency they act for is read from the database
+    .AddPolicy("AgentOnly", policy =>
+        policy.RequireAssertion(context => context.User.GetAgentRole() is not null))
+    .AddPolicy("AgencyAdminOnly", policy =>
+        policy.RequireAssertion(context => context.User.GetAgentRole() == AgentRoleEnum.AgencyAdmin));
 
-builder.Services.AddScoped<JwtTokenGenerator>();
+builder.Services.AddScoped<AccessTokenService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<RealtyAgencyService>();
+builder.Services.AddScoped<RealtyAgentService>();
+builder.Services.AddScoped<AdvertService>();
+builder.Services.AddSingleton<IPhotoStorage, FilePhotoStorage>();
+builder.Services.AddScoped<PhotoService>();
 
 var app = builder.Build();
 if (!app.Environment.IsEnvironment("Testing"))
@@ -82,7 +100,7 @@ if (!app.Environment.IsEnvironment("Testing"))
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-    foreach (var role in ApplicationRole.AllRoles)
+    foreach (var role in UserRoles.All)
     {
         if (await roleManager.RoleExistsAsync(role))
             continue;
@@ -95,6 +113,7 @@ app.UseCors();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseOutputCache();
 
 var apiGroup = app.MapGroup("api");
 if (app.Environment.IsDevelopment())
@@ -103,13 +122,14 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-apiGroup.AddEndpointFilter<ValidationFilter>();
 
 apiGroup.MapUserEndpoints();
+apiGroup.MapRealtyAgentEndpoints();
 apiGroup.MapSRealtyEndpoints();
 app.Run();
 
 namespace Server
 {
+    /// <summary>Entry point of the server, made visible so that the integration tests can start the application.</summary>
     public partial class Program;
 }

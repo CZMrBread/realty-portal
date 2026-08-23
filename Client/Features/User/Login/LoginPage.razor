@@ -1,71 +1,68 @@
 @page "/login"
 @using Shared.User.Login
-@inject HttpClient Http
 @inject AuthStateService AuthState
 @inject NavigationManager Navigation
 
-<PageTitle>Login</PageTitle>
+<PageTitle>Sign in</PageTitle>
 
-<div class="container mt-4" style="max-width: 480px">
-    <h1>Login</h1>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="h4 card-title mb-4">Sign in</h1>
 
-    <EditForm Model="_request" OnValidSubmit="HandleLoginAsync">
-        <DataAnnotationsValidator/>
+                    <BootstrapEditForm Model="request" OnValidSubmit="SignInAsync">
+                        <DataAnnotationsValidator/>
 
-        <div class="mb-3">
-            <label class="form-label">Email</label>
-            <InputText class="form-control" @bind-Value="_request.Email"/>
-            <ValidationMessage For="() => _request.Email"/>
+                        <FloatingText Label="Email" Type="email" autocomplete="username"
+                                      @bind-Value="request.Email"/>
+
+                        <FloatingText Label="Password" Type="password" autocomplete="current-password"
+                                      @bind-Value="request.Password"/>
+
+                        @if (error is not null)
+                        {
+                            <div class="alert alert-danger" role="alert">@error</div>
+                        }
+
+                        <button class="btn btn-primary w-100" type="submit" disabled="@busy">
+                            @if (busy)
+                            {
+                                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                            }
+                            Sign in
+                        </button>
+                    </BootstrapEditForm>
+
+                    <p class="mt-3 mb-0 text-center">
+                        No account yet? <a href="register">Register</a>
+                    </p>
+                </div>
+            </div>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label">Password</label>
-            <InputText type="password" class="form-control" @bind-Value="_request.Password"/>
-            <ValidationMessage For="() => _request.Password"/>
-        </div>
-
-        @if (_error is not null)
-        {
-            <div class="alert alert-danger">@_error</div>
-        }
-
-        <button class="btn btn-primary" type="submit" disabled="@_busy">Login</button>
-    </EditForm>
+    </div>
 </div>
 
 @code {
-    private readonly LoginUserRequest _request = new();
-    private string? _error;
-    private bool _busy;
+    /// <summary>Where to go once signed in, set by a layout that turned an unauthenticated visitor away.</summary>
+    [SupplyParameterFromQuery] [Parameter] public string? ReturnUrl { get; set; }
 
-    private async Task HandleLoginAsync()
+    private readonly LoginUserRequest request = new();
+    private string? error;
+    private bool busy;
+
+    private async Task SignInAsync()
     {
-        _busy = true;
-        _error = null;
+        busy = true;
+        error = null;
 
-        var response = await Http.PostAsJsonAsync("user/login", _request);
-        if (response.IsSuccessStatusCode)
+        error = await AuthState.SignInAsync(request);
+        busy = false;
+
+        if (error is null)
         {
-            var result = await response.Content.ReadFromJsonAsync<LoginUserResponse>();
-            if (result is not null)
-            {
-                await AuthState.SignInAsync(
-                    result.AccessToken, result.AccessTokenExpiration,
-                    result.RefreshToken, result.RefreshTokenExpiration,
-                    new UserInfoDto
-                    {
-                        Id = result.Id,
-                        UserName = result.UserName ?? string.Empty,
-                        Email = result.Email ?? string.Empty,
-                        Roles = result.Roles
-                    });
-
-                Navigation.NavigateTo("/");
-                return;
-            }
+            Navigation.NavigateTo(string.IsNullOrWhiteSpace(ReturnUrl) ? "" : ReturnUrl);
         }
-
-        _error = "Invalid email or password.";
-        _busy = false;
     }
 }

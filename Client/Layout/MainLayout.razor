@@ -1,77 +1,9 @@
 @inherits LayoutComponentBase
-@implements IDisposable
-@inject AuthStateService AuthState
 
-<div class="page">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="/">Realty Portal</a>
+<div class="d-flex flex-column min-vh-100">
+    <NavMenu/>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    @if (AuthState.IsAuthenticated)
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="realtyDropdown" role="button" data-bs-toggle="dropdown">
-                                SRealty
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/srealty">Adverts</a></li>
-                                <li><a class="dropdown-item" href="/srealty/create">New advert</a></li>
-                            </ul>
-                        </li>
-                    }
-                </ul>
-
-                <ul class="navbar-nav">
-                    @if (AuthState.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <button class="btn btn-outline-light" @onclick="HandleLogoutAsync">
-                                <i class="bi bi-box-arrow-right"></i> Logout
-                            </button>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <main>
+    <main class="flex-grow-1">
         @Body
     </main>
 </div>
-
-@code{
-    protected override async Task OnInitializedAsync()
-    {
-        AuthState.AuthStateChanged += StateHasChanged;
-        await AuthState.InitializeAsync();
-    }
-
-    private async Task HandleLogoutAsync()
-    {
-        await AuthState.SignOutAsync();
-    }
-
-    public void Dispose()
-    {
-        AuthState.AuthStateChanged -= StateHasChanged;
-    }
-}

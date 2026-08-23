@@ -15,7 +15,7 @@ public class RegisterTests : IClassFixture<TestWebApplicationFactory>
     }
 
     [Fact]
-    public async Task Register_WithValidData_ReturnsTokensAndUserRole()
+    public async Task Register_WithValidData_ReturnsTokensAndAccount()
     {
         var request = new RegisterUserRequest
         {
@@ -28,12 +28,13 @@ public class RegisterTests : IClassFixture<TestWebApplicationFactory>
         var response = await _client.PostAsJsonAsync("api/user/register", request);
 
         response.EnsureSuccessStatusCode();
-        var result = await response.Content.ReadFromJsonAsync<UserAuthenticationDto>();
+        var result = await response.Content.ReadFromJsonAsync<RegisterUserResponse>();
         Assert.NotNull(result);
-        Assert.NotEmpty(result.AccessToken);
-        Assert.NotEmpty(result.RefreshToken);
-        Assert.Equal(request.UserName, result.User.UserName);
-        Assert.Contains("User", result.User.Roles);
+        Assert.NotEmpty(result.Token.AccessToken);
+        Assert.NotEmpty(result.Token.RefreshToken);
+        Assert.Equal(request.UserName, result.UserName);
+        // a freshly registered account holds no portal role yet
+        Assert.Empty(result.Roles);
     }
 
     [Fact]

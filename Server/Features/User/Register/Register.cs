@@ -1,32 +1,35 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Server.Infrastructure.Authentication;
 using Shared.User;
+using Server.Infrastructure.Http;
 using Shared.User.Register;
 
 namespace Server.Features.User.Register;
 
+/// <summary>Creates a new account and signs it in straight away.</summary>
 public static class Register
 {
+    /// <summary>Registers the /register route.</summary>
     public static void MapRegister(this IEndpointRouteBuilder group)
     {
         group.MapPost("/register", RegisterUserAsync).WithName(nameof(RegisterUserAsync));
     }
 
+    /// <summary>Rejects an email address or username that is already taken, then creates the account and issues its first pair of tokens.</summary>
     private static async Task<IResult> RegisterUserAsync(RegisterUserRequest registerUserRequest,
-        UserManager<ApplicationUser> userManager,
-        RoleManager<ApplicationRole> roleManager,
-        JwtTokenGenerator tokenGenerator)
+        UserService userService, UserManager<ApplicationUser> userManager,
+        AccessTokenService tokenService, CancellationToken cancellationToken)
     {
-        var existingUser = await userManager.FindByEmailAsync(registerUserRequest.Email);
+        var existingUser = await userService.FindUserByEmailAsync(registerUserRequest.Email, cancellationToken);
         if (existingUser != null)
         {
-            return Results.BadRequest(new { message = "User with this email already exists." });
+            return UserErrors.EmailTaken.ToResult();
         }
 
-        existingUser = await userManager.FindByNameAsync(registerUserRequest.UserName);
+        existingUser = await userService.FindUserByNameAsync(registerUserRequest.UserName, cancellationToken);
         if (existingUser != null)
         {
-            return Results.BadRequest(new { message = "Username is already taken." });
+            return UserErrors.UserNameTaken.ToResult();
         }
 
         var user = new ApplicationUser(registerUserRequest.UserName)
@@ -34,36 +37,25 @@ public static class Register
             Email = registerUserRequest.Email
         };
 
-        var result = await userManager.CreateAsync(user, registerUserRequest.Password);
+        var result = await userService.CreateUserAsync(user, registerUserRequest.Password, cancellationToken);
         if (!result.Succeeded)
         {
-            return Results.BadRequest(new { message = "Failed to create user.", errors = result.Errors });
+            return (UserErrors.RegistrationFailed with
+                { Detail = string.Join(" ", result.Errors.Select(e => e.Description)) }).ToResult();
         }
 
-        if (!await roleManager.RoleExistsAsync(ApplicationRole.User))
+        var token = await tokenService.CreateAuthenticationAsync(user);
+        if (token == null)
         {
-            await roleManager.CreateAsync(new ApplicationRole { Name = ApplicationRole.User });
+            return UserErrors.InvalidCredentials.ToResult();
         }
-
-        await userManager.AddToRoleAsync(user, ApplicationRole.User);
-
-        var accessToken = await tokenGenerator.GenerateAccessTokenAsync(user);
-        var refreshToken = await tokenGenerator.GenerateRefreshTokenAsync(user);
-        var roles = await userManager.GetRolesAsync(user);
-
-        var response = new UserAuthenticationDto
+        var response = new RegisterUserResponse
         {
-            AccessToken = accessToken,
-            RefreshToken = refreshToken.Token,
-            AccessTokenExpiration = JwtTokenGenerator.AccessTokenExpiry,
-            RefreshTokenExpiration = refreshToken.ExpiresAt,
-            User = new UserInfoDto
-            {
-                Id = user.Id,
-                UserName = user.UserName ?? string.Empty,
-                Email = user.Email ?? string.Empty,
-                Roles = roles
-            }
+            Id = user.Id,
+            UserName = user.UserName,
+            Email = user.Email,
+            Roles = await userService.GetUserRolesAsync(user, cancellationToken),
+            Token = token
         };
         return TypedResults.Ok(response);
     }

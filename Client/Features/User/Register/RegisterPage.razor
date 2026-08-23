@@ -1,67 +1,73 @@
 @page "/register"
 @using Shared.User.Register
-@inject HttpClient Http
+@inject AuthStateService AuthState
 @inject NavigationManager Navigation
 
 <PageTitle>Register</PageTitle>
 
-<div class="container mt-4" style="max-width: 480px">
-    <h1>Register</h1>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="h4 card-title mb-4">Create an account</h1>
 
-    <EditForm Model="_request" OnValidSubmit="HandleRegisterAsync">
-        <DataAnnotationsValidator/>
+                    <BootstrapEditForm Model="request" OnValidSubmit="RegisterAsync">
+                        <DataAnnotationsValidator/>
 
-        <div class="mb-3">
-            <label class="form-label">Username</label>
-            <InputText class="form-control" @bind-Value="_request.UserName"/>
-            <ValidationMessage For="() => _request.UserName"/>
+                        <FloatingText Label="User name" autocomplete="username"
+                                      @bind-Value="request.UserName"/>
+
+                        <FloatingText Label="Email" Type="email" autocomplete="email"
+                                      @bind-Value="request.Email"/>
+
+                        <FloatingText Label="Password" Type="password" autocomplete="new-password"
+                                      Help="At least six characters, with an upper case letter, a lower case letter and a digit."
+                                      @bind-Value="request.Password"/>
+
+                        <FloatingText Label="Confirm password" Type="password" autocomplete="new-password"
+                                      @bind-Value="request.ConfirmPassword"/>
+
+                        @if (error is not null)
+                        {
+                            <div class="alert alert-danger" role="alert">@error</div>
+                        }
+
+                        <button class="btn btn-primary w-100" type="submit" disabled="@busy">
+                            @if (busy)
+                            {
+                                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                            }
+                            Register
+                        </button>
+                    </BootstrapEditForm>
+
+                    <p class="mt-3 mb-0 text-center">
+                        Already registered? <a href="login">Sign in</a>
+                    </p>
+                </div>
+            </div>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label">Email</label>
-            <InputText class="form-control" @bind-Value="_request.Email"/>
-            <ValidationMessage For="() => _request.Email"/>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Password</label>
-            <InputText type="password" class="form-control" @bind-Value="_request.Password"/>
-            <ValidationMessage For="() => _request.Password"/>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Confirm password</label>
-            <InputText type="password" class="form-control" @bind-Value="_request.ConfirmPassword"/>
-            <ValidationMessage For="() => _request.ConfirmPassword"/>
-        </div>
-
-        @if (_error is not null)
-        {
-            <div class="alert alert-danger">@_error</div>
-        }
-
-        <button class="btn btn-primary" type="submit" disabled="@_busy">Register</button>
-    </EditForm>
+    </div>
 </div>
 
 @code {
-    private readonly RegisterUserRequest _request = new();
-    private string? _error;
-    private bool _busy;
+    private readonly RegisterUserRequest request = new();
+    private string? error;
+    private bool busy;
 
-    private async Task HandleRegisterAsync()
+    /// <summary>The server hands out tokens with the new account, so a new user arrives signed in.</summary>
+    private async Task RegisterAsync()
     {
-        _busy = true;
-        _error = null;
+        busy = true;
+        error = null;
 
-        var response = await Http.PostAsJsonAsync("user/register", _request);
-        if (response.IsSuccessStatusCode)
+        error = await AuthState.RegisterAsync(request);
+        busy = false;
+
+        if (error is null)
         {
-            Navigation.NavigateTo("/login");
-            return;
+            Navigation.NavigateTo("");
         }
-
-        _error = await response.Content.ReadAsStringAsync();
-        _busy = false;
     }
 }

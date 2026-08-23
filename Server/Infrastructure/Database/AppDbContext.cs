@@ -1,13 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Server.Features.Adverts.Domain;
 using Server.Features.RealtyAgency;
+using Server.Features.RealtyAgency.Entity;
 using Server.Features.RealtyAgent;
+using Server.Features.RealtyAgent.Entity;
 using Server.Features.SRealty;
+using Server.Features.SRealty.Advert;
+using Server.Features.SRealty.Advert.Entity;
 using Server.Features.User;
 
 namespace Server.Infrastructure.Database;
 
+/// <summary>
+/// Database context of the portal, built on the Identity context. Entity configuration is picked up from the
+/// assembly rather than declared here, and saving stamps every <see cref="ITimeStampedEntity"/> on the way through.
+/// </summary>
 public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbContext> logger)
     : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>(options)
 {
@@ -17,7 +24,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<SrealityAdvertEntity> SrealityAdverts { get; set; }
     public DbSet<RealtyAgencyEntity> RealtyAgencies { get; set; }
     public DbSet<RealtyAgentEntity> RealtyAgents { get; set; }
-    public DbSet<RealtyAgencyAdminEntity> RealtyAgencyAdmins { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -25,18 +31,26 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 
+    /// <summary>Stamps the tracked entities, then saves.</summary>
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         UpdateTimeStamp();
         return await base.SaveChangesAsync(cancellationToken);
     }
 
+    /// <summary>Stamps the tracked entities, then saves.</summary>
     public override int SaveChanges()
     {
         UpdateTimeStamp();
         return base.SaveChanges();
     }
 
+    /// <summary>
+    /// Fills in the timestamps of the tracked entities and gives a new one an identifier if it arrived without one.
+    /// An identifier that is present but not a version 7 GUID is refused: those identifiers sort by creation time,
+    /// which the indexes rely on, so letting another kind through would quietly spoil them.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">An entity was submitted with an identifier that is not a version 7 GUID.</exception>
     private void UpdateTimeStamp()
     {
         var entries = ChangeTracker.Entries<ITimeStampedEntity>();

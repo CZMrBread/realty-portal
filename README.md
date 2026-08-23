@@ -1,4 +1,4 @@
-﻿# Realty portal
+# Realty portal
 A realty portal with import in format of [Sreality.cz](https://www.sreality.cz/)
 
 ## Structure

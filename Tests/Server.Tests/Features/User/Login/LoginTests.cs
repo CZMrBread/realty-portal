@@ -54,9 +54,10 @@ public class LoginTests : IClassFixture<TestWebApplicationFactory>
         response.EnsureSuccessStatusCode();
         var result = await response.Content.ReadFromJsonAsync<LoginUserResponse>();
         Assert.NotNull(result);
-        Assert.NotEmpty(result.AccessToken);
-        Assert.NotEmpty(result.RefreshToken);
-        Assert.Contains("User", result.Roles);
+        Assert.NotEmpty(result.Token.AccessToken);
+        Assert.NotEmpty(result.Token.RefreshToken);
+        // a freshly registered account holds no portal role yet
+        Assert.Empty(result.Roles);
     }
 
     private async Task RegisterUserAsync(string userName, string email)

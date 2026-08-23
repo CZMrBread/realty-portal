@@ -1,63 +1,53 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Server.Features.Adverts.Domain;
 using Server.Features.SRealty;
+using Server.Features.SRealty.Advert;
+using Server.Features.SRealty.Advert.Entity;
 
 namespace Server.Infrastructure.Database.Configuration;
 
+/// <summary>Maps the advert table: the price column, the indexes the listings are read through, and the delete rules for the agency, the agent and the photos.</summary>
 public sealed class SrealityAdvertConfiguration : IEntityTypeConfiguration<SrealityAdvertEntity>
 {
-    public void Configure(EntityTypeBuilder<SrealityAdvertEntity> b)
+    public void Configure(EntityTypeBuilder<SrealityAdvertEntity> builder)
     {
-        b.ToTable("sreality_adverts");
-        b.HasKey(a => a.Id);
+        builder.HasKey(a => a.Id);
+        builder.Property(a => a.Id).ValueGeneratedNever();
 
-        b.Property(a => a.AdvertPrice).HasColumnType("numeric(14,2)");
+        builder.Property(a => a.AdvertPrice).HasColumnType("numeric(14,2)");
 
-        // idempotence importu: klíč od RK je unikátní v rámci RK, ne globálně
-        b.HasIndex(a => new { a.RealtyAgencyId, a.AdvertRkId })
+        // makes the import idempotent: the agency key is unique within one agency, not globally
+        builder.HasIndex(a => new { a.RealtyAgencyId, a.AdvertRkId })
             .IsUnique()
-            .HasFilter("\"AdvertRkId\" IS NOT NULL");
+            .HasFilter("\"AdvertRkId\" IS NOT NULL AND \"RealtyAgencyId\" IS NOT NULL");
 
-        // hlavní výpis: kategorie + město + cena
-        b.HasIndex(a => new { a.AdvertType, a.LocalityCity, a.AdvertPrice });
+        // the main listing: category, town and price
+        builder.HasIndex(a => new { a.AdvertType, a.LocalityCity, a.AdvertPrice });
 
-        // řazení od nejnovějších v rámci kategorie
-        b.HasIndex(a => new { a.AdvertType, a.CreatedAt }).IsDescending(false, true);
+        // newest first within a category
+        builder.HasIndex(a => new { a.AdvertType, a.CreatedAt }).IsDescending(false, true);
 
-        // inzeráty kanceláře / makléře
-        b.HasIndex(a => a.RealtyAgencyId);
-        b.HasIndex(a => a.SellerId);
-        b.HasIndex(a => a.SellerRkId);
+        // adverts of one agency or one agent
+        builder.HasIndex(a => a.RealtyAgencyId);
+        builder.HasIndex(a => a.SellerId);
+        builder.HasIndex(a => a.SellerRkId);
 
-        // vazby - Restrict: smazání RK nesmí tiše odnést inzeráty;
-        // SetNull: odchod makléře inzeráty nechává
-        b.HasOne(a => a.Agency)
+        // relations - Restrict: deleting an agency must not quietly take its adverts with it;
+        // SetNull: an agent leaving keeps the adverts in place
+        builder.HasOne(a => a.Agency)
             .WithMany()
             .HasForeignKey(a => a.RealtyAgencyId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        b.HasOne(a => a.Seller)
-            .WithMany()
+        builder.HasOne(a => a.Seller)
+            .WithMany(s => s.SRealtyProperties)
             .HasForeignKey(a => a.SellerId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        // fotky žijí a umírají s inzerátem
-        b.HasMany(a => a.Photos)
+        // photos live and die with the advert
+        builder.HasMany(a => a.Photos)
             .WithOne(p => p.Advert)
             .HasForeignKey(p => p.SrealityAdvertId)
             .OnDelete(DeleteBehavior.Cascade);
-    }
-}
-
-public sealed class SrealityAdvertPhotoConfiguration : IEntityTypeConfiguration<SrealityAdvertPhoto>
-{
-    public void Configure(EntityTypeBuilder<SrealityAdvertPhoto> b)
-    {
-        b.ToTable("sreality_advert_photos");
-        b.HasKey(p => p.Id);
-
-        // galerie se čte celá najednou, pořadí drží Order
-        b.HasIndex(p => new { p.SrealityAdvertId, p.Order }).IsUnique();
     }
 }

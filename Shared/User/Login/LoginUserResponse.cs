@@ -1,5 +1,6 @@
 namespace Shared.User.Login;
 
+/// <summary>Account details and tokens returned after a successful sign-in.</summary>
 public sealed record LoginUserResponse
 {
     public Guid Id { get; set; }
@@ -7,8 +8,5 @@ public sealed record LoginUserResponse
     public string? Email { get; set; } = string.Empty;
     public IList<string> Roles { get; set; } = new List<string>();
     
-    public string AccessToken { get; set; } = string.Empty;
-    public string RefreshToken { get; set; } = string.Empty;
-    public DateTimeOffset AccessTokenExpiration { get; set; }
-    public DateTimeOffset RefreshTokenExpiration { get; set; }
+    public TokenResponse Token { get; set; }
 }

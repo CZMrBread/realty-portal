@@ -1,12 +1,4 @@
 
-.invalid {
-    outline: 1px solid red;
-}
-
-.validation-message {
-    color: red;
-}
-
 #blazor-error-ui {
     color-scheme: light only;
     background: lightyellow;
