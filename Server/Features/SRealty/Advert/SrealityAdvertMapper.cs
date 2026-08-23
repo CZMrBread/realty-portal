@@ -1,4 +1,4 @@
-﻿using Riok.Mapperly.Abstractions;
+using Riok.Mapperly.Abstractions;
 using Server.Features.SRealty.Advert.Entity;
 using Shared.SRealty.Advert;
 

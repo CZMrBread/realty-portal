@@ -1,4 +1,4 @@
-﻿using Client.Features.User;
+using Client.Features.User;
 using Client.Tests.TestDoubles;
 using Shared.RealtyAgent;
 using Shared.User;

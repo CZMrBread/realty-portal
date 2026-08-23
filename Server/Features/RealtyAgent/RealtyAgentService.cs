@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Server.Features.RealtyAgent.Entity;
 using Server.Infrastructure.Database;
 

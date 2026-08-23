@@ -1,4 +1,4 @@
-﻿using Server.Features.RealtyAgency;
+using Server.Features.RealtyAgency;
 using Server.Features.RealtyAgency.Entity;
 using Server.Features.RealtyAgent;
 using Server.Features.RealtyAgent.Entity;
