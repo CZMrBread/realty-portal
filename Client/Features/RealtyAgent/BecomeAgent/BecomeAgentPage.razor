@@ -1,0 +1,79 @@
+@page "/agent/become"
+@using Client.Features.RealtyAgent
+@inject RealtyAgentApiClient RealtyAgents
+@inject AuthStateService AuthState
+@inject NavigationManager Navigation
+
+<PageTitle>Become an agent</PageTitle>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="h4 card-title mb-3">Become a realty agent</h1>
+
+                    @if (!AuthState.IsAuthenticated)
+                    {
+                        <p>You have to be signed in to take on an agent profile.</p>
+                        <a class="btn btn-primary" href="login?returnUrl=agent%2Fbecome">Sign in</a>
+                    }
+                    else if (AuthState.IsAgent)
+                    {
+                        <p class="mb-3">You are already a realty agent on this portal.</p>
+                        <a class="btn btn-primary" href="srealty">Go to the adverts</a>
+                    }
+                    else
+                    {
+                        <p>
+                            An agent profile lets you publish and manage adverts. You start without an agency;
+                            joining one is a separate step.
+                        </p>
+
+                        @if (error is not null)
+                        {
+                            <div class="alert alert-danger" role="alert">@error</div>
+                        }
+
+                        <button class="btn btn-primary" type="button" disabled="@busy" @onclick="BecomeAgentAsync">
+                            @if (busy)
+                            {
+                                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                            }
+                            Become an agent
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string? error;
+    private bool busy;
+
+    protected override async Task OnInitializedAsync() => await AuthState.InitializeAsync();
+
+    /// <summary>
+    /// The new role travels in the access token, so the token has to be renewed before the portal will show
+    /// the agent parts. Without that the agent pages would stay shut until the current token ran out.
+    /// </summary>
+    private async Task BecomeAgentAsync()
+    {
+        busy = true;
+        error = null;
+
+        var (response, failure) = await RealtyAgents.BecomeAgentAsync();
+        if (response is null)
+        {
+            error = failure ?? "Taking on an agent profile failed.";
+            busy = false;
+            return;
+        }
+
+        await AuthState.TryRefreshAsync(force: true);
+        busy = false;
+        Navigation.NavigateTo("srealty");
+    }
+}

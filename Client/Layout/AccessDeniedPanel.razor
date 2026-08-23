@@ -1,0 +1,12 @@
+<div class="container py-5">
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Not for you</h4>
+        <p class="mb-0">@Explanation</p>
+    </div>
+    <a class="btn btn-primary" href="">Back to the front page</a>
+</div>
+
+@code {
+    /// <summary>What the visitor would need in order to see the page.</summary>
+    [Parameter] public string Explanation { get; set; } = "Your account does not have access to this part of the portal.";
+}

@@ -1,0 +1,31 @@
+@typeparam TValue
+@inherits FormFieldBase<TValue>
+
+@*
+    A set of radios, one of which is chosen. The options go inside as RadioOption:
+
+        <RadioGroupField Label="Offer" @bind-Value="advert.Function">
+            <RadioOption TValue="AdvertFunctionEnum" Value="AdvertFunctionEnum.Sale" Label="For sale"/>
+            <RadioOption TValue="AdvertFunctionEnum" Value="AdvertFunctionEnum.Rent" Label="To let"/>
+        </RadioGroupField>
+*@
+
+<fieldset class="@WrapperClass">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <legend class="form-label fs-6">@Label</legend>
+    }
+
+    <InputRadioGroup TValue="TValue" Name="@FieldId"
+                     Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression"
+                     @attributes="ControlAttributes">
+        @ChildContent
+    </InputRadioGroup>
+
+    <FieldFeedback Messages="@ValidationMessages" Help="@Help"/>
+</fieldset>
+
+@code {
+    /// <summary>The choices, as RadioOption elements.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

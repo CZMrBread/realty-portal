@@ -1,0 +1,17 @@
+@typeparam TValue
+@inherits FormFieldBase<TValue>
+
+@* A date or a time. TValue may be DateOnly, TimeOnly, DateTime, DateTimeOffset, or the nullable form of any. *@
+
+<div class="form-floating @WrapperClass">
+    <InputDate TValue="TValue" id="@FieldId" class="@ControlClass" placeholder="@PlaceholderText" Type="@Type"
+               Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression"
+               @attributes="ControlAttributes"/>
+    <label for="@FieldId">@Label</label>
+    <FieldFeedback Messages="@ValidationMessages" Help="@Help"/>
+</div>
+
+@code {
+    /// <summary>Which picker the browser shows: a date, a date with a time, a month or a time.</summary>
+    [Parameter] public InputDateType Type { get; set; } = InputDateType.Date;
+}

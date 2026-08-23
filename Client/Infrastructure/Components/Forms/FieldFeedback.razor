@@ -1,0 +1,25 @@
+@* Error messages of one field, or its help text while there is nothing wrong. *@
+
+@if (messages.Count > 0)
+{
+    <div class="invalid-feedback d-block">
+        @foreach (var message in messages)
+        {
+            <div>@message</div>
+        }
+    </div>
+}
+else if (!string.IsNullOrEmpty(Help))
+{
+    <div class="form-text">@Help</div>
+}
+
+@code {
+    private IReadOnlyList<string> messages = [];
+
+    [Parameter] public IEnumerable<string>? Messages { get; set; }
+
+    [Parameter] public string? Help { get; set; }
+
+    protected override void OnParametersSet() => messages = Messages?.ToArray() ?? [];
+}

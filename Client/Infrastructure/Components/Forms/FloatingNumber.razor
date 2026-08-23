@@ -1,0 +1,12 @@
+@typeparam TValue
+@inherits FormFieldBase<TValue>
+
+@* A number. TValue may be int, long, short, float, double or decimal, and the nullable form of any of them. *@
+
+<div class="form-floating @WrapperClass">
+    <InputNumber TValue="TValue" id="@FieldId" class="@ControlClass" placeholder="@PlaceholderText"
+                 Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression"
+                 @attributes="ControlAttributes"/>
+    <label for="@FieldId">@Label</label>
+    <FieldFeedback Messages="@ValidationMessages" Help="@Help"/>
+</div>

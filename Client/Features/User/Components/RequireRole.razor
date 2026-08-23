@@ -1,0 +1,27 @@
+﻿@implements IDisposable
+@inject AuthStateService AuthState
+
+@if (AuthState.IsInRole(Role))
+{
+    @ChildContent
+}
+else
+{
+    @NotPermitted
+}
+
+@code {
+    /// <summary>Portal role the visitor has to hold, one of <see cref="UserRoles"/>.</summary>
+    [Parameter] [EditorRequired] public string Role { get; set; } = string.Empty;
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Shown instead when the visitor does not hold the role. Nothing is drawn when it is left out.</summary>
+    [Parameter] public RenderFragment? NotPermitted { get; set; }
+
+    protected override void OnInitialized() => AuthState.AuthStateChanged += Redraw;
+
+    private void Redraw() => InvokeAsync(StateHasChanged);
+
+    public void Dispose() => AuthState.AuthStateChanged -= Redraw;
+}

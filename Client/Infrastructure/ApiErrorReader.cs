@@ -1,0 +1,72 @@
+using System.Net;
+using System.Net.Http.Json;
+using System.Text.Json;
+
+namespace Client.Infrastructure;
+
+/// <summary>
+/// Turns a refused response into a message a form can show. The server answers every refusal as an RFC 9457
+/// problem document, so there is one shape to read: <c>errors</c> when validation turned the request away,
+/// otherwise an <c>errorCode</c> naming exactly which refusal it was. The code is what the text is looked up
+/// by, since the server has no idea what language the reader wants; <c>detail</c> is only a fallback for a
+/// refusal this client has no wording for yet.
+/// </summary>
+public static class ApiErrorReader
+{
+    public static async Task<string> ReadMessageAsync(HttpResponseMessage response)
+    {
+        try
+        {
+            var problem = await response.Content.ReadFromJsonAsync<JsonElement>();
+            if (problem.ValueKind == JsonValueKind.Object)
+            {
+                return ReadValidationErrors(problem)
+                       ?? ReadErrorCode(problem)
+                       ?? ReadString(problem, "detail")
+                       ?? ReadString(problem, "title")
+                       ?? StatusFallback(response.StatusCode);
+            }
+        }
+        catch (Exception)
+        {
+            // not JSON, or an empty body: fall through to the status line
+        }
+
+        return StatusFallback(response.StatusCode);
+    }
+
+    /// <summary>The validation messages, one per line, or null when the response is not a validation problem.</summary>
+    private static string? ReadValidationErrors(JsonElement problem)
+    {
+        if (!problem.TryGetProperty("errors", out var errors) || errors.ValueKind != JsonValueKind.Object)
+        {
+            return null;
+        }
+
+        var messages = errors.EnumerateObject()
+            .SelectMany(field => field.Value.ValueKind == JsonValueKind.Array
+                ? field.Value.EnumerateArray().Where(m => m.ValueKind == JsonValueKind.String).Select(m => m.GetString()!)
+                : [])
+            .ToArray();
+
+        return messages.Length == 0 ? null : string.Join(Environment.NewLine, messages);
+    }
+
+    private static string? ReadErrorCode(JsonElement problem)
+    {
+        var code = ReadString(problem, "errorCode");
+        return code is null ? null : ApiErrorMessages.Resolve(code);
+    }
+
+    private static string? ReadString(JsonElement problem, string name)
+        => problem.TryGetProperty(name, out var value) && value.ValueKind == JsonValueKind.String
+            ? value.GetString()
+            : null;
+
+    private static string StatusFallback(HttpStatusCode statusCode) => statusCode switch
+    {
+        HttpStatusCode.Unauthorized => "Wrong email or password.",
+        HttpStatusCode.Forbidden => "You are not allowed to do that.",
+        _ => $"The server refused the request ({(int)statusCode})."
+    };
+}

@@ -1,0 +1,16 @@
+@inherits FormFieldBase<string>
+
+@* Several lines of text. A floating label needs the box to be given a height, or it collapses to one row. *@
+
+<div class="form-floating @WrapperClass">
+    <InputTextArea id="@FieldId" class="@ControlClass" placeholder="@PlaceholderText" style="@($"height: {Height}")"
+                   Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression"
+                   @attributes="ControlAttributes"/>
+    <label for="@FieldId">@Label</label>
+    <FieldFeedback Messages="@ValidationMessages" Help="@Help"/>
+</div>
+
+@code {
+    /// <summary>Height of the box, as a CSS length. Bootstrap gives a floating textarea no height of its own.</summary>
+    [Parameter] public string Height { get; set; } = "8rem";
+}

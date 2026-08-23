@@ -1,0 +1,81 @@
+﻿@implements IDisposable
+@inject AuthStateService AuthState
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="">Realty Portal</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="srealty">Adverts</a>
+                </li>
+                <RequireAgentRole>
+                    <li class="nav-item">
+                        <a class="nav-link" href="srealty/create">New advert</a>
+                    </li>
+                </RequireAgentRole>
+                <RequireRole Role="@UserRoles.SuperAdmin">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin">Administration</a>
+                    </li>
+                </RequireRole>
+            </ul>
+
+            <ul class="navbar-nav">
+                @if (AuthState.IsAuthenticated)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> @AuthState.UserName
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            @if (!AuthState.IsAgent)
+                            {
+                                <li><a class="dropdown-item" href="agent/become">Become an agent</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            }
+                            <li>
+                                <button class="dropdown-item" type="button" @onclick="SignOutAsync">
+                                    <i class="bi bi-box-arrow-right"></i> Sign out
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="login">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register">Register</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        AuthState.AuthStateChanged += Redraw;
+        await AuthState.InitializeAsync();
+    }
+
+    private async Task SignOutAsync() => await AuthState.SignOutAsync();
+
+    private void Redraw() => InvokeAsync(StateHasChanged);
+
+    public void Dispose() => AuthState.AuthStateChanged -= Redraw;
+}

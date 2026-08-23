@@ -1,0 +1,30 @@
+@typeparam TValue
+@inherits FormFieldBase<TValue>
+
+@*
+    A drop-down. The options are yours to write, since only the caller knows what they are:
+
+        <FloatingSelect Label="Type" @bind-Value="advert.Type">
+            <option value="">Choose one</option>
+            @foreach (var type in types) { <option value="@type">@type</option> }
+        </FloatingSelect>
+
+    A select carries no placeholder: Bootstrap floats the label of a select whether it holds a value or not.
+*@
+
+<div class="form-floating @WrapperClass">
+    <InputSelect TValue="TValue" id="@FieldId" class="@ControlClass"
+                 Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression"
+                 @attributes="ControlAttributes">
+        @ChildContent
+    </InputSelect>
+    <label for="@FieldId">@Label</label>
+    <FieldFeedback Messages="@ValidationMessages" Help="@Help"/>
+</div>
+
+@code {
+    protected override string ControlBaseClass => "form-select";
+
+    /// <summary>The option elements of the drop-down.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

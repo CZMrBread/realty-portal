@@ -1,0 +1,16 @@
+@inherits FormFieldBase<string>
+
+@* Single line of text: the plain kind, an email, a password, a telephone number. *@
+
+<div class="form-floating @WrapperClass">
+    <InputText id="@FieldId" type="@Type" class="@ControlClass" placeholder="@PlaceholderText"
+               Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression"
+               @attributes="ControlAttributes"/>
+    <label for="@FieldId">@Label</label>
+    <FieldFeedback Messages="@ValidationMessages" Help="@Help"/>
+</div>
+
+@code {
+    /// <summary>Type of the input: text, email, password, tel, url, search.</summary>
+    [Parameter] public string Type { get; set; } = "text";
+}

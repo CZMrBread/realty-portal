@@ -1,0 +1,37 @@
+@using Shared.RealtyAgent
+@implements IDisposable
+@inject AuthStateService AuthState
+
+@if (IsPermitted)
+{
+    @ChildContent
+}
+else
+{
+    @NotPermitted
+}
+
+@code {
+    /// <summary>
+    /// Agent role the visitor has to hold. <see cref="AgentRoleEnum.Agent"/> admits every agent, an agency
+    /// administrator included, since an administrator may do everything a plain agent may.
+    /// </summary>
+    [Parameter] public AgentRoleEnum Role { get; set; } = AgentRoleEnum.Agent;
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Shown instead when the visitor does not hold the role. Nothing is drawn when it is left out.</summary>
+    [Parameter] public RenderFragment? NotPermitted { get; set; }
+
+    private bool IsPermitted => Role switch
+    {
+        AgentRoleEnum.AgencyAdmin => AuthState.IsAgencyAdmin,
+        _ => AuthState.IsAgent
+    };
+
+    protected override void OnInitialized() => AuthState.AuthStateChanged += Redraw;
+
+    private void Redraw() => InvokeAsync(StateHasChanged);
+
+    public void Dispose() => AuthState.AuthStateChanged -= Redraw;
+}

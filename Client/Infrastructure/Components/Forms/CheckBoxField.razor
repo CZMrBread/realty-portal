@@ -1,0 +1,32 @@
+@inherits FormFieldBase<bool>
+
+@*
+    A single tick box. Bootstrap has no floating form of one, so this is a form-check rather than a
+    form-floating and the label sits beside the box instead of over it.
+*@
+
+<div class="@WrapperClass">
+    <div class="form-check">
+        <InputCheckbox id="@FieldId" class="@ControlClass"
+                       Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression"
+                       @attributes="ControlAttributes"/>
+        <label class="form-check-label" for="@FieldId">
+            @if (ChildContent is not null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                @Label
+            }
+        </label>
+    </div>
+    <FieldFeedback Messages="@ValidationMessages" Help="@Help"/>
+</div>
+
+@code {
+    protected override string ControlBaseClass => "form-check-input";
+
+    /// <summary>Label content, for when it needs more than plain text, a link to the terms for instance.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}
