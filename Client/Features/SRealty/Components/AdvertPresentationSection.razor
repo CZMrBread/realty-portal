@@ -1,0 +1,42 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Presentation.cs: the wording of the advert and the links that go with it. *@
+
+<FloatingTextArea Label="Popis" Height="12rem" @bind-Value="Model.Description"/>
+
+<div class="row">
+    <div class="col-md-6">
+        <FloatingTextArea Label="Popis (anglicky)" @bind-Value="Model.DescriptionEn"/>
+    </div>
+    <div class="col-md-6">
+        <FloatingTextArea Label="Popis (rusky)" @bind-Value="Model.DescriptionRu"/>
+    </div>
+</div>
+
+<FloatingText Label="Klíčová slova" Value="@KeywordsText" ValueChanged="SetKeywords"
+              ValueExpression="@(() => KeywordsText)" Help="Oddělujte čárkou."/>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingNumber Label="Panorama" @bind-Value="Model.Panorama"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Odkaz na panorama Mapy.cz" Type="url" @bind-Value="Model.MapyPanoramaUrl"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Odkaz na Matterport" Type="url" @bind-Value="Model.MatterportUrl"/>
+    </div>
+</div>
+
+@code {
+    /// <summary>The keywords as one line, which is the only sensible way to type a list into a text box.</summary>
+    private string? KeywordsText => Model.Keywords is null ? null : string.Join(", ", Model.Keywords);
+
+    private void SetKeywords(string? text)
+    {
+        var keywords = (text ?? string.Empty)
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+        Model.Keywords = keywords.Length == 0 ? null : keywords;
+    }
+}

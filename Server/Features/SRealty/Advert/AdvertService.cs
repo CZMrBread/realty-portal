@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
+using Server.Features.Ruian;
 using Server.Features.SRealty.Advert.Entity;
 using Server.Infrastructure.Database;
+using Server.Infrastructure.Database.Configuration;
 using Shared.Shared;
+using Shared.Shared.Extensions;
+using Shared.SRealty.Advert.Enums;
 using Shared.SRealty.Advert.ListAdverts;
 
 namespace Server.Features.SRealty.Advert;
@@ -12,7 +16,7 @@ namespace Server.Features.SRealty.Advert;
 /// detail, and that is cached as a whole response by <see cref="AdvertOutputCachePolicy"/>. All this
 /// service owes the cache is an eviction after a write.
 /// </summary>
-public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore outputCache)
+public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore outputCache, RuianService ruianService)
 {
     // --- Get ---
 
@@ -36,33 +40,55 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
                 cancellationToken);
     }
 
-    /// <summary>One page of the adverts matching the filter.</summary>
-    public Task<PagedResult<SrealityAdvertEntity>> GetAdvertsAsync(AdvertFilter filter, int page, int pageSize, CancellationToken cancellationToken=default)
-        => throw new NotImplementedException();
+    /// <summary>One page of the adverts still on offer that match the filter, in the requested order. Untracked.</summary>
+    public async Task<PagedResult<SrealityAdvertEntity>> GetAdvertsAsync(AdvertFilter filter, AdvertSortEnum sort,
+        int page, int pageSize, CancellationToken cancellationToken = default)
+    {
+        var query = ApplyFilter(appDbContext.SrealityAdverts.AsNoTracking(), filter);
+        var totalCount = await query.CountAsync(cancellationToken);
+        var items = await ApplySort(query, sort)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken);
+        return new PagedResult<SrealityAdvertEntity>(items, page, pageSize, totalCount);
+    }
 
     /// <summary>One page of the adverts belonging to a single agency.</summary>
-    public Task<PagedResult<SrealityAdvertEntity>> GetAgencyAdvertsAsync(Guid realtyAgencyId, int page, int pageSize, CancellationToken cancellationToken=default)
-        => throw new NotImplementedException();
+    public async Task<PagedResult<SrealityAdvertEntity>> GetAgencyAdvertsAsync(Guid realtyAgencyId, int page,
+        int pageSize,
+        CancellationToken cancellationToken = default)
+    {
+        var query = appDbContext.SrealityAdverts.AsNoTracking()
+            .Where(a => a.RealtyAgencyId == realtyAgencyId).Skip((page - 1) * pageSize).Take(pageSize);
+        return await query.ToPagedResultAsync(page, pageSize, cancellationToken);
+    }
 
     /// <summary>One page of the adverts a single agent is named on as the seller.</summary>
-    public Task<PagedResult<SrealityAdvertEntity>> GetSellerAdvertsAsync(Guid sellerId, int page, int pageSize, CancellationToken cancellationToken=default)
-        => throw new NotImplementedException();
+    public async Task<PagedResult<SrealityAdvertEntity>> GetSellerAdvertsAsync(Guid sellerId, int page, int pageSize,
+        CancellationToken cancellationToken = default)
+    {
+        var query = appDbContext.SrealityAdverts.AsNoTracking()
+            .Where(a => a.SellerId == sellerId).Skip((page - 1) * pageSize).Take(pageSize);
+        return await query.ToPagedResultAsync(page, pageSize, cancellationToken);
+    }
 
     // --- Create / Update / Delete ---
 
-    /// <summary>Stores a new advert.</summary>
+    /// <summary>Stores a new advert, placed in its municipality first.</summary>
     public async Task<SrealityAdvertEntity> CreateAdvertAsync(SrealityAdvertEntity advert,
         CancellationToken cancellationToken = default)
     {
+        await ResolveLocalityAsync(advert, cancellationToken);
         appDbContext.SrealityAdverts.Add(advert);
         await appDbContext.SaveChangesAsync(cancellationToken);
         return advert;
     }
 
-    /// <summary>Saves the tracked changes to an advert and drops the cached response for it.</summary>
+    /// <summary>Saves the tracked changes to an advert, placing it in its municipality again since the address may have changed, and drops the cached response for it.</summary>
     public async Task<SrealityAdvertEntity> UpdateAdvertAsync(SrealityAdvertEntity advert,
         CancellationToken cancellationToken = default)
     {
+        await ResolveLocalityAsync(advert, cancellationToken);
         await appDbContext.SaveChangesAsync(cancellationToken);
         await outputCache.EvictByTagAsync(AdvertOutputCachePolicy.Tag(advert.Id), cancellationToken);
         return advert;
@@ -74,5 +100,157 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
         appDbContext.SrealityAdverts.Remove(advert);
         await appDbContext.SaveChangesAsync(cancellationToken);
         await outputCache.EvictByTagAsync(AdvertOutputCachePolicy.Tag(advert.Id), cancellationToken);
+    }
+
+    // --- Listing ---
+
+    /// <summary>The query narrowed by every criterion the filter names. Expired adverts are left out regardless, since the listing is what the public sees.</summary>
+    private static IQueryable<SrealityAdvertEntity> ApplyFilter(IQueryable<SrealityAdvertEntity> query,
+        AdvertFilter filter)
+    {
+        var now = DateTimeOffset.UtcNow;
+        query = query.Where(a => a.ExpiresAt > now);
+
+        if (filter.AdvertFunction is { } advertFunction)
+        {
+            query = query.Where(a => a.AdvertFunction == advertFunction);
+        }
+
+        if (filter.AdvertType is { } advertType)
+        {
+            query = query.Where(a => a.AdvertType == advertType);
+        }
+
+        if (filter.AdvertSubtypes is { Length: > 0 } subtypes)
+        {
+            query = query.Where(a => subtypes.Contains(a.AdvertSubtype));
+        }
+
+        if (!string.IsNullOrWhiteSpace(filter.LocalityCity))
+        {
+            var city = filter.LocalityCity.Trim().ToLower();
+            query = query.Where(a => a.LocalityCity.ToLower().StartsWith(city));
+        }
+
+        if (filter.RegionCode is { } regionCode)
+        {
+            query = query.Where(a => a.LocalityDistrict!.RegionCode == regionCode);
+        }
+
+        if (filter.DistrictCode is { } districtCode)
+        {
+            query = query.Where(a => a.LocalityDistrictCode == districtCode);
+        }
+
+        if (filter.MunicipalityCode is { } municipalityCode)
+        {
+            query = query.Where(a => a.LocalityMunicipalityCode == municipalityCode);
+        }
+
+        if (filter.PriceFrom is { } priceFrom)
+        {
+            query = query.Where(a => a.AdvertPrice >= priceFrom);
+        }
+
+        if (filter.PriceTo is { } priceTo)
+        {
+            query = query.Where(a => a.AdvertPrice <= priceTo);
+        }
+
+        // which area counts depends on the type: land has no usable area, only the estate itself
+        if (filter.AreaFrom is { } areaFrom)
+        {
+            query = query.Where(a =>
+                (a.AdvertType == AdvertTypeEnum.Land ? a.EstateArea : a.UsableArea) >= areaFrom);
+        }
+
+        if (filter.AreaTo is { } areaTo)
+        {
+            query = query.Where(a =>
+                (a.AdvertType == AdvertTypeEnum.Land ? a.EstateArea : a.UsableArea) <= areaTo);
+        }
+
+        if (filter.BuildingConditions is { Length: > 0 } conditions)
+        {
+            query = query.Where(a => a.BuildingCondition != null && conditions.Contains(a.BuildingCondition.Value));
+        }
+
+        if (!string.IsNullOrWhiteSpace(filter.Search))
+        {
+            var search = filter.Search.Trim();
+            query = query.Where(a => a.SearchVector!.Matches(
+                EF.Functions.PlainToTsQuery(SrealityAdvertConfiguration.TextSearchConfiguration, search)));
+        }
+
+        return query;
+    }
+
+    /// <summary>The query in the requested order, with the newest advert first among equals so that paging stays stable.</summary>
+    private static IOrderedQueryable<SrealityAdvertEntity> ApplySort(IQueryable<SrealityAdvertEntity> query,
+        AdvertSortEnum sort)
+    {
+        var ordered = sort switch
+        {
+            AdvertSortEnum.RecentlyUpdated => query.OrderByDescending(a => a.UpdatedAt),
+            AdvertSortEnum.PriceAscending => query.OrderBy(a => a.AdvertPrice),
+            AdvertSortEnum.PriceDescending => query.OrderByDescending(a => a.AdvertPrice),
+            AdvertSortEnum.AreaAscending => query.OrderBy(a =>
+                a.AdvertType == AdvertTypeEnum.Land ? a.EstateArea : a.UsableArea),
+            AdvertSortEnum.AreaDescending => query.OrderByDescending(a =>
+                a.AdvertType == AdvertTypeEnum.Land ? a.EstateArea : a.UsableArea),
+            _ => query.OrderByDescending(a => a.CreatedAt)
+        };
+        return ordered.ThenByDescending(a => a.Id);
+    }
+
+    // --- Locality ---
+
+    /// <summary>
+    /// Places the advert in the register: by the RUIAN code when the agency sent one at municipality or district
+    /// level, and by the town name otherwise, since a street- or address-level code cannot be translated without
+    /// the whole register. Whatever cannot be matched is left null and the advert simply stays out of the
+    /// region and district filters.
+    /// </summary>
+    private async Task ResolveLocalityAsync(SrealityAdvertEntity advert, CancellationToken cancellationToken)
+    {
+        advert.LocalityMunicipalityCode = null;
+        advert.LocalityDistrictCode = null;
+
+        if (advert.LocalityRuian is { } code)
+        {
+            switch (advert.LocalityRuianLevel)
+            {
+                case RuianLevelEnum.Municipality:
+                {
+                    var municipality = await ruianService.FindMunicipalityByCodeAsync(code, cancellationToken);
+                    if (municipality is not null)
+                    {
+                        advert.LocalityMunicipalityCode = municipality.Code;
+                        advert.LocalityDistrictCode = municipality.DistrictCode;
+                        return;
+                    }
+
+                    break;
+                }
+                case RuianLevelEnum.District:
+                {
+                    var district = await ruianService.FindDistrictByCodeAsync(code, cancellationToken);
+                    if (district is not null)
+                    {
+                        advert.LocalityDistrictCode = district.Code;
+                        return;
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        var byName = await ruianService.FindMunicipalityByNameAsync(advert.LocalityCity, cancellationToken);
+        if (byName is not null)
+        {
+            advert.LocalityMunicipalityCode = byName.Code;
+            advert.LocalityDistrictCode = byName.DistrictCode;
+        }
     }
 }

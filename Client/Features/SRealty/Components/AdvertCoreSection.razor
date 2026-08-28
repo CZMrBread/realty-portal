@@ -1,0 +1,56 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Core.cs: what the advert is and who is selling it. *@
+
+<div class="row">
+    <div class="col-md-4">
+        <EnumSelect TEnum="AdvertFunctionEnum" Label="Typ nabídky" @bind-Value="Model.AdvertFunction"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="AdvertTypeEnum" Label="Kategorie" @bind-Value="Model.AdvertType"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="AdvertSubtypeEnum" Label="Podkategorie" @bind-Value="Model.AdvertSubtype"
+                    Filter="@(subtype => Model.AdvertType is null || subtype.IsValidSubtype(Model.AdvertType.Value))"
+                    Help="Nabídka se řídí zvolenou kategorií."/>
+    </div>
+</div>
+
+<div class="row">
+    @if (Shows(nameof(SrealityAdvertDto.AdvertRoomCount)))
+    {
+        <div class="col-md-4">
+            <EnumSelect TEnum="AdvertRoomCountEnum" Label="Počet místností" @bind-Value="Model.AdvertRoomCount"/>
+        </div>
+    }
+    <div class="col-md-4">
+        <EnumSelect TEnum="AdvertLifetimeEnum" Label="Doba platnosti" @bind-Value="Model.AdvertLifetime"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="ExtraInfoEnum" Label="Doplňující stav" @bind-Value="Model.ExtraInfo"
+                    Help="Rezervováno nebo prodáno u inzerátu, který má zůstat vidět."/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingText Label="Číslo inzerátu v RK" @bind-Value="Model.AdvertRkId"
+                      Help="Klíč inzerátu ve vlastním systému kanceláře."/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Kód inzerátu" @bind-Value="Model.AdvertCode"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Makléř – klíč v RK" @bind-Value="Model.SellerRkId"
+                      Help="Označení makléře v systému kanceláře."/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <CheckBoxRevealField Label="Inzerát je aktivní" @bind-Value="Model.UserStatus"/>
+    </div>
+    <div class="col-md-6">
+        <CheckBoxRevealField Label="Exkluzivně u kanceláře" @bind-Value="Model.ExclusivelyAtRk"/>
+    </div>
+</div>

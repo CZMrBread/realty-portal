@@ -9,8 +9,11 @@ namespace Shared.Shared.Attributes;
 [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
 public class RequiredIfValueAttribute : ValidationAttribute
 {
-    private string PropertyName { get; }
-    private object?[] Values { get; }
+    /// <summary>Name of the property that decides whether this one is required.</summary>
+    public string PropertyName { get; }
+
+    /// <summary>Values of that property which make this one required.</summary>
+    public object?[] Values { get; }
 
     /// <summary>Creates the attribute.</summary>
     /// <param name="propertyName">Name of the property that decides whether this one is required.</param>

@@ -1,5 +1,129 @@
-@* Reused within the SRealty feature: the advert form used by CreateAdvert and UpdateAdvert. *@
+@implements IDisposable
+@*
+    Reused within the SRealty feature: the advert form used by CreateAdvert and UpdateAdvert. One card per
+    partial of SrealityAdvertDto, so a field is looked for in the form where it is declared in the model.
+*@
 
-<div>
-    @* TODO: rebuild the advert form (previously Components/SRealty/SRealtyPropertyForm.razor) *@
-</div>
+<BootstrapEditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator/>
+
+    <AdvertFormCard Title="Základní údaje">
+        <AdvertCoreSection Model="Model"/>
+    </AdvertFormCard>
+
+    <AdvertFormCard Title="Lokalita">
+        <AdvertLocationSection Model="Model"/>
+    </AdvertFormCard>
+
+    <AdvertFormCard Title="Cena">
+        <AdvertPriceSection Model="Model"/>
+    </AdvertFormCard>
+
+    @if (Model.AdvertFunction is AdvertFunctionEnum.Auction)
+    {
+        <AdvertFormCard Title="Dražba">
+            <AdvertAuctionSection Model="Model"/>
+        </AdvertFormCard>
+    }
+
+    <AdvertFormCard Title="Plochy">
+        <AdvertAreasSection Model="Model"/>
+    </AdvertFormCard>
+
+    <AdvertFormCard Title="Budova">
+        <AdvertBuildingSection Model="Model"/>
+    </AdvertFormCard>
+
+    <AdvertFormCard Title="Vybavení">
+        <AdvertAmenitiesSection Model="Model"/>
+    </AdvertFormCard>
+
+    <AdvertFormCard Title="Sítě a topení">
+        <AdvertUtilitiesSection Model="Model"/>
+    </AdvertFormCard>
+
+    <AdvertFormCard Title="Energetická náročnost">
+        <AdvertEnergySection Model="Model"/>
+    </AdvertFormCard>
+
+    <AdvertFormCard Title="Vlastnictví">
+        <AdvertOwnershipSection Model="Model"/>
+    </AdvertFormCard>
+
+    <AdvertFormCard Title="Termíny">
+        <AdvertAvailabilitySection Model="Model"/>
+    </AdvertFormCard>
+
+    <AdvertFormCard Title="Popis a prezentace">
+        <AdvertPresentationSection Model="Model"/>
+    </AdvertFormCard>
+
+    @if (Error is not null)
+    {
+        <div class="alert alert-danger" role="alert">@Error</div>
+    }
+
+    <div class="d-flex gap-2 mb-5">
+        <button class="btn btn-primary" type="submit" disabled="@Busy">
+            @if (Busy)
+            {
+                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+            }
+            @SubmitLabel
+        </button>
+        @ChildContent
+    </div>
+</BootstrapEditForm>
+
+@code {
+    private EditContext? editContext;
+
+    [Parameter] [EditorRequired] public SrealityAdvertDto Model { get; set; } = default!;
+
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    [Parameter] public string SubmitLabel { get; set; } = "Uložit inzerát";
+
+    [Parameter] public bool Busy { get; set; }
+
+    /// <summary>Message shown above the buttons, for a failure the server reported.</summary>
+    [Parameter] public string? Error { get; set; }
+
+    /// <summary>Further buttons beside the submit one, a cancel link for instance.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// The context is built here rather than left to the form, because the form has to watch it: which fields
+    /// the sections show follows from the category and the function, so both have to redraw the whole form.
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        if (editContext is not null && ReferenceEquals(editContext.Model, Model))
+        {
+            return;
+        }
+
+        Unsubscribe();
+        editContext = new EditContext(Model);
+        editContext.OnFieldChanged += FieldChanged;
+    }
+
+    public void Dispose() => Unsubscribe();
+
+    private void Unsubscribe()
+    {
+        if (editContext is not null)
+        {
+            editContext.OnFieldChanged -= FieldChanged;
+        }
+    }
+
+    private void FieldChanged(object? sender, FieldChangedEventArgs args)
+    {
+        if (args.FieldIdentifier.FieldName is nameof(SrealityAdvertDto.AdvertType)
+            or nameof(SrealityAdvertDto.AdvertFunction))
+        {
+            StateHasChanged();
+        }
+    }
+}

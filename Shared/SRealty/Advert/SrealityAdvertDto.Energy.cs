@@ -20,5 +20,5 @@ public sealed partial record SrealityAdvertDto
 
     /// <summary>Whether the building is offered as a low-energy one.</summary>
     [JsonPropertyName("advert_low_energy")]
-    public bool? AdvertLowEnergy { get; set; }
+    public bool AdvertLowEnergy { get; set; } = false;
 }

@@ -1,0 +1,23 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Availability.cs: when the property can be taken over and when it can be seen. *@
+
+<div class="row">
+    <div class="col-md-6">
+        <FloatingDate Label="Nastěhování od" @bind-Value="Model.ReadyDate"/>
+    </div>
+    <div class="col-md-6">
+        <FloatingDate Label="Datum prodeje" @bind-Value="Model.SaleDate"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <FloatingDate Label="První prohlídka od" Type="InputDateType.DateTimeLocal"
+                      @bind-Value="Model.FirstTourDate"/>
+    </div>
+    <div class="col-md-6">
+        <FloatingDate Label="První prohlídka do" Type="InputDateType.DateTimeLocal"
+                      @bind-Value="Model.FirstTourDateTo"/>
+    </div>
+</div>

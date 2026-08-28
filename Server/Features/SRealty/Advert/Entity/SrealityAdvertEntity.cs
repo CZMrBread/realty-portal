@@ -1,7 +1,9 @@
+using NpgsqlTypes;
 using Server.Features.RealtyAgency;
 using Server.Features.RealtyAgency.Entity;
 using Server.Features.RealtyAgent;
 using Server.Features.RealtyAgent.Entity;
+using Server.Features.Ruian.Entity;
 using Server.Features.SRealty.Photo;
 using Server.Features.SRealty.Photo.Entity;
 using Server.Infrastructure.Database;
@@ -27,12 +29,39 @@ public partial class SrealityAdvertEntity: ITimeStampedEntity
     /// <summary>Foreign key of the agent inside the portal. Null when the agency identifies the agent only by SellerRkId.</summary>
     public Guid? SellerId { get; set; }
     public RealtyAgentEntity? Seller { get; set; }
-    
+
     /// <summary>Worked out from AdvertLifetime when the advert is taken in.</summary>
     public required DateTimeOffset ExpiresAt { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
 
+    /// <summary>
+    /// Municipality of the RUIAN register the portal placed the advert in: from LocalityRuian when that code
+    /// names a municipality, from LocalityCity otherwise. Null when neither could be matched. This is what the
+    /// listing filters by district and region on; the agency-supplied address stays untouched in the Location part.
+    /// </summary>
+    public int? LocalityMunicipalityCode { get; set; }
+    public RuianMunicipalityEntity? LocalityMunicipality { get; set; }
+
+    /// <summary>District of <see cref="LocalityMunicipality"/>, or the district itself when the agency sent a district-level code. Set whenever the municipality is, and sometimes when it is not.</summary>
+    public int? LocalityDistrictCode { get; set; }
+    public RuianDistrictEntity? LocalityDistrict { get; set; }
+
+    /// <summary>
+    /// Full-text search words of the description and the address, kept up to date by PostgreSQL itself as a
+    /// generated column. Never written from code, and absent from the model on any other database provider.
+    /// </summary>
+    public NpgsqlTsVector? SearchVector { get; set; }
+
     public List<SrealityAdvertPhoto> Photos { get; set; } = [];
+
+    /// <summary>
+    /// Whether the given agent may change this advert: either it was published under their agency, or they are
+    /// the agent named on it as the seller. An agent belonging to no agency owns only what they sell themselves,
+    /// which is why two absent agencies are not a match.
+    /// </summary>
+    public bool IsOwnedBy(RealtyAgentEntity agent)
+        => (RealtyAgencyId is not null && RealtyAgencyId == agent.RealtyAgencyId)
+           || (SellerId is not null && SellerId == agent.UserId);
 }

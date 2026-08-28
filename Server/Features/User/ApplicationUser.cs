@@ -28,4 +28,6 @@ public class ApplicationUser : IdentityUser<Guid>, ITimeStampedEntity
     /// <summary>Refresh tokens ever issued to this account, including the spent and revoked ones.</summary>
     [JsonIgnore]
     public List<RefreshTokenEntity> RefreshTokens { get; set; } = new List<RefreshTokenEntity>();
+    
+    public bool IsRealtyAgent() => RealtyAgent is not null;
 }

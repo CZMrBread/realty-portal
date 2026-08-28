@@ -16,10 +16,16 @@ namespace Server.Features.User;
 /// <summary>Collects every route of the User feature under one group.</summary>
 public static class UserEndpoints
 {
-    /// <summary>Registers the sign-in, sign-out, registration, profile and token refresh routes under /user.</summary>
+    /// <summary>Path every route of the feature hangs under.</summary>
+    public const string Prefix = "/user";
+
+    /// <summary>OpenAPI tag the routes are listed under, so that they show up as one category.</summary>
+    public const string Tag = "User";
+
+    /// <summary>Registers the sign-in, sign-out, registration, profile and token refresh routes under <see cref="Prefix"/>.</summary>
     public static void MapUserEndpoints(this IEndpointRouteBuilder app)
     {
-        var userGroup = app.MapGroup("/user");
+        var userGroup = app.MapGroup(Prefix).WithTags(Tag);
         userGroup.MapLogin();
         userGroup.MapRegister();
         userGroup.MapGetUserProfile();

@@ -18,13 +18,11 @@ public static class CreateAdvert
     {
         group.MapPost("", CreateAdvertAsync)
             .WithName("CreateAdvert")
-            .WithOpenApi()
-            .RequireAuthorization("AgentOnly");
+            .RequireAuthorization(AgentPolicies.AgentOnly);
 
-        group.MapPost("/rk/{advertRkId}", CreateAdvertAsync)
+        group.MapPost("/rk", CreateAdvertAsync)
             .WithName("CreateAdvertWithRkId")
-            .WithOpenApi()
-            .RequireAuthorization("AgentOnly");
+            .RequireAuthorization(AgentPolicies.AgentOnly);
     }
 
     /// <summary>

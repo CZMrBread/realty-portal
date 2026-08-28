@@ -1,0 +1,36 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Ownership.cs: who owns the property and what share of it is on offer. *@
+
+<div class="row">
+    @if (Shows(nameof(SrealityAdvertDto.Ownership)))
+    {
+        <div class="col-md-4">
+            <EnumSelect TEnum="OwnershipTypeEnum" Label="Typ vlastnictví" @bind-Value="Model.Ownership"/>
+        </div>
+    }
+    <div class="col-md-4">
+        <FloatingNumber Label="Převod do osobního vlastnictví" step="any" @bind-Value="Model.Personal"
+                        Help="Povinné u prodeje družstevního bytu."/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Počet spoluvlastníků" @bind-Value="Model.NumOwners"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <FloatingNumber Label="Nabízený podíl – čitatel" @bind-Value="Model.ShareNumerator"/>
+    </div>
+    <div class="col-md-3">
+        <FloatingNumber Label="Nabízený podíl – jmenovatel" @bind-Value="Model.ShareDenominator"/>
+    </div>
+    <div class="col-md-3">
+        <FloatingNumber Label="Podíl na společných částech – čitatel"
+                        @bind-Value="Model.ShareCommonAreaNumerator"/>
+    </div>
+    <div class="col-md-3">
+        <FloatingNumber Label="Podíl na společných částech – jmenovatel"
+                        @bind-Value="Model.ShareCommonAreaDenominator"/>
+    </div>
+</div>

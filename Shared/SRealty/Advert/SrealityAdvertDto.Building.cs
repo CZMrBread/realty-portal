@@ -44,10 +44,10 @@ public sealed partial record SrealityAdvertDto
 
     [JsonPropertyName("apartment_number")]
     public int? ApartmentNumber { get; set; }
-    
+
     /// <summary>Whether the building has a usable attic.</summary>
     [JsonPropertyName("garret")]
-    public bool? Garret { get; set; }
+    public bool Garret { get; set; } = false;
 
     [EnumValue(typeof(AccessibilityEnum))]
     [JsonPropertyName("easy_access")]

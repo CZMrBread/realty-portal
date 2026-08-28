@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using Server.Features.RealtyAgency;
 using Server.Features.RealtyAgent;
+using Server.Features.Ruian;
 using Server.Features.SRealty;
 using Server.Features.SRealty.Advert;
 using Server.Features.SRealty.Photo;
@@ -73,18 +74,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("SuperAdminOnly", policy =>
+    .AddPolicy(UserPolicies.SuperAdminOnly, policy =>
         policy.RequireRole(UserRoles.SuperAdmin))
     // the token says whether the caller may act as an agent; which agency they act for is read from the database
-    .AddPolicy("AgentOnly", policy =>
+    .AddPolicy(AgentPolicies.AgentOnly, policy =>
         policy.RequireAssertion(context => context.User.GetAgentRole() is not null))
-    .AddPolicy("AgencyAdminOnly", policy =>
+    .AddPolicy(AgentPolicies.AgencyAdminOnly, policy =>
         policy.RequireAssertion(context => context.User.GetAgentRole() == AgentRoleEnum.AgencyAdmin));
 
 builder.Services.AddScoped<AccessTokenService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RealtyAgencyService>();
 builder.Services.AddScoped<RealtyAgentService>();
+builder.Services.AddScoped<RuianService>();
 builder.Services.AddScoped<AdvertService>();
 builder.Services.AddSingleton<IPhotoStorage, FilePhotoStorage>();
 builder.Services.AddScoped<PhotoService>();
@@ -95,6 +97,13 @@ if (!app.Environment.IsEnvironment("Testing"))
     using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await dbContext.Database.MigrateAsync();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    await RuianImporter.ImportAsync(dbContext, logger);
 }
 
 using (var scope = app.Services.CreateScope())
@@ -124,6 +133,7 @@ if (app.Environment.IsDevelopment())
 
 
 apiGroup.MapUserEndpoints();
+apiGroup.MapRealtyAgencyEndpoints();
 apiGroup.MapRealtyAgentEndpoints();
 apiGroup.MapSRealtyEndpoints();
 app.Run();

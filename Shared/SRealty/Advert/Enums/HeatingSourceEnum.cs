@@ -5,7 +5,7 @@ namespace Shared.SRealty.Advert.Enums;
 /// <summary>Appliance that produces the heat, such as a boiler or a heat pump.</summary>
 public enum HeatingSourceEnum
 {
-    [LocalizedDisplayName(DescriptionCz = "WAW", DescriptionEn = "WAW")]
+    [LocalizedDisplayName(DisplayNameCz = "WAW", DisplayNameEn = "WAW")]
     WAW = 1,
 
     GasCondensingBoiler = 2,

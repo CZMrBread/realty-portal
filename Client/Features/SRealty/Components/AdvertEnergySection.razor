@@ -1,0 +1,18 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Energy.cs: the energy performance certificate and what it says. *@
+
+<div class="row">
+    <div class="col-md-4">
+        <EnumSelect TEnum="EnergyRatingEnum" Label="Energetická třída" @bind-Value="Model.EnergyEfficiencyRating"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="EnergyPerformanceCertificateEnum" Label="Průkaz energetické náročnosti" @bind-Value="Model.EnergyPerformanceCertificate"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Celková spotřeba (kWh/m² za rok)" step="any"
+                        @bind-Value="Model.EnergyPerformanceSummary"/>
+    </div>
+</div>
+
+<CheckBoxRevealField Label="Nízkoenergetický objekt" @bind-Value="Model.AdvertLowEnergy"/>

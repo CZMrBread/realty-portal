@@ -27,6 +27,11 @@ public static partial class SrealityAdvertMapper
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.Agency))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.Seller))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.Photos))] // photos have their own upload endpoint
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityMunicipalityCode))] // placed in the register by the service
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityMunicipality))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityDistrictCode))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityDistrict))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.SearchVector))]
     [MapperIgnoreSource(nameof(SrealityAdvertDto.AdvertId))] // the internal identifier is assigned by the portal
     public static partial SrealityAdvertEntity ToEntity(
         this SrealityAdvertDto dto, Guid? realtyAgencyId, DateTimeOffset expiresAt);
@@ -42,6 +47,11 @@ public static partial class SrealityAdvertMapper
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.Agency))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.Seller))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.Photos))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityMunicipalityCode))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityMunicipality))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityDistrictCode))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityDistrict))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.SearchVector))]
     [MapperIgnoreSource(nameof(SrealityAdvertDto.AdvertId))]
     public static partial void UpdateEntity(this SrealityAdvertDto dto, SrealityAdvertEntity entity);
 
@@ -55,6 +65,11 @@ public static partial class SrealityAdvertMapper
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.Agency))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.Seller))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.Photos))]
+    [MapperIgnoreSource(nameof(SrealityAdvertEntity.LocalityMunicipalityCode))]
+    [MapperIgnoreSource(nameof(SrealityAdvertEntity.LocalityMunicipality))]
+    [MapperIgnoreSource(nameof(SrealityAdvertEntity.LocalityDistrictCode))]
+    [MapperIgnoreSource(nameof(SrealityAdvertEntity.LocalityDistrict))]
+    [MapperIgnoreSource(nameof(SrealityAdvertEntity.SearchVector))]
     public static partial SrealityAdvertDto ToDto(this SrealityAdvertEntity entity);
 
     // --- price conversion: double in the DTO <-> decimal in the database ---

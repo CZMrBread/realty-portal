@@ -1,0 +1,62 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Location.cs: address, position on the map and what surrounds the property. *@
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingText Label="Obec" @bind-Value="Model.LocalityCity"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Část obce" @bind-Value="Model.LocalityCityPart"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Ulice" @bind-Value="Model.LocalityStreet"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingText Label="Číslo popisné" @bind-Value="Model.LocalityCp"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Číslo orientační" @bind-Value="Model.LocalityCo"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Přesnost zobrazení na mapě" @bind-Value="Model.LocalityInaccuracyLevel"
+                        Help="Jak přesně smí být nemovitost na mapě ukázána."/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <FloatingNumber Label="Zeměpisná šířka" step="any" @bind-Value="Model.LocalityLatitude"
+                        Help="Vyplňuje se společně se zeměpisnou délkou."/>
+    </div>
+    <div class="col-md-6">
+        <FloatingNumber Label="Zeměpisná délka" step="any" @bind-Value="Model.LocalityLongitude"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <FloatingNumber Label="Kód RÚIAN" @bind-Value="Model.LocalityRuian"/>
+    </div>
+    <div class="col-md-3">
+        <EnumSelect TEnum="RuianLevelEnum" Label="Úroveň RÚIAN" @bind-Value="Model.LocalityRuianLevel"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <EnumSelect TEnum="ObjectLocationEnum" Label="Umístění objektu" @bind-Value="Model.ObjectLocation"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="SurroundingsTypeEnum" Label="Typ okolí" @bind-Value="Model.SurroundingsType"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="ProtectionEnum" Label="Ochranné pásmo" @bind-Value="Model.Protection"/>
+    </div>
+</div>
+
+<EnumCheckBoxGroup Label="Typ komunikace" @bind-Value="Model.RoadType"/>
+<EnumCheckBoxGroup Label="Dopravní dostupnost" @bind-Value="Model.Transport"/>

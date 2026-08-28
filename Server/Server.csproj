@@ -29,7 +29,17 @@
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="Features\Ruian\Data\*.csv" />
       <Folder Include="Features\" />
+      <Folder Include="Features\RealtyAgency\CreateRealtyAgency\" />
+      <Folder Include="Features\RealtyAgency\DeleteRealtyAgency\" />
+      <Folder Include="Features\RealtyAgency\GetRealtyAgencies\" />
+      <Folder Include="Features\RealtyAgency\GetRealtyAgency\" />
+      <Folder Include="Features\RealtyAgency\UpdateRealtyAgency\" />
+      <Folder Include="Features\RealtyAgent\CreateRealtyAgent\" />
+      <Folder Include="Features\RealtyAgent\DeleteRealtyAgent\" />
+      <Folder Include="Features\RealtyAgent\GetRealtyAgent\" />
+      <Folder Include="Features\RealtyAgent\UpdateRealtyAgent\" />
       <Folder Include="Infrastructure\DependencyInjection\" />
     </ItemGroup>
 </Project>

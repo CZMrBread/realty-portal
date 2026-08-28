@@ -18,4 +18,9 @@ public static class AdvertErrors
     /// <summary>No advert exists with the given identifier or agency key.</summary>
     public static readonly ApiError NotFound =
         new("advert.not_found", HttpStatusCode.NotFound, "No advert exists with that identifier.");
+
+    /// <summary>The advert belongs to another agency, or to an agent other than the one making the request.</summary>
+    public static readonly ApiError NotOwned =
+        new("advert.not_owned", HttpStatusCode.Forbidden,
+            "This advert belongs to another agency or agent.");
 }

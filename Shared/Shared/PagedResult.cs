@@ -6,7 +6,7 @@ namespace Shared.Shared;
 /// <param name="Page">One-based number of this page.</param>
 /// <param name="PageSize">Maximum number of items a page holds.</param>
 /// <param name="TotalCount">Number of items in the whole result set.</param>
-public sealed record PagedResult<T>(IReadOnlyList<T> Items, int Page, int PageSize, int TotalCount)
+public sealed record PagedResult<T>(List<T> Items, int Page, int PageSize, int TotalCount)
 {
     /// <summary>Number of pages the whole result set is split into.</summary>
     public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);

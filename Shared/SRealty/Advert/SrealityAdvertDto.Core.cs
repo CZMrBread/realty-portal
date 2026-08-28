@@ -67,12 +67,11 @@ public sealed partial record SrealityAdvertDto : IValidatableObject
     [JsonPropertyName("extra_info")]
     public ExtraInfoEnum? ExtraInfo { get; set; }
 
-    [JsonPropertyName("user_status")]
-    public bool? UserStatus { get; set; }
+    [JsonPropertyName("user_status")] public bool UserStatus { get; set; } = false;
 
     /// <summary>Whether the agency holds an exclusive mandate for the property.</summary>
     [JsonPropertyName("exclusively_at_rk")]
-    public bool? ExclusivelyAtRk { get; set; }
+    public bool ExclusivelyAtRk { get; set; } = false;
 
     /// <summary>
     /// Rules that span more than one field and therefore cannot be expressed by a single attribute.
@@ -102,12 +101,6 @@ public sealed partial record SrealityAdvertDto : IValidatableObject
 
         foreach (var result in BothOrNeither(LocalityRuian, LocalityRuianLevel,
                      nameof(LocalityRuian), nameof(LocalityRuianLevel)))
-        {
-            yield return result;
-        }
-
-        foreach (var result in BothOrNeither(LocalityUir, LocalityUirLevel,
-                     nameof(LocalityUir), nameof(LocalityUirLevel)))
         {
             yield return result;
         }

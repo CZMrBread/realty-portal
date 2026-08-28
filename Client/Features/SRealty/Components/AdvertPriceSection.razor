@@ -1,0 +1,68 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Price.cs: the price itself and everything that is paid alongside it. *@
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingNumber Label="Cena" step="any" @bind-Value="Model.AdvertPrice"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="AdvertPriceCurrencyEnum" Label="Měna" @bind-Value="Model.AdvertPriceCurrency"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="AdvertPriceUnitEnum" Label="Jednotka ceny" @bind-Value="Model.AdvertPriceUnit"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <CheckBoxRevealField Label="Cena k jednání" @bind-Value="Model.AdvertPriceNegotiation"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Provize" step="any" @bind-Value="Model.Commission"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Měsíční náklady" @bind-Value="Model.CostOfLiving"
+                      Help="Volný text, kanceláře je uvádějí různě."/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingText Label="Poznámka k ceně" @bind-Value="Model.AdvertPriceTextNote"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Poznámka k ceně (anglicky)" @bind-Value="Model.AdvertPriceTextNoteEn"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Poznámka k ceně (rusky)" @bind-Value="Model.AdvertPriceTextNoteRu"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <CheckBoxRevealField Label="Lze financovat hypotékou" @bind-Value="Model.Mortgage"
+                             Cleared="() => Model.MortgagePercent = null">
+            <FloatingNumber Label="Podíl financovatelný hypotékou (%)" step="any"
+                            @bind-Value="Model.MortgagePercent"/>
+        </CheckBoxRevealField>
+    </div>
+    <div class="col-md-6">
+        <FloatingNumber Label="Podíl ze stavebního spoření (%)" step="any" @bind-Value="Model.SporPercent"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingNumber Label="Anuita" @bind-Value="Model.Annuity"
+                        Help="Splátka družstevní půjčky, která přechází na kupujícího."/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Vratná kauce" step="any" @bind-Value="Model.RefundableDeposit"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="LeaseTypeEnum" Label="Typ nájmu" @bind-Value="Model.LeaseType"/>
+    </div>
+</div>
+
+<CheckBoxRevealField Label="Nájemce neplatí provizi" @bind-Value="Model.TenantNotPayCommission"/>

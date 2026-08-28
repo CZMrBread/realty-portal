@@ -1,0 +1,66 @@
+@page "/agency/{Id:guid}"
+@using Client.Features.RealtyAgency
+@using Shared.RealtyAgency
+@inject RealtyAgencyApiClient RealtyAgencies
+@inject NavigationManager Navigation
+
+<PageTitle>Realty agency</PageTitle>
+
+<div class="container py-5">
+    @if (error is not null)
+    {
+        <div class="alert alert-danger" role="alert">@error</div>
+    }
+
+    @if (agency is not null)
+    {
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h4 mb-0">@agency.Name</h1>
+            <div class="d-flex gap-2">
+                <a class="btn btn-outline-primary" href="agency/@Id/edit">Edit</a>
+                @if (!confirmingDelete)
+                {
+                    <button class="btn btn-danger" type="button" disabled="@busy" @onclick="() => confirmingDelete = true">
+                        Delete
+                    </button>
+                }
+            </div>
+        </div>
+
+        @if (confirmingDelete)
+        {
+            <div class="alert alert-danger d-flex justify-content-between align-items-center" role="alert">
+                <span>Delete this agency? The action cannot be undone.</span>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" disabled="@busy" @onclick="() => confirmingDelete = false">
+                        Cancel
+                    </button>
+                    <button class="btn btn-danger btn-sm" type="button" disabled="@busy" @onclick="DeleteAsync">
+                        @if (busy)
+                        {
+                            <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                        }
+                        Delete
+                    </button>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private RealtyAgencyDto? agency;
+    private string? error;
+    private bool busy;
+    private bool confirmingDelete;
+
+    protected override Task OnParametersSetAsync() => LoadAsync();
+
+    private Task LoadAsync() => throw new NotImplementedException();
+
+    /// <summary>Deletes the agency and returns to the list. Only reachable after the confirmation, so a stray click cannot delete anything.</summary>
+    private Task DeleteAsync() => throw new NotImplementedException();
+}

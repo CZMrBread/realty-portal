@@ -4,7 +4,12 @@
 <PageTitle>Create Advert</PageTitle>
 
 <div class="container mt-4">
-    <h1>Create Advert</h1>
+    <h1 class="h3 mb-4">Nový inzerát</h1>
 
-    @* TODO: use <AdvertForm/> and POST to srealty/create once the server slice is implemented *@
+    @* TODO: POST the advert to srealty/create once the client API is written *@
+    <AdvertForm Model="advert" SubmitLabel="Vytvořit inzerát"/>
 </div>
+
+@code {
+    private readonly SrealityAdvertDto advert = new();
+}

@@ -14,8 +14,6 @@ public partial class SrealityAdvertEntity
     public double? LocalityLongitude { get; set; }
     public int? LocalityRuian { get; set; }
     public RuianLevelEnum? LocalityRuianLevel { get; set; }
-    public int? LocalityUir { get; set; }
-    public UirLevelEnum? LocalityUirLevel { get; set; }
     public ObjectLocationEnum? ObjectLocation { get; set; }
     public SurroundingsTypeEnum? SurroundingsType { get; set; }
     public ProtectionEnum? Protection { get; set; }

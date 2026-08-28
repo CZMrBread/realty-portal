@@ -1,0 +1,67 @@
+@inherits FormFieldBase<bool>
+
+@*
+    A tick box that brings a field of the caller's choosing with it: the child content is rendered only while
+    the box is ticked, which is how the advert model pairs a yes-no field with the number that goes with it,
+    Balcony with BalconyArea and so on.
+
+        <CheckBoxRevealField Label="Balkon" @bind-Value="Model.Balcony" Cleared="() => Model.BalconyArea = null">
+            <FloatingNumber Label="Plocha balkonu (m²)" @bind-Value="Model.BalconyArea"/>
+        </CheckBoxRevealField>
+
+    The value is bool? only because the model is; the box itself writes nothing but true and false, so an
+    unticked box is an explicit no rather than an unanswered question. Clearing what the box revealed is left
+    to Cleared, because only the caller knows which property the child content is bound to.
+*@
+
+<div class="@WrapperClass">
+    <div class="form-check">
+        <input type="checkbox" id="@FieldId" class="@ControlClass" checked="@Value"
+               @onchange="ToggleAsync" @attributes="ControlAttributes"/>
+        <label class="form-check-label" for="@FieldId">
+            @if (LabelContent is not null)
+            {
+                @LabelContent
+            }
+            else
+            {
+                @Label
+            }
+        </label>
+    </div>
+
+    <FieldFeedback Messages="@ValidationMessages" Help="@Help"/>
+
+    @if (Value is true && ChildContent is not null)
+    {
+        <div class="ms-4 mt-2 border-start border-2 ps-3">
+            @ChildContent
+        </div>
+    }
+</div>
+
+@code {
+    protected override string ControlBaseClass => "form-check-input";
+
+    /// <summary>The field revealed while the box is ticked. Leaving it out gives a plain tick box.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Label content, for when it needs more than plain text.</summary>
+    [Parameter] public RenderFragment? LabelContent { get; set; }
+
+    /// <summary>Raised when the box is unticked, so the caller can null the field it was revealing.</summary>
+    [Parameter] public EventCallback Cleared { get; set; }
+
+    private async Task ToggleAsync(ChangeEventArgs args)
+    {
+        var ticked = args.Value is true;
+
+        await ValueChanged.InvokeAsync(ticked);
+        EditContext?.NotifyFieldChanged(Field);
+
+        if (!ticked)
+        {
+            await Cleared.InvokeAsync();
+        }
+    }
+}

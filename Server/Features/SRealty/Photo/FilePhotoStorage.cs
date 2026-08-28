@@ -4,7 +4,9 @@ namespace Server.Features.SRealty.Photo;
 public sealed class FilePhotoStorage:IPhotoStorage
 {
     public Task<string> SaveAsync(Guid advertId, Guid photoId, Stream content, string contentType)
-        => throw new NotImplementedException();
+    {
+        throw  new NotImplementedException();
+    }
 
     public Task<Stream?> OpenReadAsync(string storagePath)
     {
@@ -12,6 +14,11 @@ public sealed class FilePhotoStorage:IPhotoStorage
     }
 
     public Task DeleteAsync(string storagePath)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> ValidateAsync(Stream stream)
     {
         throw new NotImplementedException();
     }

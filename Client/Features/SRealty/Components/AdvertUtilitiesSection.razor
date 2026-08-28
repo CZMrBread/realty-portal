@@ -1,0 +1,35 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Utilities.cs: what is connected to the property, and how it is heated. *@
+
+<EnumCheckBoxGroup Label="Elektřina" @bind-Value="Model.Electricity"/>
+
+<div class="row">
+    <div class="col-md-6">
+        <EnumSelect TEnum="CircuitBreakerEnum" Label="Jistič" @bind-Value="Model.CircuitBreaker"/>
+    </div>
+    <div class="col-md-6">
+        <EnumSelect TEnum="PhaseCountEnum" Label="Počet fází" @bind-Value="Model.PhaseDistribution"/>
+    </div>
+</div>
+
+<EnumCheckBoxGroup Label="Plyn" @bind-Value="Model.Gas"/>
+<EnumCheckBoxGroup Label="Voda" @bind-Value="Model.Water"/>
+<EnumCheckBoxGroup Label="Typ studny" @bind-Value="Model.WellType"
+                   Help="Vyplňuje se, jen když je zdrojem vody studna."/>
+<EnumCheckBoxGroup Label="Odpad" @bind-Value="Model.Gully"/>
+<EnumCheckBoxGroup Label="Topení" @bind-Value="Model.Heating"/>
+<EnumCheckBoxGroup Label="Topná tělesa" @bind-Value="Model.HeatingElement"/>
+<EnumCheckBoxGroup Label="Zdroj tepla" @bind-Value="Model.HeatingSource"/>
+<EnumCheckBoxGroup Label="Ohřev vody" @bind-Value="Model.WaterHeatSource"/>
+<EnumCheckBoxGroup Label="Telekomunikace" @bind-Value="Model.Telecommunication"/>
+<EnumCheckBoxGroup Label="Typ připojení k internetu" @bind-Value="Model.InternetConnectionType"/>
+
+<div class="row">
+    <div class="col-md-6">
+        <FloatingText Label="Poskytovatel internetu" @bind-Value="Model.InternetConnectionProvider"/>
+    </div>
+    <div class="col-md-6">
+        <FloatingNumber Label="Rychlost připojení (Mb/s)" @bind-Value="Model.InternetConnectionSpeed"/>
+    </div>
+</div>

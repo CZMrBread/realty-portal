@@ -1,0 +1,52 @@
+@typeparam TEnum where TEnum : struct, Enum
+@using System.Linq.Expressions
+@using Shared.SRealty.Advert.Enums.Extensions
+
+@*
+    A drop-down filled from the members of an enum, labelled with the wording LocalizedDisplayNameAttribute
+    carries. Members marked as no longer offered are left out, and a Filter narrows the list further where the
+    choice depends on another field, subtypes on the category for instance. Passing a Filter means naming the
+    enum as well, since the compiler cannot work out the type of the lambda argument on its own:
+
+        <EnumSelect TEnum="AdvertSubtypeEnum" @bind-Value="Model.AdvertSubtype"
+                    Filter="@(subtype => subtype.IsValidSubtype(type))"/>
+*@
+
+<FloatingSelect TValue="TEnum?" Label="@Label" Help="@Help" Id="@Id" WrapperClass="@WrapperClass"
+                Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression"
+                @attributes="AdditionalAttributes">
+    <option value="">@EmptyLabel</option>
+    @foreach (var member in Members())
+    {
+        <option value="@member">@member.GetLocalizedDisplayName(Culture)</option>
+    }
+</FloatingSelect>
+
+@code {
+    [Parameter] public TEnum? Value { get; set; }
+    [Parameter] public EventCallback<TEnum?> ValueChanged { get; set; }
+    [Parameter] public Expression<Func<TEnum?>>? ValueExpression { get; set; }
+
+    [Parameter] public string? Label { get; set; }
+
+    [Parameter] public string? Help { get; set; }
+
+    [Parameter] public string? Id { get; set; }
+
+    [Parameter] public string WrapperClass { get; set; } = "mb-3";
+
+    /// <summary>Text of the option that stands for no choice.</summary>
+    [Parameter] public string EmptyLabel { get; set; } = "— nevyplněno —";
+
+    /// <summary>Culture the option labels are taken in. The one place to change to switch the form over.</summary>
+    [Parameter] public string Culture { get; set; } = "cs-CZ";
+
+    /// <summary>Narrows the offered members, for a choice that depends on another field.</summary>
+    [Parameter] public Func<TEnum, bool>? Filter { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private IEnumerable<TEnum> Members()
+        => Enum.GetValues<TEnum>().Where(member => member.GetIsActive() && (Filter is null || Filter(member)));
+}

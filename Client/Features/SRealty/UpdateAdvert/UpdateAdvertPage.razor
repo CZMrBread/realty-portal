@@ -4,11 +4,14 @@
 <PageTitle>Update Advert</PageTitle>
 
 <div class="container mt-4">
-    <h1>Update Advert</h1>
+    <h1 class="h3 mb-4">Úprava inzerátu</h1>
 
-    @* TODO: use <AdvertForm/> and PUT to srealty/update/{Id} once the server slice is implemented *@
+    @* TODO: load the advert from srealty/{Id} and PUT it back once the client API is written *@
+    <AdvertForm Model="advert" SubmitLabel="Uložit změny"/>
 </div>
 
 @code {
+    private readonly SrealityAdvertDto advert = new();
+
     [Parameter] public Guid Id { get; set; }
 }

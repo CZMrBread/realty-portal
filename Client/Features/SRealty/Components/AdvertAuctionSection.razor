@@ -1,0 +1,41 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Auction.cs. Shown only for an advert whose function is an auction. *@
+
+<div class="row">
+    <div class="col-md-4">
+        <EnumSelect TEnum="AuctionKindEnum" Label="Druh dražby" @bind-Value="Model.AuctionKind"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="BiddingTypeEnum" Label="Způsob podávání nabídek" @bind-Value="Model.Bidding"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Místo dražby" @bind-Value="Model.AuctionPlace"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingDate Label="Datum dražby" Type="InputDateType.DateTimeLocal" @bind-Value="Model.AuctionDate"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingDate Label="Termín prohlídky" Type="InputDateType.DateTimeLocal"
+                      @bind-Value="Model.AuctionDateTour"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingDate Label="Termín druhé prohlídky" Type="InputDateType.DateTimeLocal"
+                      @bind-Value="Model.AuctionDateTour2"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingNumber Label="Nejnižší podání" step="any" @bind-Value="Model.PriceMinimumBid"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Cena dle znaleckého posudku" step="any" @bind-Value="Model.PriceExpertReport"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Dražební jistota" step="any" @bind-Value="Model.PriceAuctionPrincipal"/>
+    </div>
+</div>

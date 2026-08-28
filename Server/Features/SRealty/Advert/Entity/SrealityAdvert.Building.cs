@@ -13,7 +13,7 @@ public partial class SrealityAdvertEntity
     public int? Floors { get; set; }
     public int? UndergroundFloors { get; set; }
     public int? ApartmentNumber { get; set; }
-    public bool? Garret { get; set; }
+    public bool Garret { get; set; } = false;
     public AccessibilityEnum? EasyAccess { get; set; }
     public int? AcceptanceYear { get; set; }
     public int? ObjectAge { get; set; }

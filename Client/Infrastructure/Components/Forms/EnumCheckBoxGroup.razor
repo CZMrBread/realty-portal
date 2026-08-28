@@ -1,0 +1,62 @@
+@typeparam TEnum where TEnum : struct, Enum
+@inherits FormFieldBase<ICollection<TEnum>?>
+@using Shared.SRealty.Advert.Enums.Extensions
+
+@*
+    Several members of an enum at once, as a set of tick boxes. This is what the advert fields typed as a
+    collection of enum members need: heating, water, transport and the rest. Unticking the last box puts the
+    field back to null rather than to an empty collection, so an untouched field stays absent from the payload.
+*@
+
+<fieldset class="@WrapperClass">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <legend class="form-label fs-6">@Label</legend>
+    }
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-1">
+        @foreach (var member in Members())
+        {
+            var id = $"{FieldId}-{Convert.ToInt32(member)}";
+            <div class="col">
+                <div class="form-check">
+                    <input type="checkbox" id="@id" class="form-check-input" checked="@IsChosen(member)"
+                           @onchange="args => ToggleAsync(member, args.Value is true)"/>
+                    <label class="form-check-label" for="@id">@member.GetLocalizedDisplayName(Culture)</label>
+                </div>
+            </div>
+        }
+    </div>
+
+    <FieldFeedback Messages="@ValidationMessages" Help="@Help"/>
+</fieldset>
+
+@code {
+    /// <summary>Culture the option labels are taken in. The one place to change to switch the form over.</summary>
+    [Parameter] public string Culture { get; set; } = "cs-CZ";
+
+    /// <summary>Narrows the offered members, for a choice that depends on another field.</summary>
+    [Parameter] public Func<TEnum, bool>? Filter { get; set; }
+
+    private IEnumerable<TEnum> Members()
+        => Enum.GetValues<TEnum>().Where(member => member.GetIsActive() && (Filter is null || Filter(member)));
+
+    private bool IsChosen(TEnum member) => Value?.Contains(member) == true;
+
+    private async Task ToggleAsync(TEnum member, bool ticked)
+    {
+        List<TEnum> chosen = Value is null ? [] : [..Value];
+
+        if (ticked && !chosen.Contains(member))
+        {
+            chosen.Add(member);
+        }
+        else if (!ticked)
+        {
+            chosen.Remove(member);
+        }
+
+        await ValueChanged.InvokeAsync(chosen.Count == 0 ? null : chosen);
+        EditContext?.NotifyFieldChanged(Field);
+    }
+}

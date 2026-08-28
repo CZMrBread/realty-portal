@@ -1,0 +1,6259 @@
+Code,Name,DistrictCode
+500011,Želechovice nad Dřevnicí,3705
+500020,Petrov nad Desnou,3809
+500046,Libhošť,3804
+500062,Krhová,3810
+500071,Poličná,3810
+500101,Bražec,3403
+500127,Doupovské Hradiště,3403
+500135,Kozlov,3805
+500151,Luboměř pod Strážnou,3808
+500160,Město Libavá,3805
+500194,Polná na Šumavě,3302
+500259,Veřovice,3804
+500291,Vřesina,3807
+500496,Olomouc,3805
+500526,Bělkovice-Lašťany,3805
+500623,Bílá Lhota,3805
+500801,Blatec,3805
+500852,Bohuňovice,3805
+500861,Bouzov,3805
+500879,Bystročice,3805
+501476,Dlouhá Loučka,3805
+501646,Dolany,3805
+501751,Drahanovice,3805
+501794,Dub nad Moravou,3805
+501841,Grygov,3805
+502146,Hlubočky,3805
+502235,Hněvotín,3805
+502405,Hnojice,3805
+502545,Horka nad Moravou,3805
+502839,Cholina,3805
+503142,Jívová,3805
+503304,Kožušany-Tážaly,3805
+503410,Žitovlice,3208
+503444,Litovel,3805
+503622,Luká,3805
+503657,Lutín,3805
+503738,Majetín,3805
+503916,Kostelec,3410
+503941,Libavá,3805
+504246,Mladeč,3805
+504301,Dřenice,3603
+504441,Náklo,3805
+504505,Náměšť na Hané,3805
+504785,Paseka,3805
+504807,Lány,3603
+504921,Třibřichy,3603
+504955,Dvakačovice,3603
+505005,Bítovany,3603
+505013,Příkazy,3805
+505030,Dolní Bezděkov,3603
+505081,Senice na Hané,3805
+505099,Červená Hora,3605
+505111,Slatinice,3805
+505145,Březová nad Svitavou,3609
+505161,Štěpánov,3805
+505188,Šternberk,3805
+505218,Šumvald,3805
+505269,Těšetice,3805
+505293,Troubelice,3805
+505366,Tršice,3805
+505391,Bělá u Jevíčka,3609
+505501,Újezd,3805
+505528,Jenčice,3506
+505587,Uničov,3805
+505609,Velká Bystřice,3805
+505650,Velký Týnec,3805
+505668,Velký Újezd,3805
+505781,Zápy,3209
+505862,Žerotín,3805
+505927,Opava,3806
+506192,Bohuslavice,3806
+506214,Bolatice,3806
+506320,Brumovice,3806
+506451,Březová,3806
+506460,Budišov nad Budišovkou,3806
+506486,Boží Dar,3403
+506494,Nové Hamry,3403
+506621,Čichalov,3403
+506664,Skořice,3408
+506699,Otmarov,3703
+506702,Dolní Benešov,3806
+506711,Dolní Lhota,3807
+506729,Dvorce,3707
+506737,Chvalčov,3708
+506753,Háj ve Slezsku,3806
+506761,Alojzov,3709
+506770,Seloutky,3709
+507016,Hlučín,3806
+507091,Nýdek,3802
+507105,Hněvošice,3806
+507113,Holasovice,3806
+507181,Pržno,3802
+507237,Komorní Lhotka,3802
+507261,Hrabyně,3806
+507270,Hradec nad Moravicí,3806
+507334,Chuchelná,3806
+507377,Jakartovice,3806
+507423,Janovice,3802
+507458,Košařiska,3802
+507504,Kobeřice,3806
+507547,Milíkov,3802
+507580,Kravaře,3806
+507610,Doňov,3303
+507628,Pleše,3303
+507644,Újezdec,3303
+507652,Višňová,3303
+507695,Záhoří,3303
+507717,Peč,3303
+507733,Březina,3303
+507784,Ratiboř,3303
+507920,Litultovice,3806
+507971,Ludgeřovice,3806
+508004,Roseč,3303
+508128,Markvartovice,3806
+508144,Melč,3806
+508152,Střížovice,3303
+508357,Kostelní Vydří,3303
+508373,Mokré Lazce,3806
+508501,Lužnice,3303
+508683,Záblatí,3303
+509078,Plavsko,3303
+509108,Kostelní Radouň,3303
+509116,Červený Hrádek,3303
+509141,Dvory nad Lužnicí,3303
+509191,Cep,3303
+509388,Arneštovice,3304
+509418,Bořetín,3304
+509574,Oldřišov,3806
+509612,Otice,3806
+509621,Předotice,3305
+509647,Píšť,3806
+509736,Pustá Polom,3806
+509752,Křižanov,3305
+509841,Raduň,3806
+510068,Čečelovice,3307
+510131,Skřipov,3806
+510289,Slavkov,3806
+510297,Služovice,3806
+510343,Stěbořice,3806
+510378,Sudice,3806
+510432,Šilheřovice,3806
+510483,Štěpánkovice,3806
+510491,Štítina,3806
+510556,Láz,3710
+510645,Kojatín,3710
+510882,Velká Polom,3807
+510891,Velké Heraltice,3806
+510939,Velké Hoštice,3806
+510980,Ocmanice,3710
+511021,Vítkov,3806
+511081,Sedlec,3710
+511161,Vršovice,3806
+511242,Vícenice u Náměště nad Oslavou,3710
+511307,Rácovice,3710
+511382,Přerov,3808
+511412,Oslavička,3714
+511587,Josefov,3409
+511633,Bocanovice,3802
+511935,Bukovec,3802
+511951,Dolní Lomná,3802
+511986,Horní Lomná,3802
+512028,Písek,3802
+512176,Hrádek,3802
+512184,Metylovice,3802
+512192,Horní Domaslavice,3802
+512231,Bělotín,3808
+512281,Beňov,3808
+512401,Bezuchov,3808
+512532,Bochoř,3808
+512745,Těškovice,3806
+512800,Brodek u Přerova,3808
+512826,Buk,3808
+512869,Strahovice,3806
+512877,Býškovice,3808
+512893,Nové Lublice,3806
+512907,Kyjovice,3806
+512923,Chlebičov,3806
+512974,Bělá,3806
+512982,Citov,3808
+512991,Drnek,3203
+513032,Kamenný Most,3203
+513041,Lhota,3203
+513059,Čelechovice,3808
+513067,Černotín,3808
+513075,Hobšovice,3203
+513105,Dobrčice,3808
+513113,Malé Přítočno,3203
+513130,Dolany,3203
+513148,Polní Voděrady,3204
+513164,Ždánice,3204
+513181,Dománovice,3204
+513199,Dolní Újezd,3808
+513202,Zalešany,3204
+513211,Domaželice,3808
+513229,Dřevohostice,3808
+513237,Polní Chrčice,3204
+513261,Žabonosy,3204
+513270,Lipec,3204
+513288,Mrzky,3204
+513369,Přehvozdí,3204
+513393,Přistoupim,3204
+513415,Kbel,3204
+513423,Pašinka,3204
+513431,Chýnice,3210
+513458,Vestec,3210
+513482,Vysoký Újezd,3201
+513491,Horní Moštěnice,3808
+513504,Dlouhá Lhota,3211
+513512,Zduchovice,3211
+513521,Lešetice,3211
+513539,Velká Lečice,3211
+513547,Příčovy,3211
+513555,Kotenčice,3211
+513571,Občov,3211
+513580,Hudčice,3211
+513628,Klokočná,3209
+513636,Hrabůvka,3808
+513644,Zlatá,3209
+513661,Nová Ves,3302
+513695,Horní Smržov,3701
+513709,Roubanina,3701
+513717,Urbanice,3602
+513733,Hradčany,3808
+513750,Hranice,3808
+513768,Hustopeče nad Bečvou,3808
+513873,Jindřichov,3808
+513890,Skalka u Doks,3501
+514047,Klokočí,3808
+514055,Kojetín,3808
+514152,Kokory,3808
+514161,Luka,3501
+514195,Ždírec,3501
+514276,Pertoltice pod Ralskem,3501
+514446,Lazníčky,3808
+514471,Lazníky,3808
+514497,Lhota,3808
+514527,Lhotka,3808
+514705,Lipník nad Bečvou,3808
+514772,Lipová,3808
+514802,Líšná,3808
+515191,Lobodice,3808
+515329,Malhotice,3808
+515418,Milenov,3808
+515477,Milotice nad Bečvou,3808
+515787,Nelešovice,3808
+515825,Oldřichov,3808
+516201,Opatovice,3808
+516350,Oprostovice,3808
+516619,Osek nad Bečvou,3808
+516635,Paršovice,3808
+516686,Partutovice,3808
+516694,Pavlovice u Přerova,3808
+516864,Podolí,3808
+516899,Polkovice,3808
+516911,Polom,3808
+517101,Potštát,3808
+517151,Prosenice,3808
+517208,Provodovice,3808
+517224,Přestavlky,3808
+517275,Radíkov,3808
+517321,Radkova Lhota,3808
+517437,Radkovy,3808
+517445,Radotín,3808
+517534,Radslavice,3808
+517569,Radvanice,3808
+517585,Rakov,3808
+517607,Rokytnice,3808
+517615,Rouské,3808
+517666,Říkovice,3808
+517747,Skalička,3808
+517836,Sobíšky,3808
+517844,Soběchleby,3808
+517887,Stará Ves,3808
+517909,Střítež nad Ludinou,3808
+518026,Sušice,3808
+519031,Teplice nad Bečvou,3808
+519146,Tovačov,3808
+519651,Troubky,3808
+520047,Tučín,3808
+520306,Ústí,3808
+520420,Veselíčko,3808
+521531,Všechovice,3808
+522775,Zámrsky,3808
+523453,Žákovice,3808
+523640,Želatovice,3808
+523704,Šumperk,3809
+523917,Bělá pod Pradědem,3811
+524891,Bernartice,3811
+525227,Bílá Voda,3811
+525588,Bludov,3809
+525804,Bohdíkov,3809
+525880,Bohuslavice,3809
+525979,Bohutín,3809
+526169,Branná,3809
+526622,Rohozec,3205
+528196,Podveky,3205
+529303,Benešov,3201
+529451,Bystřice,3201
+529478,Čakov,3201
+529486,Čechtice,3201
+529516,Čerčany,3201
+529524,Čejkovice,3205
+529532,Červený Újezd,3201
+529541,Český Šternberk,3201
+529559,Dobrovítov,3205
+529567,Čtyřkoly,3201
+529575,Medonosy,3206
+529583,Tupadly,3206
+529591,Sedlec,3207
+529605,Rokytá,3207
+529613,Josefův Důl,3207
+529621,Divišov,3201
+529630,Kostomlátky,3208
+529648,Dolní Kralovice,3201
+529656,Pětihosty,3209
+529664,Těchařovice,3211
+529672,Bezděkov pod Třemšínem,3211
+529681,Koupě,3211
+529699,Velká Chmelištná,3212
+529702,Heřmaničky,3201
+529711,Drahouš,3212
+529729,Kvítkovice,3301
+529737,Hulice,3201
+529745,Hvězdonice,3201
+529753,Dívčí Kopy,3303
+529761,Žďár,3303
+529770,Chlum,3201
+529788,Chmelná,3201
+529796,Chocerady,3201
+529818,Chotýšany,3201
+529826,Čelistná,3304
+529834,Mezná,3304
+529842,Jankov,3201
+529851,Javorník,3201
+529869,Důl,3304
+529877,Okrouhlá,3305
+529885,Stehlovice,3305
+529893,Nicov,3306
+529907,Keblov,3201
+529915,Vrbice,3306
+529923,Žárovná,3306
+529931,Kondrac,3201
+529940,Kozmice,3201
+529958,Krhanice,3201
+529966,Buzice,3307
+529974,Krňany,3201
+529982,Chlum,3307
+529991,Křečovice,3201
+530000,Křivsoudov,3201
+530018,Březí,3307
+530026,Kuňovice,3201
+530034,Stožice,3307
+530042,Katov,3308
+530051,Lešany,3201
+530069,Libež,3201
+530085,Bukovník,3404
+530093,Loket,3201
+530107,Louňovice pod Blaníkem,3201
+530115,Maršovice,3201
+530123,Dobršín,3404
+530131,Přestavlky,3406
+530140,Milínov,3406
+530158,Mezno,3201
+530166,Miličín,3201
+530174,Miřetice,3201
+530182,Žákava,3406
+530191,Mnichovice,3201
+530204,Mrač,3201
+530212,Načeradec,3201
+530221,Hněvnice,3407
+530239,Bílov,3407
+530247,Potvorov,3407
+530263,Nespeky,3201
+530271,Sedlec,3407
+530280,Vysoká Libyně,3407
+530298,Netvořice,3201
+530301,Neustupov,3201
+530310,Neveklov,3201
+530328,Čerňovice,3407
+530336,Pláně,3407
+530344,Olbramovice,3201
+530352,Ostředek,3201
+530361,Kařízek,3408
+530379,Drahoňův Újezd,3408
+530387,Radvanec,3501
+530395,Janská,3502
+530409,Petroupim,3201
+530417,Doubice,3502
+530425,Dalešice,3504
+530433,Kunratice,3505
+530441,Poříčí nad Sázavou,3201
+530450,Postupice,3201
+530468,Dlouhý Most,3505
+530476,Pravonín,3201
+530484,Jeřmanice,3505
+530492,Přestavlky u Čerčan,3201
+530506,Miřejovice,3506
+530514,Psáře,3201
+530522,Rabyně,3201
+530531,Radošovice,3201
+530549,Rataje,3201
+530557,Kozly,3507
+530565,Želkovice,3507
+530573,Sedlec-Prčice,3211
+530581,Čeradice,3507
+530590,Libočany,3507
+530603,Zálužice,3507
+530611,Smilkov,3201
+530620,Přestanov,3510
+530638,Soběhrdy,3201
+530646,Hurtova Lhota,3601
+530654,Vysoká,3601
+530662,Ždírec,3601
+530671,Pšánky,3602
+530689,Struhařov,3201
+530697,Úherčice,3603
+530701,Střezimíř,3201
+530719,Studený,3201
+530727,Brníčko,3809
+530735,Staré Hrady,3604
+530743,Bílkovice,3201
+530751,Tehov,3201
+530760,Teplýšovice,3201
+530778,Tichonice,3201
+530786,Říkov,3605
+530794,Trnávka,3606
+530808,Královec,3610
+530816,Trhový Štěpánov,3201
+530824,Velenov,3701
+530832,Brambory,3205
+530841,Týnec nad Sázavou,3201
+530859,Semtěš,3205
+530867,Veliš,3201
+530875,Starkoč,3205
+530883,Vlašim,3201
+530891,Vojkov,3201
+530905,Votice,3201
+530913,Vracovice,3201
+530921,Vranov,3201
+530930,Štipoklasy,3205
+530948,Vrchotovy Janovice,3201
+530956,Opatovice I,3205
+530964,Bludov,3205
+530972,Třebětín,3205
+530981,Třebešice,3205
+530999,Močovice,3205
+531006,Ludíkov,3701
+531014,Vodranty,3205
+531022,Zdislavice,3201
+531031,Kamberk,3201
+531049,Zvěstov,3201
+531057,Beroun,3202
+531065,Souňov,3205
+531073,Běštín,3202
+531081,Broumy,3202
+531090,Březová,3202
+531103,Bubovice,3202
+531111,Bernardov,3205
+531120,Bzová,3202
+531138,Cerhovice,3202
+531146,Drahelčice,3210
+531154,Drozdov,3202
+531162,Felbabka,3202
+531171,Hlásná Třebaň,3202
+531189,Hořovice,3202
+531197,Hlízov,3205
+531201,Hostomice,3202
+531219,Hředle,3202
+531227,Hudlice,3202
+531235,Hvozdec,3202
+531243,Hýskov,3202
+531251,Chaloupky,3202
+531260,Dolní Pohleď,3205
+531278,Paběnice,3205
+531286,Bratčice,3205
+531294,Chyňava,3202
+531308,Jivina,3202
+531316,Karlštejn,3202
+531324,Komárov,3202
+531332,Koněprusy,3202
+531341,Drobovice,3205
+531359,Horky,3205
+531367,Adamov,3205
+531375,Kublov,3202
+531383,Schořov,3205
+531391,Sudějov,3205
+531405,Kobylnice,3205
+531413,Hraběšín,3205
+531421,Šebestěnice,3205
+531430,Horka I,3205
+531448,Libomyšl,3202
+531456,Liteň,3202
+531464,Loděnice,3202
+531472,Lochovice,3202
+531481,Horušice,3205
+531499,Hostín,3206
+531502,Liblice,3206
+531511,Zlončice,3206
+531529,Měňany,3202
+531537,Mezouň,3202
+531545,Mořina,3202
+531553,Konětopy,3209
+531561,Tuhaň,3206
+531570,Dobřeň,3206
+531588,Neumětely,3202
+531596,Nižbor,3202
+531600,Nový Jáchymov,3202
+531618,Nučice,3210
+531626,Olešná,3202
+531634,Osek,3202
+531642,Osov,3202
+531651,Kanina,3206
+531669,Otročiněves,3202
+531677,Lobeč,3206
+531685,Podluhy,3202
+531693,Praskolesy,3202
+531707,Nosálov,3206
+531715,Rpety,3202
+531723,Rudná,3210
+531731,Stránka,3206
+531740,Skuhrov,3202
+531758,Srbsko,3202
+531766,Stašov,3202
+531774,Kadlín,3206
+531782,Suchomasty,3202
+531791,Svatá,3202
+531804,Svatý Jan pod Skalou,3202
+531812,Svinaře,3202
+531821,Tachlovice,3210
+531839,Tetín,3202
+531847,Tlustice,3202
+531855,Tmaň,3202
+531863,Nedomice,3206
+531871,Jeviněves,3206
+531880,Trubská,3202
+531898,Lhotka,3206
+531901,Újezd,3202
+531910,Velký Chlumec,3202
+531928,Hostín u Vojkovic,3206
+531936,Vidim,3206
+531944,Vráž,3202
+531952,Všeradice,3202
+531961,Vysoký Újezd,3202
+531979,Zadní Třebaň,3202
+531987,Dolní Zimoř,3206
+531995,Zaječov,3202
+532002,Záluží,3202
+532011,Zdice,3202
+532029,Žebrák,3202
+532037,Chrášťany,3201
+532045,Chlístov,3201
+532053,Kladno,3203
+532061,Václavice,3201
+532070,Běloky,3203
+532088,Beřovice,3203
+532096,Borovnice,3201
+532100,Blevice,3203
+532118,Brandýsek,3203
+532126,Braškov,3203
+532134,Ješetice,3201
+532142,Bratronice,3203
+532151,Drahňovice,3201
+532169,Buštěhrad,3203
+532177,Tuřany,3203
+532185,Cvrčovice,3203
+532193,Lštění,3201
+532207,Černuc,3203
+532215,Červený Újezd,3210
+532223,Doksy,3203
+532231,Slověnice,3201
+532258,Litichovice,3201
+532266,Všechlapy,3201
+532274,Družec,3203
+532282,Dřetovice,3203
+532291,Dřínov,3203
+532304,Třebešice,3201
+532312,Horní Bezděkov,3203
+532321,Hořešovice,3203
+532339,Hospozín,3203
+532347,Hostouň,3203
+532355,Hradečno,3203
+532363,Hrdlív,3203
+532371,Hřebeč,3203
+532380,Blažejovice,3201
+532398,Chržín,3203
+532401,Jarpice,3203
+532410,Jedomělice,3203
+532428,Jemníky,3203
+532436,Snět,3201
+532444,Kačice,3203
+532452,Kamenné Žehrovice,3203
+532461,Klobuky,3203
+532479,Kmetiněves,3203
+532487,Knovíz,3203
+532495,Koleč,3203
+532509,Šetějovice,3201
+532517,Kvílice,3203
+532525,Kyšice,3203
+532533,Ledce,3203
+532541,Tomice,3201
+532550,Ratměřice,3201
+532568,Bernartice,3201
+532576,Libušín,3203
+532584,Lidice,3203
+532592,Tisem,3201
+532606,Choratice,3201
+532614,Vodslivy,3201
+532622,Makotřasy,3203
+532631,Malé Kyšice,3203
+532649,Popovice,3201
+532657,Malíkovice,3203
+532665,Neuměřice,3203
+532673,Olovnice,3206
+532681,Otvovice,3203
+532690,Ctiboř,3201
+532711,Pavlov,3203
+532720,Pchery,3203
+532738,Pletený Újezd,3203
+532746,Děkanovice,3201
+532754,Podlešín,3203
+532762,Pozdeň,3203
+532771,Přelíc,3203
+532789,Ptice,3210
+532797,Řisuty,3203
+532801,Sazená,3203
+532819,Slaný,3203
+532827,Slatina,3203
+532835,Smečno,3203
+532843,Dunice,3201
+532851,Stehelčeves,3203
+532860,Stochov,3203
+532878,Chleby,3201
+532886,Chářovice,3201
+532894,Bušín,3809
+532908,Svinařov,3203
+532916,Šlapanice,3203
+532924,Bukovany,3201
+532932,Hradiště,3201
+532941,Řimovice,3201
+532959,Třebichovice,3203
+532967,Třebíz,3203
+532975,Třebusice,3203
+532983,Tuchlovice,3203
+532991,Úhonice,3210
+533009,Uhy,3203
+533017,Unhošť,3203
+533025,Velká Dobrá,3203
+533033,Velké Přítočno,3203
+533041,Velvary,3203
+533050,Vinařice,3203
+533068,Vraný,3203
+533076,Pavlovice,3201
+533084,Kladruby,3201
+533092,Zákolany,3203
+533106,Trubín,3202
+533114,Zlonice,3203
+533122,Zvoleněves,3203
+533149,Žilina,3203
+533157,Žižice,3203
+533165,Kolín,3204
+533173,Barchovice,3204
+533181,Bečváry,3204
+533190,Bělušice,3204
+533203,Králův Dvůr,3202
+533211,Břežany I,3204
+533220,Břežany II,3204
+533238,Býchory,3204
+533246,Cerhenice,3204
+533254,Černé Voděrady,3209
+533262,Červené Pečky,3204
+533271,Český Brod,3204
+533289,Dobřichov,3204
+533297,Dolní Chvatliny,3204
+533301,Doubravčice,3204
+533319,Malá Víska,3202
+533327,Horní Kruty,3204
+533335,Lhotka,3202
+533343,Chotutice,3204
+533351,Chrášťany,3204
+533360,Jestřabí Lhota,3204
+533378,Jevany,3209
+533386,Klučov,3204
+533394,Konárovice,3204
+533408,Kořenice,3204
+533416,Kostelec nad Černými lesy,3209
+533424,Kouřim,3204
+533432,Kozojedy,3209
+533441,Krakovany,3204
+533459,Krupá,3204
+533467,Křečhoř,3204
+533475,Libenice,3204
+533483,Libodřice,3204
+533491,Černá Voda,3811
+533505,Lošany,3204
+533513,Malotice,3204
+533521,Nebovidy,3204
+533530,Nová Ves I,3204
+533548,Nučice,3209
+533556,Ohaře,3204
+533564,Oleška,3209
+533572,Ovčáry,3204
+533581,Plaňany,3204
+533599,Polepy,3204
+533602,Nenačovice,3202
+533611,Přišimasy,3204
+533629,Radim,3204
+533637,Radovesnice I,3204
+533645,Radovesnice II,3204
+533653,Ratboř,3204
+533661,Rostoklaty,3204
+533670,Chrustenice,3202
+533688,Dlouhomilov,3809
+533696,Skvrňov,3204
+533700,Starý Kolín,3204
+533718,Stříbrná Skalice,3209
+533726,Svojšice,3204
+533734,Tismice,3204
+533742,Toušice,3204
+533751,Třebovle,3204
+533769,Tři Dvory,3204
+533777,Tuchoraz,3204
+533785,Tuklaty,3204
+533793,Korno,3202
+533807,Týnec nad Labem,3204
+533815,Uhlířská Lhota,3204
+533823,Veletov,3204
+533831,Velim,3204
+533840,Velký Osek,3204
+533858,Veltruby,3204
+533866,Vitice,3204
+533874,Vlkančice,3209
+533882,Volárna,3204
+533891,Vrbčany,3204
+533904,Vyžlovka,3209
+533912,Mořinka,3202
+533921,Zásmuky,3204
+533939,Lážovice,3202
+533947,Žiželice,3204
+533955,Kutná Hora,3205
+533963,Skřipel,3202
+533971,Bílé Podolí,3205
+533980,Bohdaneč,3205
+533998,Církvice,3205
+534005,Čáslav,3205
+534013,Černíny,3205
+534021,Červené Janovice,3205
+534030,Čestín,3205
+534048,Vižina,3202
+534056,Horka II,3205
+534064,Hostovlice,3205
+534072,Kotopeky,3202
+534081,Chabeřice,3205
+534099,Chlístovice,3205
+534102,Chotusice,3205
+534111,Otmíče,3202
+534129,Kácov,3205
+534137,Kluky,3205
+534145,Bykoš,3202
+534153,Krchleby,3205
+534161,Křesetice,3205
+534170,Ledečko,3205
+534188,Malešov,3205
+534196,Svatý Mikuláš,3205
+534200,Miskovice,3205
+534218,Málkov,3202
+534226,Nepoměřice,3205
+534234,Vinařice,3202
+534242,Nové Dvory,3205
+534251,Okřesaneč,3205
+534269,Nesvačily,3202
+534277,Onomyšl,3205
+534285,Podbrdy,3202
+534293,Soběšín,3205
+534307,Pertoltice,3205
+534315,Petrovice I,3205
+534323,Petrovice II,3205
+534331,Potěhy,3205
+534340,Rašovice,3205
+534358,Rataje nad Sázavou,3205
+534366,Řendějov,3205
+534374,Samopše,3205
+534382,Sázava,3201
+534391,Slavošov,3205
+534404,Lužce,3202
+534412,Staňkovice,3205
+534421,Bavoryně,3202
+534439,Suchdol,3205
+534447,Chodouň,3202
+534455,Chlustina,3202
+534463,Točník,3202
+534471,Záhornice,3208
+534480,Tupadly,3205
+534498,Uhlířské Janovice,3205
+534501,Úmonín,3205
+534510,Úžice,3205
+534528,Vavřinec,3205
+534536,Vidice,3205
+534544,Vinaře,3205
+534552,Vlačice,3205
+534561,Vlastějovice,3205
+534579,Vlkaneč,3205
+534587,Vrdy,3205
+534595,Záboří nad Labem,3205
+534609,Zbizuby,3205
+534617,Zbraslavice,3205
+534625,Zbýšov,3205
+534633,Zruč nad Sázavou,3205
+534641,Žáky,3205
+534650,Žehušice,3205
+534668,Žleby,3205
+534676,Mělník,3206
+534684,Borek,3209
+534692,Újezd u Boskovic,3701
+534706,Chroustov,3208
+534714,Býkev,3206
+534722,Byšice,3206
+534731,Cítov,3206
+534749,Čečelice,3206
+534757,Seletice,3208
+534765,Dolní Beřkovice,3206
+534773,Dřínov,3206
+534781,Dřísy,3209
+534790,Horní Počaply,3206
+534803,Hořín,3206
+534811,Podhradí,3705
+534820,Chlumín,3206
+534838,Chorušice,3206
+534846,Chvatěruby,3206
+534854,Hořany,3208
+534862,Zvěřínek,3208
+534871,Velenka,3208
+534889,Starý Vestec,3208
+534897,Kly,3206
+534901,Kokořín,3206
+534919,Netřebice,3208
+534927,Dubicko,3809
+534935,Kostelec nad Labem,3206
+534943,Kouty,3208
+534951,Kralupy nad Vltavou,3206
+534960,Křenek,3209
+534978,Ledčice,3206
+534986,Lhota,3209
+534994,Choťovice,3204
+535001,Liběchov,3206
+535010,Běleč,3203
+535028,Lužec nad Vltavou,3206
+535036,Malý Újezd,3206
+535044,Mělnické Vtelno,3206
+535052,Mšeno,3206
+535061,Nebužely,3206
+535079,Nelahozeves,3206
+535087,Neratovice,3206
+535095,Loucká,3203
+535109,Královice,3203
+535117,Nová Ves,3206
+535125,Bílichov,3203
+535133,Obříství,3206
+535141,Ovčáry,3206
+535150,Hořešovičky,3203
+535168,Řepín,3206
+535176,Planá,3301
+535184,Tichov,3705
+535192,Spomyšl,3206
+535206,Dobrá Voda u Českých Budějovic,3301
+535214,Střemy,3206
+535222,Tišice,3206
+535231,Ostrolovský Újezd,3301
+535249,Dasný,3301
+535257,Úžice,3206
+535265,Velký Borek,3206
+535273,Veltrusy,3206
+535281,Mydlovary,3301
+535290,Vojkovice,3206
+535303,Vraňany,3206
+535311,Všestudy,3206
+535320,Všetaty,3206
+535338,Vysoká,3206
+535346,Plav,3301
+535354,Zálezlice,3206
+535362,Záryby,3209
+535371,Nákří,3301
+535389,Zlosyň,3206
+535397,Želízy,3206
+535401,Bošilec,3301
+535419,Mladá Boleslav,3207
+535427,Bakov nad Jizerou,3207
+535435,Neplachov,3301
+535443,Bělá pod Bezdězem,3207
+535451,Benátky nad Jizerou,3207
+535460,Hradce,3301
+535478,Bezno,3207
+535486,Bítouchov,3207
+535494,Úsilné,3301
+535508,Boreč,3207
+535516,Boseň,3207
+535524,Hosty,3301
+535532,Hanušovice,3809
+535541,Čakov,3301
+535559,Brodce,3207
+535567,Březina,3207
+535575,Habří,3301
+535583,Březno,3207
+535591,Zvíkov,3301
+535605,Bukovno,3207
+535613,Hvozdec,3301
+535621,Čachovice,3207
+535630,Čistá,3207
+535648,Nová Ves,3301
+535656,Dlouhá Lhota,3207
+535664,Doubravice,3301
+535672,Dobrovice,3207
+535681,Borovnice,3301
+535699,Petříkov,3301
+535702,Dolní Bousov,3207
+535711,Dolní Krupá,3207
+535729,Dolní Slivno,3207
+535737,Vidov,3301
+535745,Domousnice,3207
+535753,Hůry,3301
+535761,Jivno,3301
+535770,Horní Studénky,3809
+535788,Dubičné,3301
+535796,Vráto,3301
+535800,Libníč,3301
+535818,Horky nad Jizerou,3207
+535826,Adamov,3301
+535834,Horní Bukovina,3207
+535842,Mokrý Lom,3301
+535851,Hlavatce,3301
+535869,Hrdlořezy,3207
+535877,Komařice,3301
+535885,Hoštejn,3809
+535893,Vitín,3301
+535907,Chotýčany,3301
+535915,Vlkov,3301
+535923,Chocnějovice,3207
+535931,Chotětov,3207
+535940,Mazelov,3301
+535958,Drahotěšice,3301
+535966,Jabkenice,3207
+535974,Jivina,3207
+535982,Kamenná,3301
+535991,Pištín,3301
+536008,Katusice,3207
+536016,Zahájí,3301
+536024,Klášter Hradiště nad Jizerou,3207
+536032,Strýčice,3301
+536041,Kněžmost,3207
+536059,Břehov,3301
+536067,Kochánky,3207
+536075,Hartmanice,3301
+536083,Velenice,3208
+536091,Hrabišín,3809
+536105,Horní Kněžeklady,3301
+536113,Hynčina,3809
+536121,Kosořice,3207
+536130,Kostelní Hlavno,3209
+536148,Javorník,3811
+536156,Bečice,3301
+536164,Krásná Ves,3207
+536172,Krnsko,3207
+536181,Kropáčova Vrutice,3207
+536199,Dobšice,3301
+536202,Ledce,3207
+536211,Lhotky,3207
+536229,Chlumec,3302
+536237,Zvíkov,3302
+536245,Srnín,3302
+536253,Bohdalovice,3302
+536261,Loukovec,3207
+536270,Luštěnice,3207
+536288,Jedlí,3809
+536296,Malšín,3302
+536300,Věžovatá Pláně,3302
+536326,Mnichovo Hradiště,3207
+536334,Němčice,3207
+536342,Krajníčko,3307
+536351,Nepřevázka,3207
+536369,Hornosín,3307
+536377,Nová Telib,3207
+536385,Jeseník,3811
+536393,Jestřebí,3809
+536407,Obruby,3207
+536415,Měkynec,3307
+536423,Radějovice,3307
+536431,Petkovy,3207
+536440,Písková Lhota,3207
+536458,Plazy,3207
+536466,Mačkov,3307
+536474,Němčice,3307
+536482,Zahorčice,3307
+536491,Předměřice nad Jizerou,3207
+536504,Vacovice,3307
+536512,Truskovice,3307
+536521,Jindřichov,3809
+536539,Milejovice,3307
+536547,Přechovice,3307
+536555,Krty-Hradec,3307
+536563,Mnichov,3307
+536571,Kamenná,3809
+536580,Řepov,3207
+536598,Tchořovice,3307
+536601,Kocelovice,3307
+536610,Semčice,3207
+536628,Hlupín,3307
+536636,Skalsko,3207
+536644,Nebřehovice,3307
+536652,Smilovice,3207
+536661,Sojovice,3207
+536679,Třešovice,3307
+536687,Klopina,3809
+536695,Úlehle,3307
+536709,Strašnov,3207
+536717,Strenice,3207
+536725,Němětice,3307
+536733,Kolšov,3809
+536741,Velká Turná,3307
+536750,Kváskovice,3307
+536768,Sukorady,3207
+536776,Slaník,3307
+536784,Strunkovice nad Volyňkou,3307
+536792,Přední Zborovice,3307
+536806,Krašlovice,3307
+536814,Kosov,3809
+536822,Lom,3307
+536831,Libětice,3307
+536849,Řepice,3307
+536857,Velké Všelisy,3207
+536865,Rovná,3307
+536873,Zvotoky,3307
+536881,Horní Poříčí,3307
+536890,Uzeničky,3307
+536903,Chobot,3307
+536911,Pohorovice,3307
+536920,Štěchovice,3307
+536938,Všejany,3207
+536946,Kalenice,3307
+536954,Krejnice,3307
+536962,Nišovice,3307
+536971,Žďár,3207
+536989,Žerčice,3207
+536997,Židněves,3207
+537004,Nymburk,3208
+537021,Běrunice,3208
+537039,Bobnice,3208
+537047,Bříství,3208
+537055,Budiměřice,3208
+537063,Bratronice,3307
+537071,Lipovice,3306
+537080,Činěves,3208
+537098,Dlouhopolsko,3208
+537101,Dobšice,3208
+537110,Dvory,3208
+537128,Dymokury,3208
+537136,Kratušín,3306
+537144,Dvory,3306
+537152,Hořátev,3208
+537161,Hradčany,3208
+537179,Hradištko,3208
+537187,Drslavice,3306
+537195,Zábrdí,3306
+537209,Žernovice,3306
+537217,Choťánky,3208
+537225,Chotěšice,3208
+537233,Chrást,3208
+537241,Babice,3306
+537250,Jíkev,3208
+537268,Jizbice,3208
+537276,Kamenné Zboží,3208
+537284,Lesnice,3809
+537292,Kněžice,3208
+537306,Kolaje,3208
+537314,Kostelní Lhota,3208
+537322,Lužice,3306
+537331,Kostomlaty nad Labem,3208
+537349,Košík,3208
+537357,Kounice,3208
+537365,Olšovice,3306
+537373,Kovanice,3208
+537381,Mahouš,3306
+537390,Krchleby,3208
+537403,Křečkov,3208
+537411,Křinec,3208
+537420,Chvalovice,3306
+537438,Libice nad Cidlinou,3208
+537446,Loučeň,3208
+537454,Lysá nad Labem,3208
+537462,Mcely,3208
+537489,Městec Králové,3208
+537497,Milčice,3208
+537501,Milovice,3208
+537519,Buk,3306
+537527,Bohunice,3306
+537535,Újezdec,3306
+537543,Pěčnov,3306
+537551,Odřepsy,3208
+537560,Okřínek,3208
+537578,Opočnice,3208
+537586,Opolany,3208
+537594,Střítež,3304
+537608,Ústrašín,3304
+537616,Oskořínek,3208
+537624,Ostrá,3208
+537632,Pátek,3208
+537641,Pečky,3204
+537659,Písková Lhota,3208
+537667,Písty,3208
+537675,Pňov-Předhradí,3204
+537683,Poděbrady,3208
+537691,Ondřejov,3304
+537705,Poříčany,3204
+537713,Leština,3809
+537721,Přerov nad Labem,3208
+537730,Útěchovičky,3304
+537748,Ratenice,3204
+537756,Rožďalovice,3208
+537764,Sadská,3208
+537772,Sány,3208
+537781,Semice,3208
+537799,Senice,3208
+537802,Sloveč,3208
+537811,Sokoleč,3208
+537829,Proseč,3304
+537837,Stará Lysá,3208
+537845,Teplička,3403
+537853,Straky,3208
+537861,Stratov,3208
+537870,Březová,3403
+537888,Tatce,3204
+537896,Třebestovice,3208
+537900,Úmyslovice,3208
+537918,Dalovice,3403
+537926,Jenišov,3403
+537934,Mírová,3403
+537942,Vestec,3208
+537951,Vlkov pod Oškobrhem,3208
+537969,Otovice,3403
+537977,Vrbová Lhota,3208
+537985,Všechlapy,3208
+537993,Vykáň,3208
+538001,Andělská Hora,3403
+538019,Černava,3403
+538027,Smolné Pece,3403
+538035,Žehuň,3204
+538043,Babice,3209
+538051,Bašť,3209
+538086,Bořanovice,3209
+538094,Brandýs nad Labem-Stará Boleslav,3209
+538108,Brázdim,3209
+538116,Děpoltovice,3403
+538132,Čelákovice,3209
+538141,Čestlice,3209
+538159,Hájek,3403
+538167,Dobřejovice,3209
+538183,Kbelany,3407
+538191,Dřevčice,3209
+538221,Horoušany,3209
+538230,Hovorčovice,3209
+538248,Hrusice,3209
+538256,Husinec,3209
+538264,Jenštejn,3209
+538272,Jirny,3209
+538281,Kaliště,3209
+538299,Kamenice,3209
+538311,Klecany,3209
+538329,Klíčany,3209
+538337,Krásno,3409
+538345,Kojetice,3206
+538370,Kostelec u Křížků,3209
+538396,Šabina,3409
+538418,Křížkový Újezdec,3209
+538426,Kunice,3209
+538434,Svatava,3409
+538442,Líbeznice,3209
+538451,Louňovice,3209
+538469,Máslovice,3209
+538477,Měšice,3209
+538485,Mirošovice,3209
+538493,Mnichovice,3209
+538507,Mochov,3209
+538515,Mratín,3209
+538523,Mukařov,3209
+538540,Nehvizdy,3209
+538558,Nová Ves,3209
+538566,Nový Vestec,3209
+538574,Odolena Voda,3209
+538582,Ondřejov,3209
+538591,Dolní Rychnov,3409
+538604,Panenské Břežany,3209
+538612,Petříkov,3209
+538621,Podolanka,3209
+538639,Polerady,3209
+538647,Postřižín,3206
+538655,Předboj,3209
+538663,Tatrovice,3409
+538671,Přezletice,3209
+538680,Pyšely,3201
+538698,Radějovice,3209
+538701,Radonice,3209
+538710,Řehenice,3201
+538728,Říčany,3209
+538744,Březnice,3705
+538752,Senohraby,3209
+538761,Sibřina,3209
+538779,Sluhy,3209
+538787,Sluštice,3209
+538795,Krásná,3402
+538809,Strančice,3209
+538817,Podhradí,3402
+538825,Struhařov,3209
+538833,Sulice,3209
+538841,Světice,3209
+538850,Svojetice,3209
+538868,Pomezí nad Ohří,3402
+538876,Šestajovice,3209
+538884,Škvorec,3209
+538892,Tehov,3209
+538906,Milíkov,3402
+538914,Lázně Toušeň,3209
+538922,Okrouhlá,3402
+538957,Úvaly,3209
+538965,Veleň,3209
+538973,Veliká Ves,3209
+538981,Velké Popovice,3209
+538990,Větrušice,3209
+539015,Vodochody,3209
+539023,Třebeň,3402
+539031,Všestary,3209
+539040,Vyšehořovice,3209
+539058,Zdiby,3209
+539066,Zeleneč,3209
+539074,Vojtanov,3402
+539082,Zlonín,3209
+539091,Zvánovice,3209
+539104,Bojanovice,3210
+539112,Stará Voda,3402
+539121,Černolice,3210
+539139,Černošice,3210
+539147,Číčovice,3210
+539155,Čisovice,3210
+539163,Davle,3210
+539171,Dobrovíz,3210
+539180,Dobříč,3210
+539198,Dobřichovice,3210
+539201,Dolany nad Vltavou,3206
+539210,Dolní Břežany,3210
+539228,Holubice,3210
+539236,Horoměřice,3210
+539244,Hostivice,3210
+539252,Hradištko,3210
+539261,Hvozdnice,3210
+539279,Velká Hleďsebe,3402
+539287,Choteč,3210
+539295,Chrášťany,3210
+539309,Chýně,3210
+539317,Jeneč,3210
+539325,Jesenice,3210
+539333,Jílové u Prahy,3210
+539341,Jíloviště,3210
+539350,Jinočany,3210
+539368,Kamenný Přívoz,3210
+539376,Vlkovice,3402
+539384,Kněževes,3210
+539392,Kosoř,3210
+539406,Lety,3210
+539414,Libčice nad Vltavou,3210
+539422,Libeř,3210
+539431,Zádub-Závišín,3402
+539457,Líšnice,3210
+539473,Ovesné Kladruby,3402
+539481,Valy,3402
+539490,Měchenice,3210
+539503,Ohrobec,3210
+539511,Okrouhlo,3210
+539520,Ořech,3210
+539538,Prameny,3402
+539546,Petrov,3210
+539554,Odrava,3402
+539562,Pohoří,3210
+539571,Průhonice,3210
+539597,Psáry,3210
+539619,Tuřany,3402
+539627,Roztoky,3210
+539643,Řevnice,3210
+539651,Řitka,3210
+539660,Slapy,3210
+539686,Statenice,3210
+539708,Středokluky,3210
+539716,Měcholupy,3406
+539732,Štěchovice,3210
+539741,Štěnovický Borek,3405
+539759,Třebotov,3210
+539767,Tuchoměřice,3210
+539775,Tursko,3210
+539783,Oplot,3406
+539805,Únětice,3210
+539813,Velké Přílepy,3210
+539821,Horní Lukavice,3406
+539830,Vonoklasy,3210
+539848,Vrané nad Vltavou,3210
+539856,Všenory,3210
+539872,Zbuzany,3210
+539881,Zlatníky-Hodkovice,3210
+539902,Zvole,3210
+539911,Příbram,3211
+539929,Týniště,3406
+539937,Skašov,3406
+539945,Dolce,3406
+539953,Bohutín,3211
+539961,Libina,3809
+539970,Borotice,3211
+539988,Bratkovice,3211
+540005,Lipinka,3805
+540013,Březnice,3211
+540021,Buková u Příbramě,3211
+540030,Lipová-lázně,3811
+540048,Buš,3210
+540056,Střelice,3406
+540064,Lisov,3406
+540072,Čenkov,3211
+540081,Čím,3211
+540099,Daleké Dušníky,3211
+540102,Nezdřev,3406
+540111,Dobříš,3211
+540129,Dolní Hbity,3211
+540137,Životice,3406
+540145,Drahlín,3211
+540153,Drásov,3211
+540161,Líšnice,3809
+540170,Drevníky,3211
+540188,Drhovy,3211
+540196,Loštice,3809
+540200,Kozlovice,3406
+540218,Dublovice,3211
+540226,Loučná nad Desnou,3809
+540234,Lukavice,3809
+540242,Hluboš,3211
+540251,Drahkov,3406
+540269,Nová Ves,3406
+540285,Hřiměždice,3211
+540293,Otěšice,3406
+540307,Chlumy,3406
+540315,Hvožďany,3211
+540323,Chotilsko,3211
+540331,Malá Morava,3809
+540340,Nebílovy,3406
+540358,Chraštice,3211
+540366,Maletín,3809
+540374,Jablonná,3211
+540382,Mikulovice,3811
+540391,Jesenice,3211
+540404,Jince,3211
+540412,Předenice,3406
+540421,Radkovice,3406
+540439,Kamýk nad Vltavou,3211
+540447,Klučenice,3211
+540463,Bolkov,3406
+540471,Mohelnice,3809
+540480,Moravičany,3809
+540498,Kosova Hora,3211
+540501,Nový Malín,3809
+540510,Olšany,3809
+540528,Únětice,3406
+540536,Kozárovice,3211
+540544,Oskava,3809
+540552,Krásná Hora nad Vltavou,3211
+540561,Letkov,3405
+540579,Křepenice,3211
+540587,Křešín,3211
+540595,Palonín,3809
+540609,Pavlov,3809
+540617,Líšina,3406
+540625,Láz,3211
+540633,Kotovice,3406
+540641,Mokrouše,3405
+540650,Písařov,3809
+540668,Honezovice,3406
+540676,Srby,3406
+540684,Písečná,3811
+540692,Sedliště,3406
+540706,Vlčtejn,3406
+540714,Malá Hraštice,3211
+540722,Smědčice,3408
+540731,Police,3809
+540749,Milešov,3211
+540757,Milín,3211
+540765,Mníšek pod Brdy,3210
+540773,Postřelmov,3809
+540781,Mokrovraty,3211
+540790,Nalžovice,3211
+540803,Chlum,3408
+540811,Nečín,3211
+540820,Nedrahovice,3211
+540846,Nechvalice,3211
+540854,Rájec,3809
+540862,Rapotín,3809
+540871,Rohle,3809
+540889,Nová Ves pod Pleší,3211
+540897,Nové Dvory,3211
+540901,Nový Knín,3211
+540919,Rovensko,3809
+540927,Čilá,3408
+540935,Obecnice,3211
+540943,Obory,3211
+540951,Obořiště,3211
+540960,Ohrazenice,3211
+540978,Ruda nad Moravou,3809
+540986,Sobotín,3809
+541001,Hradiště,3408
+541010,Ouběnice,3211
+541028,Pečice,3211
+541036,Stará Červená Voda,3811
+541044,Petrovice,3211
+541052,Pičín,3211
+541061,Zvíkovec,3408
+541079,Staré Město,3809
+541087,Počepice,3211
+541095,Bezděkov,3408
+541109,Sudkov,3809
+541117,Supíkovice,3811
+541125,Svébohov,3809
+541133,Prosenická Lhota,3211
+541141,Chomle,3408
+541150,Kamenný Újezd,3408
+541168,Štíty,3809
+541176,Svojkovice,3408
+541192,Nevid,3408
+541206,Rosovice,3211
+541214,Uhelná,3811
+541222,Úsov,3809
+541231,Rožmitál pod Třemšínem,3211
+541249,Vápenná,3811
+541257,Rybníky,3211
+541265,Velké Losiny,3809
+541273,Sádek,3211
+541281,Sedlčany,3211
+541290,Horní Kozolupy,3410
+541303,Vidnava,3811
+541311,Smolotely,3211
+541320,Solenice,3211
+541338,Stará Huť,3211
+541346,Vlčice,3811
+541354,Zábřeh,3809
+541362,Zadní Chodov,3410
+541371,Suchodol,3211
+541389,Svaté Pole,3211
+541397,Svatý Jan,3211
+541401,Broumov,3410
+541419,Štětkovice,3211
+541427,Tochovice,3211
+541435,Únehle,3410
+541443,Obora,3410
+541451,Třebsko,3211
+541460,Zhoř,3410
+541478,Zvole,3809
+541486,Prostiboř,3410
+541494,Kokašice,3410
+541508,Věšín,3211
+541516,Višňová,3211
+541524,Volenice,3211
+541532,Milíře,3410
+541541,Voznice,3211
+541559,Kočov,3410
+541567,Vranovice,3211
+541575,Žulová,3811
+541583,Vysoká u Příbramě,3211
+541591,Vysoký Chlumec,3211
+541605,Brod nad Tichou,3410
+541613,Zalužany,3211
+541621,Tisová,3410
+541630,Vsetín,3810
+541648,Branky,3810
+541656,Rakovník,3212
+541664,Záchlumí,3410
+541672,Branov,3212
+541681,Ošelín,3410
+541699,Čistá,3212
+541702,Lom u Tachova,3410
+541711,Bystřička,3810
+541729,Hořesedly,3212
+541737,Hořovičky,3212
+541745,Myslovice,3404
+541753,Ježovy,3404
+541761,Hřebečníky,3212
+541770,Hředle,3212
+541788,Poleň,3404
+541796,Hejná,3404
+541800,Dolní Bečva,3810
+541818,Chrášťany,3212
+541826,Kejnice,3404
+541834,Jesenice,3212
+541842,Běhařov,3404
+541851,Klenová,3404
+541869,Javor,3404
+541877,Kněževes,3212
+541885,Týnec,3404
+541893,Kolešovice,3212
+541907,Kounov,3212
+541915,Obytce,3404
+541923,Břežany,3404
+541931,Kvášňovice,3404
+541940,Kroučová,3212
+541958,Olšany,3404
+541966,Krupá,3212
+541974,Krušovice,3212
+541982,Křivoklát,3212
+541991,Lány,3203
+542008,Lašovice,3212
+542016,Lišany,3212
+542024,Číhaň,3404
+542032,Lubná,3212
+542041,Lužná,3212
+542059,Mlýnské Struhadlo,3404
+542067,Městečko,3212
+542075,Milostín,3212
+542083,Hnačov,3404
+542091,Horská Kvilda,3404
+542105,Mšec,3212
+542113,Mšecké Žehrovice,3212
+542121,Mutějovice,3212
+542130,Nesuchyně,3212
+542148,Modrava,3404
+542156,Borovy,3406
+542164,Nové Strašecí,3212
+542172,Červené Poříčí,3404
+542181,Nový Dům,3212
+542199,Olešná,3212
+542202,Oráčov,3212
+542211,Panoší Újezd,3212
+542229,Petrovice,3212
+542237,Pochvalov,3212
+542253,Příčina,3212
+542270,Pšovlky,3212
+542288,Pustověty,3212
+542296,Nezdice,3406
+542318,Blazice,3708
+542326,Ruda,3212
+542334,Rynholec,3212
+542342,Honětice,3708
+542351,Řevničov,3212
+542369,Senec,3212
+542377,Senomaty,3212
+542385,Skryje,3212
+542393,Vrbka,3708
+542407,Trnovany,3506
+542415,Slabce,3212
+542423,Černouček,3506
+542431,Srbeč,3212
+542440,Oleško,3506
+542458,Svojetín,3212
+542466,Sýkořice,3212
+542474,Šanov,3212
+542482,Záluží,3506
+542491,Malíč,3506
+542504,Třeboc,3212
+542512,Třtice,3212
+542521,Michalovice,3506
+542539,Píšťany,3506
+542547,Blšany u Loun,3507
+542555,Opočno,3507
+542563,Velká Buková,3212
+542571,Cítoliby,3507
+542580,Obora,3507
+542598,Všetaty,3212
+542601,Zavidov,3212
+542610,Zbečno,3212
+542628,Černčice,3507
+542636,Nová Ves,3507
+542644,Francova Lhota,3810
+542679,Halenkov,3810
+542687,Horní Bečva,3810
+542725,Horní Lideč,3810
+542750,Hošťálková,3810
+542768,Hovězí,3810
+542784,Huslenky,3810
+542814,Hutisko-Solanec,3810
+542831,Choryně,3810
+542865,Jablůnka,3810
+542903,Jarcová,3810
+542911,Karolinka,3810
+542946,Kateřinice,3810
+542989,Kelč,3810
+542997,Kladeruby,3810
+543012,Žerotín,3507
+543021,Kunovice,3810
+543098,Lačnov,3810
+543128,Staňkovice,3507
+543543,Hruška,3709
+544248,Pavlíkov,3212
+544256,České Budějovice,3301
+544264,Leskovec,3810
+544272,Borek,3301
+544281,Borovany,3301
+544299,Boršov nad Vltavou,3301
+544302,Lešná,3810
+544329,Čejkovice,3301
+544337,Hamr na Jezeře,3501
+544345,Proseč pod Ještědem,3505
+544353,Heřmanice,3505
+544361,Dívčice,3301
+544370,Lidečko,3810
+544388,Dolní Bukovsko,3301
+544396,Liptál,3810
+544400,Doudleby,3301
+544418,Loučka,3810
+544426,Dříteň,3301
+544434,Lužná,3810
+544442,Dubné,3301
+544451,Dynín,3301
+544469,Malá Bystřice,3810
+544477,Stráž nad Nisou,3505
+544485,Hluboká nad Vltavou,3301
+544493,Homole,3301
+544507,Mikulůvka,3810
+544515,Horní Stropnice,3301
+544523,Hosín,3301
+544531,Čtveřín,3505
+544540,Hranice,3301
+544558,Hrdějovice,3301
+544566,Nový Hrozenkov,3810
+544574,Oznice,3810
+544582,Radimovice,3505
+544591,Chrášťany,3301
+544604,Žďárek,3505
+544612,Jankov,3301
+544621,Police,3810
+544639,Jílovice,3301
+544647,Bynovec,3502
+544655,Pozděchov,3810
+544663,Kamenný Újezd,3301
+544671,Prlov,3810
+544680,Janov,3502
+544698,Prostřední Bečva,3810
+544701,Labská Stráň,3502
+544710,Vincencov,3709
+544728,Pržno,3810
+544736,Ledenice,3301
+544744,Libín,3301
+544752,Příštpo,3710
+544761,Lipí,3301
+544779,Lišov,3301
+544787,Ratiboř,3810
+544795,Litvínovice,3301
+544809,Ločenice,3301
+544817,Mladošovice,3301
+544825,Nedabyle,3301
+544833,Bačkovice,3710
+544841,Rožnov pod Radhoštěm,3810
+544850,Růžďka,3810
+544868,Nové Hrady,3301
+544876,Lhotice,3710
+544884,Olešnice,3301
+544892,Olešník,3301
+544906,Seninka,3810
+544914,Střelná,3810
+544922,Střítež nad Bečvou,3810
+544931,Študlov,3705
+544949,Valašská Bystřice,3810
+544957,Lovčovice,3710
+544965,Radošovice,3301
+544973,Roudné,3301
+544981,Rudolfov,3301
+544990,Valašská Polanka,3810
+545007,Římov,3301
+545015,Sedlec,3301
+545023,Slavče,3301
+545031,Menhartice,3710
+545040,Radotice,3710
+545058,Valašské Meziříčí,3810
+545066,Srubec,3301
+545074,Staré Hodějovice,3301
+545082,Strážkovice,3301
+545091,Střížov,3301
+545104,Svatý Jan nad Malší,3301
+545112,Valašské Příkazy,3705
+545121,Ševětín,3301
+545139,Štěpánovice,3301
+545147,Velká Lhota,3810
+545155,Temelín,3301
+545163,Velké Karlovice,3810
+545171,Trhové Sviny,3301
+545180,Slavíkovice,3710
+545198,Vidče,3810
+545201,Týn nad Vltavou,3301
+545210,Vigantice,3810
+545228,Včelná,3301
+545236,Zašová,3810
+545244,Zděchov,3810
+545252,Zubří,3810
+545261,Vrábče,3301
+545279,Domašov nad Bystřicí,3805
+545287,Všemyslice,3301
+545295,Skalička,3703
+545309,Kožichovice,3710
+545317,Záboří,3301
+545325,Velký Karlov,3713
+545341,Zliv,3301
+545368,Žabovřesky,3301
+545376,Žár,3301
+545384,Žimutice,3301
+545392,Český Krumlov,3302
+545406,Benešov nad Černou,3302
+545414,Besednice,3302
+545422,Boletice,3302
+545431,Brloh,3302
+545449,Bujanov,3302
+545457,Černá v Pošumaví,3302
+545465,Dolní Dvořiště,3302
+545473,Dolní Třebonín,3302
+545481,Frymburk,3302
+545490,Holubov,3302
+545503,Horní Dvořiště,3302
+545511,Horní Planá,3302
+545520,Hořice na Šumavě,3302
+545538,Starý Šachov,3502
+545546,Chvalšiny,3302
+545554,Kájov,3302
+545562,Kaplice,3302
+545571,Křemže,3302
+545597,Lipno nad Vltavou,3302
+545601,Loučovice,3302
+545619,Malonty,3302
+545627,Mirkovice,3302
+545643,Netřebice,3302
+545660,Omlenice,3302
+545678,Markvartice,3502
+545694,Pohorská Ves,3302
+545708,Lobendava,3502
+545716,Přední Výtoň,3302
+545724,Přídolí,3302
+545732,Přísečná,3302
+545767,Rožmberk nad Vltavou,3302
+545775,Rožmitál na Šumavě,3302
+545783,Dobrná,3502
+545791,Merboltice,3502
+545805,Soběnov,3302
+545813,Světlík,3302
+545821,Velešín,3302
+545830,Větřní,3302
+545848,Vyšší Brod,3302
+545856,Dolní Habartice,3502
+545864,Zlatá Koruna,3302
+545872,Zubčice,3302
+545881,Jindřichův Hradec,3303
+545899,Františkov nad Ploučnicí,3502
+545902,Borová Lada,3306
+545929,Horní Habartice,3502
+545937,Lažany,3505
+545953,Paceřice,3505
+545996,Černousy,3505
+546011,Jimlín,3507
+546020,Budeč,3303
+546038,Budíškovice,3303
+546054,Cizkrajov,3303
+546062,Pesvice,3503
+546071,Račetice,3503
+546089,České Velenice,3303
+546097,Český Rudolec,3303
+546101,Číměř,3303
+546127,Dačice,3303
+546143,Dešná,3303
+546151,Deštná,3303
+546160,Nezabylice,3503
+546178,Úherce,3507
+546186,Ryjice,3510
+546194,Bačkov,3601
+546216,Jitkov,3601
+546232,Kozly,3501
+546259,Kvítkov,3501
+546267,Tuhaň,3501
+546275,Slunečná,3501
+546283,Svojkov,3501
+546291,Hatín,3303
+546305,Heřmaneč,3303
+546330,Kunratice,3502
+546348,Srbská Kamenice,3502
+546364,Horní Pěna,3303
+546372,Buková,3406
+546381,Horní Radouň,3303
+546399,Míšov,3406
+546402,Hospříz,3303
+546411,Úherce,3407
+546429,Chraberce,3507
+546437,Volevčice,3508
+546445,Hříšice,3303
+546453,Kámen,3502
+546461,Chlum u Třeboně,3303
+546470,Litíč,3610
+546488,Sirá,3408
+546496,Ludvíkovice,3502
+546500,Jarošov nad Nežárkou,3303
+546518,Loučná pod Klínovcem,3503
+546526,Těškov,3408
+546534,Týček,3408
+546542,Kardašova Řečice,3303
+546551,Újezd u Svatého Kříže,3408
+546577,Pulečný,3504
+546585,Jiřetín pod Bukovou,3504
+546593,Nová Ves,3505
+546607,Dětřichov,3505
+546615,Kunžak,3303
+546623,Lásenice,3303
+546631,Bílý Potok,3505
+546658,Janův Důl,3505
+546666,Lodhéřov,3303
+546674,Lomnice nad Lužnicí,3303
+546691,Lkáň,3506
+546712,Majdalena,3303
+546721,Sedlec,3506
+546755,Brzánky,3506
+546763,Horní Řepčice,3506
+546771,Kamýk,3506
+546780,Býčkovice,3506
+546798,Nová Bystřice,3303
+546801,Nová Včelnice,3303
+546810,Chudoslavice,3506
+546828,Staňkovice,3506
+546844,Novosedly nad Nežárkou,3303
+546852,Černěves,3506
+546861,Dobroměřice,3507
+546879,Líšťany,3507
+546887,Vršovice,3507
+546895,Brodec,3507
+546909,Lukov,3509
+546917,Písečné,3303
+546925,Stebno,3510
+546933,Okřešice,3710
+546941,Dobšice,3713
+546950,Nová Pláň,3801
+546968,Pluhův Žďár,3303
+546976,Hraničné Petrovice,3805
+546984,Bílov,3804
+546992,Popelín,3303
+547000,Životice u Nového Jičína,3804
+547018,Střeň,3805
+547026,Bystrovany,3805
+547069,Rapšach,3303
+547077,Samotišky,3805
+547085,Rodvínov,3303
+547093,Mutkov,3805
+547123,Komárov,3805
+547131,Svatoňovice,3806
+547166,Slavonice,3303
+547182,Kozmice,3806
+547191,Jezdkovice,3806
+547204,Staré Hobzí,3303
+547212,Staré Město pod Landštejnem,3303
+547221,Stráž nad Nežárkou,3303
+547239,Strmilov,3303
+547247,Stříbřec,3303
+547255,Švábov,3707
+547263,Studená,3303
+547280,Suchdol nad Lužnicí,3303
+547336,Třeboň,3303
+547433,Vlkoš,3808
+547441,Volfířov,3303
+547450,Výkleky,3808
+547468,Zahrádky,3303
+547476,Paseky nad Jizerou,3608
+547484,Ktová,3608
+547492,Pelhřimov,3304
+547514,Zábeštní Lhota,3808
+547531,Hořenice,3605
+547549,Bohdalín,3304
+547565,Vestec,3605
+547581,Božejov,3304
+547603,Bratřice,3304
+547638,Budíkov,3304
+547646,Velké Poříčí,3605
+547654,Šestajovice,3605
+547662,Cetoraz,3304
+547689,Čáslavsko,3304
+547701,Libchyně,3605
+547719,Častrov,3304
+547727,Sendraž,3605
+547735,Čejov,3304
+547743,Vernéřovice,3605
+547751,Bukovice,3605
+547760,Černovice,3304
+547778,Červená Řečice,3304
+547786,Adršpach,3605
+547794,Hodonín,3603
+547808,Rozhovice,3603
+547816,Jeníkov,3603
+547824,Křižanovice,3603
+547832,Licibořice,3603
+547841,Vyžice,3603
+547859,Zájezdec,3603
+547867,Bor u Skutče,3603
+547875,Lipovec,3603
+547883,Hojanovice,3304
+547891,Stolany,3603
+547905,Rybník,3611
+547913,Horní Cerekev,3304
+547921,Trpík,3611
+547930,Horní Ves,3304
+547948,Hořepník,3304
+547956,Hořice,3304
+547964,Sobkovice,3611
+547972,Hrádek,3611
+547981,Albrechtice,3611
+547999,Humpolec,3304
+548006,Bošín,3611
+548014,Dlouhá Třebová,3611
+548022,Vračovice-Orlov,3611
+548031,Dlouhoňovice,3611
+548049,Helvíkovice,3611
+548057,Vrchovnice,3602
+548065,Obědovice,3602
+548073,Ježov,3304
+548081,Jiřice,3304
+548090,Kaliště,3304
+548103,Kámen,3304
+548111,Kamenice nad Lipou,3304
+548120,Kejžlice,3304
+548146,Koberovice,3304
+548154,Světí,3602
+548162,Komorovice,3304
+548171,Košetice,3304
+548189,Kouty,3601
+548197,Nejepín,3601
+548201,Křeč,3304
+548219,Křelovice,3304
+548227,Křešín,3304
+548235,Leskovice,3304
+548243,Horní Paseka,3601
+548251,Podmoky,3601
+548260,Bartoušov,3601
+548278,Břevnice,3601
+548286,Knyk,3601
+548308,Kyjov,3601
+548316,Michalovice,3601
+548324,Skorkov,3601
+548332,Lukavec,3304
+548341,Slavníč,3601
+548359,Ostrov,3601
+548367,Mezilesí,3304
+548375,Čečkovice,3601
+548383,Mladé Bříště,3304
+548391,Mnich,3304
+548405,Moraveč,3304
+548413,Jilem,3601
+548421,Sedletín,3601
+548430,Bezděkov,3601
+548448,Dolní Sokolovec,3601
+548456,Nová Cerekev,3304
+548464,Nový Rychnov,3304
+548472,Obrataň,3304
+548481,Lány,3601
+548499,Sloupno,3601
+548502,Onšov,3304
+548511,Pacov,3304
+548529,Kochánov,3601
+548537,Úhořilka,3601
+548545,Píšť,3304
+548553,Slavětín,3601
+548561,Počátky,3304
+548570,Kunemil,3601
+548588,Okrouhlička,3601
+548596,Heřmanice,3601
+548600,Pošná,3304
+548618,Kraborovice,3601
+548626,Zvěstovice,3601
+548634,Podmoklany,3601
+548642,Hřibiny-Ledská,3607
+548651,Libel,3607
+548669,Rohenice,3607
+548677,Vysoký Újezd,3602
+548685,Krchleby,3607
+548693,Svídnice,3607
+548707,Vrbice,3607
+548715,Řečice,3304
+548723,Polom,3607
+548731,Salačova Lhota,3304
+548740,Samšín,3304
+548758,Proruby,3607
+548766,Sedlice,3304
+548774,Senožaty,3304
+548782,Jahodov,3607
+548791,Chlístov,3607
+548804,Lampertice,3610
+548812,Stanovice,3610
+548821,Borovnička,3610
+548839,Zábřezí-Řečice,3610
+548847,Zdobín,3610
+548855,Bříšťany,3604
+548863,Milovice u Hořic,3604
+548871,Petrovičky,3604
+548880,Sukorady,3604
+548898,Rokytňany,3604
+548901,Bílsko u Hořic,3604
+548910,Ohaveč,3604
+548928,Kostelec,3604
+548936,Těmice,3304
+548944,Kovač,3604
+548952,Budčeves,3604
+548961,Sedliště,3604
+548979,Borek,3604
+548987,Útěchovice,3304
+548995,Červená Třemešná,3604
+549002,Včelnička,3304
+549011,Velká Chyška,3304
+549029,Vřesník,3604
+549037,Choteč,3604
+549045,Velký Rybník,3304
+549053,Veselá,3304
+549061,Věžná,3304
+549070,Březina,3604
+549088,Dolní Lochov,3604
+549096,Staré Místo,3604
+549100,Brada-Rybníček,3604
+549118,Dílce,3604
+549126,Vojslavice,3304
+549134,Vyklantice,3304
+549142,Vyskytná,3304
+549151,Jinolice,3604
+549169,Kbelnice,3604
+549177,Zachotín,3304
+549185,Ohařice,3604
+549193,Zámostí-Blata,3604
+549207,Nevratice,3604
+549215,Želiv,3304
+549223,Chyjice,3604
+549231,Žirovnice,3304
+549240,Písek,3305
+549258,Albrechtice nad Vltavou,3305
+549266,Bernartice,3305
+549274,Rašín,3604
+549282,Butoves,3604
+549291,Božetice,3305
+549304,Branice,3305
+549312,Kacákova Lhota,3604
+549321,Cerhonice,3305
+549339,Čimelice,3305
+549347,Čížová,3305
+549355,Cholenice,3604
+549363,Dobev,3305
+549371,Dražíč,3301
+549380,Drhovle,3305
+549398,Heřmaň,3305
+549401,Pozlovice,3705
+549410,Hrazany,3305
+549428,Hrejkovice,3305
+549436,Komárov,3705
+549444,Oldřichovice,3705
+549452,Chyšky,3305
+549461,Pohořelice,3705
+549479,Jetětice,3305
+549487,Kestřany,3305
+549495,Kluky,3305
+549509,Kostelec nad Vltavou,3305
+549517,Kovářov,3305
+549525,Králova Lhota,3305
+549533,Poteč,3705
+549541,Kučeř,3305
+549550,Lhotsko,3705
+549568,Lety,3305
+549576,Milevsko,3305
+549584,Mirotice,3305
+549592,Mirovice,3305
+549606,Mišovice,3305
+549614,Myslín,3305
+549622,Lípa,3705
+549631,Nadějkov,3308
+549649,Tečovice,3705
+549657,Nevězice,3305
+549665,Raškovice,3802
+549673,Krásná,3802
+549681,Orlík nad Vltavou,3305
+549690,Bořenovice,3708
+549703,Oslov,3305
+549711,Ostrovec,3305
+549720,Přílepy,3708
+549738,Ponětovice,3703
+549746,Předklášteří,3703
+549754,Podolí I,3305
+549771,Protivín,3305
+549789,Říčky,3703
+549797,Přeštěnice,3305
+549801,Putim,3305
+549827,Ražice,3305
+549835,Milasín,3714
+549843,Sepekov,3305
+549851,Skály,3305
+549860,Slabčice,3305
+549878,Smetanova Lhota,3305
+549886,Střítež,3714
+549894,Skryje,3703
+549908,Újezd u Tišnova,3703
+549916,Pikárec,3714
+549924,Radkov,3714
+549932,Tálín,3305
+549941,Rosička,3714
+549959,Ubušínek,3714
+549967,Hačky,3709
+549975,Veselíčko,3305
+549983,Polomí,3709
+549991,Vráž,3305
+550001,Vrcovice,3305
+550019,Vracovice,3713
+550027,Záhoří,3305
+550035,Zbelítov,3305
+550043,Zběšičky,3305
+550051,Plenkovice,3713
+550060,Zhoř,3305
+550078,Přeskače,3713
+550086,Křídlůvky,3713
+550094,Prachatice,3306
+550108,Kozlany,3712
+550116,Bohumilice,3306
+550124,Bošice,3306
+550132,Olšany,3712
+550141,Medlovice,3712
+550159,Bušanovice,3306
+550167,Čkyně,3306
+550175,Podomí,3712
+550183,Dub,3306
+550191,Uhřice,3712
+550205,Horní Vltavice,3306
+550213,Heršpice,3712
+550221,Hracholusky,3306
+550230,Husinec,3306
+550248,Chlumany,3306
+550256,Kašnice,3704
+550264,Chroboly,3306
+550272,Cvrčovice,3703
+550281,Hybrálec,3707
+550299,Smrčná,3707
+550302,Kuroslepy,3710
+550311,Třesov,3710
+550329,Ktiš,3306
+550337,Kvilda,3306
+550345,Lažiště,3306
+550353,Lenora,3306
+550361,Lhenice,3306
+550370,Pokojovice,3710
+550388,Martínkov,3710
+550396,Němčice,3306
+550400,Bohušice,3710
+550418,Malovice,3306
+550426,Mičovice,3306
+550434,Nebahovy,3306
+550442,Netolice,3306
+550451,Nová Pec,3306
+550469,Pálovice,3710
+550477,Chotěbudice,3710
+550485,Radhostice,3306
+550493,Radkovice u Budče,3710
+550507,Litohoř,3710
+550515,Stachy,3306
+550523,Stožec,3306
+550531,Strážný,3306
+550540,Strunkovice nad Blanicí,3306
+550558,Svatá Maří,3306
+550566,Lukov,3710
+550574,Šumavské Hoštice,3306
+550582,Těšovice,3306
+550591,Jiratice,3710
+550604,Tvrzice,3306
+550612,Horní Smrčné,3710
+550621,Vacov,3306
+550639,Hroznatín,3710
+550647,Vimperk,3306
+550655,Vitějovice,3306
+550663,Vlachovo Březí,3306
+550671,Volary,3306
+550680,Záblatí,3306
+550698,Zálezly,3306
+550701,Zbytiny,3306
+550710,Krahulov,3710
+550728,Zdíkov,3306
+550736,Hostětín,3711
+550744,Kunovice,3711
+550752,Staré Město,3711
+550761,Želnava,3306
+550779,Naloučany,3710
+550787,Strakonice,3307
+550795,Podbřežice,3712
+550809,Bavorov,3307
+550817,Bělčice,3307
+550825,Holubice,3712
+550833,Bílsko,3307
+550841,Jiřice u Moravských Budějovic,3713
+550850,Blatná,3307
+550906,Cehnice,3307
+550922,Čejetice,3307
+550949,Čepřovice,3307
+550957,Čestice,3307
+550965,Číčenice,3307
+550981,Doubravice,3307
+551015,Drahonice,3307
+551023,Drážov,3307
+551040,Dřešín,3307
+551104,Hoslovice,3307
+551121,Hoštice,3307
+551139,Chelčice,3307
+551155,Chrášťovice,3307
+551163,Jinín,3307
+551180,Kadov,3307
+551201,Katovice,3307
+551261,Kraselov,3307
+551333,Libějovice,3307
+551341,Litochovice,3307
+551350,Lnáře,3307
+551384,Malenice,3307
+551392,Mečichov,3307
+551414,Miloňovice,3307
+551457,Studeněves,3203
+551465,Košice,3205
+551473,Myštice,3307
+551481,Kněžičky,3208
+551490,Branišov,3301
+551503,Čížkrajice,3301
+551520,Nihošovice,3307
+551538,Střítež,3302
+551546,Dubovice,3304
+551554,Novosedly,3307
+551562,Osek,3307
+551571,Paračov,3307
+551589,Horní Rápotice,3304
+551597,Hajany,3307
+551601,Turovec,3308
+551619,Pracejovice,3307
+551627,Předmíř,3307
+551635,Předslavice,3307
+551643,Přešťovice,3307
+551651,Hory,3403
+551660,Radomyšl,3307
+551678,Radošovice,3307
+551686,Podmokly,3404
+551694,Velká Štáhle,3801
+551708,Dlouhá Stráň,3801
+551716,Sedlice,3307
+551724,Mezina,3801
+551732,Moravskoslezský Kočov,3801
+551741,Skočice,3307
+551759,Sousedovice,3307
+551767,Staré Město,3801
+551775,Strašice,3307
+551783,Valšov,3801
+551791,Střelské Hoštice,3307
+551805,Horní Životice,3801
+551813,Staré Heřminovy,3801
+551821,Tvrdkov,3801
+551830,Škvořetice,3307
+551848,Petrovice,3801
+551856,Štěkeň,3307
+551864,Dívčí Hrad,3801
+551872,Hlinka,3801
+551881,Slezské Pavlovice,3801
+551899,Třebohostice,3307
+551902,Malá Štáhle,3801
+551911,Stará Ves,3801
+551929,Andělská Hora,3801
+551937,Uzenice,3307
+551945,Rudná pod Pradědem,3801
+551953,Vodňany,3307
+551961,Volenice,3307
+551970,Volyně,3307
+551988,Záboří,3307
+551996,Ludvíkov,3801
+552003,Čaková,3801
+552011,Štarnov,3805
+552020,Hlušovice,3805
+552038,Loučka,3805
+552046,Tábor,3308
+552054,Bechyně,3308
+552062,Bílsko,3805
+552071,Dubčany,3805
+552089,Tovéř,3805
+552097,Borkovice,3308
+552101,Borotín,3308
+552119,Věrovany,3805
+552127,Bradáčov,3308
+552135,Březnice,3308
+552143,Budislav,3308
+552151,Skrbeň,3805
+552160,Pňovice,3805
+552178,Haňovice,3805
+552186,Červenka,3805
+552194,Slavětín,3805
+552208,Dírná,3308
+552216,Luběnice,3805
+552224,Dobronice u Bechyně,3308
+552232,Loučany,3805
+552241,Dolní Hořice,3308
+552259,Olbramice,3805
+552267,Senička,3805
+552275,Dráchov,3308
+552283,Dražice,3308
+552291,Dražičky,3308
+552305,Lipina,3805
+552313,Domašov u Šternberka,3805
+552321,Hlavatce,3308
+552330,Hlásnice,3805
+552348,Mladějovice,3805
+552356,Babice,3805
+552364,Ústín,3805
+552372,Medlov,3805
+552381,Nová Hradečná,3805
+552399,Želechovice,3805
+552402,Bukovany,3805
+552411,Přáslavice,3805
+552429,Svésedlice,3805
+552437,Krčmaň,3805
+552445,Daskabát,3805
+552453,Chotěmice,3308
+552461,Chotoviny,3308
+552470,Choustník,3308
+552488,Vojkovice,3802
+552496,Chýnov,3308
+552500,Pazderna,3802
+552518,Nošovice,3802
+552526,Nižní Lhoty,3802
+552534,Jistebnice,3308
+552542,Dobratice,3802
+552551,Staré Město,3802
+552569,Staříč,3802
+552577,Pstruží,3802
+552585,Košice,3308
+552593,Malenovice,3802
+552607,Dolní Tošanovice,3802
+552615,Vělopolí,3802
+552623,Třanovice,3802
+552631,Horní Tošanovice,3802
+552640,Řeka,3802
+552658,Smilovice,3802
+552666,Malšice,3308
+552674,Střítež,3802
+552682,Vyšní Lhoty,3802
+552691,Žabeň,3802
+552704,Mladá Vožice,3308
+552712,Mlýny,3308
+552721,Myslkovice,3308
+552739,Horní Suchá,3803
+552747,Nemyšl,3308
+552755,Věžky,3808
+552763,Nová Ves u Chýnova,3308
+552771,Čechy,3808
+552780,Křtomil,3808
+552798,Oldřichov,3308
+552801,Opařany,3308
+552810,Nahošovice,3808
+552828,Planá nad Lužnicí,3308
+552836,Turovice,3808
+552844,Olšovec,3808
+552852,Pohnání,3308
+552861,Pojbuky,3308
+552879,Uhřičice,3808
+552887,Stříbrnice,3808
+552895,Přehořov,3308
+552909,Měrovice nad Hanou,3808
+552917,Radenín,3308
+552925,Radětice,3308
+552933,Radimovice u Želče,3308
+552941,Radkov,3308
+552950,Šišma,3808
+552968,Horní Těšice,3808
+552976,Rataje,3308
+552984,Dolní Těšice,3808
+552992,Ratibořské Hory,3308
+553000,Oplocany,3808
+553018,Roudná,3308
+553026,Valašská Senice,3810
+553034,Řepeč,3308
+553042,Mladecko,3806
+553051,Dolní Životice,3806
+553069,Sezimovo Ústí,3308
+553077,Skalice,3308
+553085,Skopytce,3308
+553093,Hlavnice,3806
+553107,Bratříkovice,3806
+553115,Lhotka u Litultovic,3806
+553123,Smilovy Hory,3308
+553131,Soběslav,3308
+553140,Stádlec,3308
+553158,Neplachovice,3806
+553166,Sudoměřice u Bechyně,3308
+553174,Sudoměřice u Tábora,3308
+553182,Sviny,3308
+553191,Vikantice,3809
+553204,Šebířov,3308
+553212,Janoušov,3809
+553221,Hrabová,3809
+553239,Tučapy,3308
+553247,Kopřivná,3809
+553255,Val,3308
+553263,Vesce,3308
+553271,Veselí nad Lužnicí,3308
+553280,Vilice,3308
+553298,Vlastiboř,3308
+553301,Hradec-Nová Ves,3811
+553310,Vlkov,3308
+553328,Vodice,3308
+553336,Třeština,3809
+553344,Jakubovice,3809
+553352,Postřelmůvek,3809
+553361,Zálší,3308
+553379,Dolní Studénky,3809
+553387,Hraběšice,3809
+553395,Rejchartice,3809
+553409,Zvěrotice,3308
+553417,Želeč,3308
+553425,Domažlice,3401
+553433,Babylon,3401
+553441,Bělá nad Radbuzou,3401
+553450,Blížejov,3401
+553468,Velká Kraš,3811
+553476,Nemile,3809
+553484,Skorošice,3811
+553492,Závada,3806
+553506,Bukovec,3406
+553514,Čermná,3401
+553522,Tužice,3404
+553531,Černíkov,3404
+553549,Česká Kubice,3401
+553557,Díly,3401
+553565,Polánka,3406
+553573,Drahotín,3401
+553581,Draženov,3401
+553590,Nezbavětice,3405
+553603,Studená,3407
+553611,Litohlavy,3408
+553620,Hlohová,3401
+553638,Tachov,3501
+553646,Dolánky nad Ohří,3506
+553654,Holýšov,3406
+553662,Horní Kamenice,3406
+553671,Horšovský Týn,3401
+553689,Hostouň,3401
+553697,Trmice,3510
+553701,Bačalky,3604
+553719,Srnojedy,3606
+553727,Chocomyšl,3401
+553735,Chodov,3401
+553743,Chodská Lhota,3401
+553751,Chrastavice,3401
+553760,Běstovice,3611
+553778,Kaničky,3401
+553786,Kdyně,3401
+553794,Klenčí pod Čerchovem,3401
+553816,Koloveč,3401
+553824,Kout na Šumavě,3401
+553832,Křenovy,3401
+553841,Kvíčovice,3406
+553859,Libkov,3401
+553867,Loučim,3401
+553875,Louka,3701
+553883,Ústup,3701
+553891,Luženičky,3401
+553905,Mrlínek,3708
+553913,Meclov,3401
+553921,Mezholezy,3401
+553930,Mezholezy,3401
+553948,Milavče,3401
+553956,Mířkov,3401
+553964,Častohostice,3710
+553972,Rybníček,3712
+553981,Mrákov,3401
+553999,Mutěnín,3401
+554006,Nemanice,3401
+554014,Návsí,3802
+554022,Neuměř,3406
+554031,Nevolice,3401
+554049,Olbramice,3807
+554057,Nový Kramolín,3401
+554065,Jakubčovice nad Odrou,3804
+554073,Osvračín,3401
+554081,Pasečnice,3401
+554090,Pec,3401
+554103,Řídeč,3805
+554111,Poběžovice,3401
+554120,Pocinovice,3401
+554138,Postřekov,3401
+554146,Vernířovice,3809
+554154,Puclice,3401
+554162,Crhov,3701
+554171,Šenov u Nového Jičína,3804
+554189,Rybník,3401
+554197,Branka u Opavy,3806
+554201,Semněvice,3401
+554251,Spáňov,3401
+554260,Srbice,3401
+554278,Srby,3401
+554294,Staňkov,3401
+554316,Stráž,3401
+554341,Tlumačov,3401
+554359,Trhanov,3401
+554383,Újezd,3401
+554391,Únějovice,3401
+554405,Úsilov,3401
+554413,Velký Malahov,3401
+554421,Vidice,3401
+554448,Všepadly,3401
+554456,Všeruby,3401
+554464,Zahořany,3401
+554472,Ždánov,3401
+554481,Cheb,3402
+554499,Aš,3402
+554502,Dolní Žandov,3402
+554511,Drmoul,3402
+554529,Františkovy Lázně,3402
+554545,Hazlov,3402
+554553,Hranice,3402
+554596,Křižovatka,3402
+554600,Lázně Kynžvart,3402
+554618,Libá,3402
+554626,Lipová,3402
+554634,Luby,3402
+554642,Mariánské Lázně,3402
+554651,Milhostov,3402
+554677,Mnichov,3402
+554693,Nebanice,3402
+554707,Nový Kostel,3402
+554740,Plesná,3402
+554782,Praha,9999
+554791,Plzeň,3405
+554804,Ústí nad Labem,3510
+554812,Skalná,3402
+554821,Ostrava,3807
+554847,Mrákotín,3603
+554855,Trstěnice,3402
+554863,Dolní Brusnice,3610
+554871,Střítež,3710
+554880,Tři Sekery,3402
+554898,Rostěnice-Zvonovice,3712
+554901,Křelov-Břuchotín,3805
+554910,Vražné,3804
+554928,Vendryně,3802
+554936,Bítov,3804
+554944,Mrsklesy,3805
+554952,Otradov,3603
+554961,Karlovy Vary,3403
+554979,Abertamy,3403
+554995,Bečov nad Teplou,3403
+555029,Bochov,3403
+555045,Božičany,3403
+555088,Havířov,3803
+555134,Pardubice,3606
+555169,Horní Blatná,3403
+555177,Hradiště,3403
+555185,Hroznětín,3403
+555193,Těchlovice,3502
+555207,Chyše,3403
+555215,Jáchymov,3403
+555223,Velké Chvojno,3510
+555231,Suchohrdly,3713
+555240,Semanín,3611
+555258,Kolová,3403
+555266,Nová Ves u Světlé,3601
+555274,Nové Sedlice,3806
+555282,Kurdějov,3704
+555291,Chotěbuz,3803
+555304,Krásné Údolí,3403
+555312,Kujavy,3804
+555347,Kyselka,3403
+555363,Merklín,3403
+555380,Nejdek,3403
+555398,Nová Role,3403
+555428,Ostrov,3403
+555444,Otročín,3403
+555452,Pernink,3403
+555479,Potůčky,3403
+555525,Pšov,3403
+555533,Sadov,3403
+555550,Stanovice,3403
+555584,Stráž nad Ohří,3403
+555592,Stružná,3403
+555614,Šemnice,3403
+555622,Štědrá,3403
+555631,Teplá,3402
+555657,Toužim,3403
+555681,Útvina,3403
+555690,Valeč,3403
+555703,Velichov,3403
+555711,Verušičky,3403
+555738,Vojkovice,3403
+555762,Žlutice,3403
+555771,Klatovy,3404
+555797,Běšiny,3404
+555801,Bezděkov,3404
+555835,Bolešiny,3404
+555894,Budětice,3404
+555941,Čachrov,3404
+556041,Dešenice,3404
+556068,Dlažov,3404
+556076,Dlouhá Ves,3404
+556084,Prášily,3404
+556106,Dolany,3404
+556181,Hartmanice,3404
+556203,Hlavňovice,3404
+556254,Horažďovice,3404
+556301,Hrádek,3404
+556319,Hradešice,3404
+556335,Chanovice,3404
+556343,Chlistov,3404
+556378,Chudenice,3404
+556386,Chudenín,3404
+556394,Janovice nad Úhlavou,3404
+556432,Kašperské Hory,3404
+556467,Kolinec,3404
+556505,Křenice,3404
+556629,Malý Bor,3404
+556637,Měčín,3404
+556718,Mochtín,3404
+556726,Mokrosuky,3404
+556734,Myslív,3404
+556751,Nalžovské Hory,3404
+556815,Nezdice na Šumavě,3404
+556831,Nýrsko,3404
+556858,Bravantice,3804
+556866,Lhota u Vsetína,3810
+556874,Petrůvka,3705
+556882,Rabštejnská Lhota,3603
+556912,Pačejov,3404
+556921,Petrovice u Sušice,3404
+556947,Pila,3403
+556955,Plánice,3404
+556963,Spešov,3701
+556971,Ropice,3802
+556980,Rokytnice,3705
+556998,Jezernice,3808
+557005,Předslav,3404
+557013,Rabí,3404
+557021,Rejštejn,3404
+557030,Skorkov,3207
+557048,Mouřínov,3712
+557081,Sytno,3410
+557099,Soběšice,3404
+557102,Bohuslavice nad Vláří,3705
+557111,Srní,3404
+557129,Strašín,3404
+557137,Strážov,3404
+557145,Lukoveček,3705
+557153,Sušice,3404
+557161,Svéradice,3404
+557170,Ostrata,3705
+557188,Šelešovice,3708
+557196,Pavlovice u Kojetína,3709
+557200,Švihov,3404
+557218,Kobylá nad Vidnavkou,3811
+557226,Písečná,3802
+557366,Velhartice,3404
+557374,Velké Hydčice,3404
+557382,Velký Bor,3404
+557455,Vrhaveč,3404
+557463,Zavlekov,3404
+557528,Železná Ruda,3404
+557536,Žihobce,3404
+557544,Žichovice,3404
+557587,Blovice,3406
+557641,Čižice,3406
+557650,Čížkov,3406
+557668,Dnešice,3406
+557676,Dobřany,3406
+557684,Dolní Lukavice,3406
+557722,Horšice,3406
+557731,Hradec,3406
+557749,Hradiště,3406
+557773,Chlum,3406
+557781,Chlumčany,3406
+557803,Chocenice,3406
+557838,Chotěšov,3406
+557846,Chválenice,3405
+557862,Kasejovice,3406
+557871,Kbel,3406
+557897,Klášter,3406
+557943,Kramolín,3406
+557951,Letiny,3406
+558001,Losiná,3405
+558010,Louňová,3406
+558028,Lužany,3406
+558044,Merklín,3406
+558052,Mileč,3406
+558061,Mladý Smolivec,3406
+558079,Mohelnice,3406
+558095,Nekvasovy,3406
+558109,Nepomuk,3406
+558117,Netunice,3406
+558125,Neurazy,3406
+558141,Nezvěstice,3405
+558176,Nové Mitrovice,3406
+558184,Oselce,3406
+558231,Prádlo,3406
+558249,Přeštice,3406
+558257,Příchovice,3406
+558265,Ptenín,3406
+558290,Roupov,3406
+558303,Řenče,3406
+558311,Seč,3406
+558346,Soběkury,3406
+558362,Spálené Poříčí,3406
+558371,Starý Plzenec,3405
+558389,Stod,3406
+558401,Střížovice,3406
+558419,Držovice,3709
+558427,Šťáhlavy,3405
+558435,Štěnovice,3406
+558443,Ladná,3704
+558460,Tymákov,3405
+558486,Útušice,3406
+558494,Ves Touškov,3406
+558559,Vrčeň,3406
+558567,Vstiš,3406
+558583,Zdemyslice,3406
+558591,Zemětice,3406
+558605,Ždírec,3406
+558630,Žinkovy,3406
+558656,Bezvěrov,3407
+558672,Blatnice,3407
+558699,Bučí,3407
+558711,Čeminy,3407
+558745,Česká Bříza,3407
+558770,Dobříč,3407
+558788,Dolany,3407
+558796,Dolní Bělá,3407
+558800,Dolní Hradiště,3407
+558834,Druztová,3407
+558851,Dýšina,3405
+558869,Heřmanova Huť,3407
+558877,Horní Bělá,3407
+558885,Horní Bříza,3407
+558915,Hromnice,3407
+558931,Hvozd,3407
+558940,Chotíkov,3407
+558966,Chrást,3405
+558974,Chříč,3407
+558982,Jarov,3407
+558991,Kaceřov,3407
+559008,Kaznějov,3407
+559016,Nasavrky,3308
+559024,Kopidlo,3407
+559032,Koryta,3407
+559041,Kozojedy,3407
+559059,Kozolupy,3407
+559067,Kožlany,3407
+559075,Kralovice,3407
+559083,Krašovice,3407
+559091,Krsy,3407
+559105,Křelovice,3407
+559121,Kunějovice,3407
+559130,Kyšice,3405
+559148,Ledce,3407
+559164,Líně,3407
+559172,Líšťany,3407
+559202,Manětín,3407
+559211,Město Touškov,3407
+559237,Mladotice,3407
+559245,Mrtník,3407
+559253,Nadryby,3407
+559261,Nečtiny,3407
+559270,Nekmíř,3407
+559288,Nevřeň,3407
+559300,Nýřany,3407
+559318,Obora,3407
+559326,Ostrov u Bezdružic,3407
+559334,Pernarec,3407
+559351,Plasy,3407
+559369,Plešnice,3407
+559377,Pňovany,3407
+559393,Přehýšov,3407
+559423,Rochlov,3407
+559431,Rybnice,3407
+559482,Tis u Blatna,3407
+559491,Tlučná,3407
+559504,Trnová,3407
+559521,Třemošná,3407
+559555,Úlice,3407
+559563,Úněšov,3407
+559571,Úterý,3407
+559580,Vejprnice,3407
+559601,Vochov,3407
+559628,Všeruby,3407
+559661,Zbůch,3407
+559679,Zruč-Senec,3407
+559695,Žihle,3407
+559709,Žilov,3407
+559717,Rokycany,3408
+559725,Břasy,3408
+559733,Březina,3408
+559741,Bujesily,3408
+559750,Bušovice,3408
+559768,Cekov,3408
+559776,Dobřív,3408
+559792,Ejpovice,3408
+559806,Hlohovice,3408
+559814,Holoubkov,3408
+559822,Hrádek,3408
+559849,Hůrky,3408
+559857,Cheznovice,3408
+559903,Kařez,3408
+559911,Klabava,3408
+559920,Kladruby,3408
+559946,Lhotka u Radnic,3408
+559954,Liblín,3408
+559962,Líšná,3408
+559997,Mirošov,3408
+560006,Mlečice,3408
+560014,Mýto,3408
+560057,Osek,3408
+560081,Podmokly,3408
+560111,Přívětice,3408
+560120,Radnice,3408
+560146,Sebečice,3408
+560162,Strašice,3408
+560171,Budyně,3307
+560189,Těně,3408
+560197,Lažany,3307
+560201,Nová Ves,3307
+560219,Drachkov,3307
+560227,Vejvanov,3408
+560235,Veselá,3408
+560243,Droužetice,3307
+560251,Volduchy,3408
+560260,Zbiroh,3408
+560278,Mutěnice,3307
+560286,Sokolov,3409
+560294,Březová,3409
+560308,Bublava,3409
+560316,Bukovany,3409
+560324,Citice,3409
+560332,Dasnice,3409
+560341,Dolní Nivy,3409
+560359,Habartov,3409
+560367,Horní Slavkov,3409
+560375,Chlum Svaté Maří,3409
+560383,Chodov,3409
+560391,Kuřimany,3307
+560405,Kladruby,3307
+560413,Jindřichovice,3409
+560421,Kaceřov,3409
+560430,Zhoř u Tábora,3308
+560448,Běleč,3308
+560456,Krajková,3409
+560464,Královské Poříčí,3409
+560472,Kraslice,3409
+560481,Hlasivo,3308
+560499,Kynšperk nad Ohří,3409
+560502,Libavské Údolí,3409
+560511,Řemíčov,3308
+560529,Dolní Hrachovice,3308
+560537,Loket,3409
+560545,Lomnice,3409
+560553,Pohnánec,3308
+560561,Nová Ves,3409
+560570,Nové Sedlo,3409
+560588,Oloví,3409
+560596,Přebuz,3409
+560600,Rotava,3409
+560618,Rovná,3409
+560626,Rodná,3308
+560634,Krátošice,3308
+560642,Staré Sedlo,3409
+560651,Stříbrná,3409
+560669,Skrýchov u Malšic,3308
+560677,Šindelová,3409
+560685,Vintířov,3409
+560707,Vřesová,3409
+560715,Tachov,3410
+560723,Benešovice,3410
+560740,Bezdružice,3410
+560758,Bor,3410
+560782,Cebiv,3410
+560804,Částkov,3410
+560812,Černošín,3410
+560839,Dlouhý Újezd,3410
+560855,Erpužice,3410
+560863,Halže,3410
+560898,Hošťka,3410
+560901,Chodová Planá,3410
+560910,Chodský Újezd,3410
+560928,Kladruby,3410
+560952,Konstantinovy Lázně,3410
+560979,Kšice,3410
+560987,Drunče,3303
+560995,Rosička,3303
+561002,Lesná,3410
+561011,Lestkov,3410
+561029,Světce,3303
+561037,Vícemil,3303
+561045,Smržov,3303
+561053,Bednáreček,3303
+561061,Horní Skrýchov,3303
+561070,Pístina,3303
+561088,Příbraz,3303
+561096,Hojovice,3304
+561100,Lidmaň,3304
+561118,Bácovice,3304
+561126,Bělá,3304
+561134,Planá,3410
+561142,Černov,3304
+561151,Přimda,3410
+561169,Rozvadov,3410
+561177,Nová Buková,3304
+561185,Staré Sedliště,3410
+561193,Staré Sedlo,3410
+561207,Stráž,3410
+561215,Stříbro,3410
+561223,Studánka,3410
+561231,Sulislav,3410
+561240,Bořetice,3304
+561258,Svojšín,3410
+561266,Litohošť,3304
+561274,Rovná,3304
+561282,Lhota-Vlasenice,3304
+561291,Trpísty,3410
+561304,Třemešné,3410
+561312,Buřenice,3304
+561321,Chyšná,3304
+561339,Chýstovice,3304
+561347,Martinice u Onšova,3304
+561355,Těchobuz,3304
+561363,Zhořec,3304
+561371,Krasíkovice,3304
+561380,Česká Lípa,3501
+561398,Bezděz,3501
+561401,Blatce,3501
+561410,Blíževedly,3501
+561428,Bohatice,3501
+561436,Polesí,3304
+561444,Brniště,3501
+561452,Stojčín,3304
+561461,Jankov,3304
+561479,Cvikov,3501
+561487,Střítež pod Křemešníkem,3304
+561495,Doksy,3501
+561509,Probulov,3305
+561517,Přeborov,3305
+561525,Horosedly,3305
+561533,Dubá,3501
+561541,Dubnice,3501
+561550,Kožlí,3305
+561568,Nové Hutě,3306
+561576,Budkov,3306
+561584,Holany,3501
+561592,Horní Libchava,3501
+561606,Horní Police,3501
+561614,Chlum,3501
+561622,Chotovice,3501
+561631,Jablonné v Podještědí,3505
+561649,Lčovice,3306
+561657,Janovice v Podještědí,3505
+561665,Jestřebí,3501
+561673,Křišťanov,3306
+561681,Kamenický Šenov,3501
+561690,Hájek,3307
+561703,Člunek,3303
+561711,Blažejov,3303
+561720,Kravaře,3501
+561738,Krompach,3501
+561746,Kunratice u Cvikova,3501
+561754,Eš,3304
+561762,Dobrá Voda u Pacova,3304
+561771,Vysoká Lhota,3304
+561789,Rodinov,3304
+561797,Vystrkov,3304
+561801,Bystrá,3304
+561819,Mysletín,3304
+561827,Mařenice,3501
+561835,Mimoň,3501
+561843,Staré Bříště,3304
+561851,Noviny pod Ralskem,3501
+561860,Nový Bor,3501
+561878,Nový Oldřichov,3501
+561886,Okna,3501
+561894,Okrouhlá,3501
+561908,Žirov,3304
+561916,Pavlov,3304
+561924,Dehtáře,3304
+561932,Dobrá Voda,3304
+561941,Proseč pod Křemešníkem,3304
+561959,Polevsko,3501
+561967,Olešná,3304
+561975,Zajíčkov,3304
+561983,Provodín,3501
+561991,Prysk,3501
+562009,Rynárec,3304
+562017,Ralsko,3501
+562025,Skalice u České Lípy,3501
+562033,Útěchovice pod Stražištěm,3304
+562041,Lesná,3304
+562050,Sloup v Čechách,3501
+562068,Rakovice,3305
+562076,Sosnová,3501
+562084,Jickovice,3305
+562092,Stráž pod Ralskem,3501
+562106,Stružnice,3501
+562114,Stvolínky,3501
+562122,Boudy,3305
+562131,Svor,3501
+562149,Minice,3305
+562157,Nerestce,3305
+562165,Zvíkovské Podhradí,3305
+562173,Velenice,3501
+562181,Křenovice,3305
+562190,Olešná,3305
+562203,Velký Valtinov,3501
+562211,Varvažov,3305
+562220,Volfartice,3501
+562238,Vrchovany,3501
+562246,Zahrádky,3501
+562254,Paseky,3305
+562262,Zákupy,3501
+562271,Temešvár,3305
+562289,Vojníkov,3305
+562297,Žandov,3501
+562301,Dolní Novosedly,3305
+562319,Horní Slatina,3303
+562327,Třebětice,3303
+562335,Děčín,3502
+562343,Arnoltice,3502
+562351,Benešov nad Ploučnicí,3502
+562360,Nová Ves nad Lužnicí,3303
+562378,Staňkov,3303
+562386,Hamr,3303
+562394,Česká Kamenice,3502
+562408,Dobkovice,3502
+562416,Dobrohošť,3303
+562424,Županovice,3303
+562432,Dolní Podluží,3502
+562441,Dolní Poustevna,3502
+562459,Polště,3303
+562467,Dolní Pěna,3303
+562475,Okrouhlá Radouň,3303
+562483,Heřmanov,3502
+562491,Kačlehy,3303
+562505,Horní Podluží,3502
+562513,Hřensko,3502
+562521,Huntířov,3502
+562530,Chřibská,3502
+562548,Bednárec,3303
+562556,Jetřichovice,3502
+562564,Jílové,3502
+562572,Jiřetín pod Jedlovou,3502
+562581,Jiříkov,3502
+562599,Velký Ratmírov,3303
+562602,Dolní Žďár,3303
+562611,Krásná Lípa,3502
+562629,Vydří,3303
+562637,Frahelž,3303
+562645,Kytlice,3502
+562653,Ponědrážka,3303
+562661,Lipová,3502
+562670,Ponědraž,3303
+562688,Klec,3303
+562696,Hadravova Rosička,3303
+562700,Malá Veleň,3502
+562718,Malšovice,3502
+562726,Báňovice,3303
+562734,Nová Olešná,3303
+562742,Bořetín,3303
+562751,Mikulášovice,3502
+562769,Jilem,3303
+562777,Rumburk,3502
+562785,Horní Němčice,3303
+562793,Rybniště,3502
+562807,Halámky,3303
+562815,Dunajovice,3303
+562823,Staré Křečany,3502
+562831,Hrachoviště,3303
+562840,Domanín,3303
+562858,Šluknov,3502
+562866,Mažice,3308
+562874,Valkeřice,3502
+562882,Varnsdorf,3502
+562891,Velká Bukovina,3502
+562904,Hodonice,3308
+562912,Velký Šenov,3502
+562921,Verneřice,3502
+562939,Veselé,3502
+562947,Vilémov,3502
+562955,Košín,3308
+562963,Jedlany,3308
+562971,Chomutov,3503
+562980,Bílence,3503
+562998,Blatno,3503
+563005,Boleboř,3503
+563013,Březno,3503
+563021,Černovice,3503
+563030,Krtov,3308
+563048,Domašín,3503
+563056,Droužkovice,3503
+563064,Hora Svatého Šebestiána,3503
+563072,Hrušovany,3503
+563081,Chbany,3503
+563099,Jirkov,3503
+563102,Kadaň,3503
+563111,Kalek,3503
+563129,Klášterec nad Ohří,3503
+563137,Kovářská,3503
+563145,Chrbonín,3308
+563153,Třebějice,3308
+563161,Křimov,3503
+563170,Svrabov,3308
+563188,Libědice,3503
+563196,Radimovice u Tábora,3308
+563200,Málkov,3503
+563218,Mašťov,3503
+563226,Měděnec,3503
+563234,Meziříčí,3308
+563242,Místo,3503
+563251,Balkova Lhota,3308
+563269,Okounov,3503
+563277,Otvice,3503
+563285,Perštejn,3503
+563293,Pětipsy,3503
+563307,Drhovice,3308
+563315,Kryštofovy Hamry,3503
+563323,Radonice,3503
+563331,Rokle,3503
+563340,Spořice,3503
+563358,Strupčice,3503
+563366,Bečice,3308
+563374,Psárov,3308
+563382,Údlice,3503
+563404,Vejprty,3503
+563412,Veliká Ves,3503
+563439,Vilémov,3503
+563447,Vlčeves,3308
+563455,Nová Ves u Mladé Vožice,3308
+563463,Vrskmaň,3503
+563471,Všehrdy,3503
+563480,Všestudy,3503
+563498,Výsluní,3503
+563501,Vysoká Pec,3503
+563510,Jablonec nad Nisou,3504
+563528,Albrechtice v Jizerských horách,3504
+563536,Bedřichov,3504
+563544,Libějice,3308
+563552,Desná,3504
+563561,Držkov,3504
+563579,Frýdštejn,3504
+563587,Lom,3308
+563595,Janov nad Nisou,3504
+563609,Jenišovice,3504
+563617,Jílové u Držkova,3504
+563625,Haškovcova Lhota,3308
+563633,Josefův Důl,3504
+563641,Koberovy,3504
+563650,Dlouhá Lhota,3308
+563668,Kořenov,3504
+563676,Líšný,3504
+563684,Loužnice,3504
+563692,Lučany nad Nisou,3504
+563706,Malá Skála,3504
+563714,Maršovice,3504
+563722,Černýšovice,3308
+563731,Nová Ves nad Nisou,3504
+563749,Pěnčín,3504
+563757,Plavy,3504
+563765,Drahov,3308
+563773,Radčice,3504
+563781,Rádlo,3504
+563790,Rychnov u Jablonce nad Nisou,3504
+563803,Skuhrov,3504
+563811,Smržovka,3504
+563820,Tanvald,3504
+563838,Velké Hamry,3504
+563846,Vlastiboř,3504
+563854,Zásada,3504
+563862,Zlatá Olešnice,3504
+563871,Železný Brod,3504
+563889,Liberec,3505
+563897,Žíšov,3308
+563901,Bílá,3505
+563919,Bílý Kostel nad Nisou,3505
+563927,Zadní Střítež,3308
+563935,Bulovka,3505
+563943,Cetenov,3505
+563951,Únice,3307
+563960,Český Dub,3505
+563978,Kubova Huť,3306
+563986,Klenovice,3308
+563994,Dolní Řasnice,3505
+564028,Frýdlant,3505
+564036,Habartice,3505
+564044,Hejnice,3505
+564052,Hlavice,3505
+564061,Hodkovice nad Mohelkou,3505
+564079,Horní Řasnice,3505
+564087,Poštovice,3203
+564095,Hrádek nad Nisou,3505
+564109,Chotyně,3505
+564117,Chrastava,3505
+564125,Plchov,3203
+564133,Jindřichovice pod Smrkem,3505
+564141,Kobyly,3505
+564150,Libochovičky,3203
+564168,Krásný Les,3505
+564176,Kryštofovo Údolí,3505
+564184,Křižany,3505
+564192,Páleč,3203
+564206,Lázně Libverda,3505
+564214,Počaply,3211
+564222,Nestrašovice,3211
+564231,Mníšek,3505
+564249,Chrást,3211
+564257,Horčápsko,3211
+564265,Nové Město pod Smrkem,3505
+564273,Svojšice,3211
+564281,Oldřichov v Hájích,3505
+564290,Osečná,3505
+564303,Pěnčín,3505
+564311,Pertoltice,3505
+564320,Zbenice,3211
+564338,Županovice,3211
+564346,Lazsko,3211
+564354,Příšovice,3505
+564362,Vrančice,3211
+564371,Raspenava,3505
+564389,Radětice,3211
+564397,Rynoltice,3505
+564401,Soběslavice,3505
+564419,Cetyně,3211
+564427,Světlá pod Ještědem,3505
+564435,Svijanský Újezd,3505
+564443,Svijany,3505
+564451,Sychrov,3505
+564460,Šimonovice,3505
+564478,Narysov,3211
+564486,Podlesí,3211
+564494,Višňová,3505
+564508,Dubno,3211
+564516,Vlastibořice,3505
+564524,Nepomuk,3211
+564532,Všelibice,3505
+564541,Zdislava,3505
+564559,Bohostice,3211
+564567,Litoměřice,3506
+564575,Bechlín,3506
+564583,Starosedlský Hrádek,3211
+564591,Bohušovice nad Ohří,3506
+564605,Hlubyně,3211
+564613,Brňany,3506
+564621,Brozany nad Ohří,3506
+564630,Sedlice,3211
+564648,Bříza,3506
+564656,Budyně nad Ohří,3506
+564664,Bukovany,3211
+564672,Ctiněves,3506
+564681,Drahobudice,3204
+564699,Černiv,3506
+564702,Masojedy,3204
+564711,Čížkovice,3506
+564729,Děčany,3506
+564737,Dlažkovice,3506
+564745,Dobříň,3506
+564753,Doksany,3506
+564761,Konojedy,3209
+564770,Drahobuz,3506
+564788,Prusice,3209
+564796,Výžerky,3209
+564800,Hradešín,3204
+564818,Dušníky,3506
+564826,Vrátkov,3204
+564834,Evaň,3506
+564842,Hlinná,3506
+564851,Horní Beřkovice,3506
+564869,Březí,3209
+564877,Hoštka,3506
+564885,Doubek,3209
+564893,Hrobce,3506
+564907,Nupaky,3209
+564915,Herink,3209
+564923,Chodouny,3506
+564931,Chodovlice,3506
+564940,Chotěšov,3506
+564958,Chotiměř,3506
+564966,Chotiněves,3506
+564974,Káraný,3209
+564982,Květnice,3209
+564991,Křenice,3209
+565008,Dobročovice,3209
+565016,Keblice,3506
+565024,Klapý,3506
+565032,Kleneč,3506
+565041,Břežany,3212
+565059,Kostomlaty pod Řípem,3506
+565067,Krabčice,3506
+565075,Křesín,3506
+565083,Křešice,3506
+565091,Kyškovice,3506
+565105,Levín,3506
+565113,Lhotka nad Labem,3506
+565121,Liběšice,3506
+565130,Všesulov,3212
+565148,Libkovice pod Řípem,3506
+565156,Libochovany,3506
+565164,Libochovice,3506
+565172,Libotenice,3506
+565181,Děkov,3212
+565199,Kolešov,3212
+565202,Hracholusky,3212
+565211,Lovečkovice,3506
+565229,Lovosice,3506
+565237,Lukavec,3506
+565245,Malé Žernoseky,3506
+565253,Martiněves,3506
+565261,Přílepy,3212
+565270,Janov,3212
+565288,Karlova Ves,3212
+565296,Mlékojedy,3506
+565300,Mnetěš,3506
+565318,Mšené-lázně,3506
+565326,Švihov,3212
+565334,Hvozd,3212
+565342,Nové Dvory,3506
+565351,Krakov,3212
+565369,Krakovec,3212
+565377,Malinová,3212
+565385,Kozojedy,3212
+565393,Ploskovice,3506
+565407,Smilovice,3212
+565415,Podsedice,3506
+565423,Bdín,3212
+565431,Polepy,3506
+565440,Kalivody,3212
+565458,Prackovice nad Labem,3506
+565466,Milý,3212
+565474,Přestavlky,3506
+565482,Račice,3506
+565491,Račiněves,3506
+565504,Řeřichy,3212
+565512,Václavy,3212
+565521,Radovesice,3506
+565539,Sovínky,3207
+565547,Rochov,3506
+565555,Roudnice nad Labem,3506
+565563,Lipník,3207
+565571,Vlkava,3207
+565580,Plužná,3207
+565598,Siřejovice,3506
+565601,Slatina,3506
+565610,Snědovice,3506
+565628,Vinařice,3207
+565636,Rohatsko,3207
+565644,Mečeříž,3207
+565652,Rabakov,3207
+565661,Řitonice,3207
+565679,Straškov-Vodochody,3506
+565695,Sulejovice,3506
+565709,Štětí,3506
+565717,Terezín,3506
+565725,Veselice,3207
+565733,Hrušov,3207
+565741,Travčice,3506
+565750,Bílá Hlína,3207
+565768,Třebenice,3506
+565776,Třebívlice,3506
+565784,Charvatce,3207
+565792,Třebušín,3506
+565806,Úpohlavy,3506
+565814,Úštěk,3506
+565822,Mohelnice nad Jizerou,3207
+565831,Vědomice,3506
+565849,Velemín,3506
+565857,Velké Žernoseky,3506
+565865,Vchynice,3506
+565873,Vlastislav,3506
+565881,Vražkov,3506
+565890,Vrbice,3506
+565903,Vrbičany,3506
+565911,Vrutice,3506
+565920,Sudoměř,3207
+565938,Žabovřesky nad Ohří,3506
+565946,Žalhostice,3506
+565954,Židovice,3506
+565962,Žitenice,3506
+565971,Louny,3507
+565989,Hlavenec,3209
+565997,Bitozeves,3507
+566004,Blatno,3507
+566012,Blažim,3507
+566021,Blšany,3507
+566039,Jizerní Vtelno,3207
+566047,Košátky,3207
+566055,Vřeskovice,3404
+566063,Břvany,3507
+566071,Všekary,3406
+566080,Čečovice,3406
+566098,Černovice,3406
+566101,Štichov,3406
+566128,Deštnice,3507
+566136,Brnířov,3401
+566144,Kanice,3401
+566152,Domoušice,3507
+566161,Úboč,3401
+566179,Hradiště,3401
+566187,Holedeč,3507
+566195,Hříškov,3507
+566209,Otov,3401
+566217,Hřivice,3507
+566233,Chlumčany,3507
+566241,Chožov,3507
+566250,Vlkanov,3401
+566276,Hora Svatého Václava,3401
+566284,Koštice,3507
+566292,Mnichov,3401
+566306,Krásný Dvůr,3507
+566314,Kryry,3507
+566322,Lenešice,3507
+566331,Hvožďany,3401
+566349,Libčeves,3507
+566357,Liběšice,3507
+566365,Poděvousy,3401
+566373,Pelechy,3401
+566381,Libořice,3507
+566390,Hlince,3407
+566403,Lipno,3507
+566411,Lišany,3507
+566420,Líté,3407
+566438,Lubenec,3507
+566446,Loza,3407
+566454,Měcholupy,3507
+566462,Lochousice,3407
+566471,Bohy,3407
+566489,Brodeslavy,3407
+566497,Všehrdy,3407
+566501,Nepomyšl,3507
+566519,Nové Sedlo,3507
+566527,Očihov,3507
+566535,Panenský Týnec,3507
+566543,Myslinka,3407
+566551,Peruc,3507
+566560,Petrohrad,3507
+566578,Pnětluky,3507
+566586,Počedělice,3507
+566594,Újezd nade Mží,3407
+566608,Podbořanský Rohozec,3507
+566616,Podbořany,3507
+566624,Postoloprty,3507
+566632,Černíkovice,3407
+566641,Hlohovčice,3401
+566659,Raná,3507
+566667,Ročov,3507
+566675,Vrbice,3403
+566683,Dražovice,3404
+566691,Vlčí,3406
+566705,Borovno,3406
+566713,Slavětín,3507
+566721,Smolnice,3507
+566730,Holovousy,3407
+566748,Slatina,3407
+566756,Bdeněves,3407
+566764,Blažim,3407
+566781,Pastuchovice,3407
+566799,Všenice,3408
+566802,Terešov,3408
+566811,Kamenec,3408
+566829,Toužetín,3507
+566837,Němčovice,3408
+566845,Skomelno,3408
+566853,Tuchořice,3507
+566861,Plískov,3408
+566870,Velemyšleves,3507
+566888,Olbramov,3410
+566896,Veltěže,3507
+566900,Růžová,3502
+566918,Vinařice,3507
+566926,Vrbno nad Lesy,3507
+566934,Vroutek,3507
+566942,Raková,3408
+566951,Výškov,3507
+566969,Výrov,3407
+566977,Zbrašín,3507
+566985,Žatec,3507
+566993,Ostrovec-Lhotka,3408
+567001,Lhota pod Radčem,3408
+567019,Žiželice,3507
+567027,Most,3508
+567043,Bečov,3508
+567051,Bělušice,3508
+567060,Braňany,3508
+567078,Brandov,3508
+567086,Příšov,3407
+567108,Český Jiřetín,3508
+567141,Havraň,3508
+567167,Hora Svaté Kateřiny,3508
+567175,Horní Jiřetín,3508
+567191,Klíny,3508
+567221,Korozluky,3508
+567248,Lišnice,3508
+567256,Litvínov,3508
+567264,Lom,3508
+567272,Louka u Litvínova,3508
+567281,Lužice,3508
+567299,Malé Březno,3508
+567302,Mariánské Radčice,3508
+567311,Meziboří,3508
+567329,Nová Ves v Horách,3508
+567337,Obrnice,3508
+567345,Patokryje,3508
+567353,Polerady,3508
+567361,Skršín,3508
+567426,Želenice,3508
+567442,Teplice,3509
+567451,Bílina,3509
+567469,Bořislav,3509
+567477,Bystřany,3509
+567485,Bžany,3509
+567507,Dubí,3509
+567515,Duchcov,3509
+567523,Háj u Duchcova,3509
+567531,Hostomice,3509
+567558,Hrob,3509
+567566,Hrobčice,3509
+567582,Jeníkov,3509
+567604,Kladruby,3509
+567612,Kostomlaty pod Milešovkou,3509
+567621,Košťany,3509
+567639,Krupka,3509
+567647,Lahošť,3509
+567655,Ledvice,3509
+567698,Měrunice,3509
+567701,Mikulov,3509
+567710,Modlany,3509
+567728,Moldava,3509
+567752,Novosedlice,3509
+567761,Ohníč,3509
+567779,Osek,3509
+567787,Proboštov,3509
+567809,Rtyně nad Bílinou,3509
+567833,Srbice,3509
+567841,Světec,3509
+567850,Újezdeček,3509
+567868,Zabrušany,3509
+567876,Žalany,3509
+567884,Žim,3509
+567931,Dolní Zálezly,3510
+567957,Habrovany,3510
+567973,Homole u Panny,3510
+568007,Chabařovice,3510
+568015,Chlumec,3510
+568023,Chuderov,3510
+568058,Libouchec,3510
+568091,Malé Březno,3510
+568104,Malečov,3510
+568147,Petrovice,3510
+568155,Povrly,3510
+568163,Žermanice,3802
+568180,Kružberk,3806
+568198,Staré Těchanovice,3806
+568201,Řehlovice,3510
+568210,Hať,3806
+568228,Darkovice,3806
+568236,Děhylov,3806
+568244,Vřesina,3806
+568261,Budišovice,3806
+568279,Mikolajice,3806
+568287,Tašov,3510
+568295,Telnice,3510
+568309,Tisá,3510
+568317,Radkov,3806
+568333,Štáblovice,3806
+568341,Uhlířov,3806
+568350,Velké Březno,3510
+568368,Hlubočec,3806
+568376,Rohov,3806
+568384,Zubrnice,3510
+568392,Doloplazy,3805
+568406,Slatina,3804
+568414,Havlíčkův Brod,3601
+568422,Velké Albrechtice,3804
+568431,Bordovice,3804
+568449,Zbyslavice,3807
+568457,Bojiště,3601
+568465,Borek,3601
+568473,Závišice,3804
+568481,Bernartice nad Odrou,3804
+568490,Čachotín,3601
+568503,Česká Bělá,3601
+568511,Hostašovice,3804
+568520,Číhošť,3601
+568538,Dlouhá Ves,3601
+568546,Kunín,3804
+568554,Rybí,3804
+568562,Heřmanice u Oder,3804
+568571,Heřmánky,3804
+568589,Mankovice,3804
+568597,Dolní Krupá,3601
+568601,Dolní Město,3601
+568619,Druhanov,3601
+568635,Golčův Jeníkov,3601
+568643,Kateřinice,3804
+568651,Habry,3601
+568660,Havlíčkova Borová,3601
+568678,Herálec,3601
+568686,Mošnov,3804
+568694,Hněvkovice,3601
+568708,Horní Krupá,3601
+568716,Skotnice,3804
+568724,Hradec,3601
+568732,Ženklava,3804
+568741,Albrechtičky,3804
+568759,Chotěboř,3601
+568767,Chrtníč,3601
+568775,Pustějov,3804
+568783,Jedlá,3601
+568791,Soběšovice,3802
+568805,Jeřišno,3601
+568813,Pražmo,3802
+568821,Kámen,3601
+568830,Řepiště,3802
+568848,Kamenná Lhota,3601
+568856,Klokočov,3601
+568864,Doubrava,3803
+568872,Charváty,3805
+568881,Kojetín,3601
+568899,Kozlov,3601
+568902,Kožlí,3601
+568911,Měrotín,3805
+568929,Krásná Hora,3601
+568937,Krátká Ves,3601
+568945,Krucemburk,3601
+568953,Květinov,3601
+568961,Vilémov,3805
+568970,Kynice,3601
+568988,Ledeč nad Sázavou,3601
+568996,Leškovice,3601
+569003,Liboš,3805
+569011,Leština u Světlé,3601
+569020,Libice nad Doubravou,3601
+569038,Lípa,3601
+569046,Lipnice nad Sázavou,3601
+569054,Strukov,3805
+569062,Lučice,3601
+569071,Malčín,3601
+569089,Maleč,3601
+569097,Moravice,3806
+569101,Třebom,3806
+569119,Čavisov,3807
+569127,Modlíkov,3601
+569135,Císařov,3808
+569143,Křenovice,3808
+569151,Nová Ves u Leštiny,3601
+569160,Nová Ves u Chotěboře,3601
+569178,Bohuslávky,3808
+569186,Okrouhlice,3601
+569194,Grymov,3808
+569208,Olešenka,3601
+569216,Olešná,3601
+569224,Oudoleň,3601
+569232,Ovesná Lhota,3601
+569241,Pavlov,3601
+569259,Dolní Nětčice,3808
+569267,Hlinsko,3808
+569275,Horní Nětčice,3808
+569283,Kladníky,3808
+569291,Pohled,3601
+569305,Chromeč,3809
+569313,Prosíčka,3601
+569321,Přibyslav,3601
+569330,Ostružná,3811
+569348,Příseka,3601
+569356,Česká Ves,3811
+569364,Radostín,3601
+569372,Krchleby,3809
+569381,Mírov,3809
+569399,Rozsochatec,3601
+569402,Rušinov,3601
+569411,Rybníček,3601
+569429,Sázavka,3601
+569437,Bratrušov,3809
+569445,Vikýřovice,3809
+569453,Velké Kunětice,3811
+569461,Skryje,3601
+569470,Skuhrov,3601
+569488,Slavíkov,3601
+569496,Podolí,3810
+569500,Horní Lhota,3807
+569518,Sobíňov,3601
+569526,Milotice nad Opavou,3801
+569534,Stříbrné Hory,3601
+569542,Horní Újezd,3808
+569551,Nové Heřminovy,3801
+569569,Světlá nad Sázavou,3601
+569577,Oborná,3801
+569585,Šlapanov,3601
+569593,Štoky,3601
+569607,Býkov-Láryšov,3801
+569615,Tis,3601
+569623,Trpišovice,3601
+569631,Sviadnov,3802
+569640,Uhelná Příbram,3601
+569658,Úsobí,3601
+569666,Hladké Životice,3804
+569674,Vepříkov,3601
+569682,Veselý Žďár,3601
+569691,Věž,3601
+569704,Věžnice,3601
+569712,Vilémov,3601
+569721,Vilémovice,3601
+569739,Vlkanov,3601
+569747,Vrchy,3804
+569755,Trnávka,3804
+569771,Suchonice,3805
+569780,Ždírec nad Doubravou,3601
+569798,Horní Loděnice,3805
+569801,Žižkovo Pole,3601
+569810,Hradec Králové,3602
+569828,Babice,3602
+569836,Barchov,3602
+569844,Lužice,3805
+569852,Běleč nad Orlicí,3602
+569861,Benátky,3602
+569879,Blešno,3602
+569887,Boharyně,3602
+569895,Dobroslavice,3806
+569909,Chvalíkovice,3806
+569917,Černilov,3602
+569925,Černožice,3602
+569933,Čistěves,3602
+569941,Divec,3602
+569950,Čermná ve Slezsku,3806
+569968,Dobřenice,3602
+569976,Dohalice,3602
+569984,Dolní Přím,3602
+569992,Habřina,3602
+570001,Hlušice,3602
+570010,Hněvčeves,3602
+570028,Holohlavy,3602
+570036,Větřkovice,3806
+570044,Hořiněves,3602
+570052,Hrádek,3602
+570061,Špičky,3808
+570079,Týn nad Bečvou,3808
+570087,Humburky,3602
+570095,Vyšehoří,3809
+570109,Chlumec nad Cidlinou,3602
+570117,Šléglov,3809
+570125,Chudeřice,3602
+570133,Jeníkovice,3602
+570141,Drozdov,3809
+570150,Káranice,3602
+570168,Klamoš,3602
+570176,Kosice,3602
+570184,Kosičky,3602
+570192,Králíky,3602
+570206,Kratonohy,3602
+570214,Kunčice,3602
+570222,Lejšovka,3602
+570231,Lhota pod Libčany,3602
+570249,Libčany,3602
+570257,Libníkovice,3602
+570265,Librantice,3602
+570273,Libřice,3602
+570281,Stavenice,3809
+570290,Lišice,3602
+570303,Lodín,3602
+570311,Lochenice,3602
+570320,Lovčice,3602
+570338,Zborov,3809
+570346,Janová,3810
+570354,Lužany,3602
+570362,Lužec nad Cidlinou,3602
+570371,Ústí,3810
+570397,Měník,3602
+570401,Mlékosrby,3602
+570419,Mokrovousy,3602
+570427,Myštěves,3602
+570435,Mžany,3602
+570443,Neděliště,3602
+570451,Nechanice,3602
+570478,Nepolisy,3602
+570494,Nové Město,3602
+570508,Nový Bydžov,3602
+570516,Ohnišťany,3602
+570524,Olešnice,3602
+570532,Osice,3602
+570541,Osičky,3602
+570567,Petrovice,3602
+570575,Písek,3602
+570648,Prasek,3602
+570656,Praskačka,3602
+570672,Předměřice nad Labem,3602
+570681,Převýšov,3602
+570702,Račice nad Trotinou,3602
+570711,Radíkovice,3602
+570729,Radostov,3602
+570745,Roudnice,3602
+570753,Prodašice,3207
+570761,Ujkovice,3207
+570770,Loukov,3207
+570788,Bradlec,3207
+570796,Sendražice,3602
+570800,Skalice,3602
+570818,Dalovice,3207
+570826,Kosmonosy,3207
+570834,Skřivany,3602
+570842,Vinec,3207
+570851,Sloupno,3602
+570869,Smidary,3602
+570877,Smiřice,3602
+570885,Smržov,3602
+570893,Obrubce,3207
+570907,Sovětice,3602
+570915,Stará Voda,3602
+570923,Přepeře,3207
+570931,Stěžery,3602
+570940,Dolní Stakory,3207
+570958,Stračov,3602
+570966,Střezetice,3602
+570974,Kolomuty,3207
+570982,Tuřice,3207
+570991,Ctiměřice,3207
+571008,Syrovátka,3602
+571016,Šaplava,3602
+571024,Těchlovice,3602
+571032,Pěčice,3207
+571041,Třebechovice pod Orebem,3602
+571059,Třesovice,3602
+571067,Doubravička,3207
+571075,Kluky,3207
+571083,Vinary,3602
+571091,Všestary,3602
+571105,Výrava,3602
+571113,Vysoká nad Labem,3602
+571121,Niměřice,3207
+571130,Zachrašťany,3602
+571148,Rokytovec,3207
+571156,Nemyslovice,3207
+571164,Chrudim,3603
+571172,Kobylnice,3207
+571181,Běstvina,3603
+571199,Bratřínov,3210
+571202,Bojanov,3603
+571211,Klínec,3210
+571229,Bořice,3603
+571237,Bousov,3603
+571245,Bylany,3603
+571253,Ctětín,3603
+571261,Kytín,3210
+571270,Čankovice,3603
+571288,Zahořany,3210
+571296,České Lhotice,3603
+571300,Dědová,3603
+571318,Roblín,3210
+571326,Lichoceves,3210
+571334,Okoř,3210
+571342,Svrkyně,3210
+571351,Úholičky,3210
+571377,Hamry,3603
+571385,Heřmanův Městec,3603
+571393,Hlinsko,3603
+571407,Hluboká,3603
+571415,Xaverov,3201
+571423,Zichovec,3203
+571431,Vrbičany,3203
+571440,Holetín,3603
+571458,Honbice,3603
+571466,Horka,3603
+571474,Horní Bradlo,3603
+571482,Hošťalovice,3603
+571491,Hrochův Týnec,3603
+571504,Hroubovice,3603
+571512,Kutrovice,3203
+571521,Neprobylice,3203
+571539,Chrast,3603
+571547,Chroustovice,3603
+571555,Líský,3203
+571563,Jenišovice,3603
+571571,Kameničky,3603
+571580,Kladno,3603
+571598,Zájezd,3203
+571601,Libovice,3203
+571610,Kočí,3603
+571628,Kostelec u Heřmanova Městce,3603
+571636,Němčice,3204
+571644,Štíhlice,3209
+571652,Krásné,3603
+571661,Krouna,3603
+571679,Oplany,3209
+571687,Klášterní Skalice,3204
+571695,Leština,3611
+571709,Leštinka,3603
+571717,Kšely,3204
+571725,Libkov,3603
+571733,Liboměřice,3603
+571741,Třebonín,3205
+571750,Lozice,3603
+571768,Lukavice,3603
+571776,Luže,3603
+571784,Libiš,3206
+571792,Kozomín,3206
+571806,Nová Ves u Bakova,3207
+571814,Zdětín,3207
+571822,Míčov-Sušice,3603
+571831,Miřetice,3603
+571849,Chudíř,3207
+571857,Mladoňovice,3603
+571865,Mukařov,3207
+571873,Morašice,3603
+571881,Strážiště,3207
+571890,Nabočany,3603
+571903,Načešice,3603
+571911,Nasavrky,3603
+571920,Nové Hrady,3611
+571938,Ptýrov,3207
+571946,Branžež,3207
+571954,Sudovo Hlavno,3209
+571962,Orel,3603
+571971,Kováň,3207
+571989,Dobšín,3207
+571997,Neveklovice,3207
+572004,Perálec,3603
+572012,Kovanec,3207
+572021,Vrátno,3207
+572039,Podhořany u Ronova,3603
+572047,Kyje,3604
+572063,Pokřikov,3603
+572071,Prachovice,3603
+572080,Proseč,3603
+572098,Prosetín,3603
+572101,Předhradí,3603
+572110,Přestavlky,3603
+572128,Vrbice,3604
+572136,Kozojedy,3604
+572144,Sekeřice,3604
+572152,Raná,3603
+572161,Ronov nad Doubravou,3603
+572179,Rosice,3603
+572187,Slavhostice,3604
+572195,Želivsko,3609
+572209,Řepníky,3611
+572217,Řestoky,3603
+572225,Seč,3603
+572233,Řídký,3609
+572241,Skuteč,3603
+572250,Březinky,3609
+572268,Slatiňany,3603
+572276,Sobětuchy,3603
+572284,Hartinkov,3609
+572292,Vrážné,3609
+572306,Stradouň,3611
+572314,Střemošice,3603
+572322,Studnice,3603
+572331,Svídnice,3603
+572349,Svratouch,3603
+572357,Desná,3609
+572365,Horní Újezd,3609
+572373,Poříčí u Litomyšle,3609
+572381,Tisovec,3603
+572390,Trhová Kamenice,3603
+572403,Trojovice,3603
+572411,Třemošnice,3603
+572420,Tuněchody,3603
+572438,Nová Ves u Jarošova,3609
+572446,Úhřetice,3603
+572454,Vápenný Podol,3603
+572462,Včelákov,3603
+572471,Vejvanovice,3603
+572489,Vinary,3611
+572497,Vítanov,3603
+572501,Vojtěchov,3603
+572519,Biskupice,3609
+572527,Vortová,3603
+572535,Vrbatův Kostelec,3603
+572543,Všeradov,3603
+572551,Vysočina,3603
+572560,Banín,3609
+572578,Zaječice,3603
+572586,Bělá nad Svitavou,3609
+572594,Kukle,3609
+572608,Nová Sídla,3609
+572616,Tržek,3609
+572624,Útěchov,3609
+572632,Borušov,3609
+572641,Žumberk,3603
+572659,Jičín,3604
+572667,Bašnice,3604
+572675,Běchary,3604
+572683,Dětřichov u Moravské Třebové,3609
+572691,Hradec nad Svitavou,3609
+572705,Boháňka,3604
+572713,Javorník,3609
+572721,Opatovec,3609
+572730,Chmelík,3609
+572748,Karle,3609
+572756,Tetín,3604
+572764,Chrtníky,3606
+572772,Bystřice,3604
+572781,Cerekvice nad Bystřicí,3604
+572799,Časy,3606
+572802,Malé Výkleky,3606
+572811,Češov,3604
+572829,Dětenice,3604
+572837,Dobrá Voda u Hořic,3604
+572845,Lány u Dašic,3606
+572853,Pravy,3606
+572861,Křičeň,3606
+572870,Němčice,3606
+572888,Újezd u Sezemic,3606
+572896,Černá u Bohdanče,3606
+572900,Holín,3604
+572918,Holovousy,3604
+572926,Hořice,3604
+572934,Stéblová,3606
+572942,Plch,3606
+572951,Podůlšany,3606
+572969,Chomutice,3604
+572977,Dubany,3606
+572985,Třebosice,3606
+572993,Jeřice,3604
+573001,Jičíněves,3604
+573019,Holotín,3606
+573027,Sovolusky,3606
+573035,Morašice,3606
+573043,Kněžnice,3604
+573051,Konecchlumí,3604
+573060,Kopidlno,3604
+573078,Neratov,3606
+573086,Lískovice,3604
+573094,Lázně Bělohrad,3604
+573108,Libáň,3604
+573116,Libošovice,3604
+573124,Libuň,3604
+573132,Starý Bydžov,3602
+573141,Lukavec u Hořic,3604
+573159,Lužany,3604
+573167,Markvartice,3604
+573175,Miletín,3604
+573183,Zelenecká Lhota,3604
+573191,Sadová,3602
+573205,Mladějov,3604
+573213,Mlázovice,3604
+573221,Rohoznice,3604
+573230,Nemyčeves,3604
+573248,Nová Paka,3604
+573256,Šárovcova Lhota,3604
+573264,Osek,3604
+573272,Ostroměř,3604
+573281,Ostružno,3604
+573299,Pecka,3604
+573302,Svatojanský Újezd,3604
+573311,Podhorní Újezd a Vojice,3604
+573329,Podhradí,3604
+573337,Dřevěnice,3604
+573345,Podůlší,3604
+573353,Bukvice,3604
+573361,Soběraz,3604
+573370,Radim,3604
+573388,Litoboř,3605
+573400,Loučky,3608
+573418,Martinice v Krkonoších,3608
+573426,Anenská Studánka,3611
+573434,Lhota,3705
+573442,Samšina,3604
+573451,Sběř,3604
+573469,Slatiny,3604
+573477,Sobčice,3604
+573485,Lesůňky,3710
+573493,Sobotka,3604
+573507,Stará Paka,3604
+573515,Kunětice,3606
+573523,Staré Smrkovice,3604
+573531,Puchlovice,3602
+573540,Střevač,3604
+573558,Boňkov,3601
+573566,Bělá,3601
+573574,Chřenovice,3601
+573582,Víska,3601
+573591,Pohleď,3601
+573604,Služátky,3601
+573612,Třebnouševes,3604
+573621,Hvozdnice,3602
+573639,Třtěnice,3604
+573647,Tuř,3604
+573655,Úbislavice,3604
+573663,Údrnice,3604
+573671,Úhlejov,3604
+573680,Újezd pod Troskami,3604
+573698,Úlibice,3604
+573701,Valdice,3604
+573710,Kobylice,3602
+573728,Veliš,3604
+573736,Vidochov,3604
+573744,Zdechovice,3602
+573752,Vitiněves,3604
+573761,Volanice,3604
+573779,Máslojedy,3602
+573787,Klešice,3603
+573795,Vršce,3604
+573809,Vysoké Veselí,3604
+573817,Smrček,3603
+573825,Železnice,3604
+573833,Žeretice,3604
+573841,Židovice,3604
+573850,Žlunice,3604
+573868,Náchod,3605
+573876,Zderaz,3603
+573884,Bezděkov nad Metují,3605
+573892,Bohuslavice,3605
+573906,Borová,3605
+573914,Božanov,3605
+573922,Broumov,3605
+573931,Brzice,3605
+573949,Biskupice,3603
+573957,Černčice,3605
+573965,Červený Kostelec,3605
+573973,Česká Čermná,3605
+573981,Česká Metuje,3605
+573990,Česká Skalice,3605
+574007,Kněžice,3603
+574015,Dolany,3605
+574023,Dolní Radechová,3605
+574031,Hejtmánkovice,3605
+574040,Heřmanice,3605
+574058,Heřmánkovice,3605
+574066,Horní Radechová,3605
+574074,Hořičky,3605
+574082,Hronov,3605
+574091,Žlebské Chvalovice,3603
+574104,Ostrov,3603
+574112,Chvalkovice,3605
+574121,Jaroměř,3605
+574139,Jasenná,3605
+574147,Jestřebí,3605
+574155,Jetřichov,3605
+574163,Hynčice,3605
+574171,Křinice,3605
+574180,Lhota pod Hořičkami,3605
+574198,Spojil,3606
+574201,Horka u Staré Paky,3608
+574210,Machov,3605
+574228,Martínkovice,3605
+574236,Mezilečí,3605
+574244,Mezilesí,3605
+574252,Meziměstí,3605
+574261,Nahořany,3605
+574279,Nové Město nad Metují,3605
+574287,Nový Hrádek,3605
+574295,Nový Ples,3605
+574309,Bezděčí u Trnávky,3609
+574317,Otovice,3605
+574325,Gruna,3609
+574333,Radkov,3609
+574341,Police nad Metují,3605
+574350,Provodov-Šonov,3605
+574368,Přibyslav,3605
+574376,Rasošky,3605
+574384,Rožnov,3605
+574392,Sázava,3611
+574406,Rychnovek,3605
+574422,Slatina nad Úpou,3605
+574431,Slavětín nad Metují,3605
+574449,Kosořín,3611
+574457,Slavoňov,3605
+574465,Stárkov,3605
+574481,Studnice,3605
+574490,Suchý Důl,3605
+574511,Šonov,3605
+574538,Teplice nad Metují,3605
+574546,Kramolna,3605
+574554,Velichovky,3605
+574562,Velká Jesenice,3605
+574571,Velké Petrovice,3605
+574589,Velký Třebešov,3605
+574597,Vilantice,3610
+574601,Vlkov,3605
+574627,Vršovka,3605
+574635,Vysoká Srbská,3605
+574643,Vysokov,3605
+574651,Zábrodí,3605
+574660,Zaloňov,3605
+574686,Žďár nad Metují,3605
+574694,Žďárky,3605
+574708,Žernov,3605
+574724,Barchov,3606
+574741,Bezděkov,3606
+574767,Lázně Bohdaneč,3606
+574783,Borek,3606
+574791,Brloh,3606
+574805,Břehy,3606
+574813,Bukovina nad Labem,3606
+574821,Bukovina u Přelouče,3606
+574830,Bukovka,3606
+574848,Býšť,3606
+574856,Čeperka,3606
+574864,Čepí,3606
+574899,Dašice,3606
+574902,Dolany,3606
+574911,Dolní Roveň,3606
+574929,Dolní Ředice,3606
+574953,Dříteč,3606
+574961,Hlavečník,3606
+574988,Holice,3606
+574996,Horní Jelení,3606
+575011,Horní Ředice,3606
+575046,Hrobice,3606
+575054,Choltice,3606
+575062,Choteč,3606
+575071,Chvaletice,3606
+575089,Chvojenec,3606
+575097,Chýšť,3606
+575101,Jankovice,3606
+575119,Jaroslav,3606
+575127,Jedousov,3606
+575135,Jeníkovice,3606
+575143,Jezbořice,3606
+575151,Kasalice,3606
+575178,Kladruby nad Labem,3606
+575194,Kojice,3606
+575232,Kostěnice,3606
+575259,Labské Chrčice,3606
+575305,Libišany,3606
+575313,Lipoltice,3606
+575330,Litošice,3606
+575372,Mikulovice,3606
+575381,Mokošín,3606
+575399,Moravany,3606
+575429,Opatovice nad Labem,3606
+575437,Ostřešany,3606
+575445,Ostřetín,3606
+575461,Poběžovice u Holic,3606
+575470,Poběžovice u Přelouče,3606
+575500,Přelouč,3606
+575518,Přelovice,3606
+575526,Přepychy,3606
+575534,Ráby,3606
+575542,Radhošť,3611
+575551,Rohovládova Bělá,3606
+575569,Rohoznice,3606
+575577,Rokytno,3606
+575593,Rybitví,3606
+575607,Řečany nad Labem,3606
+575615,Selmice,3606
+575623,Semín,3606
+575640,Sezemice,3606
+575658,Slepotice,3606
+575666,Sopřeč,3606
+575682,Srch,3606
+575704,Staré Hradiště,3606
+575712,Staré Jesenčany,3606
+575721,Staré Ždánice,3606
+575739,Starý Mateřov,3606
+575755,Stojice,3606
+575763,Strašov,3606
+575771,Svinčany,3606
+575780,Svojšice,3606
+575810,Tetov,3606
+575828,Trusnov,3606
+575844,Turkovice,3606
+575861,Týnišťko,3611
+575879,Uhersko,3606
+575887,Úhřetická Lhota,3606
+575909,Újezd u Přelouče,3606
+575917,Urbanice,3606
+575925,Valy,3606
+575933,Vápno,3606
+575941,Veliny,3606
+575968,Veselí,3606
+575984,Vlčí Habřina,3606
+575992,Voleč,3606
+576000,Vysoké Chvojno,3606
+576018,Vyšehněvice,3606
+576026,Zdechovice,3606
+576042,Žáravice,3606
+576051,Živanice,3606
+576069,Rychnov nad Kněžnou,3607
+576077,Albrechtice nad Orlicí,3607
+576085,Bačetín,3607
+576093,Bartošovice v Orlických horách,3607
+576107,Bílý Újezd,3607
+576115,Bohdašín,3607
+576123,Bolehošť,3607
+576131,Borohrádek,3607
+576140,Borovnice,3607
+576166,Bystré,3607
+576174,Byzhradec,3607
+576182,Častolovice,3607
+576191,Čermná nad Orlicí,3607
+576204,Černíkovice,3607
+576212,České Meziříčí,3607
+576221,Čestice,3607
+576247,Deštné v Orlických horách,3607
+576263,Dobré,3607
+576271,Dobruška,3607
+576280,Dobřany,3607
+576301,Doudleby nad Orlicí,3607
+576310,Chleny,3607
+576328,Janov,3607
+576336,Javornice,3607
+576352,Jílovice,3602
+576361,Kostelec nad Orlicí,3607
+576387,Kostelecké Horky,3607
+576395,Kounov,3607
+576409,Králova Lhota,3607
+576425,Kvasiny,3607
+576433,Ledce,3602
+576441,Lhoty u Potštejna,3607
+576450,Liberk,3607
+576468,Lično,3607
+576476,Lípa nad Orlicí,3607
+576492,Lukavice,3607
+576506,Lupenice,3607
+576522,Mokré,3607
+576549,Nová Ves,3607
+576557,Očelice,3607
+576565,Ohnišov,3607
+576573,Olešnice v Orlických horách,3607
+576581,Olešnice,3607
+576590,Opočno,3607
+576603,Orlické Záhoří,3607
+576611,Osečnice,3607
+576620,Pěčín,3607
+576654,Podbřezí,3607
+576662,Pohoří,3607
+576671,Potštejn,3607
+576689,Přepychy,3607
+576701,Rokytnice v Orlických horách,3607
+576727,Rybná nad Zdobnicí,3607
+576735,Říčky v Orlických horách,3607
+576743,Sedloňov,3607
+576751,Semechnice,3607
+576778,Skuhrov nad Bělou,3607
+576786,Slatina nad Zdobnicí,3607
+576794,Sněžné,3607
+576808,Solnice,3607
+576816,Synkov-Slemeno,3607
+576824,Trnov,3607
+576832,Třebešov,3607
+576841,Tutleky,3607
+576859,Týniště nad Orlicí,3607
+576875,Val,3607
+576883,Vamberk,3607
+576891,Voděrady,3607
+576921,Záměl,3607
+576930,Zdelov,3607
+576948,Zdobnice,3607
+576956,Žďár nad Orlicí,3607
+576964,Semily,3608
+576972,Bělá,3608
+576981,Benecko,3608
+576999,Benešov u Semil,3608
+577006,Bozkov,3608
+577014,Bradlecká Lhota,3608
+577031,Bukovina u Čisté,3608
+577049,Bystrá nad Jizerou,3608
+577057,Čistá u Horek,3608
+577073,Háje nad Jizerou,3608
+577081,Harrachov,3504
+577111,Holenice,3608
+577120,Horní Branná,3608
+577146,Hrubá Skála,3608
+577154,Chuchelna,3608
+577162,Jablonec nad Jizerou,3608
+577171,Jesenný,3608
+577189,Jestřabí v Krkonoších,3608
+577197,Jilemnice,3608
+577201,Kacanovy,3608
+577219,Karlovice,3608
+577227,Klokočí,3608
+577235,Košťálov,3608
+577243,Kruh,3608
+577294,Libštát,3608
+577308,Lomnice nad Popelkou,3608
+577316,Mírová pod Kozákovem,3608
+577324,Modřišice,3608
+577332,Mříčná,3608
+577341,Nová Ves nad Popelkou,3608
+577359,Ohrazenice,3608
+577367,Olešnice,3608
+577375,Levínská Olešnice,3608
+577391,Peřimov,3608
+577405,Poniklá,3608
+577413,Přepeře,3608
+577421,Příkrý,3608
+577430,Radostná pod Kozákovem,3608
+577448,Rakousy,3608
+577456,Rokytnice nad Jizerou,3608
+577464,Roprachtice,3608
+577472,Rovensko pod Troskami,3608
+577481,Roztoky u Semil,3608
+577499,Roztoky u Jilemnice,3608
+577529,Slaná,3608
+577545,Stružinec,3608
+577553,Studenec,3608
+577561,Svojek,3608
+577570,Syřenov,3608
+577596,Tatobity,3608
+577600,Troskovice,3608
+577626,Turnov,3608
+577642,Veselá,3608
+577651,Víchová nad Jizerou,3608
+577669,Vítkovice,3608
+577677,Všeň,3608
+577685,Vyskeř,3608
+577693,Vysoké nad Jizerou,3608
+577707,Záhoří,3608
+577723,Žernov,3608
+577731,Svitavy,3609
+577774,Benátky,3609
+577812,Bohuňov,3609
+577821,Bohuňovice,3609
+577839,Borová,3609
+577863,Brněnec,3609
+577871,Březina,3609
+577898,Březiny,3609
+577910,Budislav,3609
+577928,Bystré,3609
+577936,Cerekvice nad Loučnou,3609
+577944,Čistá,3609
+577961,Dětřichov,3609
+577979,Poustka,3402
+577987,Dlouhá Loučka,3609
+577995,Dolní Újezd,3609
+578002,Velký Luh,3402
+578011,Chodov,3403
+578029,Vysoká Pec,3403
+578037,Hartmanice,3609
+578045,Krásný Les,3403
+578053,Horky,3609
+578061,Ostřetice,3404
+578070,Lomec,3404
+578088,Biřkov,3404
+578096,Chornice,3609
+578100,Chotěnov,3609
+578118,Chotovice,3609
+578126,Chrastavec,3609
+578134,Janov,3609
+578142,Janůvky,3609
+578151,Jaroměřice,3609
+578169,Jarošov,3609
+578177,Kovčín,3404
+578185,Jedlová,3609
+578193,Jevíčko,3609
+578207,Kamenec u Poličky,3609
+578215,Kamenná Horka,3609
+578223,Nehodiv,3404
+578231,Koclířov,3609
+578240,Hamry,3404
+578258,Korouhev,3609
+578266,Koruna,3609
+578274,Křenov,3609
+578282,Kunčina,3609
+578291,Květná,3609
+578304,Lavičné,3609
+578312,Zborovy,3404
+578321,Újezd u Plánice,3404
+578339,Linhartice,3609
+578347,Litomyšl,3609
+578355,Lubná,3609
+578363,Makov,3609
+578371,Malíkov,3609
+578380,Městečko Trnávka,3609
+578398,Mikuleč,3609
+578401,Mladějov na Moravě,3609
+578410,Maňovice,3404
+578428,Morašice,3609
+578436,Slatina,3404
+578444,Moravská Třebová,3609
+578452,Nedvězí,3609
+578461,Mezihoří,3404
+578479,Oldřiš,3609
+578487,Opatov,3609
+578495,Čímice,3404
+578509,Osík,3609
+578517,Domoraz,3404
+578525,Frymburk,3404
+578533,Nezamyslice,3404
+578541,Jarov,3406
+578550,Pohledy,3609
+578568,Čmelíny,3406
+578576,Polička,3609
+578584,Pomezí,3609
+578592,Třebčice,3406
+578606,Lhůta,3405
+578614,Tojice,3406
+578622,Příluka,3609
+578631,Pustá Kamenice,3609
+578649,Pustá Rybná,3609
+578657,Radiměř,3609
+578665,Dražeň,3407
+578673,Rohozná,3609
+578681,Rozhraní,3609
+578690,Rozstání,3609
+578703,Rudná,3609
+578711,Rychnov na Moravě,3609
+578720,Sádek,3609
+578738,Sebranice,3609
+578746,Sedliště,3609
+578754,Sklené,3609
+578762,Slatina,3609
+578771,Kočín,3407
+578789,Staré Město,3609
+578797,Štichovice,3407
+578801,Stašov,3609
+578819,Strakov,3609
+578827,Zahrádka,3407
+578835,Suchá Lhota,3609
+578843,Svojanov,3609
+578851,Široký Důl,3609
+578860,Študlov,3609
+578878,Telecí,3609
+578886,Trpín,3609
+578894,Trstěnice,3609
+578908,Třebařov,3609
+578916,Újezdec,3609
+578924,Velečín,3407
+578932,Vendolí,3609
+578941,Vidlatá Seč,3609
+578959,Víska u Jevíčka,3609
+578967,Vítějeves,3609
+578975,Vranová Lhota,3609
+578983,Tatiná,3407
+578991,Vysoká,3609
+579009,Medový Újezd,3408
+579017,Kakejcov,3408
+579025,Trutnov,3610
+579033,Kornatice,3408
+579041,Batňovice,3610
+579050,Bernartice,3610
+579068,Bílá Třemešná,3610
+579076,Bílé Poličany,3610
+579084,Mešno,3408
+579092,Borovnice,3610
+579106,Čermná,3610
+579114,Černý Důl,3610
+579122,Dolní Branná,3610
+579131,Příkosice,3408
+579149,Dolní Dvůr,3610
+579157,Dolní Kalná,3610
+579165,Dolní Lánov,3610
+579173,Dolní Olešnice,3610
+579181,Doubravice,3610
+579190,Dubenec,3610
+579203,Dvůr Králové nad Labem,3610
+579211,Hajnice,3610
+579220,Havlovice,3610
+579238,Horní Brusnice,3610
+579246,Trokavec,3408
+579254,Horní Kalná,3610
+579262,Horní Maršov,3610
+579271,Horní Olešnice,3610
+579289,Vísky,3408
+579297,Hostinné,3610
+579301,Hřibojedy,3610
+579319,Chotěvice,3610
+579327,Choustníkovo Hradiště,3610
+579335,Chvaleč,3610
+579343,Štítov,3408
+579351,Janské Lázně,3610
+579360,Těšovice,3409
+579378,Jívka,3610
+579386,Klášterská Lhota,3610
+579394,Kocbeře,3610
+579408,Kohoutov,3610
+579416,Kuks,3610
+579424,Kunčice nad Labem,3610
+579432,Lánov,3610
+579441,Lanžov,3610
+579459,Ctiboř,3410
+579467,Skapce,3410
+579475,Libňatov,3610
+579483,Libotov,3610
+579491,Vranov,3410
+579505,Malá Úpa,3610
+579513,Malé Svatoňovice,3610
+579530,Maršov u Úpice,3610
+579548,Mladé Buky,3610
+579556,Mostek,3610
+579564,Nemojov,3610
+579581,Pec pod Sněžkou,3610
+579599,Pilníkov,3610
+579602,Prosečné,3610
+579629,Radvanice,3610
+579637,Rtyně v Podkrkonoší,3610
+579645,Rudník,3610
+579661,Staré Buky,3610
+579696,Strážné,3610
+579726,Suchovršice,3610
+579734,Svoboda nad Úpou,3610
+579742,Špindlerův Mlýn,3610
+579751,Trotina,3610
+579769,Třebihošť,3610
+579777,Úpice,3610
+579785,Velké Svatoňovice,3610
+579793,Velký Vřešťov,3610
+579815,Vítězná,3610
+579823,Vlčice,3610
+579831,Vlčkovice v Podkrkonoší,3610
+579858,Vrchlabí,3610
+579866,Zlatá Olešnice,3610
+579874,Žacléř,3610
+579891,Ústí nad Orlicí,3611
+579947,Brandýs nad Orlicí,3611
+579963,Bučina,3611
+579971,Bystřec,3611
+579980,Cotkytle,3611
+579998,Čenkovice,3611
+580015,Červená Voda,3611
+580023,Česká Rybná,3611
+580031,Česká Třebová,3611
+580040,České Heřmanice,3611
+580058,České Libchavy,3611
+580066,České Petrovice,3611
+580074,Damníkov,3611
+580091,Dobříkov,3611
+580112,Dolní Čermná,3611
+580121,Dolní Dobrouč,3611
+580147,Libchavy,3611
+580163,Dolní Morava,3611
+580210,Džbánov,3611
+580228,Hejnice,3611
+580261,Hnátnice,3611
+580279,Horní Čermná,3611
+580295,Horní Heřmanice,3611
+580325,Sloupnice,3609
+580333,Horní Třešňovec,3611
+580341,Hrušová,3611
+580350,Choceň,3611
+580376,Jablonné nad Orlicí,3611
+580392,Jamné nad Orlicí,3611
+580406,Javorník,3611
+580414,Jehnědí,3611
+580422,Kameničná,3611
+580431,Klášterec nad Orlicí,3611
+580465,Koldín,3611
+580481,Králíky,3611
+580490,Krasíkov,3611
+580503,Kunvald,3611
+580511,Lanškroun,3611
+580538,Letohrad,3611
+580562,Libecina,3611
+580571,Lichkov,3611
+580589,Líšnice,3611
+580619,Lubník,3611
+580627,Lukavice,3611
+580635,Luková,3611
+580643,Mistrovice,3611
+580651,Mladkov,3611
+580660,Mostek,3611
+580678,Nasavrky,3611
+580686,Nekoř,3611
+580694,Němčice,3609
+580708,Svatý Jiří,3611
+580716,Orlické Podhůří,3611
+580724,Orličky,3611
+580732,Ostrov,3611
+580741,Oucmanice,3611
+580759,Pastviny,3611
+580767,Petrovice,3611
+580775,Písečná,3611
+580783,Plchovice,3611
+580805,Podlesí,3611
+580821,Přívrat,3611
+580830,Pustina,3611
+580848,Rudoltice,3611
+580872,Řetová,3611
+580881,Řetůvka,3611
+580902,Seč,3611
+580929,Skořenice,3611
+580945,Slatina,3611
+580961,Sopotnice,3611
+580970,Sruby,3611
+580988,Strážná,3611
+580996,Studené,3611
+581003,Sudislav nad Orlicí,3611
+581011,Sudslava,3611
+581038,Šedivec,3611
+581046,Tatenice,3611
+581054,Těchonín,3611
+581062,Tisová,3611
+581071,Třebovice,3611
+581089,Újezd u Chocně,3611
+581101,Velká Skrovnice,3611
+581119,Verměřovice,3611
+581127,Vlčkov,3609
+581143,Voděrady,3611
+581151,Vraclav,3611
+581178,Výprachtice,3611
+581186,Vysoké Mýto,3611
+581194,Zádolí,3611
+581208,Záchlumí,3611
+581216,Zálší,3611
+581224,Zámrsk,3611
+581232,Zářecká Lhota,3611
+581259,Žamberk,3611
+581267,Žampach,3611
+581275,Žichlínek,3611
+581283,Blansko,3701
+581291,Adamov,3701
+581313,Bedřichov,3701
+581321,Běleč,3703
+581330,Benešov,3701
+581356,Borotín,3701
+581364,Bořitov,3701
+581372,Boskovice,3701
+581381,Brťov-Jeneč,3701
+581402,Brumov,3703
+581429,Březina,3703
+581437,Bukovice,3703
+581445,Bukovina,3701
+581453,Bukovinka,3701
+581461,Býkovice,3701
+581470,Cetkovice,3701
+581496,Černá Hora,3701
+581500,Černovice,3701
+581518,Deštná,3701
+581526,Dlouhá Lhota,3701
+581534,Chrudichromy,3701
+581542,Doubravice nad Svitavou,3701
+581551,Drnovice,3701
+581569,Habrůvka,3701
+581577,Hluboké Dvory,3703
+581593,Hodonín,3701
+581615,Holštejn,3701
+581631,Horní Poříčí,3701
+581666,Jabloňany,3701
+581682,Jedovnice,3701
+581721,Kněževes,3701
+581739,Knínice,3701
+581755,Kořenec,3701
+581763,Kotvrdovice,3701
+581771,Kozárov,3701
+581780,Krasová,3701
+581798,Krhov,3701
+581801,Křetín,3701
+581810,Křtěnov,3701
+581828,Křtiny,3701
+581836,Kulířov,3701
+581844,Kunčina Ves,3701
+581852,Kunice,3701
+581861,Kuničky,3701
+581879,Kunštát,3701
+581887,Lazinov,3701
+581909,Lažany,3701
+581917,Letovice,3701
+581925,Lhota Rapotina,3701
+581933,Lhota u Lysic,3701
+581941,Lhota u Olešnice,3701
+581950,Lipovec,3701
+581968,Lipůvka,3701
+581976,Lomnice,3703
+581992,Lubě,3701
+582018,Lysice,3701
+582026,Makov,3701
+582034,Malá Lhota,3701
+582042,Malá Roudka,3701
+582069,Míchov,3701
+582077,Milonice,3701
+582085,Němčice,3701
+582107,Nýrov,3701
+582115,Obora,3701
+582123,Ochoz u Tišnova,3703
+582131,Okrouhlá,3701
+582158,Olešnice,3701
+582166,Olomučany,3701
+582174,Osiky,3703
+582182,Ostrov u Macochy,3701
+582191,Pamětice,3701
+582204,Petrov,3701
+582212,Petrovice,3701
+582221,Prostřední Poříčí,3701
+582239,Rájec-Jestřebí,3701
+582247,Ráječko,3701
+582255,Rašov,3703
+582263,Rohozec,3703
+582271,Rozseč nad Kunštátem,3701
+582280,Rozsíčka,3701
+582298,Rudice,3701
+582310,Sebranice,3701
+582328,Senetářov,3701
+582336,Skalice nad Svitavou,3701
+582344,Skrchov,3701
+582352,Sloup,3701
+582379,Strhaře,3703
+582395,Sudice,3701
+582409,Suchý,3701
+582417,Sulíkov,3701
+582433,Svinošice,3701
+582441,Svitávka,3701
+582450,Synalov,3703
+582468,Šebetov,3701
+582476,Šebrov-Kateřina,3701
+582484,Šošůvka,3701
+582492,Štěchov,3701
+582506,Tasovice,3701
+582531,Uhřice,3701
+582557,Újezd u Černé Hory,3701
+582565,Unín,3703
+582573,Úsobrno,3701
+582581,Valchov,3701
+582590,Vanovice,3701
+582603,Vavřinec,3701
+582611,Vážany,3701
+582620,Stvolová,3701
+582646,Velké Opatovice,3701
+582654,Vilémovice,3701
+582662,Vísky,3701
+582671,Voděrady,3701
+582689,Vranová,3701
+582701,Vysočany,3701
+582727,Zbraslavec,3701
+582735,Zhoř,3703
+582743,Žďár,3701
+582751,Žďárná,3701
+582760,Žernovník,3701
+582778,Žerůtky,3701
+582786,Brno,3702
+582794,Babice nad Svitavou,3703
+582808,Babice u Rosic,3703
+582824,Bílovice nad Svitavou,3703
+582832,Biskoupky,3703
+582841,Blažovice,3703
+582859,Blučina,3703
+582875,Braníškov,3703
+582883,Bratčice,3703
+582891,Březina,3703
+582913,Čebín,3703
+582921,Česká,3703
+582930,Čučice,3703
+582948,Deblín,3703
+582956,Dolní Kounice,3703
+582964,Domašov,3703
+582972,Drásov,3703
+582999,Hajany,3703
+583014,Heroltice,3703
+583022,Hlína,3703
+583031,Holasice,3703
+583057,Hostěnice,3703
+583065,Hradčany,3703
+583081,Hrušovany u Brna,3703
+583090,Hvozdec,3703
+583111,Chudčice,3703
+583120,Ivančice,3703
+583154,Javůrek,3703
+583171,Jinačovice,3703
+583189,Jiříkovice,3703
+583197,Kanice,3703
+583201,Ketkovice,3703
+583219,Kobylnice,3703
+583227,Kovalovice,3703
+583235,Kratochvilka,3703
+583243,Kupařovice,3703
+583251,Kuřim,3703
+583260,Lažánky,3703
+583278,Ledce,3703
+583286,Lelekovice,3703
+583294,Lesní Hluboké,3703
+583308,Litostrov,3703
+583316,Lomnička,3703
+583324,Lukovany,3703
+583332,Malešovice,3703
+583341,Malhostovice,3703
+583359,Maršov,3703
+583367,Medlov,3703
+583375,Mělčany,3703
+583383,Měnín,3703
+583391,Modřice,3703
+583405,Mokrá-Horákov,3703
+583413,Moravany,3703
+583421,Moravské Bránice,3703
+583430,Moravské Knínice,3703
+583448,Moutnice,3703
+583456,Nebovidy,3703
+583464,Nelepeč-Žernůvka,3703
+583472,Němčičky,3703
+583481,Neslovice,3703
+583499,Nesvačilka,3703
+583502,Nová Ves,3703
+583511,Nové Bránice,3703
+583529,Odrovice,3703
+583537,Ochoz u Brna,3703
+583545,Omice,3703
+583553,Opatovice,3703
+583561,Ořechov,3703
+583588,Oslavany,3703
+583596,Ostopovice,3703
+583600,Ostrovačice,3703
+583634,Podolí,3703
+583651,Popovice,3703
+583669,Popůvky,3703
+583677,Pozořice,3703
+583685,Prace,3703
+583693,Pravlov,3703
+583707,Prštice,3703
+583715,Příbram na Moravě,3703
+583723,Přibyslavice,3703
+583731,Přísnotice,3703
+583740,Radostice,3703
+583758,Rajhrad,3703
+583766,Rajhradice,3703
+583774,Rebešovice,3703
+583782,Rosice,3703
+583791,Rozdrojovice,3703
+583804,Rudka,3703
+583821,Řícmanice,3703
+583839,Říčany,3703
+583847,Sentice,3703
+583855,Silůvky,3703
+583863,Sivice,3703
+583880,Sobotovice,3703
+583898,Sokolnice,3703
+583901,Stanoviště,3703
+583910,Střelice,3703
+583928,Svatoslav,3703
+583936,Syrovice,3703
+583944,Šerkovice,3703
+583952,Šlapanice,3703
+583961,Štěpánovice,3703
+583979,Telnice,3703
+583987,Tetčice,3703
+583995,Těšany,3703
+584002,Tišnov,3703
+584011,Trboušany,3703
+584029,Troubsko,3703
+584037,Tvarožná,3703
+584045,Újezd u Brna,3703
+584053,Újezd u Rosic,3703
+584061,Unkovice,3703
+584070,Úsuší,3703
+584096,Velatice,3703
+584100,Veverská Bítýška,3703
+584118,Veverské Knínice,3703
+584126,Viničné Šumice,3703
+584134,Vohančice,3703
+584142,Vojkovice,3703
+584151,Vranov,3703
+584169,Všechovice,3703
+584177,Vysoké Popovice,3703
+584185,Zakřany,3703
+584193,Zálesná Zhoř,3703
+584207,Zastávka,3703
+584215,Zbraslav,3703
+584223,Zbýšov,3703
+584231,Žabčice,3703
+584240,Žatčany,3703
+584266,Želešice,3703
+584274,Železné,3703
+584282,Židlochovice,3703
+584291,Břeclav,3704
+584304,Bavory,3704
+584321,Boleradice,3704
+584339,Borkovany,3704
+584347,Bořetice,3704
+584355,Brod nad Dyjí,3704
+584363,Brumovice,3704
+584371,Březí,3704
+584380,Bulhary,3704
+584401,Diváky,3704
+584410,Dobré Pole,3704
+584428,Dolní Dunajovice,3704
+584436,Dolní Věstonice,3704
+584444,Drnholec,3704
+584452,Hlohovec,3704
+584461,Horní Bojanovice,3704
+584479,Horní Věstonice,3704
+584487,Hrušky,3704
+584495,Hustopeče,3704
+584517,Ivaň,3703
+584525,Jevišovka,3704
+584541,Klentnice,3704
+584550,Klobouky u Brna,3704
+584568,Kobylí,3704
+584576,Kostice,3704
+584584,Krumvíř,3704
+584592,Křepice,3704
+584622,Lanžhot,3704
+584631,Lednice,3704
+584649,Mikulov,3704
+584657,Milovice,3704
+584665,Moravská Nová Ves,3704
+584673,Moravský Žižkov,3704
+584681,Morkůvky,3704
+584703,Němčičky,3704
+584711,Nikolčice,3704
+584720,Nosislav,3703
+584746,Novosedly,3704
+584754,Nový Přerov,3704
+584762,Pasohlávky,3703
+584771,Pavlov,3704
+584789,Perná,3704
+584797,Podivín,3704
+584801,Pohořelice,3703
+584819,Popice,3704
+584835,Pouzdřany,3704
+584843,Přibice,3703
+584851,Přítluky,3704
+584860,Rakvice,3704
+584878,Sedlec,3704
+584894,Starovice,3704
+584908,Starovičky,3704
+584916,Strachotín,3704
+584924,Šakvice,3704
+584932,Šitbořice,3704
+584941,Tvrdonice,3704
+584959,Týnec,3704
+584967,Uherčice,3704
+584975,Valtice,3704
+584983,Velké Bílovice,3704
+584991,Velké Hostěrádky,3704
+585009,Velké Němčice,3704
+585017,Velké Pavlovice,3704
+585025,Vlasatice,3703
+585033,Vranovice,3703
+585041,Vrbice,3704
+585050,Zaječí,3704
+585068,Zlín,3705
+585076,Biskupice,3705
+585092,Bohuslavice u Zlína,3705
+585106,Bratřejov,3705
+585114,Brumov-Bylnice,3705
+585131,Březová,3705
+585149,Březůvky,3705
+585157,Dešná,3705
+585165,Dobrkovice,3705
+585173,Dolní Lhota,3705
+585181,Doubravy,3705
+585190,Drnovice,3705
+585203,Držková,3705
+585211,Fryšták,3705
+585220,Halenkovice,3705
+585238,Haluzice,3705
+585246,Horní Lhota,3705
+585254,Hostišová,3705
+585262,Hrobice,3705
+585271,Hřivínův Újezd,3705
+585289,Hvozdná,3705
+585301,Jasenná,3705
+585319,Jestřabí,3705
+585327,Kaňovice,3705
+585343,Kašava,3705
+585432,Loučka,3705
+585441,Ludkovice,3705
+585459,Luhačovice,3705
+585467,Lukov,3705
+585483,Lutonina,3705
+585491,Machová,3705
+585505,Mysločovice,3705
+585513,Napajedla,3705
+585521,Návojná,3705
+585530,Nedašov,3705
+585548,Nedašova Lhota,3705
+585556,Neubuz,3705
+585599,Otrokovice,3705
+585611,Podkopná Lhota,3705
+585661,Provodov,3705
+585670,Racková,3705
+585726,Sazovice,3705
+585734,Sehradice,3705
+585751,Slavičín,3705
+585769,Slopné,3705
+585777,Slušovice,3705
+585793,Spytihněv,3705
+585807,Šanov,3705
+585815,Šarovy,3705
+585831,Štítná nad Vláří-Popov,3705
+585858,Tlumačov,3705
+585866,Trnava,3705
+585874,Ublo,3705
+585882,Újezd,3705
+585891,Valašské Klobouky,3705
+585912,Velký Ořechov,3705
+585921,Veselá,3705
+585939,Vizovice,3705
+585955,Vlachovice,3705
+585963,Vlčková,3705
+585971,Všemina,3705
+585980,Vysoké Pole,3705
+585998,Zádveřice-Raková,3705
+586005,Závist,3701
+586013,Žlutava,3705
+586021,Hodonín,3706
+586030,Archlebov,3706
+586048,Blatnice pod Svatým Antonínkem,3706
+586056,Blatnička,3706
+586064,Světlá,3701
+586072,Bukovany,3706
+586081,Bzenec,3706
+586099,Čejč,3706
+586102,Čejkovice,3706
+586111,Čeložnice,3706
+586129,Dambořice,3706
+586137,Dolní Bojanovice,3706
+586145,Domanín,3706
+586153,Dražůvky,3706
+586161,Dubňany,3706
+586170,Hovorany,3706
+586188,Hroznová Lhota,3706
+586196,Hrubá Vrbka,3706
+586200,Hýsly,3706
+586218,Javorník,3706
+586226,Ježov,3706
+586234,Josefov,3706
+586242,Karlín,3706
+586251,Kelčany,3706
+586269,Kněždub,3706
+586277,Kostelec,3706
+586285,Kozojídky,3706
+586293,Kuželov,3706
+586307,Kyjov,3706
+586315,Labuty,3706
+586323,Lipov,3706
+586331,Louka,3706
+586340,Lovčice,3706
+586358,Lužice,3706
+586366,Malá Vrbka,3706
+586374,Mikulčice,3706
+586382,Milotice,3706
+586391,Moravany,3706
+586404,Moravský Písek,3706
+586412,Mutěnice,3706
+586421,Násedlovice,3706
+586439,Nechvalín,3706
+586447,Nenkovice,3706
+586455,Nová Lhota,3706
+586463,Nový Poddvorov,3706
+586471,Ostrovánky,3706
+586480,Petrov,3706
+586498,Prušánky,3706
+586501,Radějov,3706
+586510,Ratíškovice,3706
+586528,Rohatec,3706
+586536,Skalka,3706
+586544,Skoronice,3706
+586552,Sobůlky,3706
+586561,Starý Poddvorov,3706
+586579,Stavěšice,3706
+586587,Strážnice,3706
+586595,Strážovice,3706
+586609,Sudoměřice,3706
+586617,Suchov,3706
+586625,Svatobořice-Mistřín,3706
+586633,Syrovín,3706
+586641,Šardice,3706
+586650,Tasov,3706
+586668,Těmice,3706
+586676,Terezín,3706
+586684,Tvarožná Lhota,3706
+586692,Uhřice,3706
+586706,Vacenovice,3706
+586714,Velká nad Veličkou,3706
+586722,Veselí nad Moravou,3706
+586731,Věteřov,3706
+586749,Vlkoš,3706
+586757,Vnorovy,3706
+586765,Vracov,3706
+586773,Vřesovice,3706
+586781,Žádovice,3706
+586790,Žarošice,3706
+586803,Ždánice,3706
+586811,Želetice,3706
+586820,Žeravice,3706
+586838,Žeraviny,3706
+586846,Jihlava,3707
+586854,Arnolec,3707
+586862,Batelov,3707
+586871,Lipová,3705
+586889,Bílý Kámen,3707
+586897,Bítovčice,3707
+586901,Bohuslavice,3707
+586919,Rudimov,3705
+586927,Boršov,3707
+586943,Brtnice,3707
+586951,Brzkov,3707
+586960,Křekov,3705
+586978,Cejle,3707
+586986,Cerekvička-Rosice,3707
+586994,Vlachova Lhota,3705
+587001,Černíč,3707
+587010,Dlouhá Brtnice,3707
+587028,Dobronín,3707
+587036,Dobroutov,3707
+587044,Dolní Cerekev,3707
+587052,Karlovice,3705
+587061,Dolní Vilímeč,3707
+587079,Doupě,3707
+587087,Dudín,3707
+587095,Dušejov,3707
+587109,Dyjice,3707
+587117,Čížov,3707
+587125,Hladov,3707
+587141,Hodice,3707
+587150,Hojkov,3707
+587168,Horní Dubenky,3707
+587176,Rančířov,3707
+587184,Borovná,3707
+587192,Hostětice,3707
+587206,Horní Myslová,3707
+587214,Olší,3707
+587222,Hubenov,3707
+587231,Zadní Vydří,3707
+587249,Jamné,3707
+587257,Zástřizly,3708
+587265,Jersín,3707
+587273,Jezdovice,3707
+587281,Ježená,3707
+587290,Jihlávka,3707
+587303,Jindřichovice,3707
+587320,Kalhov,3707
+587338,Kaliště,3707
+587346,Kamenice,3707
+587354,Karolín,3708
+587362,Kamenná,3707
+587371,Klatovec,3707
+587389,Knínice,3707
+587397,Prasklice,3708
+587401,Kostelec,3707
+587419,Kostelní Myslová,3707
+587427,Kozlov,3707
+587435,Krahulčí,3707
+587443,Krasonice,3707
+587451,Lhotka,3707
+587460,Stropešín,3710
+587478,Luka nad Jihlavou,3707
+587486,Malý Beranov,3707
+587494,Markvartice,3707
+587508,Měšín,3707
+587516,Meziříčko,3714
+587524,Milíčov,3707
+587532,Mirošov,3707
+587541,Mrákotín,3707
+587559,Mysletice,3707
+587567,Mysliboř,3707
+587575,Nadějov,3707
+587583,Nevcehle,3707
+587591,Nová Říše,3707
+587605,Lomy,3710
+587613,Olšany,3707
+587621,Opatov,3707
+587630,Ořechov,3707
+587648,Otín,3707
+587656,Panenská Rozsíčka,3707
+587664,Dolní Lažany,3710
+587672,Panské Dubenky,3707
+587681,Pavlov,3707
+587699,Valdíkov,3710
+587702,Plandry,3707
+587711,Polná,3707
+587729,Nový Šaldorf-Sedlešovice,3713
+587737,Rodkov,3714
+587745,Puklice,3707
+587753,Tři Studně,3714
+587761,Radkov,3707
+587770,Milešín,3714
+587788,Rantířov,3707
+587796,Rohozná,3707
+587800,Rozseč,3707
+587818,Růžená,3707
+587826,Rybné,3707
+587834,Řásná,3707
+587842,Křídla,3714
+587851,Řídelov,3707
+587869,Vlachovice,3714
+587877,Sedlatice,3707
+587885,Sedlejov,3707
+587893,Velké Tresné,3714
+587907,Katov,3703
+587915,Stáj,3707
+587923,Stará Říše,3707
+587931,Stonařov,3707
+587940,Strachoňovice,3707
+587958,Střítež,3707
+587974,Nové Dvory,3714
+587982,Suchá,3707
+587991,Svojkovice,3707
+588008,Šimanov,3707
+588016,Cikháj,3714
+588024,Telč,3707
+588032,Třešť,3707
+588041,Třeštice,3707
+588059,Račín,3714
+588067,Urbanov,3707
+588075,Ústí,3707
+588083,Vanov,3707
+588091,Vanůvek,3707
+588105,Vápovice,3707
+588113,Velký Beranov,3707
+588121,Větrný Jeníkov,3707
+588130,Věžnice,3707
+588148,Věžnička,3707
+588156,Vílanec,3707
+588164,Volevčice,3707
+588172,Vyskytná nad Jihlavou,3707
+588181,Vysoké Studnice,3707
+588199,Vystrčenovice,3707
+588202,Záborná,3707
+588211,Zbilidy,3707
+588229,Zbinohy,3707
+588237,Sazomín,3714
+588245,Zdeňkov,3707
+588253,Zhoř,3707
+588261,Zvolenovice,3707
+588270,Žatec,3707
+588288,Ždírec,3707
+588296,Kroměříž,3708
+588300,Bařice-Velké Těšany,3708
+588318,Bělov,3705
+588326,Bezměrov,3708
+588334,Vysoké,3714
+588342,Vícenice,3710
+588377,Brusné,3708
+588385,Břest,3708
+588393,Bystřice pod Hostýnem,3708
+588407,Cetechovice,3708
+588431,Dřínov,3708
+588458,Holešov,3708
+588474,Horní Lapač,3708
+588482,Hoštice,3708
+588491,Hulín,3708
+588504,Chomýž,3708
+588512,Chropyně,3708
+588521,Kostelany,3708
+588547,Chvalnov-Lísky,3708
+588555,Jankovice,3708
+588563,Jarohněvice,3708
+588598,Komárno,3708
+588601,Koryčany,3708
+588610,Kostelec u Holešova,3708
+588628,Kunkovice,3708
+588636,Kurovice,3708
+588644,Kvasice,3708
+588652,Kyselovice,3708
+588661,Lechotice,3708
+588695,Litenčice,3708
+588709,Loukov,3708
+588717,Lubná,3708
+588725,Ludslavice,3708
+588733,Lutopecny,3708
+588741,Martinice,3708
+588750,Míškovice,3708
+588768,Morkovice-Slížany,3708
+588784,Němčice,3708
+588806,Nítkovice,3708
+588814,Nová Dědina,3708
+588822,Osíčko,3708
+588831,Pacetluky,3708
+588849,Pačlavice,3708
+588865,Počenice-Tetětice,3708
+588873,Podhradní Lhota,3708
+588890,Pravčice,3708
+588903,Prusinovice,3708
+588920,Rajnochovice,3708
+588938,Rataje,3708
+588946,Roštění,3708
+588954,Roštín,3708
+588962,Rusava,3708
+588971,Rymice,3708
+588989,Skaštice,3708
+588997,Slavkov pod Hostýnem,3708
+589004,Soběsuky,3708
+589039,Střílky,3708
+589047,Střížovice,3708
+589055,Sulimov,3708
+589080,Troubky-Zdislavice,3708
+589098,Třebětice,3708
+589110,Uhřice,3708
+589128,Věžky,3708
+589136,Vítonice,3708
+589152,Zahnašovice,3708
+589161,Záříčí,3708
+589187,Zborovice,3708
+589195,Zdounky,3708
+589217,Zlobice,3708
+589225,Žalkovice,3708
+589233,Žeranovice,3708
+589250,Prostějov,3709
+589268,Bedihošť,3709
+589276,Bílovice-Lutotín,3709
+589284,Biskupice,3709
+589292,Bohuslavice,3709
+589306,Bousín,3709
+589314,Brodek u Konice,3709
+589322,Brodek u Prostějova,3709
+589331,Březsko,3709
+589349,Budětsko,3709
+589357,Buková,3709
+589365,Čehovice,3709
+589381,Čechy pod Kosířem,3709
+589390,Čelčice,3709
+589403,Čelechovice na Hané,3709
+589420,Dětkovice,3709
+589438,Dobrochov,3709
+589446,Dobromilice,3709
+589454,Doloplazy,3709
+589462,Drahany,3709
+589489,Dřevnovice,3709
+589497,Dzbel,3709
+589501,Hluchov,3709
+589519,Horní Štěpánov,3709
+589527,Hradčany-Kobeřice,3709
+589535,Hrdibořice,3709
+589543,Hrubčice,3709
+589560,Hvozd,3709
+589578,Ivaň,3709
+589586,Jesenec,3709
+589594,Kladky,3709
+589608,Klenovice na Hané,3709
+589616,Klopotovice,3709
+589624,Konice,3709
+589632,Kostelec na Hané,3709
+589641,Koválovice-Osíčany,3709
+589659,Kralice na Hané,3709
+589667,Krumsín,3709
+589675,Laškov,3709
+589683,Lešany,3709
+589691,Lipová,3709
+589705,Ludmírov,3709
+589713,Malé Hradisko,3709
+589721,Mořice,3709
+589730,Mostkovice,3709
+589748,Myslejovice,3709
+589756,Němčice nad Hanou,3709
+589764,Nezamyslice,3709
+589772,Niva,3709
+589799,Obědkovice,3709
+589802,Ohrozim,3709
+589811,Ochoz,3709
+589829,Olšany u Prostějova,3709
+589837,Ondratice,3709
+589845,Otaslavice,3709
+589853,Otinoves,3709
+589870,Pěnčín,3709
+589888,Pivín,3709
+589896,Plumlov,3709
+589918,Prostějovičky,3709
+589926,Protivanov,3709
+589934,Přemyslovice,3709
+589942,Ptení,3709
+589951,Raková u Konice,3709
+589969,Rakůvka,3709
+589977,Rozstání,3709
+589993,Skalka,3709
+590002,Skřípov,3709
+590011,Slatinky,3709
+590029,Smržice,3709
+590045,Srbce,3709
+590053,Stařechovice,3709
+590061,Stínava,3709
+590070,Stražisko,3709
+590088,Suchdol,3709
+590096,Šubířov,3709
+590100,Tištín,3709
+590118,Tvorovice,3709
+590126,Určice,3709
+590134,Víceměřice,3709
+590142,Vícov,3709
+590151,Vitčice,3709
+590177,Vranovice-Kelčice,3709
+590185,Vrbátky,3709
+590193,Vrchoslavice,3709
+590207,Vřesovice,3709
+590215,Výšovice,3709
+590223,Zdětín,3709
+590240,Želeč,3709
+590266,Třebíč,3710
+590274,Babice,3710
+590282,Bačice,3710
+590304,Benetice,3710
+590312,Biskupice-Pulkov,3710
+590321,Blatnice,3710
+590347,Bochovice,3710
+590363,Bransouze,3710
+590371,Brtnička,3707
+590380,Březník,3710
+590401,Budišov,3710
+590410,Budkov,3710
+590428,Cidlina,3710
+590436,Čáslavice,3710
+590444,Čechočovice,3710
+590452,Čechtín,3710
+590461,Červená Lhota,3710
+590479,Číhalín,3710
+590487,Číchov,3710
+590495,Čikov,3710
+590509,Číměř,3710
+590517,Dalešice,3710
+590525,Dědice,3710
+590533,Dešov,3710
+590550,Dolní Vilémovice,3710
+590568,Domamil,3710
+590576,Dukovany,3710
+590584,Hartvíkovice,3710
+590592,Heraltice,3710
+590614,Hluboké,3710
+590622,Hodov,3710
+590631,Horní Heřmanice,3710
+590649,Horní Újezd,3710
+590657,Horní Vilémovice,3710
+590665,Hornice,3710
+590673,Hrotovice,3710
+590681,Hrutov,3707
+590690,Hvězdoňovice,3710
+590703,Chlístov,3710
+590711,Chlum,3710
+590746,Jakubov u Moravských Budějovic,3710
+590754,Jaroměřice nad Rokytnou,3710
+590762,Jasenice,3710
+590789,Jemnice,3710
+590797,Jinošov,3710
+590801,Kamenná,3710
+590819,Kdousov,3710
+590827,Kladeruby nad Oslavou,3710
+590835,Klučov,3710
+590843,Kněžice,3707
+590851,Kojatice,3710
+590860,Kojetice,3710
+590878,Komárovice,3710
+590886,Koněšín,3710
+590894,Kostníky,3710
+590908,Kouty,3710
+590916,Kozlany,3710
+590941,Kralice nad Oslavou,3710
+590959,Kramolín,3710
+590967,Krhov,3710
+590975,Krokočín,3710
+590983,Lesná,3710
+590991,Lesní Jakubov,3710
+591009,Lesonice,3710
+591025,Lhánice,3710
+591041,Lipník,3710
+591068,Litovany,3710
+591092,Loukovice,3710
+591114,Markvartice,3710
+591122,Mastník,3710
+591149,Meziříčko,3710
+591157,Mikulovice,3710
+591165,Mladoňovice,3710
+591173,Mohelno,3710
+591181,Moravské Budějovice,3710
+591190,Myslibořice,3710
+591211,Náměšť nad Oslavou,3710
+591220,Nárameč,3710
+591238,Nimpšov,3710
+591246,Nová Ves,3710
+591254,Nové Syrovice,3710
+591262,Nový Telečkov,3710
+591289,Odunec,3710
+591297,Okarec,3710
+591301,Okříšky,3710
+591319,Opatov,3710
+591327,Oponešice,3710
+591335,Ostašov,3710
+591360,Petrovice,3710
+591378,Petrůvky,3710
+591394,Police,3710
+591408,Popůvky,3710
+591416,Pozďatín,3710
+591424,Přeckov,3710
+591432,Předín,3710
+591441,Přešovice,3710
+591459,Přibyslavice,3710
+591491,Pucov,3710
+591505,Pyšel,3710
+591521,Račice,3710
+591548,Radkovice u Hrotovic,3710
+591556,Radonín,3710
+591564,Radošov,3710
+591581,Rapotice,3710
+591602,Rohy,3710
+591611,Rokytnice nad Rokytnou,3710
+591629,Rouchovany,3710
+591637,Rudíkov,3710
+591645,Římov,3710
+591661,Senorady,3703
+591688,Slavětice,3710
+591700,Slavičky,3710
+591726,Smrk,3710
+591742,Stařeč,3710
+591769,Studenec,3710
+591777,Studnice,3710
+591785,Sudice,3710
+591793,Svatoslav,3710
+591807,Šebkovice,3710
+591815,Štěměchy,3710
+591823,Štěpkov,3710
+591831,Tasov,3714
+591840,Trnava,3710
+591858,Třebelovice,3710
+591866,Třebenice,3710
+591874,Valeč,3710
+591904,Vladislav,3710
+591912,Vlčatín,3710
+591939,Výčapy,3710
+591947,Zahrádka,3710
+591955,Zárubice,3710
+591963,Zašovice,3710
+591980,Zvěrkovice,3710
+591998,Želetava,3710
+592005,Uherské Hradiště,3711
+592013,Babice,3711
+592021,Bánov,3711
+592030,Bílovice,3711
+592048,Bojkovice,3711
+592056,Boršice u Blatnice,3711
+592064,Boršice,3711
+592072,Břestek,3711
+592081,Březolupy,3711
+592099,Březová,3711
+592102,Buchlovice,3711
+592111,Bystřice pod Lopeníkem,3711
+592137,Částkov,3711
+592145,Dolní Němčí,3711
+592153,Drslavice,3711
+592170,Hluk,3711
+592188,Horní Němčí,3711
+592196,Hostějov,3711
+592200,Hradčovice,3711
+592218,Huštěnovice,3711
+592226,Jalubí,3711
+592234,Jankovice,3711
+592251,Kelníky,3705
+592269,Kněžpole,3711
+592277,Komňa,3711
+592285,Korytná,3711
+592293,Kostelany nad Moravou,3711
+592307,Košíky,3711
+592323,Kudlovice,3711
+592340,Lopeník,3711
+592366,Medlovice,3711
+592382,Mistřice,3711
+592391,Modrá,3711
+592404,Nedachlebice,3711
+592412,Nedakonice,3711
+592421,Nezdenice,3711
+592439,Nivnice,3711
+592447,Ořechov,3711
+592455,Ostrožská Lhota,3711
+592463,Ostrožská Nová Ves,3711
+592471,Osvětimany,3711
+592480,Pašovice,3711
+592498,Pitín,3711
+592501,Podolí,3711
+592510,Polešovice,3711
+592528,Popovice,3711
+592536,Prakšice,3711
+592552,Rudice,3711
+592561,Salaš,3711
+592579,Slavkov,3711
+592587,Staré Hutě,3711
+592609,Starý Hrozenkov,3711
+592617,Strání,3711
+592625,Stříbrnice,3711
+592633,Stupava,3711
+592641,Suchá Loz,3711
+592650,Sušice,3711
+592668,Svárov,3711
+592676,Šumice,3711
+592692,Topolná,3711
+592706,Traplice,3711
+592714,Tučapy,3711
+592722,Tupesy,3711
+592731,Uherský Brod,3711
+592749,Uherský Ostroh,3711
+592757,Újezdec,3711
+592773,Vápenice,3711
+592781,Vážany,3711
+592790,Velehrad,3711
+592803,Veletiny,3711
+592820,Vlčnov,3711
+592838,Vyškovec,3711
+592846,Záhorovice,3711
+592854,Zlámanec,3711
+592862,Zlechov,3711
+592871,Žítková,3711
+592889,Vyškov,3712
+592897,Bohaté Málkovice,3712
+592901,Bohdalice-Pavlovice,3712
+592919,Bošovice,3712
+592927,Brankovice,3712
+592935,Březina,3712
+592943,Bučovice,3712
+592978,Dětkovice,3712
+592986,Dobročkovice,3712
+592994,Dražovice,3712
+593001,Drnovice,3712
+593010,Drysice,3712
+593028,Habrovany,3712
+593036,Hlubočany,3712
+593044,Hodějice,3712
+593052,Hostěrádky-Rešov,3712
+593061,Hoštice-Heroltice,3712
+593079,Hrušky,3712
+593087,Hvězdlice,3712
+593095,Chvalkovice,3712
+593117,Ivanovice na Hané,3712
+593125,Ježkovice,3712
+593141,Kobeřice u Brna,3712
+593150,Kojátky,3712
+593168,Komořany,3712
+593184,Kožušice,3712
+593192,Krásensko,3712
+593214,Křenovice,3712
+593222,Křižanovice,3712
+593231,Křižanovice u Vyškova,3712
+593249,Kučerov,3712
+593257,Letonice,3712
+593265,Lovčičky,3712
+593273,Luleč,3712
+593281,Lysovice,3712
+593290,Malínky,3712
+593320,Milešovice,3712
+593338,Milonice,3712
+593346,Moravské Málkovice,3712
+593354,Mouchnice,3706
+593371,Němčany,3712
+593389,Nemochovice,3712
+593397,Nemojany,3712
+593401,Nemotice,3712
+593419,Nesovice,3712
+593427,Nevojice,3712
+593435,Nížkovice,3712
+593443,Nové Sady,3712
+593460,Orlovice,3712
+593478,Otnice,3712
+593486,Podivice,3712
+593494,Prusy-Boškůvky,3712
+593508,Pustiměř,3712
+593516,Račice-Pístovice,3712
+593524,Radslavice,3712
+593532,Rašovice,3712
+593559,Rousínov,3712
+593567,Ruprechtov,3712
+593583,Slavkov u Brna,3712
+593591,Snovídky,3712
+593605,Studnice,3712
+593613,Šaratice,3712
+593621,Švábenice,3712
+593630,Topolany,3712
+593648,Tučapy,3712
+593656,Vážany,3712
+593664,Vážany nad Litavou,3712
+593681,Velešovice,3712
+593699,Zbýšov,3712
+593702,Zelená Hora,3712
+593711,Znojmo,3713
+593729,Bantice,3713
+593737,Běhařovice,3713
+593745,Bezkov,3713
+593753,Bítov,3713
+593761,Blanné,3713
+593770,Blížkovice,3713
+593788,Bohutice,3713
+593796,Bojanovice,3713
+593800,Borotice,3713
+593818,Boskovštejn,3713
+593826,Božice,3713
+593834,Branišovice,3703
+593842,Břežany,3713
+593851,Citonice,3713
+593869,Ctidružice,3713
+593877,Čejkovice,3713
+593885,Čermákovice,3713
+593893,Černín,3713
+593907,Damnice,3713
+593923,Dobelice,3713
+593931,Dobřínsko,3713
+593958,Dolenice,3713
+593966,Dolní Dubňany,3713
+593974,Dyjákovice,3713
+593982,Dyjákovičky,3713
+593991,Dyje,3713
+594008,Džbánice,3713
+594016,Grešlové Mýto,3713
+594024,Havraníky,3713
+594032,Hevlín,3713
+594041,Hluboké Mašůvky,3713
+594059,Hnanice,3713
+594067,Hodonice,3713
+594075,Horní Břečkov,3713
+594083,Horní Dubňany,3713
+594091,Horní Dunajovice,3713
+594105,Horní Kounice,3713
+594113,Hostěradice,3713
+594121,Hostim,3713
+594130,Hrabětice,3713
+594148,Hrádek,3713
+594156,Hrušovany nad Jevišovkou,3713
+594164,Chvalatice,3713
+594172,Chvalovice,3713
+594181,Jamolice,3713
+594199,Jaroslavice,3713
+594202,Jevišovice,3713
+594211,Jezeřany-Maršovice,3713
+594229,Jiřice u Miroslavi,3713
+594237,Kadov,3713
+594253,Korolupy,3713
+594261,Kravsko,3713
+594270,Krhovice,3713
+594288,Křepice,3713
+594296,Kubšice,3713
+594300,Kuchařovice,3713
+594318,Kyjovice,3713
+594326,Lančov,3713
+594334,Lechovice,3713
+594342,Lesná,3713
+594351,Lesonice,3713
+594369,Litobratřice,3713
+594377,Loděnice,3703
+594385,Lubnice,3713
+594393,Lukov,3713
+594407,Mackovice,3713
+594415,Mašovice,3713
+594423,Medlice,3713
+594431,Mikulovice,3713
+594440,Milíčovice,3713
+594458,Miroslav,3713
+594466,Miroslavské Knínice,3713
+594474,Morašice,3713
+594482,Moravský Krumlov,3713
+594512,Našiměřice,3713
+594521,Němčičky,3713
+594555,Olbramkostel,3713
+594563,Olbramovice,3713
+594571,Oleksovice,3713
+594580,Onšov,3713
+594598,Oslnovice,3713
+594601,Pavlice,3713
+594610,Petrovice,3713
+594628,Plaveč,3713
+594636,Podhradí nad Dyjí,3713
+594644,Podmolí,3713
+594652,Podmyče,3713
+594679,Práče,3713
+594687,Pravice,3713
+594695,Prokopov,3713
+594709,Prosiměřice,3713
+594725,Rešice,3713
+594733,Rozkoš,3713
+594741,Rudlice,3713
+594750,Rybníky,3713
+594768,Skalice,3713
+594776,Slatina,3713
+594784,Slup,3713
+594792,Stálky,3713
+594806,Starý Petřín,3713
+594814,Stošíkovice na Louce,3713
+594822,Strachotice,3713
+594831,Střelice,3713
+594849,Suchohrdly u Miroslavi,3713
+594865,Šafov,3713
+594873,Šanov,3713
+594881,Šatov,3713
+594890,Štítary,3713
+594903,Šumice,3703
+594911,Šumná,3713
+594920,Tasovice,3713
+594938,Tavíkovice,3713
+594946,Těšetice,3713
+594954,Trnové Pole,3713
+594962,Troskotovice,3703
+594971,Trstěnice,3713
+594989,Tulešice,3713
+594997,Tvořihráz,3713
+595004,Uherčice,3713
+595012,Újezd,3713
+595021,Únanov,3713
+595039,Valtrovice,3713
+595047,Vedrovice,3713
+595055,Vémyslice,3713
+595063,Vevčice,3713
+595071,Višňové,3713
+595080,Vítonice,3713
+595098,Vranov nad Dyjí,3713
+595101,Vranovská Ves,3713
+595110,Vratěnín,3713
+595128,Vrbovec,3713
+595136,Výrovice,3713
+595144,Vysočany,3713
+595152,Zálesí,3713
+595161,Zblovice,3713
+595179,Želetice,3713
+595187,Žerotice,3713
+595195,Žerůtky,3713
+595209,Žďár nad Sázavou,3714
+595217,Baliny,3714
+595241,Blažkov,3714
+595250,Blízkov,3714
+595268,Bobrová,3714
+595276,Bobrůvka,3714
+595284,Bohdalec,3714
+595292,Bohdalov,3714
+595306,Bohuňov,3714
+595314,Borač,3703
+595322,Borovnice,3714
+595331,Borovník,3703
+595349,Březejc,3714
+595357,Březí,3714
+595365,Březí nad Oslavou,3714
+595381,Březské,3714
+595390,Budeč,3714
+595403,Bukov,3714
+595411,Bystřice nad Pernštejnem,3714
+595420,Býšovec,3714
+595438,Černá,3714
+595446,Černvír,3703
+595454,Dalečín,3714
+595462,Daňkovice,3714
+595471,Dlouhé,3714
+595489,Dobrá Voda,3714
+595501,Dolní Heřmanice,3714
+595519,Dolní Libochová,3714
+595527,Dolní Loučky,3703
+595535,Dolní Rožínka,3714
+595551,Doubravník,3703
+595560,Drahonín,3703
+595578,Fryšava pod Žákovou horou,3714
+595586,Hamry nad Sázavou,3714
+595594,Herálec,3714
+595608,Heřmanov,3714
+595624,Hodíškov,3714
+595641,Bory,3714
+595659,Horní Libochová,3714
+595667,Horní Loučky,3703
+595675,Horní Radslavice,3714
+595683,Horní Rožínka,3714
+595705,Chlum-Korouhvice,3714
+595713,Chlumek,3714
+595721,Chlumětín,3714
+595730,Jabloňov,3714
+595748,Javorek,3714
+595756,Jámy,3714
+595772,Jimramov,3714
+595802,Jívoví,3714
+595811,Kadolec,3714
+595829,Kadov,3714
+595837,Kaly,3703
+595845,Karlov,3714
+595853,Kněževes,3714
+595861,Koroužné,3714
+595870,Kotlasy,3714
+595888,Kozlov,3714
+595896,Krásné,3714
+595900,Krásněves,3714
+595918,Křižánky,3714
+595926,Křižanov,3714
+595934,Křižínkov,3703
+595951,Křoví,3714
+595969,Kuklík,3714
+595977,Kundratice,3714
+595985,Kuřimská Nová Ves,3703
+595993,Kuřimské Jestřabí,3703
+596001,Kyjov,3714
+596019,Lavičky,3714
+596035,Lhotka,3714
+596051,Lísek,3714
+596060,Líšná,3714
+596078,Lubné,3703
+596086,Malá Losenice,3714
+596094,Martinice,3714
+596108,Matějov,3714
+596116,Měřín,3714
+596132,Mirošov,3714
+596141,Moravec,3714
+596159,Moravecké Pavlovice,3714
+596175,Nedvědice,3703
+596183,Netín,3714
+596191,Níhov,3703
+596205,Nížkov,3714
+596213,Nová Ves,3714
+596221,Nová Ves u Nového Města na Moravě,3714
+596230,Nové Město na Moravě,3714
+596248,Nové Sady,3714
+596256,Nové Veselí,3714
+596264,Nový Jimramov,3714
+596272,Nyklovice,3714
+596281,Obyčtov,3714
+596302,Olší,3703
+596329,Ořechov,3714
+596337,Oslavice,3714
+596345,Osová Bítýška,3714
+596353,Osové,3714
+596361,Ostrov nad Oslavou,3714
+596370,Otín,3714
+596388,Pavlínov,3714
+596396,Pavlov,3714
+596400,Pernštejnské Jestřabí,3703
+596418,Petráveč,3714
+596434,Písečné,3714
+596442,Počítky,3714
+596451,Poděšín,3714
+596469,Podolí,3714
+596477,Pokojov,3714
+596485,Polnička,3714
+596493,Prosetín,3714
+596507,Račice,3714
+596515,Radenice,3714
+596523,Radešín,3714
+596531,Radešínská Svratka,3714
+596540,Radňoves,3714
+596558,Radňovice,3714
+596566,Radostín,3714
+596574,Radostín nad Oslavou,3714
+596582,Rojetín,3703
+596604,Rousměrov,3714
+596612,Rovečné,3714
+596639,Rozseč,3714
+596647,Rozsochy,3714
+596655,Rožná,3714
+596663,Ruda,3714
+596671,Rudolec,3714
+596680,Řečice,3714
+596698,Řikonín,3703
+596701,Sázava,3714
+596710,Sejřek,3714
+596728,Sirákov,3714
+596736,Sklené,3714
+596744,Sklené nad Oslavou,3714
+596752,Skorotice,3714
+596761,Skřinářov,3714
+596787,Sněžné,3714
+596795,Spělkov,3714
+596809,Strachujov,3714
+596817,Stránecká Zhoř,3714
+596825,Strážek,3714
+596833,Sulkovec,3714
+596841,Světnov,3714
+596850,Sviny,3714
+596868,Svratka,3714
+596876,Škrdlovice,3714
+596884,Štěpánov nad Svratkou,3714
+596892,Tišnovská Nová Ves,3703
+596906,Uhřínov,3714
+596914,Ujčov,3714
+596922,Újezd,3714
+596931,Unčín,3714
+596949,Vatín,3714
+596957,Věcov,3714
+596965,Věchnov,3714
+596973,Velká Bíteš,3714
+596981,Velká Losenice,3714
+596990,Velké Janovice,3714
+597007,Velké Meziříčí,3714
+597015,Vepřová,3714
+597031,Věstín,3714
+597040,Věžná,3714
+597058,Vídeň,3714
+597066,Vidonín,3714
+597074,Vír,3714
+597082,Vlkov,3714
+597091,Vojnův Městec,3714
+597104,Vratislávka,3703
+597112,Záblatí,3714
+597121,Zadní Zhořec,3714
+597139,Znětínek,3714
+597147,Zubří,3714
+597155,Zvole,3714
+597163,Ždánice,3714
+597171,Žďárec,3703
+597180,Bruntál,3801
+597198,Bílčice,3801
+597201,Bohušov,3801
+597210,Brantice,3801
+597228,Břidličná,3801
+597252,Dětřichov nad Bystřicí,3801
+597287,Dolní Moravice,3801
+597317,Dvorce,3801
+597325,Heřmanovice,3801
+597341,Holčovice,3801
+597350,Horní Benešov,3801
+597368,Horní Město,3801
+597392,Hošťálkovy,3801
+597414,Huzová,3805
+597431,Janov,3801
+597449,Jindřichov,3801
+597457,Jiříkov,3801
+597473,Karlova Studánka,3801
+597481,Karlovice,3801
+597511,Krasov,3801
+597520,Krnov,3801
+597538,Křišťanovice,3801
+597546,Leskovec nad Moravicí,3801
+597554,Lichnov,3801
+597571,Liptaň,3801
+597589,Lomnice,3801
+597601,Malá Morávka,3801
+597635,Město Albrechtice,3801
+597678,Moravský Beroun,3805
+597686,Norberčany,3805
+597716,Osoblaha,3801
+597724,Razová,3801
+597741,Roudno,3801
+597775,Rusín,3801
+597783,Rýmařov,3801
+597791,Ryžoviště,3801
+597813,Slezské Rudoltice,3801
+597821,Sosnová,3806
+597872,Světlá Hora,3801
+597881,Svobodné Heřmanice,3801
+597899,Široká Niva,3801
+597911,Třemešná,3801
+597937,Úvalno,3801
+597945,Václavov u Bruntálu,3801
+597961,Vrbno pod Pradědem,3801
+597970,Vysoká,3801
+597988,Zátor,3801
+597996,Zlaté Hory,3811
+598003,Frýdek-Místek,3802
+598011,Baška,3802
+598020,Bílá,3802
+598038,Brušperk,3802
+598046,Bruzovice,3802
+598062,Bystřice,3802
+598071,Čeladná,3802
+598089,Dobrá,3802
+598101,Dolní Domaslavice,3802
+598135,Fryčovice,3802
+598143,Frýdlant nad Ostravicí,3802
+598160,Hnojník,3802
+598178,Horní Bludovice,3803
+598232,Hrčava,3802
+598241,Pětikozly,3207
+598259,Jablunkov,3802
+598267,Modletice,3209
+598275,Kaňovice,3802
+598283,Sedlec,3209
+598291,Čakovičky,3206
+598305,Svémyslice,3209
+598313,Trnová,3210
+598321,Kozlovice,3802
+598330,Tušovice,3211
+598348,Krmelín,3802
+598356,Kunčice pod Ondřejníkem,3802
+598364,Lhotka,3802
+598372,Ostrov,3211
+598381,Dubenec,3211
+598399,Lučina,3802
+598402,Háje,3211
+598411,Lhota u Příbramě,3211
+598429,Trhové Dušníky,3211
+598437,Vševily,3211
+598445,Morávka,3802
+598453,Mosty u Jablunkova,3802
+598461,Kňovice,3211
+598470,Osečany,3211
+598488,Radíč,3211
+598496,Šípy,3212
+598500,Krty,3212
+598518,Žďár,3212
+598526,Roztoky,3212
+598542,Ostravice,3802
+598551,Palkovice,3802
+598569,Paskov,3802
+598577,Přerubenice,3212
+598585,Nezabudice,3212
+598593,Heřmaň,3301
+598607,Hlincová Hora,3301
+598615,Modrá Hůrka,3301
+598623,Mojné,3302
+598631,Kamenný Malíkov,3303
+598640,Vlčetínec,3303
+598658,Horní Meziříčko,3303
+598666,Zlátenka,3304
+598674,Sedliště,3802
+598691,Hukvaldy,3802
+598704,Čížkov,3304
+598712,Kojčice,3304
+598721,Libkova Voda,3304
+598739,Stará Ves nad Ondřejnicí,3807
+598747,Staré Hamry,3802
+598755,Putimov,3304
+598763,Svépravice,3304
+598771,Syrov,3304
+598780,Borovany,3305
+598798,Šenov,3807
+598801,Květov,3305
+598810,Třinec,3802
+598828,Osek,3305
+598836,Václavovice,3807
+598844,Vlastec,3305
+598852,Vlksice,3305
+598861,Žďár,3305
+598879,Vratimov,3807
+598887,Pivkovice,3307
+598895,Bezdědovice,3307
+598909,Skály,3307
+598917,Karviná,3803
+598925,Albrechtice,3803
+598933,Český Těšín,3803
+598941,Dětmarovice,3803
+598950,Lažánky,3307
+598968,Dolní Lutyně,3803
+598976,Čenkov u Bechyně,3301
+598992,Hodětín,3308
+599000,Záhoří,3308
+599026,Slapsko,3308
+599034,Zhoř u Mladé Vožice,3308
+599042,Slapy,3308
+599051,Bohumín,3803
+599069,Orlová,3803
+599077,Petrovice u Karviné,3803
+599085,Petřvald,3803
+599107,Rychvald,3803
+599115,Řípec,3308
+599123,Ústrašice,3308
+599131,Nová Ves,3401
+599140,Stonava,3803
+599158,Těrlicko,3803
+599166,Němčice,3401
+599174,Močerady,3401
+599182,Pařezov,3401
+599191,Nový Jičín,3804
+599204,Korkyně,3211
+599212,Bartošovice,3804
+599221,Popovičky,3209
+599239,Vokov,3304
+599247,Bílovec,3804
+599255,Mezná,3308
+599263,Sedlečko u Soběslavě,3308
+599271,Zlukov,3308
+599280,Komárov,3308
+599298,Drahenice,3211
+599301,Černíky,3204
+599344,Frenštát pod Radhoštěm,3804
+599352,Fulnek,3804
+599361,Strojetice,3201
+599379,Stranný,3201
+599387,Soutice,3201
+599395,Ostrov,3201
+599409,Hodslavice,3804
+599417,Železná,3202
+599425,Želenice,3203
+599433,Svárov,3203
+599441,Stradonice,3203
+599450,Grunta,3204
+599468,Jeseník nad Odrou,3804
+599476,Církvice,3204
+599484,Krychnov,3204
+599492,Újezdec,3206
+599506,Jistebník,3804
+599514,Březovice,3207
+599522,Husí Lhota,3207
+599531,Horní Slivno,3207
+599549,Klimkovice,3807
+599557,Koryta,3207
+599565,Kopřivnice,3804
+599573,Sezemice,3207
+599581,Jiřice,3208
+599590,Podmoky,3208
+599603,Lichnov,3804
+599611,Vrbice,3208
+599620,Chleby,3208
+599638,Hrubý Jeseník,3208
+599646,Luboměř,3804
+599654,Nový Dvůr,3208
+599662,Oseček,3208
+599671,Čilec,3208
+599689,Mořkov,3804
+599697,Zbožíčko,3208
+599701,Odry,3804
+599719,Tehovec,3209
+599727,Karlík,3210
+599735,Březová-Oleško,3210
+599743,Petřvald,3804
+599751,Modřovice,3211
+599760,Račice,3212
+599778,Závraty,3301
+599808,Příbor,3804
+599832,Sedlnice,3804
+599867,Spálov,3804
+599905,Starý Jičín,3804
+599921,Studénka,3804
+599930,Suchdol nad Odrou,3804
+599948,Štramberk,3804
+599956,Tichá,3804
+599964,Tísek,3804
+599999,Trojanovice,3804

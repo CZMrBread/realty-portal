@@ -1,0 +1,32 @@
+@page "/agency"
+@using Client.Features.RealtyAgency
+@using Shared.RealtyAgency
+@using Shared.Shared
+@inject RealtyAgencyApiClient RealtyAgencies
+
+<PageTitle>Realty agencies</PageTitle>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h4 mb-0">Realty agencies</h1>
+        <a class="btn btn-primary" href="agency/create">Register an agency</a>
+    </div>
+
+    @if (error is not null)
+    {
+        <div class="alert alert-danger" role="alert">@error</div>
+    }
+</div>
+
+@code {
+    private PagedResult<RealtyAgencyDto>? agencies;
+    private string? name;
+    private int page = 1;
+    private const int PageSize = 20;
+    private string? error;
+    private bool busy;
+
+    protected override Task OnInitializedAsync() => LoadAsync();
+
+    private Task LoadAsync() => throw new NotImplementedException();
+}

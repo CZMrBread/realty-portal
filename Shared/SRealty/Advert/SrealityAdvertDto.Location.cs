@@ -46,16 +46,7 @@ public sealed partial record SrealityAdvertDto
     [EnumValue(typeof(RuianLevelEnum))]
     [JsonPropertyName("locality_ruian_level")]
     public RuianLevelEnum? LocalityRuianLevel { get; set; }
-
-    /// <summary>Code of the place in the older UIR-ADR address register. Has to be filled in together with LocalityUirLevel.</summary>
-    [JsonPropertyName("locality_uir")]
-    public int? LocalityUir { get; set; }
-
-    [EnumValue(typeof(UirLevelEnum))]
-    [JsonPropertyName("locality_uir_level")]
-    public UirLevelEnum? LocalityUirLevel { get; set; }
     
-
     [EnumValue(typeof(ObjectLocationEnum))]
     [JsonPropertyName("object_location")]
     public ObjectLocationEnum? ObjectLocation { get; set; }

@@ -1,0 +1,32 @@
+@page "/agent/create"
+@using Client.Features.RealtyAgent
+@using Shared.RealtyAgent
+@inject RealtyAgentApiClient RealtyAgents
+@inject NavigationManager Navigation
+
+<PageTitle>Add an agent</PageTitle>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="h4 card-title mb-3">Add an agent to the agency</h1>
+
+                    @if (error is not null)
+                    {
+                        <div class="alert alert-danger" role="alert">@error</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private readonly RealtyAgentDto agent = new();
+    private string? error;
+    private bool busy;
+
+    private Task SubmitAsync() => throw new NotImplementedException();
+}

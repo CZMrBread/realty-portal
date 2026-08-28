@@ -48,6 +48,13 @@ public abstract class FormFieldBase<TValue> : ComponentBase
 
     protected string FieldId => Id ?? generatedId;
 
+    /// <summary>
+    /// The field this control is bound to. Controls built on a plain input rather than on one of the built-in
+    /// ones have to hand this to <see cref="Microsoft.AspNetCore.Components.Forms.EditContext.NotifyFieldChanged"/>
+    /// themselves, since nothing else tells the edit context that the value moved.
+    /// </summary>
+    protected FieldIdentifier Field => fieldIdentifier;
+
     protected string PlaceholderText => string.IsNullOrEmpty(Placeholder) ? " " : Placeholder;
 
     /// <summary>The Bootstrap class the control cannot do without. Overridden where it is not a form-control.</summary>

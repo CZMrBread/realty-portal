@@ -14,6 +14,10 @@ public static class AgentErrors
     public static readonly ApiError NotAnAgent =
         new("agent.not_an_agent", HttpStatusCode.Forbidden, "This account is not a realty agent.");
 
+    /// <summary>No agent is known under what was asked for.</summary>
+    public static readonly ApiError NotFound =
+        new("agent.not_found", HttpStatusCode.NotFound, "No such realty agent.");
+
     /// <summary>The agent belongs to no agency, and what was asked for needs one.</summary>
     public static readonly ApiError NoAgency =
         new("agent.no_agency", HttpStatusCode.Forbidden, "Join an agency before creating adverts under an agency key.");

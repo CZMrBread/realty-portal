@@ -1,0 +1,39 @@
+@page "/agent/{Id:guid}/edit"
+@using Client.Features.RealtyAgent
+@using Shared.RealtyAgent
+@inject RealtyAgentApiClient RealtyAgents
+@inject NavigationManager Navigation
+
+<PageTitle>Edit agent</PageTitle>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="h4 card-title mb-3">Edit realty agent</h1>
+
+                    @if (error is not null)
+                    {
+                        <div class="alert alert-danger" role="alert">@error</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private RealtyAgentDto? agent;
+    private string? error;
+    private bool busy;
+
+    protected override Task OnParametersSetAsync() => LoadAsync();
+
+    private Task LoadAsync() => throw new NotImplementedException();
+
+    private Task SubmitAsync() => throw new NotImplementedException();
+}

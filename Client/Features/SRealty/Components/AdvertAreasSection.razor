@@ -1,0 +1,57 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Areas.cs: every area of the property, in square metres unless said otherwise. *@
+
+<div class="row">
+    @if (Shows(nameof(SrealityAdvertDto.UsableArea)))
+    {
+        <div class="col-md-4">
+            <FloatingNumber Label="Užitná plocha (m²)" @bind-Value="Model.UsableArea"/>
+        </div>
+    }
+    <div class="col-md-4">
+        <FloatingNumber Label="Podlahová plocha (m²)" @bind-Value="Model.FloorArea"/>
+    </div>
+    @if (Shows(nameof(SrealityAdvertDto.EstateArea)))
+    {
+        <div class="col-md-4">
+            <FloatingNumber Label="Plocha pozemku (m²)" @bind-Value="Model.EstateArea"/>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingNumber Label="Zastavěná plocha (m²)" @bind-Value="Model.BuildingArea"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Plocha zahrady (m²)" @bind-Value="Model.GardenArea"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Výška stropu (m)" step="any" @bind-Value="Model.CeilingHeight"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingNumber Label="Nebytová plocha celkem (m²)" @bind-Value="Model.NoliveTotalArea"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Plocha kanceláří (m²)" @bind-Value="Model.OfficesArea"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Výrobní plocha (m²)" @bind-Value="Model.ProductionArea"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingNumber Label="Prodejní plocha (m²)" @bind-Value="Model.ShopArea"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Skladová plocha (m²)" @bind-Value="Model.StoreArea"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Plocha dílny (m²)" @bind-Value="Model.WorkshopArea"/>
+    </div>
+</div>

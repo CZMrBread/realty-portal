@@ -14,4 +14,11 @@ public interface IPhotoStorage
 
     /// <summary>Removes the image stored under the given path.</summary>
     Task DeleteAsync(string storagePath);
+    
+    /// <summary>
+    /// Checks if the given stream is a valid image file. Returns true if it is, false otherwise.
+    /// </summary>
+    /// <param name="stream">The stream to validate.</param>
+    /// <returns>True if the stream is a valid image file, false otherwise.</returns>
+    Task<bool> ValidateAsync(Stream stream);
 }

@@ -1,0 +1,84 @@
+@inherits AdvertFormSection
+
+@* SrealityAdvertDto.Building.cs: what the building is made of, how tall it is and how old. *@
+
+<div class="row">
+    @if (Shows(nameof(SrealityAdvertDto.BuildingCondition)))
+    {
+        <div class="col-md-4">
+            <EnumSelect TEnum="BuildingConditionEnum" Label="Stav objektu" @bind-Value="Model.BuildingCondition"/>
+        </div>
+    }
+    @if (Shows(nameof(SrealityAdvertDto.BuildingType)))
+    {
+        <div class="col-md-4">
+            <EnumSelect TEnum="BuildingTypeEnum" Label="Konstrukce budovy" @bind-Value="Model.BuildingType"/>
+        </div>
+    }
+    @if (Shows(nameof(SrealityAdvertDto.ObjectType)))
+    {
+        <div class="col-md-4">
+            <EnumSelect TEnum="ObjectTypeEnum" Label="Typ objektu" @bind-Value="Model.ObjectType"/>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <EnumSelect TEnum="ObjectKindEnum" Label="Druh objektu" @bind-Value="Model.ObjectKind"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="FlatClassEnum" Label="Třída bytu" @bind-Value="Model.FlatClass"/>
+    </div>
+    <div class="col-md-4">
+        <EnumSelect TEnum="AccessibilityEnum" Label="Bezbariérovost" @bind-Value="Model.EasyAccess"/>
+    </div>
+</div>
+
+<div class="row">
+    @if (Shows(nameof(SrealityAdvertDto.FloorNumber)))
+    {
+        <div class="col-md-3">
+            <FloatingNumber Label="Podlaží" @bind-Value="Model.FloorNumber"
+                            Help="Přízemí se počítá jako nula."/>
+        </div>
+    }
+    <div class="col-md-3">
+        <FloatingNumber Label="Počet nadzemních podlaží" @bind-Value="Model.Floors"/>
+    </div>
+    <div class="col-md-3">
+        <FloatingNumber Label="Počet podzemních podlaží" @bind-Value="Model.UndergroundFloors"/>
+    </div>
+    @if (Model.AdvertType is AdvertTypeEnum.Flat)
+    {
+        <div class="col-md-3">
+            <FloatingNumber Label="Číslo bytové jednotky" @bind-Value="Model.ApartmentNumber"/>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingNumber Label="Rok kolaudace" @bind-Value="Model.AcceptanceYear"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Stáří objektu (roky)" @bind-Value="Model.ObjectAge"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingNumber Label="Rok rekonstrukce" @bind-Value="Model.ReconstructionYear"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingDate Label="Zahájení výstavby" @bind-Value="Model.BeginningDate"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingDate Label="Dokončení výstavby" @bind-Value="Model.FinishDate"/>
+    </div>
+    <div class="col-md-4">
+        <FloatingText Label="Schodiště" @bind-Value="Model.Steps"/>
+    </div>
+</div>
+
+<CheckBoxRevealField Label="Podkroví" @bind-Value="Model.Garret"/>

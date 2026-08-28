@@ -24,7 +24,7 @@ public sealed partial record SrealityAdvertDto
     public AdvertPriceUnitEnum? AdvertPriceUnit { get; set; }
 
     [JsonPropertyName("advert_price_negotiation")]
-    public bool? AdvertPriceNegotiation { get; set; }
+    public bool AdvertPriceNegotiation { get; set; } = false;
 
     [JsonPropertyName("advert_price_text_note")]
     public string? AdvertPriceTextNote { get; set; }
@@ -49,8 +49,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("annuity")]
     public int? Annuity { get; set; }
 
-    [JsonPropertyName("mortgage")]
-    public bool? Mortgage { get; set; }
+    [JsonPropertyName("mortgage")] public bool Mortgage { get; set; } = false;
 
     /// <summary>Share of the price that can be financed by a mortgage, in percent.</summary>
     [Range(0, 100)]
@@ -68,7 +67,7 @@ public sealed partial record SrealityAdvertDto
 
     /// <summary>Whether the tenant is exempt from the agency commission.</summary>
     [JsonPropertyName("tenant_not_pay_commission")]
-    public bool? TenantNotPayCommission { get; set; }
+    public bool TenantNotPayCommission { get; set; } = false;
 
     [EnumValue(typeof(LeaseTypeEnum))]
     [JsonPropertyName("lease_type_cb")]

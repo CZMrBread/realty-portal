@@ -1,0 +1,96 @@
+@inherits AdvertFormSection
+
+@*
+    SrealityAdvertDto.Amenities.cs. Most of this partial is a yes-no field paired with the number that only
+    makes sense once the answer is yes, which is exactly what CheckBoxRevealField is for.
+*@
+
+<div class="row">
+    @if (Shows(nameof(SrealityAdvertDto.Balcony)))
+    {
+        <div class="col-md-6">
+            <CheckBoxRevealField Label="Balkon" @bind-Value="Model.Balcony"
+                                 Cleared="() => Model.BalconyArea = null">
+                <FloatingNumber Label="Plocha balkonu (m²)" @bind-Value="Model.BalconyArea"/>
+            </CheckBoxRevealField>
+        </div>
+    }
+    @if (Shows(nameof(SrealityAdvertDto.Loggia)))
+    {
+        <div class="col-md-6">
+            <CheckBoxRevealField Label="Lodžie" @bind-Value="Model.Loggia"
+                                 Cleared="() => Model.LoggiaArea = null">
+                <FloatingNumber Label="Plocha lodžie (m²)" @bind-Value="Model.LoggiaArea"/>
+            </CheckBoxRevealField>
+        </div>
+    }
+</div>
+
+<div class="row">
+    @if (Shows(nameof(SrealityAdvertDto.Terrace)))
+    {
+        <div class="col-md-6">
+            <CheckBoxRevealField Label="Terasa" @bind-Value="Model.Terrace"
+                                 Cleared="() => Model.TerraceArea = null">
+                <FloatingNumber Label="Plocha terasy (m²)" @bind-Value="Model.TerraceArea"/>
+            </CheckBoxRevealField>
+        </div>
+    }
+    @if (Shows(nameof(SrealityAdvertDto.Cellar)))
+    {
+        <div class="col-md-6">
+            <CheckBoxRevealField Label="Sklep" @bind-Value="Model.Cellar"
+                                 Cleared="() => Model.CellarArea = null">
+                <FloatingNumber Label="Plocha sklepa (m²)" @bind-Value="Model.CellarArea"/>
+            </CheckBoxRevealField>
+        </div>
+    }
+</div>
+
+<div class="row">
+    @if (Shows(nameof(SrealityAdvertDto.Basin)))
+    {
+        <div class="col-md-6">
+            <CheckBoxRevealField Label="Bazén" @bind-Value="Model.Basin"
+                                 Cleared="() => Model.BasinArea = null">
+                <FloatingNumber Label="Plocha bazénu (m²)" @bind-Value="Model.BasinArea"/>
+            </CheckBoxRevealField>
+        </div>
+    }
+    @if (Shows(nameof(SrealityAdvertDto.Garage)))
+    {
+        <div class="col-md-6">
+            <CheckBoxRevealField Label="Garáž" @bind-Value="Model.Garage"
+                                 Cleared="() => Model.GarageCount = null">
+                <FloatingNumber Label="Počet garáží" @bind-Value="Model.GarageCount"/>
+            </CheckBoxRevealField>
+        </div>
+    }
+</div>
+
+<div class="row">
+    @if (Shows(nameof(SrealityAdvertDto.ParkingLots)))
+    {
+        <div class="col-md-6">
+            <CheckBoxRevealField Label="Parkování" @bind-Value="Model.ParkingLots"
+                                 Cleared="() => Model.Parking = null">
+                <FloatingNumber Label="Počet parkovacích míst" @bind-Value="Model.Parking"/>
+            </CheckBoxRevealField>
+        </div>
+    }
+    <div class="col-md-3">
+        <CheckBoxRevealField Label="Fotovoltaické panely" @bind-Value="Model.FtvPanels"/>
+    </div>
+    <div class="col-md-3">
+        <CheckBoxRevealField Label="Solární panely" @bind-Value="Model.SolarPanels"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <EnumSelect TEnum="FurnishingEnum" Label="Vybavení" @bind-Value="Model.Furnished"/>
+    </div>
+    <div class="col-md-6">
+        <EnumSelect TEnum="ElevatorEnum" Label="Výtah" @bind-Value="Model.Elevator"/>
+    </div>
+</div>

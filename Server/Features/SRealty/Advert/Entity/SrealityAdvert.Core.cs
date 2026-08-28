@@ -18,6 +18,6 @@ public partial class SrealityAdvertEntity
     public required AdvertSubtypeEnum AdvertSubtype { get; set; }
     public AdvertRoomCountEnum? AdvertRoomCount { get; set; }
     public ExtraInfoEnum? ExtraInfo { get; set; }
-    public bool? UserStatus { get; set; }
-    public bool? ExclusivelyAtRk { get; set; }
+    public bool UserStatus { get; set; } = false;
+    public bool ExclusivelyAtRk { get; set; } = false;
 }
