@@ -7,7 +7,7 @@ namespace Server.Features.SRealty.Photo.Entity;
 /// A photo belonging to an advert. The image itself lives in the store behind <see cref="IPhotoStorage"/>;
 /// this entity holds only the metadata.
 /// </summary>
-public class SrealityAdvertPhoto : ITimeStampedEntity
+public class SrealityAdvertPhotoEntity : ITimeStampedEntity
 {
     public Guid Id { get; set; } = Guid.CreateVersion7();
 

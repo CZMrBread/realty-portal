@@ -21,6 +21,7 @@
         <PackageReference Include="Scalar.AspNetCore" />
         <PackageReference Include="Swashbuckle.AspNetCore" />
         <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+        <PackageReference Include="Magick.NET-Q8-AnyCPU" />
     </ItemGroup>
 
     <ItemGroup>

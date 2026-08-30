@@ -88,6 +88,10 @@ builder.Services.AddScoped<RealtyAgencyService>();
 builder.Services.AddScoped<RealtyAgentService>();
 builder.Services.AddScoped<RuianService>();
 builder.Services.AddScoped<AdvertService>();
+builder.Services.AddOptions<PhotoStorageOptions>()
+    .BindConfiguration(PhotoStorageOptions.SectionName)
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
 builder.Services.AddSingleton<IPhotoStorage, FilePhotoStorage>();
 builder.Services.AddScoped<PhotoService>();
 

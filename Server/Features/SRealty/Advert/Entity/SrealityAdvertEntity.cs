@@ -54,7 +54,7 @@ public partial class SrealityAdvertEntity: ITimeStampedEntity
     /// </summary>
     public NpgsqlTsVector? SearchVector { get; set; }
 
-    public List<SrealityAdvertPhoto> Photos { get; set; } = [];
+    public List<SrealityAdvertPhotoEntity> Photos { get; set; } = [];
 
     /// <summary>
     /// Whether the given agent may change this advert: either it was published under their agency, or they are

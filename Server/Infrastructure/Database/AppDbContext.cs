@@ -9,6 +9,7 @@ using Server.Features.Ruian.Entity;
 using Server.Features.SRealty;
 using Server.Features.SRealty.Advert;
 using Server.Features.SRealty.Advert.Entity;
+using Server.Features.SRealty.Photo.Entity;
 using Server.Features.User;
 using Server.Infrastructure.Database.Configuration;
 
@@ -25,6 +26,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<ApplicationRole> ApplicationRoles { get; set; }
     public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
     public DbSet<SrealityAdvertEntity> SrealityAdverts { get; set; }
+    
+    public DbSet<SrealityAdvertPhotoEntity> SrealityAdvertPhotos { get; set; }
     public DbSet<RealtyAgencyEntity> RealtyAgencies { get; set; }
     public DbSet<RealtyAgentEntity> RealtyAgents { get; set; }
     public DbSet<RuianRegionEntity> RuianRegions { get; set; }

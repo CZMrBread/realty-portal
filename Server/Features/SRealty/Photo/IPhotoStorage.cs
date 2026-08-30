@@ -6,19 +6,24 @@ namespace Server.Features.SRealty.Photo;
 /// </summary>
 public interface IPhotoStorage
 {
-    /// <summary>Writes an image and returns the path it can be read back by.</summary>
-    Task<string> SaveAsync(Guid advertId, Guid photoId, Stream content, string contentType);
+    /// <summary>
+    /// Validates, normalises (JPEG, bounded size, metadata stripped) and writes an image, returning the path it can be read back by.
+    /// Throws <see cref="InvalidPhotoException"/> when the content is not an accepted image.
+    /// </summary>
+    Task<string> SaveAsync(Guid advertId, Guid photoId, Stream content, CancellationToken cancellationToken = default);
 
     /// <summary>Opens an image for reading, or returns null when nothing is stored under that path.</summary>
-    Task<Stream?> OpenReadAsync(string storagePath);
+    Task<Stream?> OpenReadAsync(string storagePath, CancellationToken cancellationToken = default);
 
     /// <summary>Removes the image stored under the given path.</summary>
-    Task DeleteAsync(string storagePath);
-    
+    Task DeleteAsync(string storagePath, CancellationToken cancellationToken = default);
+
+    /// <summary>Removes every image of an advert in one go, folder included.</summary>
+    Task DeleteAdvertAsync(Guid advertId, CancellationToken cancellationToken = default);
+
     /// <summary>
-    /// Checks if the given stream is a valid image file. Returns true if it is, false otherwise.
+    /// Cheap check whether the stream starts like an accepted image (JPEG, PNG, WebP, HEIC). A stream that passes is
+    /// not yet proven decodable; <see cref="SaveAsync"/> is the authoritative check.
     /// </summary>
-    /// <param name="stream">The stream to validate.</param>
-    /// <returns>True if the stream is a valid image file, false otherwise.</returns>
-    Task<bool> ValidateAsync(Stream stream);
+    Task<bool> ValidateAsync(Stream stream, CancellationToken cancellationToken = default);
 }

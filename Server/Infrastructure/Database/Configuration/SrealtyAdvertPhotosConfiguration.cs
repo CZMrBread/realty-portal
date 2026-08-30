@@ -6,9 +6,9 @@ using Server.Features.SRealty.Photo.Entity;
 namespace Server.Infrastructure.Database.Configuration;
 
 /// <summary>Maps the photo table and keeps the gallery order unique within one advert.</summary>
-public sealed class SrealityAdvertPhotoConfiguration : IEntityTypeConfiguration<SrealityAdvertPhoto>
+public sealed class SrealityAdvertPhotoConfiguration : IEntityTypeConfiguration<SrealityAdvertPhotoEntity>
 {
-    public void Configure(EntityTypeBuilder<SrealityAdvertPhoto> builder)
+    public void Configure(EntityTypeBuilder<SrealityAdvertPhotoEntity> builder)
     {
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id).ValueGeneratedNever();

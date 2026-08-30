@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Server.Features.SRealty.Advert;
 using Server.Features.SRealty.Advert.Entity;
 using Server.Features.SRealty.Photo.Entity;
@@ -16,35 +17,42 @@ public sealed class PhotoService(AppDbContext appDbContext, IPhotoStorage photoS
     // --- Get ---
 
     /// <summary>Every photo of an advert, in gallery order.</summary>
-    public Task<List<SrealityAdvertPhoto>> GetAdvertPhotosAsync(Guid advertId)
-        => throw new NotImplementedException();
+    public async Task<List<SrealityAdvertPhotoEntity>> GetAdvertPhotosAsync(Guid advertId)
+    {
+        return await appDbContext.SrealityAdvertPhotos.Where(a => a.SrealityAdvertId == advertId).ToListAsync();
+    }
 
     /// <summary>Photo with the given identifier, or null when there is none.</summary>
-    public Task<SrealityAdvertPhoto?> FindPhotoByIdAsync(Guid photoId)
-        => throw new NotImplementedException();
-    
+    public async Task<SrealityAdvertPhotoEntity?> FindPhotoByIdAsync(Guid photoId)
+    {
+        return await appDbContext.SrealityAdvertPhotos.FirstOrDefaultAsync(a => a.SrealityAdvertId == photoId);
+    }
+
     /// <summary>Photo with the given identifier, provided it really belongs to the given advert.</summary>
-    public Task<SrealityAdvertPhoto> FindPhotoByAdvertIdAndIdAsync(Guid advertId, Guid photoId)
-        => throw new NotImplementedException();
+    public async Task<SrealityAdvertPhotoEntity?> FindPhotoByAdvertIdAndIdAsync(Guid advertId, Guid photoId)
+    {
+        return await appDbContext.SrealityAdvertPhotos.Where(a => a.Id == photoId  && a.SrealityAdvertId == advertId).FirstOrDefaultAsync();
+    }
 
     // --- Create / Update / Delete ---
 
     /// <summary>Files the image in the store and records its metadata against the advert.</summary>
-    public Task<SrealityAdvertPhoto> AddPhotoAsync(SrealityAdvertEntity advert, Stream content, string contentType,
+    public Task<SrealityAdvertPhotoEntity> AddPhotoAsync(SrealityAdvertEntity advert, Stream content,
+        string contentType,
         UploadPhotoRequest request, CancellationToken cancellationToken = default)
         => throw new NotImplementedException();
 
     /// <summary>Replaces the image of an existing photo and updates its metadata.</summary>
-    public Task<SrealityAdvertPhoto> UpdatePhotoAsync(SrealityAdvertPhoto photo, Stream content, string contentType,
+    public Task<SrealityAdvertPhotoEntity> UpdatePhotoAsync(SrealityAdvertPhotoEntity photoEntity, Stream content, string contentType,
         UploadPhotoRequest request, CancellationToken cancellationToken = default)
         => throw new NotImplementedException();
 
     /// <summary>Puts the gallery into the given order and returns the photos as they now stand.</summary>
-    public Task<List<SrealityAdvertPhoto>> ReorderPhotosAsync(Guid advertId, List<Guid> orderedPhotoIds)
+    public Task<List<SrealityAdvertPhotoEntity>> ReorderPhotosAsync(Guid advertId, List<Guid> orderedPhotoIds)
         => throw new NotImplementedException();
 
     /// <summary>Removes one photo together with its image file.</summary>
-    public Task DeletePhotoAsync(SrealityAdvertPhoto photo)
+    public Task DeletePhotoAsync(SrealityAdvertPhotoEntity photoEntity)
         => throw new NotImplementedException();
 
     /// <summary>Removes every photo of an advert together with the image files.</summary>
