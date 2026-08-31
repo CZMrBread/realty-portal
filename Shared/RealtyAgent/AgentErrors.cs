@@ -21,4 +21,25 @@ public static class AgentErrors
     /// <summary>The agent belongs to no agency, and what was asked for needs one.</summary>
     public static readonly ApiError NoAgency =
         new("agent.no_agency", HttpStatusCode.Forbidden, "Join an agency before creating adverts under an agency key.");
+
+    /// <summary>The agent already belongs to an agency, and what was asked for needs them free of one.</summary>
+    public static readonly ApiError AlreadyInAgency =
+        new("agent.already_in_agency", HttpStatusCode.Conflict, "This agent already belongs to an agency.");
+
+    /// <summary>Only an administrator of the agency may do what was asked for.</summary>
+    public static readonly ApiError NotAgencyAdmin =
+        new("agent.not_agency_admin", HttpStatusCode.Forbidden, "Only an agency administrator may do that.");
+
+    /// <summary>The agency already knows another agent under the submitted key.</summary>
+    public static readonly ApiError RkIdTaken =
+        new("agent.rkid_taken", HttpStatusCode.Conflict, "This agency already has an agent under that key.");
+
+    /// <summary>The agent belongs to another agency than the one the caller acts for.</summary>
+    public static readonly ApiError NotOwned =
+        new("agent.not_owned", HttpStatusCode.Forbidden, "This agent is not yours to change.");
+
+    /// <summary>The agent is still named as the seller on adverts, which deleting the profile would orphan.</summary>
+    public static readonly ApiError HasAdverts =
+        new("agent.has_adverts", HttpStatusCode.Conflict,
+            "The agent still sells adverts; delete them or hand them over first.");
 }
