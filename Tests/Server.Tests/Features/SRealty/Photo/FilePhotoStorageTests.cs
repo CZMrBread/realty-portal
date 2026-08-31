@@ -25,42 +25,6 @@ public sealed class FilePhotoStorageTests : IDisposable
         }
     }
 
-    // --- ValidateAsync ---
-
-    [Theory]
-    [InlineData(MagickFormat.Jpeg)]
-    [InlineData(MagickFormat.Png)]
-    [InlineData(MagickFormat.WebP)]
-    public async Task ValidateAsync_AcceptsSupportedFormats(MagickFormat format)
-    {
-        using var stream = MakeImage(64, 64, format);
-
-        Assert.True(await _storage.ValidateAsync(stream));
-        Assert.Equal(0, stream.Position);
-    }
-
-    [Fact]
-    public async Task ValidateAsync_AcceptsHeicSignature()
-    {
-        // Only the ISO-BMFF header; the sniff must not need the rest of the file.
-        var header = new byte[] { 0, 0, 0, 0x18, (byte)'f', (byte)'t', (byte)'y', (byte)'p', (byte)'h', (byte)'e', (byte)'i', (byte)'c', 0, 0, 0, 0 };
-        using var stream = new MemoryStream(header);
-
-        Assert.True(await _storage.ValidateAsync(stream));
-    }
-
-    [Fact]
-    public async Task ValidateAsync_RejectsGifTextAndEmpty()
-    {
-        using var gif = MakeImage(16, 16, MagickFormat.Gif);
-        using var text = new MemoryStream("<svg xmlns='http://www.w3.org/2000/svg'/>"u8.ToArray());
-        using var empty = new MemoryStream();
-
-        Assert.False(await _storage.ValidateAsync(gif));
-        Assert.False(await _storage.ValidateAsync(text));
-        Assert.False(await _storage.ValidateAsync(empty));
-    }
-
     [Fact]
     public void MagickNet_CanDecodeEveryAcceptedFormatOnThisPlatform()
     {
@@ -132,6 +96,16 @@ public sealed class FilePhotoStorageTests : IDisposable
 
         await Assert.ThrowsAsync<InvalidPhotoException>(() => _storage.SaveAsync(Guid.NewGuid(), Guid.NewGuid(), text));
         Assert.Empty(Directory.EnumerateFileSystemEntries(_root));
+    }
+
+    [Fact]
+    public async Task SaveAsync_RejectsDecodableButUnacceptedFormats()
+    {
+        using var gif = MakeImage(16, 16, MagickFormat.Gif);
+        using var svg = new MemoryStream("<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'/>"u8.ToArray());
+
+        await Assert.ThrowsAsync<InvalidPhotoException>(() => _storage.SaveAsync(Guid.NewGuid(), Guid.NewGuid(), gif));
+        await Assert.ThrowsAsync<InvalidPhotoException>(() => _storage.SaveAsync(Guid.NewGuid(), Guid.NewGuid(), svg));
     }
 
     [Fact]
