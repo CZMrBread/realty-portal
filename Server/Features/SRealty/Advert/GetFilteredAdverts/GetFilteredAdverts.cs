@@ -1,3 +1,4 @@
+using Server.Features.SRealty.Advert.Entity;
 using Shared.Shared;
 using Shared.SRealty.Advert;
 using Shared.SRealty.Advert.ListAdverts;

@@ -1,11 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Components;
 using Server.Features.RealtyAgent.Entity;
 using Server.Infrastructure.Database;
-using Shared.Shared.Extensions;
 
 namespace Server.Features.RealtyAgency.Entity;
 
@@ -20,8 +16,9 @@ public sealed class RealtyAgencyEntity : ITimeStampedEntity
     [MaxLength(200)]
     public required string Name { get; set; }
 
-    [NotMapped]
-    public string SearchName { get => Name.ToSearchKey(); }
+    /// <summary>Search key derived from <see cref="Name"/>, kept by the service so the trigram index has a real column to sit on.</summary>
+    [MaxLength(200)]
+    public string SearchName { get; set; } = string.Empty;
 
     /// <summary>Company registration number the agency is entered in the business register under.</summary>
     [MaxLength(32)]

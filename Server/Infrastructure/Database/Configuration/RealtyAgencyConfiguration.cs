@@ -15,4 +15,10 @@ public sealed class RealtyAgencyConfiguration : IEntityTypeConfiguration<RealtyA
 
         builder.HasIndex(a => a.RegistrationNumber).IsUnique();
     }
+
+    /// <summary>Trigram index the name search runs on. Separate, because the operator class exists only in PostgreSQL.</summary>
+    public static void ConfigureSearchName(EntityTypeBuilder<RealtyAgencyEntity> builder)
+    {
+        builder.HasIndex(a => a.SearchName).HasMethod("gin").HasOperators("gin_trgm_ops");
+    }
 }

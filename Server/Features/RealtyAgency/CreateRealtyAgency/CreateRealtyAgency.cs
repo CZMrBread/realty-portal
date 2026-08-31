@@ -1,7 +1,9 @@
 using System.Security.Claims;
+using Server.Features.RealtyAgency.GetRealtyAgency;
 using Server.Features.RealtyAgent;
-using Server.Features.User;
+using Server.Infrastructure.Http;
 using Shared.RealtyAgency;
+using Shared.RealtyAgent;
 
 namespace Server.Features.RealtyAgency.CreateRealtyAgency;
 
@@ -17,18 +19,44 @@ public static class CreateRealtyAgency
     }
 
     /// <summary>
-    /// Stores the agency and hands it back with the identifier the portal assigned it. The company registration
-    /// number has to be free, so that two records cannot claim the same company; a taken one ends with 409 and
-    /// nothing written. The founding agent is read from the database rather than from the token, which is only
-    /// as fresh as its last refresh.
+    /// Stores the agency and hands it back with the identifier the portal assigned it. The founder must not
+    /// already belong to an agency, and joins the new one as its administrator; the role only reaches their
+    /// token on the next refresh. The company registration number has to be free, so that two records cannot
+    /// claim the same company; a taken one ends with 409 and nothing written.
     /// </summary>
     /// <param name="request">Agency to store. Its <see cref="RealtyAgencyDto.Id"/> is ignored.</param>
-    private static Task<IResult> CreateRealtyAgencyAsync(
+    private static async Task<IResult> CreateRealtyAgencyAsync(
         RealtyAgencyDto request,
         ClaimsPrincipal principal,
-        UserService userService,
         RealtyAgentService realtyAgentService,
         RealtyAgencyService realtyAgencyService,
         CancellationToken cancellationToken)
-        => throw new NotImplementedException();
+    {
+        var agent = await realtyAgentService.FindCallingAgentAsync(principal, cancellationToken);
+        if (agent is null)
+        {
+            return AgentErrors.NotAnAgent.ToResult();
+        }
+
+        if (agent.RealtyAgencyId is not null)
+        {
+            return AgentErrors.AlreadyInAgency.ToResult();
+        }
+
+        var holder = await realtyAgencyService.FindAgencyByRegistrationNumberAsync(request.RegistrationNumber!,
+            cancellationToken);
+        if (holder is not null)
+        {
+            return AgencyErrors.RegistrationNumberTaken.ToResult();
+        }
+
+        var agency = await realtyAgencyService.CreateAgencyAsync(request.ToEntity(), cancellationToken);
+
+        agent.RealtyAgencyId = agency.Id;
+        agent.AgentRole = AgentRoleEnum.AgencyAdmin;
+        await realtyAgentService.UpdateAgentAsync(agent, cancellationToken);
+
+        return TypedResults.CreatedAtRoute(agency.ToDto(), GetRealtyAgency.GetRealtyAgency.ByIdRouteName,
+            new { agencyId = agency.Id });
+    }
 }

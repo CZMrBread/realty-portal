@@ -44,6 +44,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
         {
             // builder.HasPostgresExtension("unaccent");
             builder.HasPostgresExtension("pg_trgm");
+            RealtyAgencyConfiguration.ConfigureSearchName(builder.Entity<RealtyAgencyEntity>());
             // SrealityAdvertConfiguration.ConfigureSearchVector(builder.Entity<SrealityAdvertEntity>());
         }
         else

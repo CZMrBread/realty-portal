@@ -2,6 +2,7 @@ using Server.Features.RealtyAgent.BecomeAgent;
 using Server.Features.RealtyAgent.CreateRealtyAgent;
 using Server.Features.RealtyAgent.DeleteRealtyAgent;
 using Server.Features.RealtyAgent.GetRealtyAgent;
+using Server.Features.RealtyAgent.GetRealtyAgents;
 using Server.Features.RealtyAgent.UpdateRealtyAgent;
 
 namespace Server.Features.RealtyAgent;
@@ -22,6 +23,7 @@ public static class RealtyAgentEndpoints
 
         group.MapBecomeAgent();
         group.MapGetRealtyAgent();
+        group.MapGetRealtyAgents();
         group.MapCreateRealtyAgent();
         group.MapUpdateRealtyAgent();
         group.MapDeleteRealtyAgent();

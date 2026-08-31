@@ -102,6 +102,29 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
         await outputCache.EvictByTagAsync(AdvertOutputCachePolicy.Tag(advert.Id), cancellationToken);
     }
 
+    /// <summary>Whether the agent is still named as the seller on any advert.</summary>
+    public async Task<bool> HasSellerAdvertsAsync(Guid sellerId, CancellationToken cancellationToken = default)
+    {
+        return await appDbContext.SrealityAdverts.AnyAsync(a => a.SellerId == sellerId, cancellationToken);
+    }
+
+    /// <summary>Releases every advert of an agency to its seller: the agency link and both agency-scoped keys go, the advert stays.</summary>
+    public async Task DetachAgencyAdvertsAsync(Guid realtyAgencyId, CancellationToken cancellationToken = default)
+    {
+        var ids = await appDbContext.SrealityAdverts.Where(a => a.RealtyAgencyId == realtyAgencyId)
+            .Select(a => a.Id).ToListAsync(cancellationToken);
+        await appDbContext.SrealityAdverts.Where(a => a.RealtyAgencyId == realtyAgencyId)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(a => a.RealtyAgencyId, (Guid?)null)
+                .SetProperty(a => a.AdvertRkId, (string?)null)
+                .SetProperty(a => a.SellerRkId, (string?)null)
+                .SetProperty(a => a.UpdatedAt, DateTimeOffset.UtcNow), cancellationToken);
+        foreach (var id in ids)
+        {
+            await outputCache.EvictByTagAsync(AdvertOutputCachePolicy.Tag(id), cancellationToken);
+        }
+    }
+
     // --- Listing ---
 
     /// <summary>The query narrowed by every criterion the filter names. Expired adverts are left out regardless, since the listing is what the public sees.</summary>

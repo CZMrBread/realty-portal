@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Server.Features.RealtyAgent;
+using Server.Features.SRealty.Advert.Entity;
 using Server.Features.User;
 using Server.Infrastructure.Http;
 using Shared.RealtyAgent;

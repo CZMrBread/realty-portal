@@ -35,4 +35,7 @@ public class RealtyAgentEntity
     /// <summary>Adverts this agent is named on as the seller.</summary>
     [JsonIgnore]
     public List<SrealityAdvertEntity> SRealtyProperties { get; set; } = [];
+
+    /// <summary>Whether the agent administers the given agency. Read from the row, not the token, which may be stale.</summary>
+    public bool IsAdminOf(Guid agencyId) => RealtyAgencyId == agencyId && AgentRole == AgentRoleEnum.AgencyAdmin;
 }

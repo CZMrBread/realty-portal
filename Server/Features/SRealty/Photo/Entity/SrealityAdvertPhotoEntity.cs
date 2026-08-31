@@ -1,5 +1,6 @@
 using Server.Features.SRealty.Advert.Entity;
 using Server.Infrastructure.Database;
+using Shared.SRealty.Photo;
 
 namespace Server.Features.SRealty.Photo.Entity;
 
@@ -17,14 +18,18 @@ public class SrealityAdvertPhotoEntity : ITimeStampedEntity
     /// <summary>Path or key the image is filed under in the photo store.</summary>
     public required string StoragePath { get; set; }
 
+    /// <summary>Key of the photo in the agency own system, so that a repeated import can recognise the same image.</summary>
+    public string? PhotoRkId { get; set; }
+
     /// <summary>Position in the gallery, where zero is the leading photo.</summary>
     public int Order { get; set; }
 
-    /// <summary>
-    /// The room_type value from table 2 of the specification, the one for the addPhoto method.
-    /// That table runs on to the next page, so the field stays a plain int until it has been transcribed.
-    /// </summary>
-    public int? RoomType { get; set; }
+    public PhotoRoomTypeEnum? RoomType { get; set; }
+
+    public PhotoKindEnum? PhotoKind { get; set; }
+
+    /// <summary>Alternative text describing the image.</summary>
+    public string? Alt { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

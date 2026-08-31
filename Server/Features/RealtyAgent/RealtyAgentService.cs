@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using Server.Features.RealtyAgency.Entity;
 using Server.Features.RealtyAgent.Entity;
@@ -31,6 +32,22 @@ public sealed class RealtyAgentService(AppDbContext appDbContext)
     public async Task<RealtyAgentEntity?> FindAgentByUserIdAsync(Guid userId, CancellationToken cancellationToken)
     {
         return await FindAgentByIdAsync(userId, cancellationToken);
+    }
+
+    /// <summary>
+    /// Agent acting behind the caller's token, or null when the token names no account or the account is not an
+    /// agent. Read from the database rather than from the token, which only says what was true when it was issued.
+    /// One lookup, since an agent shares the primary key of their user.
+    /// </summary>
+    public async Task<RealtyAgentEntity?> FindCallingAgentAsync(ClaimsPrincipal principal,
+        CancellationToken cancellationToken = default)
+    {
+        if (!Guid.TryParse(principal.FindFirstValue(ClaimTypes.NameIdentifier), out var userId))
+        {
+            return null;
+        }
+
+        return await FindAgentByUserIdAsync(userId, cancellationToken);
     }
 
     /// <summary>Agent that one agency knows under the given key. The key is unique only within that agency, which is why the agency has to be named as well.</summary>
@@ -114,6 +131,18 @@ public sealed class RealtyAgentService(AppDbContext appDbContext)
     {
         agent.AgentRole = agentRole;
         return await UpdateAgentAsync(agent, cancellationToken);
+    }
+
+    /// <summary>
+    /// Releases every agent of an agency at once: the agency link and the agency key go, the role stays,
+    /// exactly as <see cref="LeaveAgencyAsync"/> does for one agent.
+    /// </summary>
+    public async Task DetachAgencyAgentsAsync(Guid agencyId, CancellationToken cancellationToken = default)
+    {
+        await appDbContext.RealtyAgents.Where(a => a.RealtyAgencyId == agencyId)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(a => a.RealtyAgencyId, (Guid?)null)
+                .SetProperty(a => a.RealtyAgentRkId, (string?)null), cancellationToken);
     }
 
     /// <summary>Removes an agent.</summary>

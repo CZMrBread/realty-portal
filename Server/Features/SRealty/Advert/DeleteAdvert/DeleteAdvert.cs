@@ -18,7 +18,6 @@ public static class DeleteAdvert
     {
         group.MapDelete("/{advertId:guid}", DeleteAdvertByIdAsync)
             .WithName("DeleteAdvertById")
-            .WithOpenApi()
             .RequireAuthorization(AgentPolicies.AgentOnly);
 
         group.MapDelete("/rk/{advertRkId}", DeleteAdvertByRkIdAsync)

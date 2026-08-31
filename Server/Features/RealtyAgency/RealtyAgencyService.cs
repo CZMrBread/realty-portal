@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Server.Features.RealtyAgency.Entity;
+using Server.Features.RealtyAgent;
+using Server.Features.SRealty.Advert;
 using Server.Infrastructure.Database;
 using Shared.Shared;
 using Shared.Shared.Extensions;
@@ -10,7 +12,10 @@ namespace Server.Features.RealtyAgency;
 /// Reads and writes agencies. Nothing here is cached: the public reads that are worth caching are cached as whole
 /// responses at the endpoint.
 /// </summary>
-public sealed class RealtyAgencyService(AppDbContext appDbContext)
+public sealed class RealtyAgencyService(
+    AppDbContext appDbContext,
+    RealtyAgentService realtyAgentService,
+    AdvertService advertService)
 {
     // --- Get ---
 
@@ -18,66 +23,39 @@ public sealed class RealtyAgencyService(AppDbContext appDbContext)
     public async Task<RealtyAgencyEntity?> FindAgencyByIdAsync(Guid agencyId,
         CancellationToken cancellationToken = default)
     {
-        return await appDbContext.RealtyAgencies.FirstOrDefaultAsync(realtyAgencyEntity => realtyAgencyEntity.Id == agencyId, cancellationToken);
+        return await appDbContext.RealtyAgencies.FirstOrDefaultAsync(a => a.Id == agencyId, cancellationToken);
     }
 
     /// <summary>Agency with the given company registration number, or null when there is none. The number names one company across the whole portal, so no agency has to be given alongside it.</summary>
     public async Task<RealtyAgencyEntity?> FindAgencyByRegistrationNumberAsync(string registrationNumber,
         CancellationToken cancellationToken = default)
     {
-        var query = await appDbContext.RealtyAgencies.FirstOrDefaultAsync(realtyAgencyEntity => realtyAgencyEntity.RegistrationNumber == registrationNumber, cancellationToken);
-        return query;
+        return await appDbContext.RealtyAgencies.FirstOrDefaultAsync(
+            a => a.RegistrationNumber == registrationNumber, cancellationToken);
     }
 
-    /// <summary>
-    /// Agency the given agent works for, or null when they belong to none. Saves the caller the two-step lookup
-    /// through the agent, which is what most endpoints acting on behalf of an agent actually want.
-    /// </summary>
-    public async Task<RealtyAgencyEntity?> FindAgencyByAgentIdAsync(Guid agentId,
-        CancellationToken cancellationToken = default)
-    {
-        var query = await appDbContext.RealtyAgents.Include(agentEntity => agentEntity.RealtyAgency)
-            .FirstOrDefaultAsync(agentEntity => agentEntity.UserId == agentId, cancellationToken);
-        return query?.RealtyAgency;
-    }
-
-    /// <summary>Agency with its agents loaded, or null when there is none. Separate from <see cref="FindAgencyByIdAsync"/> because most callers do not need the agents and should not pay for them.</summary>
-    public async Task<RealtyAgencyEntity?> FindAgencyWithAgentsAsync(Guid agencyId,
-        CancellationToken cancellationToken = default)
-    {
-        return await appDbContext.RealtyAgencies.Include(realtyAgencyEntity => realtyAgencyEntity.Agents)
-            .FirstOrDefaultAsync(realtyAgencyEntity => realtyAgencyEntity.Id == agencyId, cancellationToken);
-    }
-
-    /// <summary>One page of all agencies.</summary>
-    public async Task<PagedResult<RealtyAgencyEntity>> GetAgenciesAsync(int page, int pageSize,
-        CancellationToken cancellationToken = default)
-    {
-        var query = appDbContext.RealtyAgencies.OrderBy(realtyAgencyEntity => realtyAgencyEntity.SearchName).Skip((page - 1) * pageSize).Take(pageSize);
-        return await query.ToPagedResultAsync(page, pageSize, cancellationToken);
-    }
-
-    /// <summary>One page of the agencies whose name matches, or of all of them when no name is given.</summary>
+    /// <summary>One page of the agencies whose name matches, or of all of them when no name is given. Untracked.</summary>
     public async Task<PagedResult<RealtyAgencyEntity>> SearchAgenciesAsync(string? name, int page, int pageSize,
         CancellationToken cancellationToken = default)
     {
-        var query = appDbContext.RealtyAgencies.AsQueryable();
+        var query = appDbContext.RealtyAgencies.AsNoTracking().AsQueryable();
         var key = name?.ToSearchKey();
+        IOrderedQueryable<RealtyAgencyEntity> ordered;
         if (!string.IsNullOrWhiteSpace(key))
         {
-            query = query
-                .Where(realtyAgencyEntity => EF.Functions.TrigramsAreWordSimilar(key, realtyAgencyEntity.SearchName))
-                .OrderByDescending(realtyAgencyEntity =>
-                    EF.Functions.TrigramsWordSimilarity(key, realtyAgencyEntity.SearchName!))
-                .ThenBy(realtyAgencyEntity => realtyAgencyEntity.Name);
+            query = query.Where(a => EF.Functions.TrigramsAreWordSimilar(key, a.SearchName));
+            ordered = query
+                .OrderByDescending(a => EF.Functions.TrigramsWordSimilarity(key, a.SearchName))
+                .ThenBy(a => a.Name);
         }
         else
         {
-            query = query.OrderBy(realtyAgencyEntity => realtyAgencyEntity.Name);
+            ordered = query.OrderBy(a => a.Name);
         }
 
-        
-        return await query.Skip((page - 1) * pageSize).Take(pageSize).ToPagedResultAsync(page, pageSize, cancellationToken);
+        var totalCount = await query.CountAsync(cancellationToken);
+        var items = await ordered.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+        return new PagedResult<RealtyAgencyEntity>(items, page, pageSize, totalCount);
     }
 
     // --- Create / Update / Delete ---
@@ -86,24 +64,32 @@ public sealed class RealtyAgencyService(AppDbContext appDbContext)
     public async Task<RealtyAgencyEntity> CreateAgencyAsync(RealtyAgencyEntity agency,
         CancellationToken cancellationToken = default)
     {
-        var entry = await appDbContext.RealtyAgencies.AddAsync(agency, cancellationToken);
+        agency.SearchName = agency.Name.ToSearchKey();
+        appDbContext.RealtyAgencies.Add(agency);
         await appDbContext.SaveChangesAsync(cancellationToken);
-        return entry.Entity;
+        return agency;
     }
 
-    /// <summary>Saves the tracked changes to an agency.</summary>
+    /// <summary>Saves the tracked changes to an agency, deriving the search name again since the name may have changed.</summary>
     public async Task<RealtyAgencyEntity> UpdateAgencyAsync(RealtyAgencyEntity agency,
         CancellationToken cancellationToken = default)
     {
-        var entry = appDbContext.RealtyAgencies.Update(agency);
+        agency.SearchName = agency.Name.ToSearchKey();
         await appDbContext.SaveChangesAsync(cancellationToken);
-        return entry.Entity;
+        return agency;
     }
 
-    /// <summary>Removes an agency.</summary>
+    /// <summary>
+    /// Removes an agency without destroying anything it grouped: every agent leaves and every advert is released
+    /// to its seller, then the agency row goes, all in one transaction.
+    /// </summary>
     public async Task DeleteAgencyAsync(RealtyAgencyEntity agency, CancellationToken cancellationToken = default)
     {
+        await using var transaction = await appDbContext.Database.BeginTransactionAsync(cancellationToken);
+        await realtyAgentService.DetachAgencyAgentsAsync(agency.Id, cancellationToken);
+        await advertService.DetachAgencyAdvertsAsync(agency.Id, cancellationToken);
         appDbContext.RealtyAgencies.Remove(agency);
         await appDbContext.SaveChangesAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
     }
 }
