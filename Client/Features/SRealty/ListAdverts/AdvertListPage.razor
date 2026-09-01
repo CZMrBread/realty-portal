@@ -1,10 +1,133 @@
 @page "/srealty"
+@using Client.Features.SRealty
+@using Client.Features.SRealty.ListAdverts
+@using Shared.Shared
+@using Shared.SRealty.Advert.ListAdverts
+@inject AdvertApiClient Adverts
 
-<PageTitle>SRealty Adverts</PageTitle>
+<PageTitle>Nabídka nemovitostí</PageTitle>
 
 <div class="container mt-4">
-    <h1>SRealty Adverts</h1>
+    <h1 class="h3 mb-4">Nabídka nemovitostí</h1>
 
-    @* TODO: load adverts from GET srealty/get/all once the server slice is implemented *@
-    <p>No adverts yet.</p>
+    <div class="row g-4">
+        <div class="col-12 col-lg-4 col-xl-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="h6 mb-3">Filtr</h2>
+                    <AdvertFilterForm Model="filter" Busy="@busy" OnSearch="SearchAsync"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-8 col-xl-9">
+            @if (error is not null)
+            {
+                <div class="alert alert-danger" role="alert">@error</div>
+            }
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-body-secondary">
+                    @if (result is not null)
+                    {
+                        @($"Nalezeno inzerátů: {result.TotalCount}")
+                    }
+                </span>
+                <select class="form-select w-auto" aria-label="Řazení" value="@sort" @onchange="OnSortChangedAsync">
+                    @foreach (var order in Enum.GetValues<AdvertSortEnum>())
+                    {
+                        <option value="@order">@order.GetLocalizedDisplayName()</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <AdvertMap Markers="markers" Height="320px"/>
+            </div>
+
+            @if (busy && result is null)
+            {
+                <div class="text-center py-5">
+                    <span class="spinner-border" aria-hidden="true"></span>
+                </div>
+            }
+            else if (result is { Items.Count: 0 })
+            {
+                <p class="text-body-secondary py-4">Zadání nevyhovují žádné inzeráty.</p>
+            }
+            else if (result is not null)
+            {
+                <div class="row row-cols-1 row-cols-md-2 g-3 mb-4">
+                    @foreach (var advert in result.Items)
+                    {
+                        <div class="col">
+                            <AdvertCard Advert="advert"/>
+                        </div>
+                    }
+                </div>
+
+                <PaginationNav Page="@result.Page" TotalPages="@result.TotalPages" PageChanged="ChangePageAsync"/>
+            }
+        </div>
+    </div>
 </div>
+
+@code {
+    private const int PageSize = 20;
+
+    private readonly AdvertFilterModel filter = new();
+    private AdvertSortEnum sort = AdvertSortEnum.Newest;
+    private int page = 1;
+    private PagedResult<SrealityAdvertDto>? result;
+    private IReadOnlyList<AdvertMapMarker> markers = [];
+    private string? error;
+    private bool busy;
+
+    protected override Task OnInitializedAsync() => LoadAsync();
+
+    private Task SearchAsync()
+    {
+        page = 1;
+        return LoadAsync();
+    }
+
+    private Task ChangePageAsync(int number)
+    {
+        page = number;
+        return LoadAsync();
+    }
+
+    private Task OnSortChangedAsync(ChangeEventArgs args)
+    {
+        if (Enum.TryParse<AdvertSortEnum>(args.Value?.ToString(), out var parsed))
+        {
+            sort = parsed;
+        }
+
+        page = 1;
+        return LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        busy = true;
+        error = null;
+
+        var (response, failure) = await Adverts.GetFilteredAdvertsAsync(filter.ToFilter(), sort, page, PageSize);
+        if (response is null)
+        {
+            error = failure ?? "Inzeráty se nepodařilo načíst.";
+        }
+        else
+        {
+            result = response;
+            markers = response.Items
+                .Where(a => a is { LocalityLatitude: not null, LocalityLongitude: not null })
+                .Select(a => new AdvertMapMarker(a.LocalityLatitude!.Value, a.LocalityLongitude!.Value,
+                    AdvertDisplay.Title(a), $"srealty/{a.AdvertId}"))
+                .ToList();
+        }
+
+        busy = false;
+    }
+}

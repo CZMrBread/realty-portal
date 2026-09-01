@@ -6,11 +6,7 @@ using Shared.User.Register;
 
 namespace Client.Features.User;
 
-/// <summary>
-/// Talks to the /user endpoints. It is given a plain <see cref="HttpClient"/> on purpose, without the
-/// bearer handler: the handler refreshes through this client, and routing it back through the handler
-/// would have a refresh trigger another refresh.
-/// </summary>
+/// <summary>Calls the /user endpoints with a plain <see cref="HttpClient"/> without the bearer handler.</summary>
 public sealed class UserApiClient(HttpClient httpClient)
 {
     public async Task<(LoginUserResponse? Response, string? Error)> LoginAsync(LoginUserRequest request,
@@ -31,7 +27,7 @@ public sealed class UserApiClient(HttpClient httpClient)
             : (null, await ApiErrorReader.ReadMessageAsync(response));
     }
 
-    /// <summary>Exchanges a refresh token for a new pair, or returns null when the server will not have it.</summary>
+    /// <summary>Exchanges a refresh token for a new token pair; null when the server rejects it.</summary>
     public async Task<TokenResponse?> RefreshAsync(string refreshToken, CancellationToken cancellationToken = default)
     {
         var response = await httpClient.PostAsJsonAsync("user/refresh",
@@ -42,10 +38,7 @@ public sealed class UserApiClient(HttpClient httpClient)
             : null;
     }
 
-    /// <summary>
-    /// Asks the server to withdraw the refresh token. The access token is sent along because the endpoint
-    /// is authenticated. A failure is not reported: the tokens are dropped locally either way.
-    /// </summary>
+    /// <summary>Asks the server to withdraw the refresh token; failures are ignored.</summary>
     public async Task LogoutAsync(string accessToken, string refreshToken,
         CancellationToken cancellationToken = default)
     {

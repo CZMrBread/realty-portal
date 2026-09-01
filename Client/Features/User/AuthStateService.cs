@@ -7,16 +7,14 @@ using Shared.User.Register;
 namespace Client.Features.User;
 
 /// <summary>
-/// Who is signed in, as far as the browser is concerned. It owns the token pair, the claims read out of the
-/// access token, and the transitions between signed in and signed out. Components read the state and subscribe
-/// to <see cref="AuthStateChanged"/>; nothing else in the client touches tokens.
+/// Client-side sign-in state: owns the tokens and access-token claims, raises <see cref="AuthStateChanged"/>.
 /// </summary>
 public sealed class AuthStateService(TokenStore tokenStore, UserApiClient userApiClient, NavigationManager navigation)
 {
     private readonly SemaphoreSlim refreshLock = new(1, 1);
     private bool initialized;
 
-    /// <summary>Raised whenever the signed-in user changes, so that layouts and menus can redraw.</summary>
+    /// <summary>Raised whenever the signed-in user changes.</summary>
     public event Action? AuthStateChanged;
 
     /// <summary>Claims of the current access token, or null while nobody is signed in.</summary>
@@ -30,10 +28,7 @@ public sealed class AuthStateService(TokenStore tokenStore, UserApiClient userAp
     public AgentRoleEnum? AgentRole => Claims?.AgentRole;
     public Guid? AgencyId => Claims?.AgencyId;
 
-    /// <summary>
-    /// Restores the session from local storage. Runs once per application load; every caller after the first
-    /// returns straight away, so that several layouts starting at once do not each rebuild the state.
-    /// </summary>
+    /// <summary>Restores the session from local storage; runs only once per application load.</summary>
     public async Task InitializeAsync()
     {
         if (initialized)
@@ -66,7 +61,7 @@ public sealed class AuthStateService(TokenStore tokenStore, UserApiClient userAp
         return null;
     }
 
-    /// <summary>Creates the account and signs it in, since the server hands out tokens with the new account.</summary>
+    /// <summary>Creates the account and signs it in.</summary>
     public async Task<string?> RegisterAsync(RegisterUserRequest request, CancellationToken cancellationToken = default)
     {
         var (response, error) = await userApiClient.RegisterAsync(request, cancellationToken);
@@ -79,7 +74,7 @@ public sealed class AuthStateService(TokenStore tokenStore, UserApiClient userAp
         return null;
     }
 
-    /// <summary>Ends the session on the server as well as here, then returns to the front page.</summary>
+    /// <summary>Ends the session on the server and locally, then navigates to the front page.</summary>
     public async Task SignOutAsync()
     {
         var accessToken = await tokenStore.GetAccessTokenAsync();
@@ -97,10 +92,7 @@ public sealed class AuthStateService(TokenStore tokenStore, UserApiClient userAp
         navigation.NavigateTo("/");
     }
 
-    /// <summary>
-    /// The access token to send, refreshed first when it has run out. Null when nobody is signed in.
-    /// The stored session is restored first, since a request may go out before any layout has asked for it.
-    /// </summary>
+    /// <summary>Returns a valid access token, refreshing it first if expired; null when nobody is signed in.</summary>
     public async Task<string?> GetValidAccessTokenAsync()
     {
         await InitializeAsync();
@@ -113,16 +105,8 @@ public sealed class AuthStateService(TokenStore tokenStore, UserApiClient userAp
         return await TryRefreshAsync() ? await tokenStore.GetAccessTokenAsync() : null;
     }
 
-    /// <summary>
-    /// Trades the refresh token for a new pair. Only one refresh runs at a time: the server spends a refresh
-    /// token on first use and treats a second use as a replay, which withdraws every token the user holds, so
-    /// two requests refreshing at once would sign the user out instead of keeping them in.
-    /// </summary>
-    /// <param name="force">
-    /// Renews the token even though the current one is still good. Wanted after something the token says about
-    /// the user has changed on the server, such as taking on an agent profile: the claims travel in the token,
-    /// so until it is renewed the portal still believes what the old one said.
-    /// </param>
+    /// <summary>Trades the refresh token for a new token pair; only one refresh runs at a time.</summary>
+    /// <param name="force">Renews the token even when the current one is still valid.</param>
     public async Task<bool> TryRefreshAsync(bool force = false)
     {
         await refreshLock.WaitAsync();
@@ -156,7 +140,7 @@ public sealed class AuthStateService(TokenStore tokenStore, UserApiClient userAp
         }
     }
 
-    /// <summary>Stores a freshly issued pair and adopts the claims it carries.</summary>
+    /// <summary>Stores a freshly issued token pair and adopts its claims.</summary>
     private async Task AcceptTokensAsync(TokenResponse tokens)
     {
         await tokenStore.SaveAsync(tokens);
@@ -165,7 +149,7 @@ public sealed class AuthStateService(TokenStore tokenStore, UserApiClient userAp
         AuthStateChanged?.Invoke();
     }
 
-    /// <summary>Drops the session locally, without calling a server that has already refused the tokens.</summary>
+    /// <summary>Drops the session locally without calling the server.</summary>
     private async Task ForgetAsync()
     {
         await tokenStore.ClearAsync();

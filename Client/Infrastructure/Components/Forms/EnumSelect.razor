@@ -35,13 +35,13 @@
 
     [Parameter] public string WrapperClass { get; set; } = "mb-3";
 
-    /// <summary>Text of the option that stands for no choice.</summary>
+    /// <summary>Text of the empty option.</summary>
     [Parameter] public string EmptyLabel { get; set; } = "— nevyplněno —";
 
-    /// <summary>Culture the option labels are taken in. The one place to change to switch the form over.</summary>
+    /// <summary>Culture of the option labels.</summary>
     [Parameter] public string Culture { get; set; } = "cs-CZ";
 
-    /// <summary>Narrows the offered members, for a choice that depends on another field.</summary>
+    /// <summary>Narrows the offered members.</summary>
     [Parameter] public Func<TEnum, bool>? Filter { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]

@@ -28,6 +28,7 @@
         <MakeDir Directories="wwwroot\lib\bootstrap\css"/>
         <MakeDir Directories="wwwroot\lib\bootstrap\js"/>
         <MakeDir Directories="wwwroot\lib\bootstrap-icons\font\fonts"/>
+        <MakeDir Directories="wwwroot\lib\leaflet\images"/>
 
         <!-- Bootstrap CSS & JS bundle -->
         <Copy SourceFiles="node_modules\bootstrap\dist\css\bootstrap.min.css"
@@ -42,6 +43,17 @@
               DestinationFiles="wwwroot\lib\bootstrap-icons\font\fonts\bootstrap-icons.woff" Condition="Exists('node_modules\bootstrap-icons\font\fonts\bootstrap-icons.woff')"/>
         <Copy SourceFiles="node_modules\bootstrap-icons\font\bootstrap-icons.css"
               DestinationFiles="wwwroot\lib\bootstrap-icons\font\bootstrap-icons.css"/>
+
+        <!-- Leaflet: CSS + JS + marker images the CSS points at -->
+        <Copy SourceFiles="node_modules\leaflet\dist\leaflet.css"
+              DestinationFiles="wwwroot\lib\leaflet\leaflet.css"/>
+        <Copy SourceFiles="node_modules\leaflet\dist\leaflet.js"
+              DestinationFiles="wwwroot\lib\leaflet\leaflet.js"/>
+        <ItemGroup>
+            <LeafletImages Include="node_modules\leaflet\dist\images\*.*"/>
+        </ItemGroup>
+        <Copy SourceFiles="@(LeafletImages)"
+              DestinationFolder="wwwroot\lib\leaflet\images"/>
     </Target>
 
 </Project>

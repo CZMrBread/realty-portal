@@ -56,7 +56,7 @@
     private string? error;
     private bool busy;
 
-    /// <summary>The server hands out tokens with the new account, so a new user arrives signed in.</summary>
+    /// <summary>Creates the account; the new user arrives signed in.</summary>
     private async Task RegisterAsync()
     {
         busy = true;

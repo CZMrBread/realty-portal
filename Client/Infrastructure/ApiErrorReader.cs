@@ -5,11 +5,8 @@ using System.Text.Json;
 namespace Client.Infrastructure;
 
 /// <summary>
-/// Turns a refused response into a message a form can show. The server answers every refusal as an RFC 9457
-/// problem document, so there is one shape to read: <c>errors</c> when validation turned the request away,
-/// otherwise an <c>errorCode</c> naming exactly which refusal it was. The code is what the text is looked up
-/// by, since the server has no idea what language the reader wants; <c>detail</c> is only a fallback for a
-/// refusal this client has no wording for yet.
+/// Turns an RFC 9457 problem response into a message a form can show: validation <c>errors</c>,
+/// then <c>errorCode</c> wording, then <c>detail</c> and <c>title</c>, then a status fallback.
 /// </summary>
 public static class ApiErrorReader
 {
@@ -35,7 +32,7 @@ public static class ApiErrorReader
         return StatusFallback(response.StatusCode);
     }
 
-    /// <summary>The validation messages, one per line, or null when the response is not a validation problem.</summary>
+    /// <summary>Validation messages, one per line, or null when there are none.</summary>
     private static string? ReadValidationErrors(JsonElement problem)
     {
         if (!problem.TryGetProperty("errors", out var errors) || errors.ValueKind != JsonValueKind.Object)

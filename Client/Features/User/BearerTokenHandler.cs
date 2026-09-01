@@ -3,11 +3,7 @@ using System.Net.Http.Headers;
 
 namespace Client.Features.User;
 
-/// <summary>
-/// Attaches the access token to every outgoing request, so that no other slice deals with authentication
-/// headers itself. A token that has run out is refreshed before the request goes out rather than after it
-/// comes back rejected, which keeps the refresh off the critical path of most requests.
-/// </summary>
+/// <summary>Attaches the access token to every outgoing request, refreshing it first when expired.</summary>
 public sealed class BearerTokenHandler(IServiceProvider serviceProvider) : DelegatingHandler
 {
     protected override async Task<HttpResponseMessage> SendAsync(

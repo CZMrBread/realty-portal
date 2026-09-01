@@ -20,7 +20,7 @@
 @code {
     private readonly string generatedId = $"option-{Guid.CreateVersion7():N}";
 
-    /// <summary>Value this choice stands for.</summary>
+    /// <summary>Value of this choice.</summary>
     [Parameter] public TValue? Value { get; set; }
 
     [Parameter] public string? Label { get; set; }
@@ -34,7 +34,7 @@
 
     private string OptionId => Id ?? generatedId;
 
-    /// <summary>Bootstrap class the radio needs, plus whatever the caller asked for.</summary>
+    /// <summary>form-check-input merged with the caller's class attribute.</summary>
     private string ControlClass { get; set; } = "form-check-input";
 
     private IReadOnlyDictionary<string, object>? ControlAttributes { get; set; }

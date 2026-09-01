@@ -45,7 +45,7 @@
 </div>
 
 @code {
-    /// <summary>Where to go once signed in, set by a layout that turned an unauthenticated visitor away.</summary>
+    /// <summary>Where to navigate once signed in.</summary>
     [SupplyParameterFromQuery] [Parameter] public string? ReturnUrl { get; set; }
 
     private readonly LoginUserRequest request = new();

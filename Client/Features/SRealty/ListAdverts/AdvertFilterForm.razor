@@ -1,0 +1,80 @@
+@using Client.Features.SRealty.ListAdverts
+
+@* The search criteria of the public listing. Submitting hands the criteria back to the page, which runs the search. *@
+
+<BootstrapEditForm Model="Model" OnValidSubmit="OnSearch">
+    <EnumSelect TEnum="AdvertFunctionEnum" Label="Typ nabídky" EmptyLabel="— vše —"
+                Value="@Model.AdvertFunction" ValueChanged="@((AdvertFunctionEnum? value) => Model.AdvertFunction = value)"
+                ValueExpression="@(() => Model.AdvertFunction)"/>
+
+    <EnumSelect TEnum="AdvertTypeEnum" Label="Typ nemovitosti" EmptyLabel="— vše —"
+                Value="@Model.AdvertType" ValueChanged="OnTypeChanged"
+                ValueExpression="@(() => Model.AdvertType)"/>
+
+    @if (Model.AdvertType is { } chosenType)
+    {
+        <EnumCheckBoxGroup TEnum="AdvertSubtypeEnum" Label="Podtyp"
+                           Filter="@(subtype => subtype.IsValidSubtype(chosenType))"
+                           Value="@Model.AdvertSubtypes" ValueChanged="@((ICollection<AdvertSubtypeEnum>? value) => Model.AdvertSubtypes = value)"
+                           ValueExpression="@(() => Model.AdvertSubtypes)"/>
+    }
+
+    <FloatingText Label="Město / obec" @bind-Value="Model.LocalityCity"/>
+
+    <div class="row g-2">
+        <div class="col-6">
+            <FloatingNumber TValue="decimal?" Label="Cena od" @bind-Value="Model.PriceFrom"/>
+        </div>
+        <div class="col-6">
+            <FloatingNumber TValue="decimal?" Label="Cena do" @bind-Value="Model.PriceTo"/>
+        </div>
+    </div>
+
+    <div class="row g-2">
+        <div class="col-6">
+            <FloatingNumber TValue="int?" Label="Plocha od (m²)" @bind-Value="Model.AreaFrom"/>
+        </div>
+        <div class="col-6">
+            <FloatingNumber TValue="int?" Label="Plocha do (m²)" @bind-Value="Model.AreaTo"/>
+        </div>
+    </div>
+
+    <FloatingText Label="Hledaný výraz" Help="Slova z popisu nebo adresy." @bind-Value="Model.Search"/>
+
+    <div class="d-flex gap-2">
+        <button class="btn btn-primary flex-grow-1" type="submit" disabled="@Busy">
+            @if (Busy)
+            {
+                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+            }
+            Hledat
+        </button>
+        <button class="btn btn-outline-secondary" type="button" disabled="@Busy" @onclick="ClearAsync">
+            Zrušit filtry
+        </button>
+    </div>
+</BootstrapEditForm>
+
+@code {
+    /// <summary>Criteria the form edits, owned by the page.</summary>
+    [Parameter] [EditorRequired] public AdvertFilterModel Model { get; set; } = default!;
+
+    /// <summary>Raised when the visitor asks for the search to run.</summary>
+    [Parameter] public EventCallback OnSearch { get; set; }
+
+    /// <summary>Disables the buttons while a search is running.</summary>
+    [Parameter] public bool Busy { get; set; }
+
+    /// <summary>Sets the type and clears the chosen subtypes.</summary>
+    private void OnTypeChanged(AdvertTypeEnum? type)
+    {
+        Model.AdvertType = type;
+        Model.AdvertSubtypes = null;
+    }
+
+    private Task ClearAsync()
+    {
+        Model.Clear();
+        return OnSearch.InvokeAsync();
+    }
+}

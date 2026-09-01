@@ -1,0 +1,157 @@
+@using Client.Features.SRealty
+@using Shared.SRealty.Photo
+@using Shared.SRealty.Photo.UploadPhoto
+@inject PhotoApiClient Photos
+
+@* Picks image files and collects the metadata of each before they are sent up one by one. *@
+
+<div class="mb-3">
+    <label class="form-label" for="photo-files">Vyberte fotografie</label>
+    <InputFile id="photo-files" class="form-control" multiple accept="image/jpeg,image/png,image/webp,image/heic"
+               OnChange="OnFilesSelected"/>
+</div>
+
+@* the fields build on the Input* components, which need an edit context even without validation *@
+<BootstrapEditForm Model="rows">
+@foreach (var row in rows)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <strong>@row.File.Name</strong>
+                <button class="btn btn-outline-secondary btn-sm" type="button" disabled="@busy"
+                        @onclick="() => rows.Remove(row)">
+                    Odebrat
+                </button>
+            </div>
+
+            @if (row.Error is not null)
+            {
+                <div class="alert alert-danger" role="alert">@row.Error</div>
+            }
+
+            <div class="row g-2">
+                <div class="col-12 col-md-4">
+                    <FloatingText Label="Popisek (alt)" @bind-Value="row.Alt" WrapperClass=""/>
+                </div>
+                <div class="col-12 col-md-3">
+                    <EnumSelect TEnum="PhotoRoomTypeEnum" Label="Místnost" WrapperClass=""
+                                @bind-Value="row.RoomType"/>
+                </div>
+                <div class="col-12 col-md-3">
+                    <EnumSelect TEnum="PhotoKindEnum" Label="Druh" WrapperClass=""
+                                @bind-Value="row.PhotoKind"/>
+                </div>
+                <div class="col-12 col-md-2 d-flex align-items-center">
+                    <div class="form-check">
+                        <input type="checkbox" id="main-@row.File.Name.GetHashCode()" class="form-check-input"
+                               checked="@row.Main" @onchange="args => SetMain(row, args.Value is true)"/>
+                        <label class="form-check-label" for="main-@row.File.Name.GetHashCode()">Úvodní</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (rows.Count > 0)
+{
+    <button class="btn btn-primary mb-4" type="button" disabled="@busy" @onclick="UploadAsync">
+        @if (busy)
+        {
+            <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+        }
+        Nahrát fotografie
+    </button>
+}
+</BootstrapEditForm>
+
+@code {
+    /// <summary>Client-side size ceiling for one image; the server has the final say.</summary>
+    private const long MaxFileBytes = 30 * 1024 * 1024;
+
+    /// <summary>Most files one picking may add.</summary>
+    private const int MaxFiles = 30;
+
+    /// <summary>Advert the photos belong to.</summary>
+    [Parameter] [EditorRequired] public Guid AdvertId { get; set; }
+
+    /// <summary>Raised after every successful upload run.</summary>
+    [Parameter] public EventCallback OnUploaded { get; set; }
+
+    private readonly List<UploadRow> rows = [];
+    private bool busy;
+
+    private void OnFilesSelected(InputFileChangeEventArgs args)
+    {
+        foreach (var file in args.GetMultipleFiles(MaxFiles))
+        {
+            rows.Add(new UploadRow { File = file });
+        }
+    }
+
+    /// <summary>Sets whether the row leads the gallery; only one row may be main at a time.</summary>
+    private void SetMain(UploadRow row, bool main)
+    {
+        foreach (var other in rows)
+        {
+            other.Main = false;
+        }
+
+        row.Main = main;
+    }
+
+    /// <summary>Uploads the rows one by one; successful rows disappear, refused ones stay with the reason.</summary>
+    private async Task UploadAsync()
+    {
+        busy = true;
+        var uploaded = false;
+
+        foreach (var row in rows.ToList())
+        {
+            row.Error = null;
+            try
+            {
+                await using var content = row.File.OpenReadStream(MaxFileBytes);
+                var request = new UploadPhotoRequest
+                {
+                    Alt = row.Alt,
+                    RoomType = row.RoomType,
+                    PhotoKind = row.PhotoKind,
+                    Main = row.Main ? 1 : null
+                };
+
+                var (_, failure) = await Photos.UploadPhotoAsync(AdvertId, content, row.File.Name,
+                    row.File.ContentType, request);
+                if (failure is not null)
+                {
+                    row.Error = failure;
+                    continue;
+                }
+
+                rows.Remove(row);
+                uploaded = true;
+            }
+            catch (IOException)
+            {
+                row.Error = $"Soubor je větší než {MaxFileBytes / (1024 * 1024)} MB.";
+            }
+        }
+
+        busy = false;
+        if (uploaded)
+        {
+            await OnUploaded.InvokeAsync();
+        }
+    }
+
+    private sealed class UploadRow
+    {
+        public required IBrowserFile File { get; init; }
+        public string? Alt { get; set; }
+        public PhotoRoomTypeEnum? RoomType { get; set; }
+        public PhotoKindEnum? PhotoKind { get; set; } = PhotoKindEnum.Photo;
+        public bool Main { get; set; }
+        public string? Error { get; set; }
+    }
+}

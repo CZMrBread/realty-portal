@@ -1,14 +1,131 @@
 @page "/srealty/{Id:guid}"
+@using Client.Features.SRealty
+@using Shared.SRealty.Photo.GetPhotos
+@inject AdvertApiClient Adverts
+@inject PhotoApiClient Photos
+@inject AuthStateService AuthState
 
-<PageTitle>Advert Detail</PageTitle>
+<PageTitle>@(advert is null ? "Inzerát" : AdvertDisplay.Title(advert))</PageTitle>
 
 <div class="container mt-4">
-    <h1>Advert Detail</h1>
+    @if (error is not null)
+    {
+        <div class="alert alert-danger" role="alert">@error</div>
+    }
 
-    @* TODO: load advert from GET srealty/get/{Id} once the server slice is implemented *@
-    <p>Advert @Id</p>
+    @if (advert is null && error is null)
+    {
+        <div class="text-center py-5">
+            <span class="spinner-border" aria-hidden="true"></span>
+        </div>
+    }
+
+    @if (advert is not null)
+    {
+        <div class="d-flex flex-wrap justify-content-between align-items-baseline gap-2 mb-1">
+            <h1 class="h3 mb-0">@AdvertDisplay.Title(advert)</h1>
+            <strong class="fs-4">@AdvertDisplay.Price(advert)</strong>
+        </div>
+
+        var location = AdvertDisplay.Location(advert);
+        @if (location.Length > 0)
+        {
+            <div class="text-body-secondary mb-3">
+                <i class="bi bi-geo-alt me-1" aria-hidden="true"></i>@location
+            </div>
+        }
+
+        @if (isOwner)
+        {
+            <div class="d-flex gap-2 mb-4">
+                <a class="btn btn-outline-primary btn-sm" href="srealty/@Id/edit">Upravit inzerát</a>
+                <a class="btn btn-outline-primary btn-sm" href="srealty/@Id/photos">Fotografie</a>
+            </div>
+        }
+
+        <div class="mb-4">
+            <PhotoGallery Photos="photos"/>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-12 col-lg-8">
+                @if (!string.IsNullOrWhiteSpace(advert.Description))
+                {
+                    <h2 class="h5">Popis</h2>
+                    <p style="white-space: pre-line">@advert.Description</p>
+                }
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="h6 mb-3">Parametry</h2>
+                        <dl class="row mb-0 small">
+                            @if (advert.AdvertType is { } type)
+                            {
+                                <dt class="col-6">Typ</dt>
+                                <dd class="col-6 text-end mb-1">@type.GetLocalizedDisplayName()</dd>
+                            }
+                            @if (advert.AdvertSubtype is { } subtype)
+                            {
+                                <dt class="col-6">Podtyp</dt>
+                                <dd class="col-6 text-end mb-1">@subtype.GetLocalizedDisplayName()</dd>
+                            }
+                            @if (advert.UsableArea is { } usable)
+                            {
+                                <dt class="col-6">Užitná plocha</dt>
+                                <dd class="col-6 text-end mb-1">@usable m²</dd>
+                            }
+                            @if (advert.EstateArea is { } estate)
+                            {
+                                <dt class="col-6">Plocha pozemku</dt>
+                                <dd class="col-6 text-end mb-1">@estate m²</dd>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(advert.AdvertPriceTextNote))
+                            {
+                                <dt class="col-6">Poznámka k ceně</dt>
+                                <dd class="col-6 text-end mb-1">@advert.AdvertPriceTextNote</dd>
+                            }
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (advert is { LocalityLatitude: { } latitude, LocalityLongitude: { } longitude })
+        {
+            <h2 class="h5 mt-4 mb-3">Poloha</h2>
+            <div class="mb-4">
+                <AdvertMap Markers="@(new[] { new AdvertMapMarker(latitude, longitude, AdvertDisplay.Title(advert), null) })"/>
+            </div>
+        }
+    }
 </div>
 
 @code {
     [Parameter] public Guid Id { get; set; }
+
+    private SrealityAdvertDto? advert;
+    private List<PhotoDto> photos = [];
+    private string? error;
+    private bool isOwner;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        error = null;
+        await AuthState.InitializeAsync();
+
+        var (response, failure) = await Adverts.GetAdvertAsync(Id);
+        if (response is null)
+        {
+            error = failure ?? "Inzerát se nepodařilo načíst.";
+            return;
+        }
+
+        advert = response;
+        isOwner = AuthState.Claims is { } claims && advert.SellerId == claims.UserId;
+
+        var (photoResponse, _) = await Photos.GetPhotosAsync(Id);
+        photos = photoResponse ?? [];
+    }
 }

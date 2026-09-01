@@ -6,20 +6,15 @@ using Shared.SRealty.Advert.Enums;
 
 namespace Client.Features.SRealty;
 
-/// <summary>
-/// Decides which advert fields the form is worth showing for the category the advert is set to. The rule is
-/// read off the model itself: a property carrying RequiredIfValue against AdvertType belongs to the categories
-/// listed there and is left out for the rest, and a property carrying no such attribute belongs everywhere.
-/// Nothing is hard coded here, so adding a category to an attribute is enough to make the field appear.
-/// </summary>
+/// <summary>Decides which advert fields apply to a category, from the model's RequiredIfValue attributes.</summary>
 public static class AdvertFieldVisibility
 {
     private static readonly FrozenDictionary<string, AdvertTypeEnum[]> FieldCategories = BuildFieldCategories();
 
-    /// <summary>Tells whether the field belongs to the chosen category.</summary>
+    /// <summary>Whether the field belongs to the chosen category.</summary>
     /// <param name="propertyName">Name of the property on <see cref="SrealityAdvertDto"/>.</param>
-    /// <param name="advertType">Category the advert is set to, or null while none is chosen.</param>
-    /// <returns>True while no category is chosen, or when the field is not tied to a category at all.</returns>
+    /// <param name="advertType">Chosen category, or null while none is chosen.</param>
+    /// <returns>True when no category is chosen or the field is not tied to any category.</returns>
     public static bool AppliesTo(string propertyName, AdvertTypeEnum? advertType)
     {
         return advertType is null

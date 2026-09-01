@@ -11,10 +11,10 @@
     private EditContext? context;
     private object? builtFor;
 
-    /// <summary>Object being edited. Give this or <see cref="EditContext"/>, not both.</summary>
+    /// <summary>Object being edited; give this or <see cref="EditContext"/>, not both.</summary>
     [Parameter] public object? Model { get; set; }
 
-    /// <summary>An edit context of your own, when the page needs to hold on to one.</summary>
+    /// <summary>Caller-owned edit context, used instead of <see cref="Model"/>.</summary>
     [Parameter] public EditContext? EditContext { get; set; }
 
     [Parameter] public RenderFragment<EditContext>? ChildContent { get; set; }
@@ -25,10 +25,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
-    /// <summary>
-    /// Builds the context when the model changes and hangs the Bootstrap class provider on it. Doing it here
-    /// rather than in every page is the whole point of this component.
-    /// </summary>
+    /// <summary>Rebuilds the context when the model changes and sets the Bootstrap class provider.</summary>
     /// <exception cref="InvalidOperationException">Neither a model nor an edit context was given.</exception>
     protected override void OnParametersSet()
     {

@@ -1,15 +1,37 @@
 @page "/srealty/create"
 @layout AgencyLayout
+@using Client.Features.SRealty
+@inject AdvertApiClient Adverts
+@inject NavigationManager Navigation
 
-<PageTitle>Create Advert</PageTitle>
+<PageTitle>Nový inzerát</PageTitle>
 
 <div class="container mt-4">
     <h1 class="h3 mb-4">Nový inzerát</h1>
 
-    @* TODO: POST the advert to srealty/create once the client API is written *@
-    <AdvertForm Model="advert" SubmitLabel="Vytvořit inzerát"/>
+    <AdvertForm Model="advert" SubmitLabel="Vytvořit inzerát" Busy="@busy" Error="@error"
+                OnValidSubmit="SubmitAsync"/>
 </div>
 
 @code {
     private readonly SrealityAdvertDto advert = new();
+    private string? error;
+    private bool busy;
+
+    /// <summary>Stores the advert and navigates to its photos.</summary>
+    private async Task SubmitAsync()
+    {
+        busy = true;
+        error = null;
+
+        var (response, failure) = await Adverts.CreateAdvertAsync(advert);
+        if (response?.Advert?.AdvertId is { } advertId)
+        {
+            Navigation.NavigateTo($"srealty/{advertId}/photos");
+            return;
+        }
+
+        error = failure ?? response?.StatusMessage ?? "Inzerát se nepodařilo uložit.";
+        busy = false;
+    }
 }

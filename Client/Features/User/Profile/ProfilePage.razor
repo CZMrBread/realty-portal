@@ -1,0 +1,232 @@
+@page "/profile"
+@using Client.Features.RealtyAgency
+@using Client.Features.RealtyAgent
+@using Shared.RealtyAgent
+@using Shared.User.ChangePassword
+@using Shared.User.UpdateCurrentUser
+@inject UserProfileApiClient Profile
+@inject RealtyAgentApiClient RealtyAgents
+@inject RealtyAgencyApiClient RealtyAgencies
+@inject AuthStateService AuthState
+
+<PageTitle>My profile</PageTitle>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            @if (!AuthState.IsAuthenticated)
+            {
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p>You have to be signed in to see your profile.</p>
+                        <a class="btn btn-primary" href="login?returnUrl=profile">Sign in</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h1 class="h4 card-title mb-3">My profile</h1>
+
+                        @if (roles.Count > 0)
+                        {
+                            <p class="mb-3">
+                                @foreach (var role in roles)
+                                {
+                                    <span class="badge text-bg-secondary me-1">@role</span>
+                                }
+                            </p>
+                        }
+
+                        <BootstrapEditForm Model="details" OnValidSubmit="SaveDetailsAsync">
+                            <DataAnnotationsValidator/>
+
+                            <FloatingText Label="Username" autocomplete="username"
+                                          @bind-Value="details.UserName"/>
+
+                            <FloatingText Label="Email" Type="email" autocomplete="email"
+                                          @bind-Value="details.Email"/>
+
+                            @if (detailsError is not null)
+                            {
+                                <div class="alert alert-danger" role="alert">@detailsError</div>
+                            }
+                            @if (detailsSaved)
+                            {
+                                <div class="alert alert-success" role="alert">The profile has been saved.</div>
+                            }
+
+                            <button class="btn btn-primary" type="submit" disabled="@busy">
+                                @if (busy)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                }
+                                Save
+                            </button>
+                        </BootstrapEditForm>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h2 class="h5 card-title mb-3">Agent profile</h2>
+
+                        @if (!AuthState.IsAgent)
+                        {
+                            <p>You are not a realty agent. An agent profile lets you publish and manage adverts.</p>
+                            <a class="btn btn-outline-primary" href="agent/become">Become an agent</a>
+                        }
+                        else if (agent is null)
+                        {
+                            <p class="text-body-secondary mb-0">The agent profile could not be loaded.</p>
+                        }
+                        else
+                        {
+                            <dl class="row mb-3">
+                                <dt class="col-sm-4">Role</dt>
+                                <dd class="col-sm-8">@agent.AgentRole</dd>
+                                <dt class="col-sm-4">Registration number (IČO)</dt>
+                                <dd class="col-sm-8">@(agent.RegistrationNumber ?? "—")</dd>
+                                <dt class="col-sm-4">Agency key</dt>
+                                <dd class="col-sm-8">@(agent.RealtyAgentRkId ?? "—")</dd>
+                                <dt class="col-sm-4">Agency</dt>
+                                <dd class="col-sm-8">
+                                    @if (agent.RealtyAgencyId is { } agencyId)
+                                    {
+                                        <a href="agency/@agencyId">@(agencyName ?? agencyId.ToString())</a>
+                                    }
+                                    else
+                                    {
+                                        <span>Without an agency</span>
+                                    }
+                                </dd>
+                            </dl>
+
+                            @if (agent.RealtyAgencyId is null)
+                            {
+                                <a class="btn btn-outline-primary" href="agency/create">Register an agency</a>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h5 card-title mb-3">Change password</h2>
+
+                        <BootstrapEditForm Model="password" OnValidSubmit="ChangePasswordAsync">
+                            <DataAnnotationsValidator/>
+
+                            <FloatingText Label="Current password" Type="password" autocomplete="current-password"
+                                          @bind-Value="password.CurrentPassword"/>
+
+                            <FloatingText Label="New password" Type="password" autocomplete="new-password"
+                                          @bind-Value="password.NewPassword"/>
+
+                            <FloatingText Label="Confirm new password" Type="password" autocomplete="new-password"
+                                          @bind-Value="password.ConfirmNewPassword"/>
+
+                            @if (passwordError is not null)
+                            {
+                                <div class="alert alert-danger" role="alert">@passwordError</div>
+                            }
+                            @if (passwordChanged)
+                            {
+                                <div class="alert alert-success" role="alert">The password has been changed.</div>
+                            }
+
+                            <button class="btn btn-primary" type="submit" disabled="@busy">
+                                @if (busy)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                }
+                                Change password
+                            </button>
+                        </BootstrapEditForm>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private readonly UpdateCurrentUserRequest details = new();
+    private ChangePasswordRequest password = new();
+    private IList<string> roles = [];
+    private RealtyAgentDto? agent;
+    private string? agencyName;
+    private string? detailsError;
+    private string? passwordError;
+    private bool detailsSaved;
+    private bool passwordChanged;
+    private bool busy;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await AuthState.InitializeAsync();
+        if (!AuthState.IsAuthenticated)
+        {
+            return;
+        }
+
+        var (response, failure) = await Profile.GetCurrentUserAsync();
+        if (response is null)
+        {
+            detailsError = failure ?? "The profile could not be loaded.";
+            return;
+        }
+
+        details.UserName = response.UserName;
+        details.Email = response.Email;
+        roles = response.Roles;
+
+        if (AuthState.IsAgent && AuthState.Claims is { } claims)
+        {
+            (agent, _) = await RealtyAgents.GetAgentAsync(claims.UserId);
+            if (agent?.RealtyAgencyId is { } agencyId)
+            {
+                var (agencyResponse, _) = await RealtyAgencies.GetAgencyAsync(agencyId);
+                agencyName = agencyResponse?.Name;
+            }
+        }
+    }
+
+    /// <summary>Saves the details and forces a token refresh; the name travels in the access token.</summary>
+    private async Task SaveDetailsAsync()
+    {
+        busy = true;
+        detailsError = null;
+        detailsSaved = false;
+
+        var (response, failure) = await Profile.UpdateCurrentUserAsync(details);
+        if (response is null)
+        {
+            detailsError = failure ?? "The profile could not be saved.";
+        }
+        else
+        {
+            detailsSaved = true;
+            await AuthState.TryRefreshAsync(force: true);
+        }
+
+        busy = false;
+    }
+
+    private async Task ChangePasswordAsync()
+    {
+        busy = true;
+        passwordError = null;
+        passwordChanged = false;
+
+        passwordError = await Profile.ChangePasswordAsync(password);
+        if (passwordError is null)
+        {
+            passwordChanged = true;
+            password = new ChangePasswordRequest();
+        }
+
+        busy = false;
+    }
+}

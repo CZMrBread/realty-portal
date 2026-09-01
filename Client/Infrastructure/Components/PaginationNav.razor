@@ -1,0 +1,48 @@
+@* Bootstrap pagination for any paged listing. Hidden while everything fits on one page. *@
+
+@if (TotalPages > 1)
+{
+    <nav aria-label="Stránkování">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Page <= 1 ? "disabled" : null)">
+                <button class="page-link" type="button" @onclick="() => GoAsync(Page - 1)">&laquo;</button>
+            </li>
+
+            @foreach (var number in Numbers())
+            {
+                <li class="page-item @(number == Page ? "active" : null)">
+                    <button class="page-link" type="button" @onclick="() => GoAsync(number)">@number</button>
+                </li>
+            }
+
+            <li class="page-item @(Page >= TotalPages ? "disabled" : null)">
+                <button class="page-link" type="button" @onclick="() => GoAsync(Page + 1)">&raquo;</button>
+            </li>
+        </ul>
+    </nav>
+}
+
+@code {
+    /// <summary>Maximum page numbers shown at once; the window slides with the current page.</summary>
+    private const int WindowSize = 7;
+
+    /// <summary>One-based current page number.</summary>
+    [Parameter] public int Page { get; set; }
+
+    [Parameter] public int TotalPages { get; set; }
+
+    /// <summary>Raised with the requested page number.</summary>
+    [Parameter] public EventCallback<int> PageChanged { get; set; }
+
+    private Task GoAsync(int number)
+        => number < 1 || number > TotalPages || number == Page
+            ? Task.CompletedTask
+            : PageChanged.InvokeAsync(number);
+
+    private IEnumerable<int> Numbers()
+    {
+        var first = Math.Clamp(Page - WindowSize / 2, 1, Math.Max(1, TotalPages - WindowSize + 1));
+        var last = Math.Min(TotalPages, first + WindowSize - 1);
+        return Enumerable.Range(first, last - first + 1);
+    }
+}

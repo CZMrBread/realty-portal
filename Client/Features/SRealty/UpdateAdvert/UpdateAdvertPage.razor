@@ -1,17 +1,69 @@
 @page "/srealty/{Id:guid}/edit"
 @layout AgencyLayout
+@using Client.Features.SRealty
+@inject AdvertApiClient Adverts
+@inject NavigationManager Navigation
 
-<PageTitle>Update Advert</PageTitle>
+<PageTitle>Úprava inzerátu</PageTitle>
 
 <div class="container mt-4">
-    <h1 class="h3 mb-4">Úprava inzerátu</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">Úprava inzerátu</h1>
+        <a class="btn btn-outline-primary" href="srealty/@Id/photos">Fotografie</a>
+    </div>
 
-    @* TODO: load the advert from srealty/{Id} and PUT it back once the client API is written *@
-    <AdvertForm Model="advert" SubmitLabel="Uložit změny"/>
+    @if (loadError is not null)
+    {
+        <div class="alert alert-danger" role="alert">@loadError</div>
+    }
+    else if (advert is null)
+    {
+        <div class="text-center py-5">
+            <span class="spinner-border" aria-hidden="true"></span>
+        </div>
+    }
+    else
+    {
+        <AdvertForm Model="advert" SubmitLabel="Uložit změny" Busy="@busy" Error="@error"
+                    OnValidSubmit="SubmitAsync"/>
+    }
 </div>
 
 @code {
-    private readonly SrealityAdvertDto advert = new();
-
     [Parameter] public Guid Id { get; set; }
+
+    private SrealityAdvertDto? advert;
+    private string? loadError;
+    private string? error;
+    private bool busy;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        loadError = null;
+        var (response, failure) = await Adverts.GetAdvertAsync(Id);
+        if (response is null)
+        {
+            loadError = failure ?? "Inzerát se nepodařilo načíst.";
+            return;
+        }
+
+        advert = response;
+    }
+
+    private async Task SubmitAsync()
+    {
+        busy = true;
+        error = null;
+
+        var (response, failure) = await Adverts.UpdateAdvertAsync(Id, advert!);
+        busy = false;
+
+        if (response is null)
+        {
+            error = failure ?? "Inzerát se nepodařilo uložit.";
+            return;
+        }
+
+        Navigation.NavigateTo($"srealty/{Id}");
+    }
 }

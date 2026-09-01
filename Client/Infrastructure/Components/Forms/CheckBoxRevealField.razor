@@ -43,13 +43,13 @@
 @code {
     protected override string ControlBaseClass => "form-check-input";
 
-    /// <summary>The field revealed while the box is ticked. Leaving it out gives a plain tick box.</summary>
+    /// <summary>Content revealed while the box is ticked; optional.</summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>Label content, for when it needs more than plain text.</summary>
+    /// <summary>Rich label content, used instead of Label.</summary>
     [Parameter] public RenderFragment? LabelContent { get; set; }
 
-    /// <summary>Raised when the box is unticked, so the caller can null the field it was revealing.</summary>
+    /// <summary>Raised when the box is unticked.</summary>
     [Parameter] public EventCallback Cleared { get; set; }
 
     private async Task ToggleAsync(ChangeEventArgs args)

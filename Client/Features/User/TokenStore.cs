@@ -3,11 +3,7 @@ using Shared.User;
 
 namespace Client.Features.User;
 
-/// <summary>
-/// Keeps the token pair in the browser local storage, so that a reload does not sign the user out.
-/// The access token is also held in a field, because it is wanted on every outgoing request and a
-/// trip through JavaScript for each one would be wasteful.
-/// </summary>
+/// <summary>Keeps the token pair in browser local storage and caches the access token in memory.</summary>
 public sealed class TokenStore(IJSRuntime jsRuntime)
 {
     private const string AccessTokenKey = "realty-portal.accessToken";

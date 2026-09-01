@@ -1,0 +1,55 @@
+@page "/srealty/{Id:guid}/photos"
+@layout AgencyLayout
+@using Client.Features.SRealty
+@using Shared.SRealty.Photo.GetPhotos
+@inject PhotoApiClient Photos
+
+<PageTitle>Fotografie inzerátu</PageTitle>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">Fotografie inzerátu</h1>
+        <a class="btn btn-outline-primary" href="srealty/@Id">Přejít na inzerát</a>
+    </div>
+
+    @if (error is not null)
+    {
+        <div class="alert alert-danger" role="alert">@error</div>
+    }
+
+    <PhotoUploadForm AdvertId="@Id" OnUploaded="LoadAsync"/>
+
+    <h2 class="h5 mb-3">Nahrané fotografie</h2>
+    <PhotoGallery Photos="photos" CanDelete="true" OnDelete="DeleteAsync"/>
+</div>
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+
+    private List<PhotoDto> photos = [];
+    private string? error;
+
+    protected override Task OnParametersSetAsync() => LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        error = null;
+        var (response, failure) = await Photos.GetPhotosAsync(Id);
+        if (response is null)
+        {
+            error = failure ?? "Fotografie se nepodařilo načíst.";
+            return;
+        }
+
+        photos = response;
+    }
+
+    private async Task DeleteAsync(PhotoDto photo)
+    {
+        error = await Photos.DeletePhotoAsync(Id, photo.Id);
+        if (error is null)
+        {
+            await LoadAsync();
+        }
+    }
+}

@@ -5,12 +5,7 @@ using Shared.RealtyAgent;
 
 namespace Client.Features.User;
 
-/// <summary>
-/// Reads the claims straight out of an access token. The token is the only place the agent facts travel:
-/// the /me endpoint reports the portal roles alone, so it could not tell an agency admin from a plain agent.
-/// Nothing here validates the signature, and nothing may: the client only decides what to show, and the
-/// server checks the token again on every request it receives.
-/// </summary>
+/// <summary>Reads claims out of an access token without validating its signature.</summary>
 public static class AccessTokenParser
 {
     /// <summary>Claims of the given token, or null when it is not a readable JWT.</summary>
@@ -54,7 +49,7 @@ public static class AccessTokenParser
         };
     }
 
-    /// <summary>Decodes one base64url segment, which drops the padding base64 still expects.</summary>
+    /// <summary>Decodes one base64url segment, restoring the base64 padding.</summary>
     private static byte[] DecodeSegment(string segment)
     {
         var padded = segment.Replace('-', '+').Replace('_', '/');
@@ -70,7 +65,7 @@ public static class AccessTokenParser
     private static Guid? ReadGuid(JsonElement payload, string name)
         => Guid.TryParse(ReadString(payload, name), out var parsed) ? parsed : null;
 
-    /// <summary>Reads a claim that carries one value as a bare string and several as an array.</summary>
+    /// <summary>Reads a claim that may be a single string or an array of strings.</summary>
     private static IReadOnlyList<string> ReadStrings(JsonElement payload, string name)
     {
         if (!payload.TryGetProperty(name, out var value))

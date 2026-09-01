@@ -4,13 +4,7 @@ using Shared.User;
 
 namespace Client.Infrastructure;
 
-/// <summary>
-/// What each refusal the server can answer with reads like to a person. The server sends only the code, which
-/// is what lets the wording live here and change without touching the API. The keys come from the error
-/// definitions themselves, so a refusal that is renamed breaks the build rather than falling back silently.
-/// Adding a second language means a second table chosen by the reader's culture; there is one for now
-/// because the portal has one.
-/// </summary>
+/// <summary>Human-readable wording for each server error code, keyed by the shared error definitions.</summary>
 public static class ApiErrorMessages
 {
     private static readonly Dictionary<string, string> Messages = new()
@@ -31,6 +25,6 @@ public static class ApiErrorMessages
         [AdvertErrors.NotFound.Code] = "Takový inzerát neexistuje."
     };
 
-    /// <summary>The wording for a refusal code, or null when this client has none for it yet.</summary>
+    /// <summary>Returns the wording for an error code, or null when none is defined.</summary>
     public static string? Resolve(string errorCode) => Messages.GetValueOrDefault(errorCode);
 }

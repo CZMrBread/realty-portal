@@ -25,8 +25,11 @@
                             <a class="list-group-item list-group-item-action" href="srealty">Adverts</a>
                             <a class="list-group-item list-group-item-action" href="srealty/create">New advert</a>
                             <RequireAgentRole Role="AgentRoleEnum.AgencyAdmin">
-                                <a class="list-group-item list-group-item-action" href="agency/agents">Agents</a>
-                                <a class="list-group-item list-group-item-action" href="agency/settings">Agency settings</a>
+                                @if (AuthState.AgencyId is { } agencyId)
+                                {
+                                    <a class="list-group-item list-group-item-action" href="agency/@agencyId">Agents</a>
+                                    <a class="list-group-item list-group-item-action" href="agency/@agencyId/edit">Agency settings</a>
+                                }
                             </RequireAgentRole>
                         </div>
                     </div>
@@ -40,6 +43,6 @@
 </div>
 
 @code {
-    /// <summary>Every agent may work here; the agency administration entries are hidden from a plain agent.</summary>
+    /// <summary>Requires an agent; administration entries need the AgencyAdmin role.</summary>
     protected override bool IsPermitted() => AuthState.IsAgent;
 }

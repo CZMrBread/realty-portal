@@ -27,6 +27,6 @@
 @code {
     protected override string ControlBaseClass => "form-check-input";
 
-    /// <summary>Label content, for when it needs more than plain text, a link to the terms for instance.</summary>
+    /// <summary>Rich label content, used instead of Label.</summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 }
