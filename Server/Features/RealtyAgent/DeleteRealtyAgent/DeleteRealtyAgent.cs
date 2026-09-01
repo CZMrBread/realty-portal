@@ -9,20 +9,20 @@ namespace Server.Features.RealtyAgent.DeleteRealtyAgent;
 /// <summary>Removes an agent.</summary>
 public static class DeleteRealtyAgent
 {
-    /// <summary>Registers the two routes an agent can be deleted through: by portal identifier, and by the key their agency uses.</summary>
+    /// <summary>Registers the delete routes: by identifier and by agency key.</summary>
     public static void MapDeleteRealtyAgent(this IEndpointRouteBuilder group)
     {
         group.MapDelete("/{agentId:guid}", DeleteRealtyAgentByIdAsync)
-            .WithName("DeleteRealtyAgentById")
+            .WithName(nameof(DeleteRealtyAgentByIdAsync))
             .RequireAuthorization(AgentPolicies.AgentOnly);
 
         group.MapDelete("/rk/{agentRkId}", DeleteRealtyAgentByRkIdAsync)
-            .WithName("DeleteRealtyAgentByRkId")
+            .WithName(nameof(DeleteRealtyAgentByRkIdAsync))
             .RequireAuthorization(AgentPolicies.AgentOnly);
     }
 
-    /// <summary>Deletes the agent the portal knows under <paramref name="agentId"/>. The account itself stays; only the agent profile goes.</summary>
-    private static async Task<IResult> DeleteRealtyAgentByIdAsync(
+    /// <summary>Deletes the agent with <paramref name="agentId"/>; the user account stays.</summary>
+    internal static async Task<IResult> DeleteRealtyAgentByIdAsync(
         Guid agentId,
         ClaimsPrincipal principal,
         RealtyAgentService realtyAgentService,
@@ -39,11 +39,8 @@ public static class DeleteRealtyAgent
         return await DeleteResolvedAsync(agent, caller, realtyAgentService, advertService, cancellationToken);
     }
 
-    /// <summary>
-    /// Deletes the agent the caller agency knows under <paramref name="agentRkId"/>. The agency has to be
-    /// resolved before the lookup can happen at all, because the key is unique only within one agency.
-    /// </summary>
-    private static async Task<IResult> DeleteRealtyAgentByRkIdAsync(
+    /// <summary>Deletes the agent the caller's agency knows under <paramref name="agentRkId"/>.</summary>
+    internal static async Task<IResult> DeleteRealtyAgentByRkIdAsync(
         string agentRkId,
         ClaimsPrincipal principal,
         RealtyAgentService realtyAgentService,
@@ -67,9 +64,8 @@ public static class DeleteRealtyAgent
     }
 
     /// <summary>
-    /// Everything both routes do once the agent is in hand. An agent may delete themselves, and an administrator
-    /// may delete an agent of their own agency. An agent still named as the seller on adverts is refused, since
-    /// removing the profile would orphan them; the adverts are deleted or handed over first.
+    /// Deletes the resolved agent; allowed for the agent themselves or an admin of their agency. An agent still
+    /// selling adverts ends with 409.
     /// </summary>
     private static async Task<IResult> DeleteResolvedAsync(
         RealtyAgentEntity? agent,

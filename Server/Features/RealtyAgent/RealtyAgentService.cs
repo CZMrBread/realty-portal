@@ -9,36 +9,25 @@ using Shared.Shared.Extensions;
 
 namespace Server.Features.RealtyAgent;
 
-/// <summary>
-/// Reads and writes agents. Nothing is cached: an agent is four scalars behind their own primary key, so a
-/// lookup is either a change-tracker hit or a single index seek. Endpoints that need to know which agency an
-/// agent acts for read it here rather than from the token, which is only as fresh as its last refresh.
-/// </summary>
+/// <summary>Reads and writes agents; nothing is cached.</summary>
 public sealed class RealtyAgentService(AppDbContext appDbContext)
 {
     // --- Get ---
 
-    /// <summary>Agent with the given identifier, or null when there is none.</summary>
+    /// <summary>Agent with the given identifier and their user loaded, or null when there is none.</summary>
     public async Task<RealtyAgentEntity?> FindAgentByIdAsync(Guid agentId, CancellationToken cancellationToken)
     {
-        return await appDbContext.RealtyAgents.FirstOrDefaultAsync(agentEntity => agentEntity.UserId == agentId,
-            cancellationToken);
+        return await appDbContext.RealtyAgents.Include(agentEntity => agentEntity.User)
+            .FirstOrDefaultAsync(agentEntity => agentEntity.UserId == agentId, cancellationToken);
     }
 
-    /// <summary>
-    /// Agent belonging to the given user account, or null when that account is not an agent.
-    /// Same lookup as <see cref="FindAgentByIdAsync"/>: an agent shares the primary key of their user.
-    /// </summary>
+    /// <summary>Agent for the given user, or null when the user is not an agent.</summary>
     public async Task<RealtyAgentEntity?> FindAgentByUserIdAsync(Guid userId, CancellationToken cancellationToken)
     {
         return await FindAgentByIdAsync(userId, cancellationToken);
     }
 
-    /// <summary>
-    /// Agent acting behind the caller's token, or null when the token names no account or the account is not an
-    /// agent. Read from the database rather than from the token, which only says what was true when it was issued.
-    /// One lookup, since an agent shares the primary key of their user.
-    /// </summary>
+    /// <summary>Calling agent read from the database, or null when the caller is not an agent.</summary>
     public async Task<RealtyAgentEntity?> FindCallingAgentAsync(ClaimsPrincipal principal,
         CancellationToken cancellationToken = default)
     {
@@ -50,23 +39,24 @@ public sealed class RealtyAgentService(AppDbContext appDbContext)
         return await FindAgentByUserIdAsync(userId, cancellationToken);
     }
 
-    /// <summary>Agent that one agency knows under the given key. The key is unique only within that agency, which is why the agency has to be named as well.</summary>
+    /// <summary>Agent the agency knows under the given key; the key is unique only within an agency.</summary>
     public async Task<RealtyAgentEntity?> FindAgentByRkIdAsync(Guid agencyId, string agentRkId,
         CancellationToken cancellationToken)
     {
-        return await appDbContext.RealtyAgents.FirstOrDefaultAsync(
-            agentEntity => agentEntity.RealtyAgencyId == agencyId && agentEntity.RealtyAgentRkId == agentRkId,
-            cancellationToken);
+        return await appDbContext.RealtyAgents.Include(agentEntity => agentEntity.User)
+            .FirstOrDefaultAsync(
+                agentEntity => agentEntity.RealtyAgencyId == agencyId && agentEntity.RealtyAgentRkId == agentRkId,
+                cancellationToken);
     }
 
-    /// <summary>Agent with their agency loaded, or null when there is none. Separate from <see cref="FindAgentByIdAsync"/> because most callers only need the agency identifier, which the agent already carries.</summary>
+    /// <summary>Agent with their agency loaded, or null when there is none.</summary>
     public async Task<RealtyAgentEntity?> FindAgentWithAgencyAsync(Guid agentId, CancellationToken cancellationToken)
     {
         return await appDbContext.RealtyAgents.Include(agentEntity => agentEntity.RealtyAgency)
             .FirstOrDefaultAsync(agentEntity => agentEntity.UserId == agentId, cancellationToken);
     }
 
-    /// <summary>Every agent working under the given agency.</summary>
+    /// <summary>Every agent of the given agency.</summary>
     public async Task<List<RealtyAgentEntity>> GetAgencyAgentsAsync(Guid agencyId, CancellationToken cancellationToken)
     {
         var query = appDbContext.RealtyAgencies.Include(realtyAgencyEntity => realtyAgencyEntity.Agents)
@@ -75,18 +65,19 @@ public sealed class RealtyAgentService(AppDbContext appDbContext)
         return await query.ToListAsync(cancellationToken);
     }
 
-    /// <summary>One page of the agents working under the given agency, for agencies with more of them than one response should carry.</summary>
+    /// <summary>One page of the agents of the given agency.</summary>
     public async Task<PagedResult<RealtyAgentEntity>> GetAgencyAgentsPageAsync(Guid agencyId, int page, int pageSize,
         CancellationToken cancellationToken = default)
     {
-        var query = appDbContext.RealtyAgents.Where(agentEntity => agentEntity.RealtyAgencyId == agencyId)
+        var query = appDbContext.RealtyAgents.Include(agentEntity => agentEntity.User)
+            .Where(agentEntity => agentEntity.RealtyAgencyId == agencyId)
             .OrderBy(agentEntity => agentEntity.RealtyAgentRkId).Skip((page - 1) * pageSize).Take(pageSize);
         return await query.ToPagedResultAsync(page, pageSize, cancellationToken);
     }
 
     // --- Create / Update / Delete ---
 
-    /// <summary>Stores a new agent and returns it as saved.</summary>
+    /// <summary>Stores a new agent and returns it.</summary>
     public async Task<RealtyAgentEntity> CreateAgentAsync(RealtyAgentEntity agent,
         CancellationToken cancellationToken = default)
     {
@@ -104,10 +95,7 @@ public sealed class RealtyAgentService(AppDbContext appDbContext)
         return agent;
     }
 
-    /// <summary>
-    /// Takes an agent on at an agency under the key that agency knows them by. Its own method rather than a plain
-    /// update, because the key has to stay unique within the agency and an agent may only work for one at a time.
-    /// </summary>
+    /// <summary>Attaches an agent to an agency under the given agency key.</summary>
     public async Task<RealtyAgentEntity> JoinAgencyAsync(RealtyAgentEntity agent, RealtyAgencyEntity agency,
         string? agentRkId, CancellationToken cancellationToken = default)
     {
@@ -116,7 +104,7 @@ public sealed class RealtyAgentService(AppDbContext appDbContext)
         return await UpdateAgentAsync(agent, cancellationToken);
     }
 
-    /// <summary>Releases an agent from their agency, leaving the profile itself in place. The agency key goes with the agency, since it means nothing outside it.</summary>
+    /// <summary>Detaches an agent from their agency and clears the agency key.</summary>
     public async Task<RealtyAgentEntity> LeaveAgencyAsync(RealtyAgentEntity agent,
         CancellationToken cancellationToken = default)
     {
@@ -125,7 +113,7 @@ public sealed class RealtyAgentService(AppDbContext appDbContext)
         return await UpdateAgentAsync(agent, cancellationToken);
     }
 
-    /// <summary>Changes what an agent is allowed to do within their agency. The new role only reaches them once their token is refreshed, since it travels as a claim.</summary>
+    /// <summary>Sets the agent's role; it reaches their token on the next refresh.</summary>
     public async Task<RealtyAgentEntity> SetAgentRoleAsync(RealtyAgentEntity agent, AgentRoleEnum agentRole,
         CancellationToken cancellationToken = default)
     {
@@ -133,10 +121,7 @@ public sealed class RealtyAgentService(AppDbContext appDbContext)
         return await UpdateAgentAsync(agent, cancellationToken);
     }
 
-    /// <summary>
-    /// Releases every agent of an agency at once: the agency link and the agency key go, the role stays,
-    /// exactly as <see cref="LeaveAgencyAsync"/> does for one agent.
-    /// </summary>
+    /// <summary>Detaches every agent of an agency, as <see cref="LeaveAgencyAsync"/> does for one.</summary>
     public async Task DetachAgencyAgentsAsync(Guid agencyId, CancellationToken cancellationToken = default)
     {
         await appDbContext.RealtyAgents.Where(a => a.RealtyAgencyId == agencyId)

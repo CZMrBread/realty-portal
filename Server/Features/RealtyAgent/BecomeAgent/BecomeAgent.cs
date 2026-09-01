@@ -7,7 +7,7 @@ using Shared.RealtyAgent.BecomeAgent;
 
 namespace Server.Features.RealtyAgent.BecomeAgent;
 
-/// <summary>Lets a signed-in account take on an agent profile of its own accord.</summary>
+/// <summary>Lets a signed-in account become an agent.</summary>
 public static class BecomeAgent
 {
     /// <summary>Registers the /become route.</summary>
@@ -19,13 +19,10 @@ public static class BecomeAgent
     }
 
     /// <summary>
-    /// Creates the agent profile for the calling account and hands it back. The agent starts with no agency:
-    /// joining one is a separate step, which is why the profile is useful on its own. An account that already
-    /// has a profile is answered 409, so that a double submit does not read as success.
-    /// The new role only reaches the caller once their token is refreshed, since it travels as a claim.
+    /// Creates an agency-less agent profile for the caller (409 when one exists); role reaches the token on refresh.
     /// </summary>
-    private static async Task<IResult> BecomeAgentAsync(ClaimsPrincipal principal, UserService userService,
-        RealtyAgentService realtyAgentService, CancellationToken cancellationToken)
+    internal static async Task<IResult> BecomeAgentAsync(BecomeAgentRequest request, ClaimsPrincipal principal,
+        UserService userService, RealtyAgentService realtyAgentService, CancellationToken cancellationToken)
     {
         var user = await userService.GetCurrentUserAsync(principal, cancellationToken);
         if (user is null)
@@ -42,7 +39,8 @@ public static class BecomeAgent
         var agent = await realtyAgentService.CreateAgentAsync(new RealtyAgentEntity
         {
             UserId = user.Id,
-            AgentRole = AgentRoleEnum.Agent
+            AgentRole = AgentRoleEnum.Agent,
+            RegistrationNumber = request.RegistrationNumber!
         }, cancellationToken);
 
         return TypedResults.Ok(new BecomeAgentResponse
@@ -50,7 +48,8 @@ public static class BecomeAgent
             UserId = agent.UserId,
             AgentRole = agent.AgentRole,
             RealtyAgencyId = agent.RealtyAgencyId,
-            RealtyAgentRkId = agent.RealtyAgentRkId
+            RealtyAgentRkId = agent.RealtyAgentRkId,
+            RegistrationNumber = agent.RegistrationNumber
         });
     }
 }

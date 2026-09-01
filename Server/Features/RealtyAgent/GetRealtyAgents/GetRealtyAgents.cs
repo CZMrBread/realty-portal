@@ -9,28 +9,25 @@ namespace Server.Features.RealtyAgent.GetRealtyAgents;
 /// <summary>Returns one page of the agents of an agency.</summary>
 public static class GetRealtyAgents
 {
-    /// <summary>Number of agents a page holds when the caller does not say.</summary>
+    /// <summary>Page size when none is given.</summary>
     public const int DefaultPageSize = 20;
 
-    /// <summary>Most agents a single page may hold.</summary>
+    /// <summary>Largest page size allowed.</summary>
     public const int MaxPageSize = 100;
 
-    /// <summary>Registers the route the agent list is read through.</summary>
+    /// <summary>Registers the list route.</summary>
     public static void MapGetRealtyAgents(this IEndpointRouteBuilder group)
     {
         group.MapGet("", GetRealtyAgentsAsync)
-            .WithName("GetRealtyAgents")
+            .WithName(nameof(GetRealtyAgentsAsync))
             .RequireAuthorization(AgentPolicies.AgentOnly);
     }
 
-    /// <summary>
-    /// Reads one page of the agents of the agency named by <paramref name="agencyId"/>. Only an agent of that
-    /// very agency may read it: the list exposes the agency keys, which are agency-internal.
-    /// </summary>
+    /// <summary>Reads one page of the agents of <paramref name="agencyId"/>; agents of that agency only.</summary>
     /// <param name="agencyId">Agency whose agents are read.</param>
-    /// <param name="page">One-based number of the page to read.</param>
-    /// <param name="pageSize">Maximum number of agents the page holds, at most <see cref="MaxPageSize"/>.</param>
-    private static async Task<IResult> GetRealtyAgentsAsync(
+    /// <param name="page">One-based page number.</param>
+    /// <param name="pageSize">Page size, at most <see cref="MaxPageSize"/>.</param>
+    internal static async Task<IResult> GetRealtyAgentsAsync(
         Guid agencyId,
         ClaimsPrincipal principal,
         RealtyAgentService realtyAgentService,
@@ -66,7 +63,7 @@ public static class GetRealtyAgents
         }
 
         var agents = await realtyAgentService.GetAgencyAgentsPageAsync(agencyId, page, pageSize, cancellationToken);
-        var items = agents.Items.Select(a => a.ToDto()).ToList();
+        var items = agents.Items.Select(a => Entity.RealtyAgentMapper.ToDto(a)).ToList();
         return TypedResults.Ok(new PagedResult<RealtyAgentDto>(items, agents.Page, agents.PageSize,
             agents.TotalCount));
     }

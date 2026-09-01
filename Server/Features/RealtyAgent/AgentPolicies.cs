@@ -1,12 +1,9 @@
 namespace Server.Features.RealtyAgent;
 
-/// <summary>
-/// Names of the authorization policies built on the agent role, so that an endpoint and the registration in
-/// the composition root refer to the same string. The policies themselves are defined in Program.cs.
-/// </summary>
+/// <summary>Names of the agent-role authorization policies, defined in Program.cs.</summary>
 public static class AgentPolicies
 {
-    /// <summary>Any caller who may act as an agent, whatever their role within the agency.</summary>
+    /// <summary>Any caller who is an agent, whatever their role.</summary>
     public const string AgentOnly = nameof(AgentOnly);
 
     /// <summary>Only a caller who administers their agency.</summary>

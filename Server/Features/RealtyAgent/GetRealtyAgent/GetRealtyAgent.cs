@@ -8,27 +8,18 @@ namespace Server.Features.RealtyAgent.GetRealtyAgent;
 /// <summary>Returns a single agent.</summary>
 public static class GetRealtyAgent
 {
-    /// <summary>Name of the by-identifier route, which the create endpoint points its Location header at.</summary>
-    public const string ByIdRouteName = "GetRealtyAgentById";
-
-    /// <summary>
-    /// Registers the two routes an agent can be read through: by portal identifier, and by the key their agency
-    /// uses. Both need a signed-in agent: the DTO exposes agency membership and the agency key, which are
-    /// agency-internal, and the rk key on top of that says nothing outside the caller's own agency.
-    /// </summary>
+    /// <summary>Registers the read routes: by identifier and by agency key.</summary>
     public static void MapGetRealtyAgent(this IEndpointRouteBuilder group)
     {
         group.MapGet("/{agentId:guid}", GetRealtyAgentByIdAsync)
-            .WithName(ByIdRouteName)
-            .RequireAuthorization(AgentPolicies.AgentOnly);
+            .WithName(nameof(GetRealtyAgentByIdAsync));
 
         group.MapGet("/rk/{agentRkId}", GetRealtyAgentByRkIdAsync)
-            .WithName("GetRealtyAgentByRkId")
-            .RequireAuthorization(AgentPolicies.AgentOnly);
+            .WithName(nameof(GetRealtyAgentByRkIdAsync));
     }
 
-    /// <summary>Reads the agent the portal knows under <paramref name="agentId"/>, which is the identifier of the account they sign in with.</summary>
-    private static async Task<IResult> GetRealtyAgentByIdAsync(
+    /// <summary>Reads the agent with <paramref name="agentId"/>.</summary>
+    internal static async Task<IResult> GetRealtyAgentByIdAsync(
         Guid agentId,
         RealtyAgentService realtyAgentService,
         CancellationToken cancellationToken)
@@ -36,12 +27,8 @@ public static class GetRealtyAgent
         return Respond(await realtyAgentService.FindAgentByIdAsync(agentId, cancellationToken));
     }
 
-    /// <summary>
-    /// Reads the agent the caller agency knows under <paramref name="agentRkId"/>. The key says nothing on its
-    /// own, so which agent it names is decided by the agency the caller acts for, read from the database rather
-    /// than from the token.
-    /// </summary>
-    private static async Task<IResult> GetRealtyAgentByRkIdAsync(
+    /// <summary>Reads the agent the caller's agency knows under <paramref name="agentRkId"/>.</summary>
+    internal static async Task<IResult> GetRealtyAgentByRkIdAsync(
         string agentRkId,
         ClaimsPrincipal principal,
         RealtyAgentService realtyAgentService,
@@ -63,9 +50,9 @@ public static class GetRealtyAgent
         return Respond(agent);
     }
 
-    /// <summary>Everything both routes do once the agent is in hand.</summary>
+    /// <summary>Maps the resolved agent to a response, or 404 when null.</summary>
     private static IResult Respond(RealtyAgentEntity? agent)
         => agent is null
             ? AgentErrors.NotFound.ToResult()
-            : TypedResults.Ok(agent.ToDto());
+            : TypedResults.Ok(Entity.RealtyAgentMapper.ToDto(agent));
 }

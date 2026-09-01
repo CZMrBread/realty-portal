@@ -5,23 +5,23 @@ using Shared.RealtyAgent;
 
 namespace Server.Features.RealtyAgent.UpdateRealtyAgent;
 
-/// <summary>Changes an existing agent: their role and the key their agency knows them by. Agency moves have their own flows.</summary>
+/// <summary>Updates an agent's role and agency key.</summary>
 public static class UpdateRealtyAgent
 {
-    /// <summary>Registers the two routes an agent can be updated through: by portal identifier, and by the key their agency uses.</summary>
+    /// <summary>Registers the update routes: by identifier and by agency key.</summary>
     public static void MapUpdateRealtyAgent(this IEndpointRouteBuilder group)
     {
         group.MapPut("/{agentId:guid}", UpdateRealtyAgentByIdAsync)
-            .WithName("UpdateRealtyAgentById")
+            .WithName(nameof(UpdateRealtyAgentByIdAsync))
             .RequireAuthorization(AgentPolicies.AgentOnly);
 
         group.MapPut("/rk/{agentRkId}", UpdateRealtyAgentByRkIdAsync)
-            .WithName("UpdateRealtyAgentByRkId")
+            .WithName(nameof(UpdateRealtyAgentByRkIdAsync))
             .RequireAuthorization(AgentPolicies.AgentOnly);
     }
 
-    /// <summary>Updates the agent the portal knows under <paramref name="agentId"/>.</summary>
-    private static async Task<IResult> UpdateRealtyAgentByIdAsync(
+    /// <summary>Updates the agent with <paramref name="agentId"/>.</summary>
+    internal static async Task<IResult> UpdateRealtyAgentByIdAsync(
         Guid agentId,
         RealtyAgentDto request,
         ClaimsPrincipal principal,
@@ -38,11 +38,8 @@ public static class UpdateRealtyAgent
         return await UpdateResolvedAsync(agent, request, caller, realtyAgentService, cancellationToken);
     }
 
-    /// <summary>
-    /// Updates the agent the caller agency knows under <paramref name="agentRkId"/>. The agency has to be
-    /// resolved before the lookup can happen at all, because the key is unique only within one agency.
-    /// </summary>
-    private static async Task<IResult> UpdateRealtyAgentByRkIdAsync(
+    /// <summary>Updates the agent the caller's agency knows under <paramref name="agentRkId"/>.</summary>
+    internal static async Task<IResult> UpdateRealtyAgentByRkIdAsync(
         string agentRkId,
         RealtyAgentDto request,
         ClaimsPrincipal principal,
@@ -66,9 +63,7 @@ public static class UpdateRealtyAgent
     }
 
     /// <summary>
-    /// Everything both routes do once the agent is in hand. Only an administrator of the agent's own agency may
-    /// change them; an admin demoting themselves is allowed. A change of role only reaches the agent after their
-    /// token is refreshed, since the role travels as a claim.
+    /// Updates the resolved agent; admin of the agent's agency only. A role change reaches the token on refresh.
     /// </summary>
     private static async Task<IResult> UpdateResolvedAsync(
         RealtyAgentEntity? agent,
@@ -102,8 +97,8 @@ public static class UpdateRealtyAgent
             }
         }
 
-        request.UpdateEntity(agent);
+        Entity.RealtyAgentMapper.UpdateEntity(request, agent);
         await realtyAgentService.UpdateAgentAsync(agent, cancellationToken);
-        return TypedResults.Ok(agent.ToDto());
+        return TypedResults.Ok(Entity.RealtyAgentMapper.ToDto(agent));
     }
 }
