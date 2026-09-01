@@ -4,7 +4,7 @@ using Server.Features.User;
 
 namespace Server.Infrastructure.Database.Configuration;
 
-/// <summary>Maps the user table. The identifier is assigned in code, so the database must not generate one.</summary>
+/// <summary>Maps the user table; the identifier is never database-generated.</summary>
 public sealed class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)

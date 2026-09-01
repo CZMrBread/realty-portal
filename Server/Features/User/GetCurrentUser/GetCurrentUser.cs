@@ -5,7 +5,7 @@ using Shared.User.GetCurrentUser;
 
 namespace Server.Features.User.GetCurrentUser;
 
-/// <summary>Tells the caller which account the token they sent belongs to.</summary>
+/// <summary>Returns the account behind the caller's token.</summary>
 public static class GetCurrentUser
 {
     /// <summary>Registers the /me route.</summary>
@@ -14,8 +14,8 @@ public static class GetCurrentUser
         group.MapGet("/me", GetCurrentUserAsync).WithName(nameof(GetCurrentUserAsync));
     }
 
-    /// <summary>Resolves the account from the claims and returns it with its roles, or answers 401 when the claims name no account.</summary>
-    private static async Task<IResult> GetCurrentUserAsync(ClaimsPrincipal principal,
+    /// <summary>The caller's account with its roles, or 401 when the claims name no account.</summary>
+    internal static async Task<IResult> GetCurrentUserAsync(ClaimsPrincipal principal,
         UserManager<ApplicationUser> userManager, UserService userService, CancellationToken cancellationToken)
     {
         var user = await userService.GetCurrentUserAsync(principal, cancellationToken);

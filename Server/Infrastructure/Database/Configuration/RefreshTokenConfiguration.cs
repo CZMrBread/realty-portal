@@ -4,7 +4,7 @@ using Server.Features.User;
 
 namespace Server.Infrastructure.Database.Configuration;
 
-/// <summary>Maps the refresh token table. The hash is unique, and the tokens go when the account does.</summary>
+/// <summary>Maps the refresh token table; the hash is unique and tokens cascade with the account.</summary>
 public sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshTokenEntity>
 {
     public void Configure(EntityTypeBuilder<RefreshTokenEntity> builder)

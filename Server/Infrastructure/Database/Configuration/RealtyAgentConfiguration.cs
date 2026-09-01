@@ -5,7 +5,7 @@ using Server.Features.RealtyAgent.Entity;
 
 namespace Server.Infrastructure.Database.Configuration;
 
-/// <summary>Maps the agent table, which shares its primary key with the user account, and sets the delete rules for the agency it hangs under.</summary>
+/// <summary>Maps the agent table, keyed by the user's primary key, and its agency delete rules.</summary>
 public sealed class RealtyAgentConfiguration : IEntityTypeConfiguration<RealtyAgentEntity>
 {
     public void Configure(EntityTypeBuilder<RealtyAgentEntity> builder)

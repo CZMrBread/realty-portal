@@ -4,7 +4,7 @@ using Server.Features.User;
 
 namespace Server.Infrastructure.Database.Configuration;
 
-/// <summary>Maps the role table. The identifier is assigned in code, so the database must not generate one.</summary>
+/// <summary>Maps the role table; the identifier is never database-generated.</summary>
 public sealed class ApplicationRoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
 {
     public void Configure(EntityTypeBuilder<ApplicationRole> builder)

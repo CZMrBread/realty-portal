@@ -3,30 +3,26 @@ using Server.Infrastructure.Database;
 
 namespace Server.Features.User;
 
-/// <summary>
-/// One issued refresh token. The token itself is never stored, only its hash, so that a leaked database does not
-/// hand out sessions. A token is used once: refreshing revokes it and records which token replaced it, which is
-/// what makes a replayed token detectable.
-/// </summary>
+/// <summary>One issued refresh token, stored as a hash and spent once; refreshing records its replacement.</summary>
 public class RefreshTokenEntity : ITimeStampedEntity
 {
     public Guid Id { get; set; } = Guid.CreateVersion7();
 
-    /// <summary>Hash of the token. The token itself is only ever seen by the client it was issued to.</summary>
+    /// <summary>Hash of the token; the token itself is never stored.</summary>
     [Required] public required string TokenHash { get; set; }
 
     public DateTimeOffset ExpiresAt { get; set; }
-    /// <summary>When the token was withdrawn, or null while it is still good.</summary>
+    /// <summary>When the token was revoked, or null while still valid.</summary>
     public DateTimeOffset? RevokedAt { get; set; }
 
-    /// <summary>Whether the token has outlived its expiry. Says nothing about whether it was revoked.</summary>
+    /// <summary>Whether the token has passed its expiry; says nothing about revocation.</summary>
     public bool IsExpired => DateTime.UtcNow >= ExpiresAt;
 
     [Required] public Guid UserId { get; set; }
 
     public ApplicationUser User { get; set; } = null!;
 
-    /// <summary>Hash of the token issued in place of this one when it was last refreshed.</summary>
+    /// <summary>Hash of the token issued in place of this one on refresh.</summary>
     public string? ReplacedByHash { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;

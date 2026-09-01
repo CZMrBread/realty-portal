@@ -4,7 +4,7 @@ using Server.Features.Ruian.Entity;
 
 namespace Server.Infrastructure.Database.Configuration;
 
-/// <summary>Maps the municipality table of the RUIAN register, ties each municipality to its district and indexes the name adverts are matched by.</summary>
+/// <summary>Maps the RUIAN municipality table, its district relation and the search name index.</summary>
 public sealed class RuianMunicipalityConfiguration : IEntityTypeConfiguration<RuianMunicipalityEntity>
 {
     public void Configure(EntityTypeBuilder<RuianMunicipalityEntity> builder)

@@ -4,7 +4,7 @@ using Shared.User;
 
 namespace Server.Features.User;
 
-/// <summary>A role a user account can hold. The portal-wide roles are created at startup from <see cref="UserRoles.All"/>.</summary>
+/// <summary>A user role; the portal-wide roles are seeded at startup from <see cref="UserRoles.All"/>.</summary>
 public class ApplicationRole : IdentityRole<Guid>, ITimeStampedEntity
 {
     public override Guid Id { get; set; } = Guid.CreateVersion7();

@@ -15,8 +15,8 @@ public static class Refresh
         group.MapPost("/refresh", RefreshTokenAsync).WithName(nameof(RefreshTokenAsync));
     }
 
-    /// <summary>Issues a new pair of tokens, or answers 400 when the presented refresh token is unknown, spent or expired.</summary>
-    private static async Task<IResult> RefreshTokenAsync(RefreshTokenRequest refreshTokenRequest,
+    /// <summary>Issues a new token pair, or 400 when the refresh token is unknown, spent or expired.</summary>
+    internal static async Task<IResult> RefreshTokenAsync(RefreshTokenRequest refreshTokenRequest,
         UserService userService, UserManager<ApplicationUser> userManager,
         AccessTokenService tokenService, CancellationToken cancellationToken)
     {
@@ -26,6 +26,6 @@ public static class Refresh
             return UserErrors.InvalidRefreshToken.ToResult();
         }
 
-        return Results.Ok(result);
+        return TypedResults.Ok(result);
     }
 }

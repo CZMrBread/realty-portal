@@ -15,10 +15,7 @@ using Server.Infrastructure.Database.Configuration;
 
 namespace Server.Infrastructure.Database;
 
-/// <summary>
-/// Database context of the portal, built on the Identity context. Entity configuration is picked up from the
-/// assembly rather than declared here, and saving stamps every <see cref="ITimeStampedEntity"/> on the way through.
-/// </summary>
+/// <summary>Database context of the portal; stamps every <see cref="ITimeStampedEntity"/> on save.</summary>
 public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbContext> logger)
     : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>(options)
 {
@@ -79,12 +76,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
         return base.SaveChanges();
     }
 
-    /// <summary>
-    /// Fills in the timestamps of the tracked entities and gives a new one an identifier if it arrived without one.
-    /// An identifier that is present but not a version 7 GUID is refused: those identifiers sort by creation time,
-    /// which the indexes rely on, so letting another kind through would quietly spoil them.
-    /// </summary>
-    /// <exception cref="InvalidOperationException">An entity was submitted with an identifier that is not a version 7 GUID.</exception>
+    /// <summary>Stamps the tracked entities and assigns a missing identifier.</summary>
+    /// <exception cref="InvalidOperationException">An added entity's identifier is not a version 7 GUID.</exception>
     private void UpdateTimeStamp()
     {
         var entries = ChangeTracker.Entries<ITimeStampedEntity>();

@@ -14,10 +14,7 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 
 namespace Server.Infrastructure.Authentication;
 
-/// <summary>
-/// Issues and withdraws the tokens a client authenticates with: a short-lived access token that is signed and
-/// carries the claims, and a long-lived refresh token that is stored only as a hash and can be spent once.
-/// </summary>
+/// <summary>Issues and revokes access tokens (signed JWTs) and single-use refresh tokens stored as hashes.</summary>
 public sealed class AccessTokenService
 {
     private const int RefreshTokenSize = 64;
@@ -40,7 +37,7 @@ public sealed class AccessTokenService
         this.realtyAgentService = realtyAgentService ?? throw new ArgumentNullException(nameof(realtyAgentService));
     }
 
-    /// <summary>Issues the first pair of tokens for a user who has just proved who they are.</summary>
+    /// <summary>Issues the first token pair for an authenticated user.</summary>
     public async Task<TokenResponse?> CreateAuthenticationAsync(ApplicationUser user)
     {
         var access = await CreateAccessTokenAsync(user);
@@ -62,9 +59,8 @@ public sealed class AccessTokenService
     }
 
     /// <summary>
-    /// Exchanges a refresh token for a new pair, revoking the presented one and recording what replaced it.
-    /// Returns null when the token is unknown or expired. A token that was already revoked is treated as a replay:
-    /// every token of that user is withdrawn, so that a stolen token cannot outlive its discovery.
+    /// Exchanges a refresh token for a new pair, or returns null when it is unknown or expired.
+    /// A revoked token counts as a replay and revokes every token of that user.
     /// </summary>
     public async Task<TokenResponse?> RefreshAsync(string refreshToken)
     {
@@ -113,7 +109,7 @@ public sealed class AccessTokenService
         };
     }
 
-    /// <summary>Withdraws a single refresh token, for instance when the user signs out.</summary>
+    /// <summary>Revokes a single refresh token.</summary>
     public async Task RevokeAsync(string refreshToken)
     {
         var hash = Hash(refreshToken);
@@ -122,7 +118,7 @@ public sealed class AccessTokenService
             .ExecuteUpdateAsync(s => s.SetProperty(t => t.RevokedAt, DateTime.UtcNow));
     }
 
-    /// <summary>Withdraws every refresh token of a user, which ends all their sessions at once.</summary>
+    /// <summary>Revokes every refresh token of a user, ending all their sessions.</summary>
     public async Task RevokeAllForUserAsync(Guid userId)
     {
         await dbContext.RefreshTokens
@@ -130,7 +126,7 @@ public sealed class AccessTokenService
             .ExecuteUpdateAsync(s => s.SetProperty(t => t.RevokedAt, DateTime.UtcNow));
     }
 
-    /// <summary>Builds and signs the access token the client sends with each request.</summary>
+    /// <summary>Builds and signs the access token.</summary>
     private async Task<string> CreateAccessTokenAsync(ApplicationUser user)
     {
         var claims = new List<Claim>
@@ -176,11 +172,11 @@ public sealed class AccessTokenService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    /// <summary>Draws a fresh refresh token from a cryptographic random source.</summary>
+    /// <summary>Generates a cryptographically random refresh token.</summary>
     private static string CreateRefreshToken() =>
         Convert.ToBase64String(RandomNumberGenerator.GetBytes(RefreshTokenSize));
 
-    /// <summary>Hashes a token so that only the hash has to be stored.</summary>
+    /// <summary>SHA-256 hash of a token, the form it is stored in.</summary>
     private static string Hash(string token) =>
         Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(token)));
 }

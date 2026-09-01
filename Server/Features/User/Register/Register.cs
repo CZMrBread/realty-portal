@@ -6,7 +6,7 @@ using Shared.User.Register;
 
 namespace Server.Features.User.Register;
 
-/// <summary>Creates a new account and signs it in straight away.</summary>
+/// <summary>Creates a new account and signs it in.</summary>
 public static class Register
 {
     /// <summary>Registers the /register route.</summary>
@@ -15,8 +15,8 @@ public static class Register
         group.MapPost("/register", RegisterUserAsync).WithName(nameof(RegisterUserAsync));
     }
 
-    /// <summary>Rejects an email address or username that is already taken, then creates the account and issues its first pair of tokens.</summary>
-    private static async Task<IResult> RegisterUserAsync(RegisterUserRequest registerUserRequest,
+    /// <summary>Creates the account and issues its first token pair; a taken email or user name is refused.</summary>
+    internal static async Task<IResult> RegisterUserAsync(RegisterUserRequest registerUserRequest,
         UserService userService, UserManager<ApplicationUser> userManager,
         AccessTokenService tokenService, CancellationToken cancellationToken)
     {

@@ -4,7 +4,7 @@ using Server.Features.Ruian.Entity;
 
 namespace Server.Infrastructure.Database.Configuration;
 
-/// <summary>Maps the district table of the RUIAN register and ties each district to its region.</summary>
+/// <summary>Maps the RUIAN district table and its region relation.</summary>
 public sealed class RuianDistrictConfiguration : IEntityTypeConfiguration<RuianDistrictEntity>
 {
     public void Configure(EntityTypeBuilder<RuianDistrictEntity> builder)

@@ -3,19 +3,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Server.Features.User;
 
-/// <summary>
-/// The one place the portal reads and writes accounts. Nothing here is cached: every lookup goes to Identity,
-/// which is already backed by the EF change tracker, and a role list is a single indexed join against endpoints
-/// that are already paying for a password hash.
-/// </summary>
+/// <summary>Reads and writes accounts through Identity; nothing is cached.</summary>
 public sealed class UserService(UserManager<ApplicationUser> userManager)
 {
     // --- Get ---
 
-    /// <summary>
-    /// Account behind a set of claims, or null when the claims carry no usable identifier or name no existing account.
-    /// This is the one place the identifier is read out of the token, so that endpoints do not each parse claims themselves.
-    /// </summary>
+    /// <summary>Account identified by the claims, or null when they name no existing account.</summary>
     public async Task<ApplicationUser?> GetCurrentUserAsync(ClaimsPrincipal principal,
         CancellationToken cancellationToken = default)
     {
@@ -58,7 +51,7 @@ public sealed class UserService(UserManager<ApplicationUser> userManager)
 
     // --- Create / Update / Delete ---
 
-    /// <summary>Creates an account with the given password. A rejected password or a duplicate account comes back in the result rather than as an exception.</summary>
+    /// <summary>Creates an account with the given password; failures are reported in the result, not thrown.</summary>
     public async Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password,
         CancellationToken cancellationToken = default)
     {

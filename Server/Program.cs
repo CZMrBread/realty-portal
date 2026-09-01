@@ -144,6 +144,6 @@ app.Run();
 
 namespace Server
 {
-    /// <summary>Entry point of the server, made visible so that the integration tests can start the application.</summary>
+    /// <summary>Entry point, made visible for the integration tests.</summary>
     public partial class Program;
 }

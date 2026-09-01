@@ -10,14 +10,14 @@ namespace Server.Features.User.GetUserProfile;
 /// <summary>Returns the public profile of a user.</summary>
 public static class GetUserProfile
 {
-    /// <summary>Registers the route that reads a user by identifier.</summary>
+    /// <summary>Registers the /{id} route.</summary>
     public static void MapGetUserProfile(this IEndpointRouteBuilder group)
     {
         group.MapGet("/{id:guid}", GetUserProfileAsync).WithName(nameof(GetUserProfileAsync));
     }
 
-    /// <summary>Returns the profile of the named user, or 404 when no such account exists.</summary>
-    private static async Task<IResult> GetUserProfileAsync(Guid id, UserManager<ApplicationUser> userManager)
+    /// <summary>Profile of the given user, or 404 when there is none.</summary>
+    internal static async Task<IResult> GetUserProfileAsync(Guid id, UserManager<ApplicationUser> userManager)
     {
         var user = await userManager.FindByIdAsync(id.ToString());
         if (user == null)

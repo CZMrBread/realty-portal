@@ -4,7 +4,7 @@ using Server.Features.Ruian.Entity;
 
 namespace Server.Infrastructure.Database.Configuration;
 
-/// <summary>Maps the region table of the RUIAN register. The RUIAN code is the key and is never generated.</summary>
+/// <summary>Maps the RUIAN region table, keyed by the never-generated RUIAN code.</summary>
 public sealed class RuianRegionConfiguration : IEntityTypeConfiguration<RuianRegionEntity>
 {
     public void Configure(EntityTypeBuilder<RuianRegionEntity> builder)

@@ -7,7 +7,7 @@ using Server.Infrastructure.Database;
 
 namespace Server.Features.User;
 
-/// <summary>A user account. Identity keeps the credentials; the portal adds the timestamps and the link to an agent profile.</summary>
+/// <summary>A user account with timestamps and an optional agent profile.</summary>
 public class ApplicationUser : IdentityUser<Guid>, ITimeStampedEntity
 {
     /// <summary>Creates an account with the given user name.</summary>
@@ -25,7 +25,7 @@ public class ApplicationUser : IdentityUser<Guid>, ITimeStampedEntity
     [JsonIgnore]
     public RealtyAgentEntity? RealtyAgent { get; set; }
     
-    /// <summary>Refresh tokens ever issued to this account, including the spent and revoked ones.</summary>
+    /// <summary>Every refresh token issued to this account, spent and revoked ones included.</summary>
     [JsonIgnore]
     public List<RefreshTokenEntity> RefreshTokens { get; set; } = new List<RefreshTokenEntity>();
     

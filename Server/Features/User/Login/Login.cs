@@ -7,7 +7,7 @@ using Shared.User.Login;
 
 namespace Server.Features.User.Login;
 
-/// <summary>Signs a user in and hands out their first pair of tokens.</summary>
+/// <summary>Signs a user in and issues their first token pair.</summary>
 public static class Login
 {
     /// <summary>Registers the /login route.</summary>
@@ -16,11 +16,8 @@ public static class Login
         group.MapPost("/login", LoginUserAsync).WithName(nameof(LoginUserAsync));
     }
 
-    /// <summary>
-    /// Checks the credentials and issues tokens. The submitted email is also tried as a username, so that users can
-    /// sign in with either. Every failure answers 401 alike, so that the response does not reveal which accounts exist.
-    /// </summary>
-    private static async Task<IResult> LoginUserAsync(LoginUserRequest loginUserRequest,
+    /// <summary>Issues tokens for valid credentials; the email also matches a user name, any failure is 401.</summary>
+    internal static async Task<IResult> LoginUserAsync(LoginUserRequest loginUserRequest,
         UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
         UserService userService, AccessTokenService tokenService, CancellationToken cancellationToken)
     {
