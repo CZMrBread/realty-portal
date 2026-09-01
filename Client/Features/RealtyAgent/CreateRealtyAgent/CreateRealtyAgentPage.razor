@@ -1,7 +1,9 @@
 @page "/agent/create"
 @using Client.Features.RealtyAgent
+@using Client.Features.User
 @using Shared.RealtyAgent
 @inject RealtyAgentApiClient RealtyAgents
+@inject UserProfileApiClient Users
 @inject NavigationManager Navigation
 
 <PageTitle>Add an agent</PageTitle>
@@ -13,10 +15,41 @@
                 <div class="card-body">
                     <h1 class="h4 card-title mb-3">Add an agent to the agency</h1>
 
+                    <p>
+                        The person has to register their own account on the portal first; you then take them on
+                        by the email they registered with. An existing agency-less agent profile is adopted.
+                    </p>
+
                     @if (error is not null)
                     {
                         <div class="alert alert-danger" role="alert">@error</div>
                     }
+
+                    <BootstrapEditForm Model="agent" OnValidSubmit="SubmitAsync">
+                        <DataAnnotationsValidator/>
+
+                        <FloatingText Label="Email of the account" Type="email" autocomplete="off"
+                                      @bind-Value="email"/>
+
+                        <FloatingSelect TValue="AgentRoleEnum" Label="Role" @bind-Value="agent.AgentRole">
+                            @foreach (var role in Enum.GetValues<AgentRoleEnum>())
+                            {
+                                <option value="@role">@role</option>
+                            }
+                        </FloatingSelect>
+
+                        <FloatingText Label="Agency key" autocomplete="off"
+                                      Help="Key of the agent in the agency's own system, optional."
+                                      @bind-Value="agent.RealtyAgentRkId"/>
+
+                        <button class="btn btn-primary" type="submit" disabled="@busy">
+                            @if (busy)
+                            {
+                                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                            }
+                            Add the agent
+                        </button>
+                    </BootstrapEditForm>
                 </div>
             </div>
         </div>
@@ -24,9 +57,41 @@
 </div>
 
 @code {
-    private readonly RealtyAgentDto agent = new();
+    private readonly RealtyAgentDto agent = new() { AgentRole = AgentRoleEnum.Agent };
+    private string? email;
     private string? error;
     private bool busy;
 
-    private Task SubmitAsync() => throw new NotImplementedException();
+    /// <summary>Resolves the email to an account first, so the not-registered case gets its own wording.</summary>
+    private async Task SubmitAsync()
+    {
+        error = null;
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            error = "Enter the email the person registered with.";
+            return;
+        }
+
+        busy = true;
+
+        var (user, lookupFailure) = await Users.GetUserByEmailAsync(email.Trim());
+        if (user is null)
+        {
+            error = lookupFailure ?? "No account is registered under this email.";
+            busy = false;
+            return;
+        }
+
+        agent.UserId = user.Id;
+        var (response, failure) = await RealtyAgents.CreateAgentAsync(agent);
+        busy = false;
+
+        if (response is null)
+        {
+            error = failure ?? "The agent could not be added.";
+            return;
+        }
+
+        Navigation.NavigateTo($"agent/{response.UserId}");
+    }
 }

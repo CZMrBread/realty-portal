@@ -2,6 +2,7 @@
 @using Client.Features.RealtyAgent
 @using Shared.RealtyAgent
 @inject RealtyAgentApiClient RealtyAgents
+@inject AuthStateService AuthState
 @inject NavigationManager Navigation
 
 <PageTitle>Realty agent</PageTitle>
@@ -15,16 +16,19 @@
     @if (agent is not null)
     {
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h4 mb-0">Realty agent</h1>
-            <div class="d-flex gap-2">
-                <a class="btn btn-outline-primary" href="agent/@Id/edit">Edit</a>
-                @if (!confirmingDelete)
-                {
-                    <button class="btn btn-danger" type="button" disabled="@busy" @onclick="() => confirmingDelete = true">
-                        Delete
-                    </button>
-                }
-            </div>
+            <h1 class="h4 mb-0">@(agent.UserName ?? "Realty agent")</h1>
+            @if (canManage)
+            {
+                <div class="d-flex gap-2">
+                    <a class="btn btn-outline-primary" href="agent/@Id/edit">Edit</a>
+                    @if (!confirmingDelete)
+                    {
+                        <button class="btn btn-danger" type="button" disabled="@busy" @onclick="() => confirmingDelete = true">
+                            Delete
+                        </button>
+                    }
+                </div>
+            }
         </div>
 
         @if (confirmingDelete)
@@ -45,6 +49,26 @@
                 </div>
             </div>
         }
+
+        <dl class="row">
+            <dt class="col-sm-3">Role</dt>
+            <dd class="col-sm-9">@agent.AgentRole</dd>
+            <dt class="col-sm-3">Registration number (IČO)</dt>
+            <dd class="col-sm-9">@(agent.RegistrationNumber ?? "—")</dd>
+            <dt class="col-sm-3">Agency key</dt>
+            <dd class="col-sm-9">@(agent.RealtyAgentRkId ?? "—")</dd>
+            <dt class="col-sm-3">Agency</dt>
+            <dd class="col-sm-9">
+                @if (agent.RealtyAgencyId is { } agencyId)
+                {
+                    <a href="agency/@agencyId">@agencyId</a>
+                }
+                else
+                {
+                    <span>Without an agency</span>
+                }
+            </dd>
+        </dl>
     }
 </div>
 
@@ -53,14 +77,41 @@
     public Guid Id { get; set; }
 
     private RealtyAgentDto? agent;
+    private bool canManage;
     private string? error;
     private bool busy;
     private bool confirmingDelete;
 
     protected override Task OnParametersSetAsync() => LoadAsync();
 
-    private Task LoadAsync() => throw new NotImplementedException();
+    private async Task LoadAsync()
+    {
+        error = null;
+        await AuthState.InitializeAsync();
 
-    /// <summary>Deletes the agent profile and leaves the page. Only reachable after the confirmation, so a stray click cannot delete anything.</summary>
-    private Task DeleteAsync() => throw new NotImplementedException();
+        var (response, failure) = await RealtyAgents.GetAgentAsync(Id);
+        if (response is null)
+        {
+            error = failure ?? "The agent could not be loaded.";
+            return;
+        }
+
+        agent = response;
+        canManage = AuthState.IsAgencyAdmin && AuthState.AgencyId is { } adminAgency
+            && agent.RealtyAgencyId == adminAgency;
+    }
+
+    /// <summary>Deletes the agent profile and returns to their agency; reachable only after confirmation.</summary>
+    private async Task DeleteAsync()
+    {
+        var agencyId = agent?.RealtyAgencyId;
+        busy = true;
+        error = await RealtyAgents.DeleteAgentAsync(Id);
+        busy = false;
+
+        if (error is null)
+        {
+            Navigation.NavigateTo(agencyId is { } id ? $"agency/{id}" : "agency");
+        }
+    }
 }

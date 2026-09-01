@@ -17,6 +17,35 @@
                     {
                         <div class="alert alert-danger" role="alert">@error</div>
                     }
+
+                    @if (agent is not null)
+                    {
+                        <BootstrapEditForm Model="agent" OnValidSubmit="SubmitAsync">
+                            <DataAnnotationsValidator/>
+
+                            <FloatingSelect TValue="AgentRoleEnum" Label="Role" @bind-Value="agent.AgentRole">
+                                @foreach (var role in Enum.GetValues<AgentRoleEnum>())
+                                {
+                                    <option value="@role">@role</option>
+                                }
+                            </FloatingSelect>
+
+                            <FloatingText Label="Agency key" autocomplete="off"
+                                          Help="Key of the agent in the agency's own system, optional."
+                                          @bind-Value="agent.RealtyAgentRkId"/>
+
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary" type="submit" disabled="@busy">
+                                    @if (busy)
+                                    {
+                                        <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                    }
+                                    Save
+                                </button>
+                                <a class="btn btn-outline-secondary" href="agent/@Id">Cancel</a>
+                            </div>
+                        </BootstrapEditForm>
+                    }
                 </div>
             </div>
         </div>
@@ -33,7 +62,33 @@
 
     protected override Task OnParametersSetAsync() => LoadAsync();
 
-    private Task LoadAsync() => throw new NotImplementedException();
+    private async Task LoadAsync()
+    {
+        error = null;
+        var (response, failure) = await RealtyAgents.GetAgentAsync(Id);
+        if (response is null)
+        {
+            error = failure ?? "The agent could not be loaded.";
+            return;
+        }
 
-    private Task SubmitAsync() => throw new NotImplementedException();
+        agent = response;
+    }
+
+    private async Task SubmitAsync()
+    {
+        busy = true;
+        error = null;
+
+        var (response, failure) = await RealtyAgents.UpdateAgentAsync(Id, agent!);
+        busy = false;
+
+        if (response is null)
+        {
+            error = failure ?? "The agent could not be saved.";
+            return;
+        }
+
+        Navigation.NavigateTo($"agent/{Id}");
+    }
 }
