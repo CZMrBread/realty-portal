@@ -6,7 +6,7 @@ public class RuianMunicipalityEntity
     public int Code { get; set; }
     public required string Name { get; set; }
 
-    /// <summary>The name lower-cased and stripped of accents, so that an advert can be matched to its municipality however the agency spelled the town.</summary>
+    /// <summary>The name lower-cased and stripped of accents, used to match adverts to municipalities.</summary>
     public required string SearchName { get; set; }
 
     public int DistrictCode { get; set; }

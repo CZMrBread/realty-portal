@@ -7,9 +7,8 @@ using Server.Infrastructure.Database;
 namespace Server.Features.Ruian;
 
 /// <summary>
-/// Replaces the RUIAN register tables with the CSV files embedded under Features/Ruian/Data on every start-up.
-/// Each file has a header row and comma-separated columns: regions.csv <c>Code,Name</c>, districts.csv
-/// <c>Code,Name,RegionCode</c>, municipalities.csv <c>Code,Name,DistrictCode</c>.
+/// Replaces the RUIAN tables on start-up from the CSV files embedded under Features/Ruian/Data.
+/// Data: regions <c>Code,Name</c>, districts <c>Code,Name,RegionCode</c>, municipalities <c>Code,Name,DistrictCode</c>.
 /// </summary>
 public static class RuianImporter
 {

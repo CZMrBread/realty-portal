@@ -3,10 +3,10 @@ using System.Text;
 
 namespace Server.Features.Ruian;
 
-/// <summary>Turns a place name into the form the register is searched by, so that "Ústí nad Labem", "usti nad labem" and "ÚSTÍ NAD LABEM" all meet.</summary>
+/// <summary>Normalizes place names into the form the register is searched by.</summary>
 public static class RuianNames
 {
-    /// <summary>The name lower-cased, stripped of accents and of surrounding and repeated whitespace.</summary>
+    /// <summary>The name lower-cased, without accents, with whitespace collapsed and trimmed.</summary>
     public static string Normalize(string name)
     {
         var decomposed = name.Normalize(NormalizationForm.FormD);
