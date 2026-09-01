@@ -7,33 +7,30 @@ using Shared.SRealty.Advert.Enums.Extensions;
 namespace Shared.SRealty.Advert;
 
 /// <summary>
-/// Advert exactly as it is exchanged with a real estate agency over the API. Every field is nullable so that
-/// a missing value can be told apart from an empty one, and the required ones are enforced by validation
-/// attributes rather than by the type system. The record is split into partial files by topic; this one holds
-/// the identification of the advert and the cross-field validation rules.
+/// Advert as exchanged with a real estate agency over the API. Every field is nullable; required ones are
+/// enforced by validation attributes.
 /// </summary>
 public sealed partial record SrealityAdvertDto : IValidatableObject
 {
-    /// <summary>Identifier assigned by the portal. Written to the client only, never read from an incoming payload.</summary>
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenReading)]
+    /// <summary>Identifier assigned by the portal; an incoming value is ignored.</summary>
     [JsonPropertyName("advert_id")]
     public Guid? AdvertId { get; set; }
 
-    /// <summary>Key of the advert in the agency own system. Unique within one agency, not globally.</summary>
+    /// <summary>Key of the advert in the agency's own system; unique within one agency.</summary>
     [JsonPropertyName("advert_rkid")]
     public string? AdvertRkId { get; set; }
 
-    /// <summary>Selling agent addressed by portal identifier. Exactly one of SellerId and SellerRkId has to be filled in.</summary>
+    /// <summary>Selling agent by portal identifier; exactly one of SellerId and SellerRkId must be set.</summary>
     [RequiredIfValue(nameof(SellerRkId), [null])]
     [JsonPropertyName("seller_id")]
     public Guid? SellerId { get; set; }
 
-    /// <summary>Selling agent addressed by the key the agency uses for them. Unique within one agency, not globally.</summary>
+    /// <summary>Selling agent by the agency's own key; unique within one agency.</summary>
     [RequiredIfValue(nameof(SellerId), [null])]
     [JsonPropertyName("seller_rkid")]
     public string? SellerRkId { get; set; }
 
-    /// <summary>Reference code of the advert as the agency shows it to its own clients.</summary>
+    /// <summary>Reference code the agency shows to its clients.</summary>
     [JsonPropertyName("advert_code")]
     public string? AdvertCode { get; set; }
 
@@ -73,11 +70,8 @@ public sealed partial record SrealityAdvertDto : IValidatableObject
     [JsonPropertyName("exclusively_at_rk")]
     public bool ExclusivelyAtRk { get; set; } = false;
 
-    /// <summary>
-    /// Rules that span more than one field and therefore cannot be expressed by a single attribute.
-    /// </summary>
-    /// <param name="validationContext">Context supplied by the validation infrastructure.</param>
-    /// <returns>One result per broken rule; an empty sequence when the advert is consistent.</returns>
+    /// <summary>Cross-field validation rules.</summary>
+    /// <returns>One result per broken rule.</returns>
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         if (AdvertType is not null && AdvertSubtype is not null
@@ -122,7 +116,7 @@ public sealed partial record SrealityAdvertDto : IValidatableObject
         }
     }
 
-    /// <summary>Reports an error when both values are filled in, for fields where only one of the two may be used.</summary>
+    /// <summary>Reports an error when both of two mutually exclusive values are set.</summary>
     private static IEnumerable<ValidationResult> MutuallyExclusive(
         object? first, object? second, string firstName, string secondName)
     {
@@ -134,7 +128,7 @@ public sealed partial record SrealityAdvertDto : IValidatableObject
         }
     }
 
-    /// <summary>Reports an error when only one of a pair of values is filled in, for fields that are meaningful only together.</summary>
+    /// <summary>Reports an error when only one of a pair of values is set.</summary>
     private static IEnumerable<ValidationResult> BothOrNeither(
         object? first, object? second, string firstName, string secondName)
     {

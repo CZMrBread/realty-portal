@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Top-level property category. It decides which subtypes and which conditionally required fields apply.</summary>
+/// <summary>Top-level property category; decides which subtypes and conditionally required fields apply.</summary>
 public enum AdvertTypeEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Byt", DisplayNameEn = "Flat", DescriptionCz = "Bytová jednotka v bytovém domě",

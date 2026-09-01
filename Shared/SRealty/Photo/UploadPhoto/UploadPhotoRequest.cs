@@ -5,7 +5,7 @@ namespace Shared.SRealty.Photo.UploadPhoto;
 /// <summary>Metadata sent alongside the image file when a photo is added to an advert.</summary>
 public sealed record UploadPhotoRequest
 {
-    /// <summary>Key of the photo in the agency own system, so that a repeated import can recognise the same image.</summary>
+    /// <summary>Key of the photo in the agency's own system.</summary>
     [JsonPropertyName("photo_rkid")]
     public string? PhotoRkid { get; set; }
 
@@ -15,7 +15,7 @@ public sealed record UploadPhotoRequest
     [JsonPropertyName("photo_kind")]
     public PhotoKindEnum? PhotoKind { get; set; }
     
-    /// <summary>Requested position in the gallery. The server has the final say on the order.</summary>
+    /// <summary>Requested position in the gallery; the server decides the final order.</summary>
     [JsonPropertyName("order")]
     public int? Order { get; set; }
     

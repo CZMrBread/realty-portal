@@ -15,7 +15,7 @@ public sealed record RegisterUserRequest
     [StringLength(100, MinimumLength = 6)]
     public string Password { get; set; } = string.Empty;
 
-    /// <summary>Repeated password, which has to match Password.</summary>
+    /// <summary>Repeated password; must match Password.</summary>
     [Required] [Compare(nameof(Password))] public string ConfirmPassword { get; set; } = string.Empty;
 
 }

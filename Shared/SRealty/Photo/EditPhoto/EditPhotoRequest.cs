@@ -2,10 +2,10 @@ using System.Text.Json.Serialization;
 
 namespace Shared.SRealty.Photo.EditPhoto;
 
-/// <summary>Metadata of an existing photo that is being changed. The image file itself is optional on that endpoint.</summary>
+/// <summary>Changed metadata of an existing photo; the image file is optional.</summary>
 public sealed record EditPhotoRequest
 {
-    /// <summary>Key of the photo in the agency own system.</summary>
+    /// <summary>Key of the photo in the agency's own system.</summary>
     [JsonPropertyName("photo_rkid")]
     public string? PhotoRkid { get; set; }
 

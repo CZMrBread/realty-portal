@@ -1,6 +1,6 @@
 namespace Shared.User.Register;
 
-/// <summary>Account details and tokens returned after a successful registration, so that the new user is signed in straight away.</summary>
+/// <summary>Account details and tokens returned after a successful registration.</summary>
 public sealed record RegisterUserResponse
 {
     public Guid Id { get; set; }

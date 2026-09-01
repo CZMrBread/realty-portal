@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Heating arrangement, combining whether the source is local or central with the fuel it burns.</summary>
+/// <summary>Heating arrangement: local or central source combined with its fuel.</summary>
 public enum HeatingEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Lokální - plyn", DisplayNameEn = "Local - gas")]

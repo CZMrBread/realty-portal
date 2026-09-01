@@ -14,7 +14,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("energy_performance_certificate")]
     public EnergyPerformanceCertificateEnum? EnergyPerformanceCertificate { get; set; }
 
-    /// <summary>Overall energy consumption taken from the certificate, in kilowatt hours per square metre and year.</summary>
+    /// <summary>Overall energy consumption from the certificate, in kWh per square metre and year.</summary>
     [JsonPropertyName("energy_performance_summary")]
     public double? EnergyPerformanceSummary { get; set; }
 

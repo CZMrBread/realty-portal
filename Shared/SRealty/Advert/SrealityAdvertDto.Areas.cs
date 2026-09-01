@@ -7,7 +7,7 @@ namespace Shared.SRealty.Advert;
 
 public sealed partial record SrealityAdvertDto
 {
-    /// <summary>Usable floor area in square metres. Every other area on the advert uses the same unit.</summary>
+    /// <summary>Usable floor area in square metres.</summary>
     [RequiredIfValue(nameof(AdvertType),
         [AdvertTypeEnum.Flat, AdvertTypeEnum.House, AdvertTypeEnum.Commercial, AdvertTypeEnum.Other])]
     [Range(0, int.MaxValue)]
@@ -38,7 +38,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("ceiling_height")]
     public double? CeilingHeight { get; set; }
 
-    /// <summary>Total area of the parts that are not used for living, in square metres.</summary>
+    /// <summary>Total non-living area in square metres.</summary>
     [Range(0, int.MaxValue)]
     [JsonPropertyName("nolive_total_area")]
     public int? NoliveTotalArea { get; set; }

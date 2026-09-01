@@ -3,13 +3,13 @@ namespace Shared.SRealty.Advert.Enums.Extensions;
 /// <summary>Checks whether a property subtype belongs under a given property type.</summary>
 public static class AdvertSubtypeEnumExtensions
 {
-    /// <summary>Tells whether the subtype is one of those allowed for the given type.</summary>
+    /// <summary>Whether the subtype is allowed for the given type.</summary>
     public static bool IsValidSubtype(this AdvertSubtypeEnum subtype, AdvertTypeEnum type)
     {
         return subtype.IsValidForType(type);
     }
 
-    /// <summary>Builds a validation message that lists every subtype allowed for the type, with its numeric value.</summary>
+    /// <summary>Validation message listing every subtype allowed for the type, with numeric values.</summary>
     public static string GetValidSubtypesErrorMessage(this AdvertTypeEnum type, AdvertSubtypeEnum chosenSubtype)
     {
         var validSubtypes = Enum.GetValues<AdvertSubtypeEnum>()

@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Conservation regime the property falls under, which restricts what may be built or altered.</summary>
+/// <summary>Conservation regime the property falls under.</summary>
 public enum ProtectionEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Ochranné pásmo", DisplayNameEn = "Protection zone")]

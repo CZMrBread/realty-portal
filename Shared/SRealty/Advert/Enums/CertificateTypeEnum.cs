@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Version of the standard an energy certificate was issued under. Not referenced by the advert model yet.</summary>
+/// <summary>Version of the standard an energy certificate was issued under; unused by the advert model.</summary>
 public enum CertificateTypeEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Standard 2013", DisplayNameEn = "Standard 2013")]

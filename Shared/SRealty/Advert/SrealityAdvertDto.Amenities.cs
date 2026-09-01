@@ -58,7 +58,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("garage_count")]
     public int? GarageCount { get; set; }
 
-    /// <summary>Whether any parking is available; the count itself is in Parking.</summary>
+    /// <summary>Whether any parking is available; the count is in Parking.</summary>
     [RequiredIfValue(nameof(AdvertType),
         [AdvertTypeEnum.Flat, AdvertTypeEnum.House, AdvertTypeEnum.Commercial])]
     [JsonPropertyName("parking_lots")]

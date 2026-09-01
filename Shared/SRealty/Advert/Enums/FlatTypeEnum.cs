@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Layout of a flat. Superseded by FlatClassEnum and not referenced by the advert model.</summary>
+/// <summary>Layout of a flat; superseded by FlatClassEnum and unused by the advert model.</summary>
 public enum FlatTypeEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Standardní", DisplayNameEn = "Standard")]

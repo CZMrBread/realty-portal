@@ -1,6 +1,6 @@
 namespace Shared.Shared;
 
-/// <summary>One page of a longer result set, together with what is needed to page through the rest of it.</summary>
+/// <summary>One page of a result set with its paging metadata.</summary>
 /// <typeparam name="T">Type of the items on the page.</typeparam>
 /// <param name="Items">Items on this page.</param>
 /// <param name="Page">One-based number of this page.</param>

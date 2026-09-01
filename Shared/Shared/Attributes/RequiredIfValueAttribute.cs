@@ -2,10 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Shared.Attributes;
 
-/// <summary>
-/// Makes a property required only when another property on the same object holds one of the listed values,
-/// which is how the advert model expresses fields that matter for some property categories and not for others.
-/// </summary>
+/// <summary>Makes a property required only when another property of the same object holds a listed value.</summary>
 [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
 public class RequiredIfValueAttribute : ValidationAttribute
 {
@@ -16,8 +13,6 @@ public class RequiredIfValueAttribute : ValidationAttribute
     public object?[] Values { get; }
 
     /// <summary>Creates the attribute.</summary>
-    /// <param name="propertyName">Name of the property that decides whether this one is required.</param>
-    /// <param name="values">Values of that property which make this one required.</param>
     public RequiredIfValueAttribute(string propertyName, params object?[] values)
     {
         PropertyName = propertyName;

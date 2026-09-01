@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Rated current of the main circuit breaker, which caps the electrical load the property can draw.</summary>
+/// <summary>Rated current of the main circuit breaker.</summary>
 public enum CircuitBreakerEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "16A", DisplayNameEn = "16A")]

@@ -3,22 +3,21 @@ using Shared.SRealty.Advert.Enums;
 namespace Shared.SRealty.Advert.ListAdverts;
 
 /// <summary>
-/// Criteria for narrowing down a list of adverts. A property left null puts no restriction on the result;
-/// an array matches any of its members. Bound straight from the query string, so every member has to be a
-/// scalar or an array of scalars.
+/// Criteria narrowing a list of adverts; null means no restriction, an array matches any of its members.
+/// Bound from the query string, so members must be scalars or arrays of scalars.
 /// </summary>
 public sealed record AdvertFilter
 {
     public AdvertFunctionEnum? AdvertFunction { get; init; }
     public AdvertTypeEnum? AdvertType { get; init; }
 
-    /// <summary>Layouts to match, such as 2+kk or 3+1. Any of them qualifies.</summary>
+    /// <summary>Layouts to match, such as 2+kk or 3+1.</summary>
     public AdvertSubtypeEnum[]? AdvertSubtypes { get; init; }
 
-    /// <summary>Town as the agency wrote it. Matched as a case-insensitive prefix, unlike the RUIAN codes below, which are exact.</summary>
+    /// <summary>Town as the agency wrote it, matched as a case-insensitive prefix.</summary>
     public string? LocalityCity { get; init; }
 
-    /// <summary>RUIAN code of a region (kraj); the advert has to lie in a municipality of one of its districts.</summary>
+    /// <summary>RUIAN code of a region (kraj).</summary>
     public int? RegionCode { get; init; }
 
     /// <summary>RUIAN code of a district (okres).</summary>
@@ -33,15 +32,15 @@ public sealed record AdvertFilter
     /// <summary>Upper bound of the price range, inclusive.</summary>
     public decimal? PriceTo { get; init; }
 
-    /// <summary>Lower bound of the area in square metres, inclusive. Which area is meant depends on the advert type: the estate area for land, the usable area for everything else.</summary>
+    /// <summary>Inclusive lower bound of the area in square metres: estate area for land, else usable area.</summary>
     public int? AreaFrom { get; init; }
 
-    /// <summary>Upper bound of the area in square metres, inclusive. See <see cref="AreaFrom"/> for which area is meant.</summary>
+    /// <summary>Upper bound of the area in square metres, inclusive; see <see cref="AreaFrom"/>.</summary>
     public int? AreaTo { get; init; }
 
-    /// <summary>States of the building to match. Any of them qualifies.</summary>
+    /// <summary>Building conditions to match.</summary>
     public BuildingConditionEnum[]? BuildingConditions { get; init; }
 
-    /// <summary>Words to look for in the description and the address. Every word has to appear; accents are ignored.</summary>
+    /// <summary>Words to find in the description and address; all must appear, accents ignored.</summary>
     public string? Search { get; init; }
 }

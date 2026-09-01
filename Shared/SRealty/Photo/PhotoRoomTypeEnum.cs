@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Photo;
 
-/// <summary>What the photo shows, used to group and label the images of an advert in the gallery.</summary>
+/// <summary>What the photo shows, used to group and label gallery images.</summary>
 public enum PhotoRoomTypeEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Obývací pokoj", DisplayNameEn = "Living room")]

@@ -31,7 +31,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("flat_class")]
     public FlatClassEnum? FlatClass { get; set; }
 
-    /// <summary>Floor the unit sits on, with the ground floor counted as zero.</summary>
+    /// <summary>Floor of the unit; the ground floor is zero.</summary>
     [RequiredIfValue(nameof(AdvertType), [AdvertTypeEnum.Flat])]
     [JsonPropertyName("floor_number")]
     public int? FloorNumber { get; set; }

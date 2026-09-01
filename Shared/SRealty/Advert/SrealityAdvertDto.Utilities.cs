@@ -27,7 +27,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("water")]
     public ICollection<WaterTypeEnum>? Water { get; set; }
 
-    /// <summary>Construction of the well, relevant only when Water names a well as a source.</summary>
+    /// <summary>Construction of the well; relevant only when Water names a well.</summary>
     [EnumValue(typeof(WellTypeEnum))]
     [JsonPropertyName("well_type")]
     public ICollection<WellTypeEnum>? WellType { get; set; }
@@ -45,7 +45,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("heating_element")]
     public ICollection<HeatingElementEnum>? HeatingElement { get; set; }
 
-    /// <summary>Appliance that produces the heat, as opposed to HeatingElement, which releases it into the rooms.</summary>
+    /// <summary>Appliance that produces the heat.</summary>
     [EnumValue(typeof(HeatingSourceEnum))]
     [JsonPropertyName("heating_source")]
     public ICollection<HeatingSourceEnum>? HeatingSource { get; set; }

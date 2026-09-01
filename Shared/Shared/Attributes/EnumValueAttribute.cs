@@ -3,11 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Shared.Attributes;
 
-/// <summary>
-/// Checks that a value is one of the members defined by an enum. Applied to a collection it checks every item
-/// and names the ones that fail. A null value passes, so the attribute can be combined freely with Required.
-/// It exists because a request can carry any number a client sends, which would otherwise be cast to the enum unchecked.
-/// </summary>
+/// <summary>Checks that a value, or every item of a collection, is a defined enum member; null passes.</summary>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
 public sealed class EnumValueAttribute : ValidationAttribute
 {
@@ -54,7 +50,7 @@ public sealed class EnumValueAttribute : ValidationAttribute
         }
     }
 
-    /// <summary>Validates one value and lists the allowed members when it does not match.</summary>
+    /// <summary>Validates one value, listing the allowed members on failure.</summary>
     private ValidationResult? ValidateSingleEnum(object? value, ValidationContext context)
     {
         if (value is null)

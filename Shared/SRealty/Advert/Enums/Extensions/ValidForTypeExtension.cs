@@ -24,7 +24,7 @@ public static class ValidForTypeExtension
         return field?.GetCustomAttribute<ValidForTypeAttribute<TType>>();
     }
 
-    /// <summary>Tells whether the member belongs under the given parent category.</summary>
+    /// <summary>Whether the member belongs under the given parent category.</summary>
     public static bool IsValidForType<TEnum, TType>(this TEnum enumValue, TType type)
         where TEnum : struct, Enum
         where TType : struct, Enum

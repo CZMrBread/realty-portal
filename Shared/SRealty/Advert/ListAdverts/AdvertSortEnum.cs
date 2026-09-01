@@ -17,7 +17,7 @@ public enum AdvertSortEnum
     [LocalizedDisplayName(DisplayNameCz = "Nejdražší", DisplayNameEn = "Most expensive")]
     PriceDescending = 4,
 
-    /// <summary>Which area is compared depends on the advert type, the same way it does in AdvertFilter.AreaFrom.</summary>
+    /// <summary>Compares the area chosen by advert type, as in AdvertFilter.AreaFrom.</summary>
     [LocalizedDisplayName(DisplayNameCz = "Nejmenší plocha", DisplayNameEn = "Smallest area")]
     AreaAscending = 5,
 

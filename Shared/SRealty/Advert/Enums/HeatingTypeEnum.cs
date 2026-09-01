@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Fuel the heating runs on. Superseded by HeatingEnum and not referenced by the advert model.</summary>
+/// <summary>Fuel the heating runs on; superseded by HeatingEnum and unused by the advert model.</summary>
 public enum HeatingTypeEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Plynové", DisplayNameEn = "Gas")]

@@ -11,7 +11,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("locality_city")]
     public string? LocalityCity { get; set; }
 
-    /// <summary>Controls how precisely the position of the property may be shown on the map.</summary>
+    /// <summary>How precisely the position may be shown on the map.</summary>
     [Required]
     [JsonPropertyName("locality_inaccuracy_level")]
     public int? LocalityInaccuracyLevel { get; set; }
@@ -22,15 +22,15 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("locality_street")]
     public string? LocalityStreet { get; set; }
     
-    /// <summary>Descriptive number of the building, which identifies it within the municipality.</summary>
+    /// <summary>Descriptive number of the building, unique within the municipality.</summary>
     [JsonPropertyName("locality_cp")]
     public string? LocalityCp { get; set; }
     
-    /// <summary>Orientation number of the building, which identifies it within its street.</summary>
+    /// <summary>Orientation number of the building, unique within its street.</summary>
     [JsonPropertyName("locality_co")]
     public string? LocalityCo { get; set; }
 
-    /// <summary>Latitude of the property. Has to be filled in together with LocalityLongitude.</summary>
+    /// <summary>Latitude of the property; must be set together with LocalityLongitude.</summary>
     [Range(-90, 90)]
     [JsonPropertyName("locality_latitude")]
     public double? LocalityLatitude { get; set; }
@@ -39,7 +39,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("locality_longitude")]
     public double? LocalityLongitude { get; set; }
 
-    /// <summary>Code of the place in the RUIAN address register. Has to be filled in together with LocalityRuianLevel, which says what the code refers to.</summary>
+    /// <summary>RUIAN code of the place; must be set together with LocalityRuianLevel.</summary>
     [JsonPropertyName("locality_ruian")]
     public int? LocalityRuian { get; set; }
 

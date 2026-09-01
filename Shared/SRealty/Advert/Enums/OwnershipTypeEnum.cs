@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Form of ownership being transferred. Cooperative ownership is what makes the transfer-to-personal field relevant.</summary>
+/// <summary>Form of ownership being transferred.</summary>
 public enum OwnershipTypeEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Osobní", DisplayNameEn = "Personal")]

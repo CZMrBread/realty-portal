@@ -4,9 +4,7 @@ namespace Shared.SRealty.Advert.Enums.Extensions;
 public static class AdvertLifetimeEnumExtensions
 {
     /// <summary>Moment an advert with this lifetime expires, counted from <paramref name="from"/>.</summary>
-    /// <param name="lifetime">Lifetime chosen for the advert.</param>
-    /// <param name="from">Moment the lifetime starts running, normally when the advert was taken in.</param>
-    /// <exception cref="ArgumentOutOfRangeException">The lifetime is not one of the defined members.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Undefined lifetime member.</exception>
     public static DateTimeOffset ToExpiration(this AdvertLifetimeEnum lifetime, DateTimeOffset from)
     {
         return from.AddDays(lifetime switch

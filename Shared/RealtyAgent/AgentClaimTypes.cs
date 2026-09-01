@@ -1,9 +1,6 @@
 namespace Shared.RealtyAgent;
 
-/// <summary>
-/// Names of the agent claims carried in the access token. They live here rather than on either side alone
-/// so that the server that writes them and the client that reads them cannot drift apart.
-/// </summary>
+/// <summary>Names of the agent claims in the access token, shared by server and client.</summary>
 public static class AgentClaimTypes
 {
     public const string RealtyAgencyId = "agency_id";

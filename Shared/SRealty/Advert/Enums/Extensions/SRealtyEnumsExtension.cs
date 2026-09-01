@@ -3,7 +3,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums.Extensions;
 
-/// <summary>Reads the texts that LocalizedDisplayNameAttribute puts on enum members. Every method falls back to the member name or an empty string when the attribute is missing.</summary>
+/// <summary>Reads LocalizedDisplayNameAttribute texts of enum members, with fallbacks when it is missing.</summary>
 public static class SRealtyEnumsExtension
 {
     /// <summary>Czech label of the member, or its name when none is declared.</summary>
@@ -41,7 +41,7 @@ public static class SRealtyEnumsExtension
         return attribute?.Icon ?? string.Empty;
     }
 
-    /// <summary>Whether the member should still be offered to users. Members without the attribute count as active.</summary>
+    /// <summary>Whether the member is still offered; members without the attribute count as active.</summary>
     public static bool GetIsActive<T>(this T enumValue) where T : struct, Enum
     {
         var attribute = enumValue.GetSRealtyAttribute();
@@ -56,7 +56,7 @@ public static class SRealtyEnumsExtension
     }
 
     /// <summary>Label of the member in the requested culture.</summary>
-    /// <param name="cultureName">Culture to pick the wording for; anything other than Czech falls back to English.</param>
+    /// <param name="cultureName">Culture of the wording; anything but Czech falls back to English.</param>
     public static string GetLocalizedDisplayName<T>(this T enumValue, string cultureName = "cs-CZ")
         where T : struct, Enum
     {
@@ -66,7 +66,7 @@ public static class SRealtyEnumsExtension
     }
 
     /// <summary>Description of the member in the requested culture.</summary>
-    /// <param name="cultureName">Culture to pick the wording for; anything other than Czech falls back to English.</param>
+    /// <param name="cultureName">Culture of the wording; anything but Czech falls back to English.</param>
     public static string GetLocalizedDescription<T>(this T enumValue, string cultureName = "cs-CZ")
         where T : struct, Enum
     {

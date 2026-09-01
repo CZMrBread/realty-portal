@@ -1,6 +1,6 @@
 namespace Shared.RealtyAgent;
 
-/// <summary>What an agent may do inside their own agency: work on adverts, or also administer the agency itself.</summary>
+/// <summary>Role of an agent within their agency.</summary>
 public enum AgentRoleEnum
 {
     Agent = 0,

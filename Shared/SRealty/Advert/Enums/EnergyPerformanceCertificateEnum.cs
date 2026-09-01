@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Czech act the energy performance certificate was issued under, which determines how its rating is to be read.</summary>
+/// <summary>Czech act the energy performance certificate was issued under.</summary>
 public enum EnergyPerformanceCertificateEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Zákon 148/2007 Sb.", DisplayNameEn = "Law 148/2007 Coll.")]

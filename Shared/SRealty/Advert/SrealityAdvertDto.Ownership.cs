@@ -12,7 +12,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("ownership")]
     public OwnershipTypeEnum? Ownership { get; set; }
 
-    /// <summary>Transfer of a cooperative flat into personal ownership. Required when a flat under cooperative ownership is sold.</summary>
+    /// <summary>Transfer of a cooperative flat into personal ownership; required when such a flat is sold.</summary>
     [Range(0, double.MaxValue)]
     [JsonPropertyName("personal")]
     public double? Personal { get; set; }
@@ -31,7 +31,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("share_denominator")]
     public int? ShareDenominator { get; set; }
 
-    /// <summary>Numerator of the share in the common areas of the building; the denominator is ShareCommonAreaDenominator.</summary>
+    /// <summary>Numerator of the share in the common areas; the denominator is ShareCommonAreaDenominator.</summary>
     [Range(1, int.MaxValue)]
     [JsonPropertyName("share_common_area_numerator")]
     public int? ShareCommonAreaNumerator { get; set; }

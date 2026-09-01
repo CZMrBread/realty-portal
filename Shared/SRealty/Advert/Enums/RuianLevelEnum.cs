@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Granularity of the RUIAN code stored with the advert, from a whole district down to a single address.</summary>
+/// <summary>Granularity of the advert's RUIAN code, from a district down to a single address.</summary>
 public enum RuianLevelEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Okres", DisplayNameEn = "District")]

@@ -2,11 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>
-/// Detailed property category, for example a 3+1 flat or a warehouse. Which values are allowed
-/// depends on the AdvertTypeEnum of the advert; each member declares its parent type through
-/// ValidForTypeAttribute and the pairing is checked by AdvertSubtypeEnumExtensions.IsValidSubtype.
-/// </summary>
+/// <summary>Detailed property category under an AdvertTypeEnum, declared per member by ValidForTypeAttribute.</summary>
 public enum AdvertSubtypeEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "1+kk", DisplayNameEn = "1+kc")] [ValidForType<AdvertTypeEnum>(AdvertTypeEnum.Flat)]

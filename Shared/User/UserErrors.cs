@@ -29,4 +29,12 @@ public static class UserErrors
     /// <summary>No account exists with the given identifier.</summary>
     public static readonly ApiError NotFound =
         new("user.not_found", HttpStatusCode.NotFound, "No account exists with that identifier.");
+
+    /// <summary>Identity refused to change the account details.</summary>
+    public static readonly ApiError ProfileUpdateFailed =
+        new("user.profile_update_failed", HttpStatusCode.BadRequest, "The account details could not be changed.");
+
+    /// <summary>Identity refused the password change, over the current password or the password rules.</summary>
+    public static readonly ApiError PasswordChangeFailed =
+        new("user.password_change_failed", HttpStatusCode.BadRequest, "The password could not be changed.");
 }

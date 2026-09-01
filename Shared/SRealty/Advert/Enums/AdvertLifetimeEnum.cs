@@ -3,10 +3,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>
-/// How long the advert stays published. AdvertLifetimeEnumExtensions.ToExpiration turns
-/// the chosen lifetime into a concrete expiry date.
-/// </summary>
+/// <summary>How long the advert stays published; ToExpiration turns it into an expiry date.</summary>
 public enum AdvertLifetimeEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "7 dní", DisplayNameEn = "7 days")]

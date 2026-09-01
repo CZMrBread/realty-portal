@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Coarse room count used as a search facet, separate from the exact layout carried by AdvertSubtypeEnum.</summary>
+/// <summary>Coarse room count used as a search facet.</summary>
 public enum AdvertRoomCountEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "1 pokoj", DisplayNameEn = "1 room")]

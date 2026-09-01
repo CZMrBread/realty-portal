@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Unit the advertised price applies to, for example the whole property, a month, or a square metre per month.</summary>
+/// <summary>Unit the price applies to: the whole property, a month, a square metre per month, etc.</summary>
 public enum AdvertPriceUnitEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "za nemovitost", DisplayNameEn = "per property")]

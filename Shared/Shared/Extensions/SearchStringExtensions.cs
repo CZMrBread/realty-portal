@@ -6,21 +6,14 @@ namespace Shared.Shared.Extensions;
 
 public static partial class SearchStringExtensions
 {
-    /// <summary>
-    /// Legal-form tokens to strip (already lowercased and unaccented,
-    /// dots removed by tokenization: "s.r.o." arrives here as "s", "r", "o" — see note below,
-    /// while "sro" and "as" arrive as single tokens).
-    /// </summary>
+    /// <summary>Single-token legal forms (lowercased, unaccented) stripped from the end of a name.</summary>
     private static readonly HashSet<string> LegalFormTokens = new(StringComparer.Ordinal)
     {
         "sro", "as", "spol", "ks", "vos", "zs", "se",
         "gmbh", "ag", "ltd", "llc", "inc", "sa", "bv", "oy", "ab",
     };
  
-    /// <summary>
-    /// Multi-token legal forms matched at the end of the token list,
-    /// longest first. Handles "s r o" (from "s.r.o.") and "a s" (from "a.s.").
-    /// </summary>
+    /// <summary>Multi-token legal forms matched at the end of the token list, longest first.</summary>
     private static readonly string[][] LegalFormSequences =
     {
         new[] { "spol", "s", "r", "o" },
@@ -35,10 +28,8 @@ public static partial class SearchStringExtensions
     private static partial Regex NonAlphanumericRegex();
  
     /// <summary>
-    /// Converts a company name into a normalized search key:
-    /// lowercase, diacritics removed, punctuation collapsed to spaces,
-    /// legal-form suffixes ("s.r.o.", "a.s.", "GmbH", ...) stripped.
-    /// <para>"ČEZ, a. s." → "cez"; "Alza.cz a.s." → "alza cz"</para>
+    /// Normalizes a company name into a search key: lowercase, unaccented, punctuation to spaces, legal form stripped.
+    /// <para>"ČEZ, a. s." becomes "cez"; "Alza.cz a.s." becomes "alza cz"</para>
     /// </summary>
     public static string ToSearchKey(this string name)
     {
@@ -52,7 +43,7 @@ public static partial class SearchStringExtensions
             .Where(t => t.Length > 0)
             .ToList();
  
-        // Strip multi-token legal forms from the end: "skanska a s" → "skanska"
+        // Strip multi-token legal forms from the end: "skanska a s" becomes "skanska"
         foreach (var seq in LegalFormSequences)
         {
             if (EndsWithSequence(tokens, seq))
@@ -70,11 +61,7 @@ public static partial class SearchStringExtensions
         return string.Join(' ', tokens);
     }
  
-    /// <summary>
-    /// Removes diacritical marks: "Novák" → "Novak", "č" → "c".
-    /// Uses Unicode decomposition (FormD splits "č" into "c" + combining caron),
-    /// drops the combining marks, and recomposes (FormC).
-    /// </summary>
+    /// <summary>Removes diacritical marks: "Novák" becomes "Novak".</summary>
     public static string RemoveDiacritics(this string text)
     {
         if (string.IsNullOrEmpty(text))

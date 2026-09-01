@@ -2,7 +2,7 @@ using Shared.Shared.Attributes;
 
 namespace Shared.SRealty.Advert.Enums;
 
-/// <summary>Appliance that heats the domestic hot water, which may differ from the space heating source.</summary>
+/// <summary>Appliance that heats the domestic hot water.</summary>
 public enum WaterHeatingSourceEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Plynový kondenzační kotel", DisplayNameEn = "Gas condensing boiler")]

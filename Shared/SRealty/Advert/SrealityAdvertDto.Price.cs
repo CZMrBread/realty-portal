@@ -7,7 +7,7 @@ namespace Shared.SRealty.Advert;
 
 public sealed partial record SrealityAdvertDto
 {
-    /// <summary>Advertised price, to be read together with AdvertPriceCurrency and AdvertPriceUnit.</summary>
+    /// <summary>Advertised price in AdvertPriceCurrency per AdvertPriceUnit.</summary>
     [Required]
     [Range(0.01, double.MaxValue, ErrorMessage = "Cena musí být kladná.")]
     [JsonPropertyName("advert_price")]
@@ -40,11 +40,11 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("commission")]
     public double? Commission { get; set; }
 
-    /// <summary>Monthly running costs of the property, kept as free text because agencies quote them in different ways.</summary>
+    /// <summary>Monthly running costs of the property, as free text.</summary>
     [JsonPropertyName("cost_of_living")]
     public string? CostOfLiving { get; set; }
 
-    /// <summary>Instalment of the cooperative loan that is still attached to the flat and passes to the buyer.</summary>
+    /// <summary>Instalment of the cooperative loan attached to the flat, passing to the buyer.</summary>
     [Range(0, int.MaxValue)]
     [JsonPropertyName("annuity")]
     public int? Annuity { get; set; }
@@ -60,7 +60,7 @@ public sealed partial record SrealityAdvertDto
     [JsonPropertyName("spor_percent")]
     public double? SporPercent { get; set; }
 
-    /// <summary>Deposit the tenant pays at the start of the lease and gets back at the end of it.</summary>
+    /// <summary>Refundable deposit the tenant pays at the start of the lease.</summary>
     [Range(0, double.MaxValue)]
     [JsonPropertyName("refundable_deposit")]
     public double? RefundableDeposit { get; set; }
@@ -70,6 +70,7 @@ public sealed partial record SrealityAdvertDto
     public bool TenantNotPayCommission { get; set; } = false;
 
     [EnumValue(typeof(LeaseTypeEnum))]
+    [RequiredIfValue(nameof(AdvertFunction), AdvertFunctionEnum.Rent)]
     [JsonPropertyName("lease_type_cb")]
     public LeaseTypeEnum? LeaseType { get; set; }
 }
