@@ -13,7 +13,7 @@ namespace Server.Features.SRealty.Advert.UpdateAdvert;
 /// <summary>Replaces the contents of an existing advert.</summary>
 public static class UpdateAdvert
 {
-    /// <summary>Registers the two routes an advert can be updated through: by portal identifier, and by the key its agency uses.</summary>
+    /// <summary>Registers the two update routes: by portal identifier, and by agency key.</summary>
     public static void MapUpdateAdvert(this IEndpointRouteBuilder group)
     {
         group.MapPut("/{advertId:guid}", UpdateAdvertByIdAsync)
@@ -51,10 +51,7 @@ public static class UpdateAdvert
         return await UpdateResolvedAsync(advert, agent, request, advertService, cancellationToken);
     }
 
-    /// <summary>
-    /// Updates the advert the caller agency knows under <paramref name="advertRkId"/>. The agency has to be
-    /// resolved before the lookup can happen at all, because the key is unique only within one agency.
-    /// </summary>
+    /// <summary>Updates the advert the caller's agency knows under <paramref name="advertRkId"/>.</summary>
     private static async Task<IResult> UpdateAdvertByRkIdAsync(
         string advertRkId,
         SrealityAdvertDto request,
@@ -87,9 +84,8 @@ public static class UpdateAdvert
     }
 
     /// <summary>
-    /// Everything both routes do once the advert is in hand. The mapper replaces the advert as a whole, so a
-    /// field left out of the request is written back as null; the seller is checked first because a full replace
-    /// would otherwise let a caller hand the advert to somebody else.
+    /// Shared core of both routes. Replaces the advert as a whole, so an omitted field becomes null; the seller
+    /// is checked first.
     /// </summary>
     private static async Task<IResult> UpdateResolvedAsync(
         SrealityAdvertEntity? advert,

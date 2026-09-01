@@ -2,14 +2,10 @@ using Microsoft.AspNetCore.OutputCaching;
 
 namespace Server.Features.SRealty.Advert;
 
-/// <summary>
-/// Tags the cached response with the advert it was built from, so a write can evict exactly that entry.
-/// Cacheability itself is left to the default policy, which already refuses anything but an anonymous
-/// GET returning 200.
-/// </summary>
+/// <summary>Tags the cached response with the advert it was built from; writes evict by that tag.</summary>
 public sealed class AdvertOutputCachePolicy : IOutputCachePolicy
 {
-    /// <summary>Tag every cached response for one advert carries, and the one a write evicts by.</summary>
+    /// <summary>Tag of the cached responses for one advert.</summary>
     public static string Tag(Guid advertId) => $"advert:{advertId}";
 
     /// <inheritdoc />

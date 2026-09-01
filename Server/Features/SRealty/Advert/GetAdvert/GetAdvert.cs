@@ -13,7 +13,7 @@ namespace Server.Features.SRealty.Advert.GetAdvert;
 /// <summary>Returns a single advert.</summary>
 public static class GetAdvert
 {
-    /// <summary>Registers the two routes an advert can be read through: by portal identifier, and by the key its agency uses.</summary>
+    /// <summary>Registers the two read routes: by portal identifier, and by agency key.</summary>
     public static void MapGetAdvert(this IEndpointRouteBuilder group)
     {
         group.MapGet("/{advertId:guid}", GetAdvertByIdAsync)
@@ -26,7 +26,7 @@ public static class GetAdvert
             .RequireAuthorization(AgentPolicies.AgentOnly);
     }
 
-    /// <summary>Reads the advert the portal knows under <paramref name="advertId"/>. Open to anyone, and the response is cached.</summary>
+    /// <summary>Reads the advert the portal knows under <paramref name="advertId"/>. Anonymous; cached.</summary>
     private static async Task<IResult> GetAdvertByIdAsync(
         Guid advertId,
         AdvertService advertService,
@@ -36,11 +36,7 @@ public static class GetAdvert
         return Respond(advert);
     }
 
-    /// <summary>
-    /// Reads the advert the caller agency knows under <paramref name="advertRkId"/>. The key says nothing on its
-    /// own, so which advert it names is decided by the agency the caller acts for, read from the database rather
-    /// than from the token.
-    /// </summary>
+    /// <summary>Reads the advert the caller's agency knows under <paramref name="advertRkId"/>.</summary>
     private static async Task<IResult> GetAdvertByRkIdAsync(
         string advertRkId,
         ClaimsPrincipal principal,
@@ -71,7 +67,7 @@ public static class GetAdvert
         return Respond(advert);
     }
 
-    /// <summary>Everything both routes do once the advert is in hand. Synchronous and agent-free, because the by-identifier route is anonymous.</summary>
+    /// <summary>Shared core of both routes; synchronous and agent-free.</summary>
     private static IResult Respond(SrealityAdvertEntity? advert)
         => advert is null
             ? AdvertErrors.NotFound.ToResult()

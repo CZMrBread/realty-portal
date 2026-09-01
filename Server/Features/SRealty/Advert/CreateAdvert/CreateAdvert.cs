@@ -14,7 +14,7 @@ namespace Server.Features.SRealty.Advert.CreateAdvert;
 /// <summary>Stores a new advert.</summary>
 public static class CreateAdvert
 {
-    /// <summary>Registers the two routes an advert can be created through: with the portal assigning the identifier, or with the agency supplying its own key.</summary>
+    /// <summary>Registers the two create routes: portal-assigned identifier, or agency-supplied key.</summary>
     public static void MapCreateAdvert(this IEndpointRouteBuilder group)
     {
         group.MapPost("", CreateAdvertAsync)
@@ -26,17 +26,9 @@ public static class CreateAdvert
             .RequireAuthorization(AgentPolicies.AgentOnly);
     }
 
-    /// <summary>
-    /// Handles both ways of creating an advert. On the plain route the <paramref name="advertRkId"/> is null and
-    /// the portal assigns the identifier; on /rk/{advertRkId} the value taken from the route is the key the agency
-    /// uses, and a duplicate of it within the same agency ends with 409 and nothing written.
-    /// <para>
-    /// The acting agent is read from the database rather than from the token: the token keeps saying what was
-    /// true when it was issued, which is not good enough to decide whose agency an advert is written under.
-    /// </para>
-    /// </summary>
+    /// <summary>Handles both create routes; a duplicate agency key ends with 409.</summary>
     /// <param name="request">Advert to store.</param>
-    /// <param name="advertRkId">Key of the advert in the agency own system, or null on the plain route.</param>
+    /// <param name="advertRkId">Agency's own key of the advert, or null on the plain route.</param>
     private static async Task<IResult> CreateAdvertAsync(
         SrealityAdvertDto request,
         string? advertRkId,

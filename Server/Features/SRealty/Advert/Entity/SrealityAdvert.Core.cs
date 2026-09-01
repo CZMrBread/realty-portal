@@ -4,10 +4,10 @@ namespace Server.Features.SRealty.Advert.Entity;
 
 public partial class SrealityAdvertEntity
 {
-    /// <summary>Key of the advert in the agency own system. Unique within one agency, not globally.</summary>
+    /// <summary>Key of the advert in the agency's own system; unique within one agency only.</summary>
     public string? AdvertRkId { get; set; }
 
-    /// <summary>Key of the selling agent in the agency own system, used when the agent is not registered in the portal.</summary>
+    /// <summary>Key of the selling agent in the agency's own system, for agents not registered in the portal.</summary>
     public string? SellerRkId { get; set; }
 
     public string? AdvertCode { get; set; }

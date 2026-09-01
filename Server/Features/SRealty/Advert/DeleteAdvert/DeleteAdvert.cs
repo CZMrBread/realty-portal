@@ -13,7 +13,7 @@ namespace Server.Features.SRealty.Advert.DeleteAdvert;
 /// <summary>Removes an advert.</summary>
 public static class DeleteAdvert
 {
-    /// <summary>Registers the two routes an advert can be deleted through: by portal identifier, and by the key its agency uses.</summary>
+    /// <summary>Registers the two delete routes: by portal identifier, and by agency key.</summary>
     public static void MapDeleteAdvert(this IEndpointRouteBuilder group)
     {
         group.MapDelete("/{advertId:guid}", DeleteAdvertByIdAsync)
@@ -50,10 +50,7 @@ public static class DeleteAdvert
         return await DeleteResolvedAsync(advert, agent, advertService, cancellationToken);
     }
 
-    /// <summary>
-    /// Deletes the advert the caller agency knows under <paramref name="advertRkId"/>. The agency has to be
-    /// resolved before the lookup can happen at all, because the key is unique only within one agency.
-    /// </summary>
+    /// <summary>Deletes the advert the caller's agency knows under <paramref name="advertRkId"/>.</summary>
     private static async Task<IResult> DeleteAdvertByRkIdAsync(
         string advertRkId,
         ClaimsPrincipal principal,
@@ -84,7 +81,7 @@ public static class DeleteAdvert
         return await DeleteResolvedAsync(advert, agent, advertService, cancellationToken);
     }
 
-    /// <summary>Everything both routes do once the advert is in hand.</summary>
+    /// <summary>Shared core of both routes.</summary>
     private static async Task<IResult> DeleteResolvedAsync(
         SrealityAdvertEntity? advert,
         RealtyAgentEntity agent,

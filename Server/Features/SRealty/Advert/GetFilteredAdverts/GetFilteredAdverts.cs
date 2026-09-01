@@ -8,13 +8,13 @@ namespace Server.Features.SRealty.Advert.GetFilteredAdverts;
 /// <summary>Returns one page of the adverts matching a filter.</summary>
 public static class GetFilteredAdverts
 {
-    /// <summary>Number of adverts a page holds when the caller does not say.</summary>
+    /// <summary>Default page size.</summary>
     public const int DefaultPageSize = 20;
 
-    /// <summary>Most adverts a single page may hold; the DTO is wide, so a page has to stay small.</summary>
+    /// <summary>Largest allowed page size.</summary>
     public const int MaxPageSize = 100;
 
-    /// <summary>Registers the route the public listing is read through.</summary>
+    /// <summary>Registers the public listing route.</summary>
     public static void MapGetFilteredAdverts(this IEndpointRouteBuilder group)
     {
         group.MapGet("", GetFilteredAdvertsAsync)
@@ -22,13 +22,13 @@ public static class GetFilteredAdverts
     }
 
     /// <summary>
-    /// Reads one page of the adverts still on offer that match <paramref name="filter"/>, in the order
-    /// <paramref name="sort"/> asks for. Open to anyone, since the listing is the public face of the portal.
+    /// Reads one page of unexpired adverts matching <paramref name="filter"/>, ordered by <paramref name="sort"/>.
+    /// Anonymous.
     /// </summary>
-    /// <param name="filter">Criteria bound from the query string; an absent one puts no restriction on the result.</param>
+    /// <param name="filter">Criteria from the query string; an absent one is no restriction.</param>
     /// <param name="sort">Order of the page.</param>
-    /// <param name="page">One-based number of the page to read.</param>
-    /// <param name="pageSize">Maximum number of adverts the page holds, at most <see cref="MaxPageSize"/>.</param>
+    /// <param name="page">One-based page number.</param>
+    /// <param name="pageSize">Adverts per page, at most <see cref="MaxPageSize"/>.</param>
     private static async Task<IResult> GetFilteredAdvertsAsync(
         [AsParameters] AdvertFilter filter,
         AdvertService advertService,

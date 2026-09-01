@@ -11,16 +11,12 @@ using Shared.SRealty.Advert.ListAdverts;
 
 namespace Server.Features.SRealty.Advert;
 
-/// <summary>
-/// Reads and writes adverts. Nothing is cached here: the one read worth caching is the public advert
-/// detail, and that is cached as a whole response by <see cref="AdvertOutputCachePolicy"/>. All this
-/// service owes the cache is an eviction after a write.
-/// </summary>
+/// <summary>Reads and writes adverts; writes evict the <see cref="AdvertOutputCachePolicy"/> entry.</summary>
 public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore outputCache, RuianService ruianService)
 {
     // --- Get ---
 
-    /// <summary>Advert with the given identifier, or null when there is none. Tracked, so the write paths can change what they get back.</summary>
+    /// <summary>Advert with the given identifier, or null when there is none. Tracked.</summary>
     public async Task<SrealityAdvertEntity?> FindAdvertByIdAsync(Guid advertId,
         CancellationToken cancellationToken = default)
     {
@@ -28,10 +24,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
             .FirstOrDefaultAsync(a => a.Id == advertId, cancellationToken);
     }
 
-    /// <summary>
-    /// Advert that one agency knows under the given key, or null when there is none. The key is unique only within
-    /// an agency, which is why the agency has to be named as well. Tracked.
-    /// </summary>
+    /// <summary>Advert the given agency knows under the given key, or null when there is none. Tracked.</summary>
     public async Task<SrealityAdvertEntity?> FindAdvertByRkIdAsync(Guid realtyAgencyId, string advertRkId,
         CancellationToken cancellationToken = default)
     {
@@ -40,7 +33,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
                 cancellationToken);
     }
 
-    /// <summary>One page of the adverts still on offer that match the filter, in the requested order. Untracked.</summary>
+    /// <summary>One page of unexpired adverts matching the filter, in the requested order. Untracked.</summary>
     public async Task<PagedResult<SrealityAdvertEntity>> GetAdvertsAsync(AdvertFilter filter, AdvertSortEnum sort,
         int page, int pageSize, CancellationToken cancellationToken = default)
     {
@@ -53,7 +46,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
         return new PagedResult<SrealityAdvertEntity>(items, page, pageSize, totalCount);
     }
 
-    /// <summary>One page of the adverts belonging to a single agency.</summary>
+    /// <summary>One page of an agency's adverts.</summary>
     public async Task<PagedResult<SrealityAdvertEntity>> GetAgencyAdvertsAsync(Guid realtyAgencyId, int page,
         int pageSize,
         CancellationToken cancellationToken = default)
@@ -63,7 +56,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
         return await query.ToPagedResultAsync(page, pageSize, cancellationToken);
     }
 
-    /// <summary>One page of the adverts a single agent is named on as the seller.</summary>
+    /// <summary>One page of the adverts an agent sells.</summary>
     public async Task<PagedResult<SrealityAdvertEntity>> GetSellerAdvertsAsync(Guid sellerId, int page, int pageSize,
         CancellationToken cancellationToken = default)
     {
@@ -74,7 +67,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
 
     // --- Create / Update / Delete ---
 
-    /// <summary>Stores a new advert, placed in its municipality first.</summary>
+    /// <summary>Stores a new advert after placing it in its municipality.</summary>
     public async Task<SrealityAdvertEntity> CreateAdvertAsync(SrealityAdvertEntity advert,
         CancellationToken cancellationToken = default)
     {
@@ -84,7 +77,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
         return advert;
     }
 
-    /// <summary>Saves the tracked changes to an advert, placing it in its municipality again since the address may have changed, and drops the cached response for it.</summary>
+    /// <summary>Saves the tracked changes, re-resolves the municipality and evicts the cached response.</summary>
     public async Task<SrealityAdvertEntity> UpdateAdvertAsync(SrealityAdvertEntity advert,
         CancellationToken cancellationToken = default)
     {
@@ -94,7 +87,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
         return advert;
     }
 
-    /// <summary>Removes an advert and drops the cached response for it.</summary>
+    /// <summary>Removes an advert and evicts its cached response.</summary>
     public async Task DeleteAdvertAsync(SrealityAdvertEntity advert, CancellationToken cancellationToken = default)
     {
         appDbContext.SrealityAdverts.Remove(advert);
@@ -102,13 +95,13 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
         await outputCache.EvictByTagAsync(AdvertOutputCachePolicy.Tag(advert.Id), cancellationToken);
     }
 
-    /// <summary>Whether the agent is still named as the seller on any advert.</summary>
+    /// <summary>Whether the agent is the seller on any advert.</summary>
     public async Task<bool> HasSellerAdvertsAsync(Guid sellerId, CancellationToken cancellationToken = default)
     {
         return await appDbContext.SrealityAdverts.AnyAsync(a => a.SellerId == sellerId, cancellationToken);
     }
 
-    /// <summary>Releases every advert of an agency to its seller: the agency link and both agency-scoped keys go, the advert stays.</summary>
+    /// <summary>Detaches every advert of an agency: clears the agency link and both agency-scoped keys.</summary>
     public async Task DetachAgencyAdvertsAsync(Guid realtyAgencyId, CancellationToken cancellationToken = default)
     {
         var ids = await appDbContext.SrealityAdverts.Where(a => a.RealtyAgencyId == realtyAgencyId)
@@ -127,7 +120,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
 
     // --- Listing ---
 
-    /// <summary>The query narrowed by every criterion the filter names. Expired adverts are left out regardless, since the listing is what the public sees.</summary>
+    /// <summary>The query narrowed by the filter; expired adverts are always left out.</summary>
     private static IQueryable<SrealityAdvertEntity> ApplyFilter(IQueryable<SrealityAdvertEntity> query,
         AdvertFilter filter)
     {
@@ -208,7 +201,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
         return query;
     }
 
-    /// <summary>The query in the requested order, with the newest advert first among equals so that paging stays stable.</summary>
+    /// <summary>The query in the requested order, newest first among equals.</summary>
     private static IOrderedQueryable<SrealityAdvertEntity> ApplySort(IQueryable<SrealityAdvertEntity> query,
         AdvertSortEnum sort)
     {
@@ -228,12 +221,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
 
     // --- Locality ---
 
-    /// <summary>
-    /// Places the advert in the register: by the RUIAN code when the agency sent one at municipality or district
-    /// level, and by the town name otherwise, since a street- or address-level code cannot be translated without
-    /// the whole register. Whatever cannot be matched is left null and the advert simply stays out of the
-    /// region and district filters.
-    /// </summary>
+    /// <summary>Resolves the municipality and district by RUIAN code or town name; unmatched ones stay null.</summary>
     private async Task ResolveLocalityAsync(SrealityAdvertEntity advert, CancellationToken cancellationToken)
     {
         advert.LocalityMunicipalityCode = null;

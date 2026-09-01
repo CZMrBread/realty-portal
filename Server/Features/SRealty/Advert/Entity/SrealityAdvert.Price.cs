@@ -4,7 +4,7 @@ namespace Server.Features.SRealty.Advert.Entity;
 
 public partial class SrealityAdvertEntity
 {
-    /// <summary>Held as decimal although the DTO uses double: the price is filtered and sorted on, and floating point does not belong there.</summary>
+    /// <summary>Price, held as decimal although the DTO uses double.</summary>
     public required decimal AdvertPrice { get; set; }
 
     public required AdvertPriceCurrencyEnum AdvertPriceCurrency { get; set; }
