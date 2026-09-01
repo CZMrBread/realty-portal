@@ -1,30 +1,28 @@
 using System.Security.Claims;
+using Server.Features.RealtyAgency.Entity;
 using Server.Features.RealtyAgent;
 using Server.Infrastructure.Http;
 using Shared.RealtyAgency;
+using Shared.RealtyAgency.UpdateRealtyAgency;
 using Shared.RealtyAgent;
 
 namespace Server.Features.RealtyAgency.UpdateRealtyAgency;
 
-/// <summary>Replaces the contents of an existing agency.</summary>
+/// <summary>Updates an existing agency.</summary>
 public static class UpdateRealtyAgency
 {
-    /// <summary>Registers the route an agency is updated through.</summary>
+    /// <summary>Registers the update route.</summary>
     public static void MapUpdateRealtyAgency(this IEndpointRouteBuilder group)
     {
         group.MapPut("/{agencyId:guid}", UpdateRealtyAgencyAsync)
-            .WithName("UpdateRealtyAgency")
+            .WithName(nameof(UpdateRealtyAgencyAsync))
             .RequireAuthorization(AgentPolicies.AgentOnly);
     }
 
-    /// <summary>
-    /// Updates the agency the portal knows under <paramref name="agencyId"/>. Only an administrator of that
-    /// agency may change it, and which agency the caller administers is read from the database rather than from
-    /// the token. A registration number moved onto another company has to stay unique, so a taken one ends with 409.
-    /// </summary>
-    private static async Task<IResult> UpdateRealtyAgencyAsync(
+    /// <summary>Updates the agency; administrator only. A taken registration number ends with 409.</summary>
+    internal static async Task<IResult> UpdateRealtyAgencyAsync(
         Guid agencyId,
-        RealtyAgencyDto request,
+        UpdateRealtyAgencyRequest request,
         ClaimsPrincipal principal,
         RealtyAgentService realtyAgentService,
         RealtyAgencyService realtyAgencyService,
@@ -59,6 +57,6 @@ public static class UpdateRealtyAgency
 
         request.UpdateEntity(agency);
         await realtyAgencyService.UpdateAgencyAsync(agency, cancellationToken);
-        return TypedResults.Ok(agency.ToDto());
+        return TypedResults.Ok(agency.ToUpdateResponse());
     }
 }

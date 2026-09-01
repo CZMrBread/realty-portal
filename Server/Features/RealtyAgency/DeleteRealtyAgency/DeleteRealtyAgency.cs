@@ -9,20 +9,16 @@ namespace Server.Features.RealtyAgency.DeleteRealtyAgency;
 /// <summary>Removes an agency.</summary>
 public static class DeleteRealtyAgency
 {
-    /// <summary>Registers the route an agency is deleted through.</summary>
+    /// <summary>Registers the delete route.</summary>
     public static void MapDeleteRealtyAgency(this IEndpointRouteBuilder group)
     {
         group.MapDelete("/{agencyId:guid}", DeleteRealtyAgencyAsync)
-            .WithName("DeleteRealtyAgency")
+            .WithName(nameof(DeleteRealtyAgencyAsync))
             .RequireAuthorization(AgentPolicies.AgentOnly);
     }
 
-    /// <summary>
-    /// Deletes the agency the portal knows under <paramref name="agencyId"/>. Only its administrator may do so.
-    /// Nothing the agency grouped is destroyed: the agents (the caller included) and the adverts are detached
-    /// and stay, so the caller refreshes their token afterwards.
-    /// </summary>
-    private static async Task<IResult> DeleteRealtyAgencyAsync(
+    /// <summary>Deletes the agency; administrator only. Its agents and adverts are detached, not deleted.</summary>
+    internal static async Task<IResult> DeleteRealtyAgencyAsync(
         Guid agencyId,
         ClaimsPrincipal principal,
         RealtyAgentService realtyAgentService,

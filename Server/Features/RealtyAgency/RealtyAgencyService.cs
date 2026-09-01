@@ -8,10 +8,7 @@ using Shared.Shared.Extensions;
 
 namespace Server.Features.RealtyAgency;
 
-/// <summary>
-/// Reads and writes agencies. Nothing here is cached: the public reads that are worth caching are cached as whole
-/// responses at the endpoint.
-/// </summary>
+/// <summary>Reads and writes agencies; nothing is cached.</summary>
 public sealed class RealtyAgencyService(
     AppDbContext appDbContext,
     RealtyAgentService realtyAgentService,
@@ -19,14 +16,14 @@ public sealed class RealtyAgencyService(
 {
     // --- Get ---
 
-    /// <summary>Agency with the given identifier, or null when there is none. Tracked, so the write paths can change what they get back.</summary>
+    /// <summary>Agency with the given identifier, or null when there is none. Tracked.</summary>
     public async Task<RealtyAgencyEntity?> FindAgencyByIdAsync(Guid agencyId,
         CancellationToken cancellationToken = default)
     {
         return await appDbContext.RealtyAgencies.FirstOrDefaultAsync(a => a.Id == agencyId, cancellationToken);
     }
 
-    /// <summary>Agency with the given company registration number, or null when there is none. The number names one company across the whole portal, so no agency has to be given alongside it.</summary>
+    /// <summary>Agency with the given registration number, or null when there is none.</summary>
     public async Task<RealtyAgencyEntity?> FindAgencyByRegistrationNumberAsync(string registrationNumber,
         CancellationToken cancellationToken = default)
     {
@@ -34,7 +31,7 @@ public sealed class RealtyAgencyService(
             a => a.RegistrationNumber == registrationNumber, cancellationToken);
     }
 
-    /// <summary>One page of the agencies whose name matches, or of all of them when no name is given. Untracked.</summary>
+    /// <summary>One page of agencies, narrowed by name when one is given. Untracked.</summary>
     public async Task<PagedResult<RealtyAgencyEntity>> SearchAgenciesAsync(string? name, int page, int pageSize,
         CancellationToken cancellationToken = default)
     {
@@ -60,7 +57,7 @@ public sealed class RealtyAgencyService(
 
     // --- Create / Update / Delete ---
 
-    /// <summary>Stores a new agency and returns it as saved.</summary>
+    /// <summary>Stores a new agency and returns it.</summary>
     public async Task<RealtyAgencyEntity> CreateAgencyAsync(RealtyAgencyEntity agency,
         CancellationToken cancellationToken = default)
     {
@@ -70,7 +67,7 @@ public sealed class RealtyAgencyService(
         return agency;
     }
 
-    /// <summary>Saves the tracked changes to an agency, deriving the search name again since the name may have changed.</summary>
+    /// <summary>Saves the tracked changes to an agency and re-derives its search name.</summary>
     public async Task<RealtyAgencyEntity> UpdateAgencyAsync(RealtyAgencyEntity agency,
         CancellationToken cancellationToken = default)
     {
@@ -79,10 +76,7 @@ public sealed class RealtyAgencyService(
         return agency;
     }
 
-    /// <summary>
-    /// Removes an agency without destroying anything it grouped: every agent leaves and every advert is released
-    /// to its seller, then the agency row goes, all in one transaction.
-    /// </summary>
+    /// <summary>Removes an agency in one transaction; its agents and adverts are detached, not deleted.</summary>
     public async Task DeleteAgencyAsync(RealtyAgencyEntity agency, CancellationToken cancellationToken = default)
     {
         await using var transaction = await appDbContext.Database.BeginTransactionAsync(cancellationToken);

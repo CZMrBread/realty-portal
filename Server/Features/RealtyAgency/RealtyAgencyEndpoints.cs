@@ -6,13 +6,13 @@ using Server.Features.RealtyAgency.UpdateRealtyAgency;
 
 namespace Server.Features.RealtyAgency;
 
-/// <summary>Collects every route of the RealtyAgency feature under one group.</summary>
+/// <summary>Route group of the RealtyAgency feature.</summary>
 public static class RealtyAgencyEndpoints
 {
-    /// <summary>Path every route of the feature hangs under.</summary>
+    /// <summary>Route prefix of the feature.</summary>
     public const string Prefix = "/realty-agency";
 
-    /// <summary>OpenAPI tag the routes are listed under, so that they show up as one category.</summary>
+    /// <summary>OpenAPI tag of the feature's routes.</summary>
     public const string Tag = "RealtyAgency";
 
     /// <summary>Registers the agency routes under <see cref="Prefix"/>.</summary>

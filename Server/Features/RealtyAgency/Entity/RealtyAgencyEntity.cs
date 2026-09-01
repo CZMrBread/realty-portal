@@ -5,7 +5,7 @@ using Server.Infrastructure.Database;
 
 namespace Server.Features.RealtyAgency.Entity;
 
-/// <summary>A real estate agency. It owns the agents working under it and every advert they publish.</summary>
+/// <summary>A real estate agency owning its agents and the adverts they publish.</summary>
 public sealed class RealtyAgencyEntity : ITimeStampedEntity
 {
     public Guid Id { get; set; } = Guid.CreateVersion7();
@@ -16,11 +16,11 @@ public sealed class RealtyAgencyEntity : ITimeStampedEntity
     [MaxLength(200)]
     public required string Name { get; set; }
 
-    /// <summary>Search key derived from <see cref="Name"/>, kept by the service so the trigram index has a real column to sit on.</summary>
+    /// <summary>Search key derived from <see cref="Name"/>; backs the trigram index.</summary>
     [MaxLength(200)]
     public string SearchName { get; set; } = string.Empty;
 
-    /// <summary>Company registration number the agency is entered in the business register under.</summary>
+    /// <summary>Company registration number of the agency.</summary>
     [MaxLength(32)]
     public required string RegistrationNumber { get; set; }
 
@@ -28,7 +28,7 @@ public sealed class RealtyAgencyEntity : ITimeStampedEntity
     [MaxLength(256)]
     public required string Email { get; set; }
 
-    /// <summary>Agents working under the agency.</summary>
+    /// <summary>Agents of the agency.</summary>
     [JsonIgnore]
     public List<RealtyAgentEntity> Agents { get; set; } = [];
 }

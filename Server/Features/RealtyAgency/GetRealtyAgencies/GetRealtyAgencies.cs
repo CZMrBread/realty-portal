@@ -1,4 +1,5 @@
-using Shared.RealtyAgency;
+using Server.Features.RealtyAgency.Entity;
+using Shared.RealtyAgency.GetRealtyAgency;
 using Shared.Shared;
 
 namespace Server.Features.RealtyAgency.GetRealtyAgencies;
@@ -6,27 +7,24 @@ namespace Server.Features.RealtyAgency.GetRealtyAgencies;
 /// <summary>Returns one page of agencies.</summary>
 public static class GetRealtyAgencies
 {
-    /// <summary>Number of agencies a page holds when the caller does not say.</summary>
+    /// <summary>Page size when none is given.</summary>
     public const int DefaultPageSize = 20;
 
-    /// <summary>Most agencies a single page may hold.</summary>
+    /// <summary>Largest page size allowed.</summary>
     public const int MaxPageSize = 100;
 
-    /// <summary>Registers the route the agency list is read through.</summary>
+    /// <summary>Registers the list route.</summary>
     public static void MapGetRealtyAgencies(this IEndpointRouteBuilder group)
     {
         group.MapGet("", GetRealtyAgenciesAsync)
-            .WithName("GetRealtyAgencies");
+            .WithName(nameof(GetRealtyAgenciesAsync));
     }
 
-    /// <summary>
-    /// Reads one page of the agencies on the portal, narrowed by <paramref name="name"/> when one is given.
-    /// Open to anyone, since an agency is public.
-    /// </summary>
-    /// <param name="name">Part of the agency name to match, or null to match every agency.</param>
-    /// <param name="page">One-based number of the page to read.</param>
-    /// <param name="pageSize">Maximum number of agencies the page holds, at most <see cref="MaxPageSize"/>.</param>
-    private static async Task<IResult> GetRealtyAgenciesAsync(
+    /// <summary>Reads one page of agencies, narrowed by <paramref name="name"/> when given; public.</summary>
+    /// <param name="name">Name fragment to match; null matches all.</param>
+    /// <param name="page">One-based page number.</param>
+    /// <param name="pageSize">Page size, at most <see cref="MaxPageSize"/>.</param>
+    internal static async Task<IResult> GetRealtyAgenciesAsync(
         string? name,
         RealtyAgencyService realtyAgencyService,
         CancellationToken cancellationToken,
@@ -50,8 +48,8 @@ public static class GetRealtyAgencies
         }
 
         var agencies = await realtyAgencyService.SearchAgenciesAsync(name, page, pageSize, cancellationToken);
-        var items = agencies.Items.Select(a => a.ToDto()).ToList();
-        return TypedResults.Ok(new PagedResult<RealtyAgencyDto>(items, agencies.Page, agencies.PageSize,
+        var items = agencies.Items.Select(a => a.ToGetResponse()).ToList();
+        return TypedResults.Ok(new PagedResult<GetRealtyAgencyResponse>(items, agencies.Page, agencies.PageSize,
             agencies.TotalCount));
     }
 }
