@@ -1,0 +1,45 @@
+@implements IAsyncDisposable
+@inject IJSRuntime Js
+
+@* An OpenStreetMap map (Leaflet) showing adverts as pins. One pin for a detail, many for search results. *@
+
+<div @ref="element" style="height: @Height" class="rounded border"></div>
+
+@code {
+    /// <summary>Pins to show.</summary>
+    [Parameter] public IReadOnlyList<AdvertMapMarker> Markers { get; set; } = [];
+
+    /// <summary>CSS height of the map container.</summary>
+    [Parameter] public string Height { get; set; } = "400px";
+
+    private ElementReference element;
+    private IJSObjectReference? module;
+    private int mapId = -1;
+    private IReadOnlyList<AdvertMapMarker>? shown;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await Js.InvokeAsync<IJSObjectReference>("import", "./Features/SRealty/Components/AdvertMap.razor.js");
+            mapId = await module.InvokeAsync<int>("create", element, Markers);
+            shown = Markers;
+        }
+        else if (module is not null && !ReferenceEquals(Markers, shown))
+        {
+            await module.InvokeVoidAsync("setMarkers", mapId, Markers);
+            shown = Markers;
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (module is null)
+        {
+            return;
+        }
+
+        await module.InvokeVoidAsync("dispose", mapId);
+        await module.DisposeAsync();
+    }
+}

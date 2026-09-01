@@ -1,4 +1,7 @@
 @inherits AdvertFormSection
+@using Client.Features.RealtyAgent
+@inject RealtyAgentApiClient RealtyAgents
+@inject AuthStateService AuthState
 
 @* SrealityAdvertDto.Core.cs: what the advert is and who is selling it. *@
 
@@ -41,8 +44,15 @@
         <FloatingText Label="Kód inzerátu" @bind-Value="Model.AdvertCode"/>
     </div>
     <div class="col-md-4">
-        <FloatingText Label="Makléř – klíč v RK" @bind-Value="Model.SellerRkId"
-                      Help="Označení makléře v systému kanceláře."/>
+        <FloatingSelect TValue="Guid?" Label="Makléř" Help="Prodávající makléř inzerátu."
+                        Value="@Model.SellerId" ValueChanged="@((Guid? value) => OnSellerChanged(value))"
+                        ValueExpression="@(() => Model.SellerId)">
+            <option value="">— nevyplněno —</option>
+            @foreach (var agent in agents)
+            {
+                <option value="@agent.UserId">@AgentLabel(agent)</option>
+            }
+        </FloatingSelect>
     </div>
 </div>
 
@@ -54,3 +64,35 @@
         <CheckBoxRevealField Label="Exkluzivně u kanceláře" @bind-Value="Model.ExclusivelyAtRk"/>
     </div>
 </div>
+
+@code {
+    private IReadOnlyList<RealtyAgentDto> agents = [];
+
+    /// <summary>Fills the seller drop-down with the caller's agency agents, or just the caller when alone.</summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await AuthState.InitializeAsync();
+        if (AuthState.AgencyId is { } agencyId)
+        {
+            var (page, _) = await RealtyAgents.GetAgentsAsync(agencyId, 1, 100);
+            agents = page?.Items ?? [];
+        }
+        else if (AuthState.Claims is { } claims && AuthState.IsAgent)
+        {
+            var (self, _) = await RealtyAgents.GetAgentAsync(claims.UserId);
+            agents = self is null ? [] : [self];
+        }
+    }
+
+    /// <summary>Sets the seller by identifier and clears the agency key; an advert names one, never both.</summary>
+    private void OnSellerChanged(Guid? sellerId)
+    {
+        Model.SellerId = sellerId;
+        Model.SellerRkId = null;
+    }
+
+    private static string AgentLabel(RealtyAgentDto agent)
+        => agent.UserName is { Length: > 0 } name
+            ? agent.RealtyAgentRkId is { Length: > 0 } key ? $"{name} ({key})" : name
+            : agent.RealtyAgentRkId ?? agent.UserId.ToString();
+}

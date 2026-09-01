@@ -1,0 +1,48 @@
+@using Shared.SRealty.Photo.GetPhotos
+
+@* The photos of an advert as a grid. The detail shows it read-only; the upload step lets the agent delete. *@
+
+@if (Photos.Count == 0)
+{
+    <p class="text-body-secondary">Zatím žádné fotografie.</p>
+}
+else
+{
+    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-3">
+        @foreach (var photo in Photos)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@photo.Url" alt="@(photo.Alt ?? string.Empty)" loading="lazy"
+                         class="card-img-top object-fit-cover" style="aspect-ratio: 4 / 3"/>
+                    @{
+                        var label = photo.RoomType?.GetLocalizedDisplayName() ?? photo.PhotoKind?.GetLocalizedDisplayName();
+                    }
+                    @if (label is not null || CanDelete)
+                    {
+                        <div class="card-body p-2 d-flex justify-content-between align-items-center">
+                            <span class="small text-body-secondary">@label</span>
+                            @if (CanDelete)
+                            {
+                                <button class="btn btn-outline-danger btn-sm" type="button" title="Smazat fotografii"
+                                        @onclick="() => OnDelete.InvokeAsync(photo)">
+                                    <i class="bi bi-trash" aria-hidden="true"></i>
+                                </button>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter] [EditorRequired] public IReadOnlyList<PhotoDto> Photos { get; set; } = [];
+
+    /// <summary>Whether each photo offers a delete button.</summary>
+    [Parameter] public bool CanDelete { get; set; }
+
+    /// <summary>Raised with the photo whose delete button was pressed.</summary>
+    [Parameter] public EventCallback<PhotoDto> OnDelete { get; set; }
+}

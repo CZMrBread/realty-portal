@@ -86,16 +86,13 @@
 
     [Parameter] public bool Busy { get; set; }
 
-    /// <summary>Message shown above the buttons, for a failure the server reported.</summary>
+    /// <summary>Server-reported error shown above the buttons.</summary>
     [Parameter] public string? Error { get; set; }
 
-    /// <summary>Further buttons beside the submit one, a cancel link for instance.</summary>
+    /// <summary>Further buttons beside the submit one, e.g. a cancel link.</summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// The context is built here rather than left to the form, because the form has to watch it: which fields
-    /// the sections show follows from the category and the function, so both have to redraw the whole form.
-    /// </summary>
+    /// <summary>Builds the edit context for a new model and subscribes to its field changes.</summary>
     protected override void OnParametersSet()
     {
         if (editContext is not null && ReferenceEquals(editContext.Model, Model))

@@ -29,7 +29,7 @@
 </div>
 
 @code {
-    /// <summary>The keywords as one line, which is the only sensible way to type a list into a text box.</summary>
+    /// <summary>The keywords joined into one comma-separated line for the text box.</summary>
     private string? KeywordsText => Model.Keywords is null ? null : string.Join(", ", Model.Keywords);
 
     private void SetKeywords(string? text)
