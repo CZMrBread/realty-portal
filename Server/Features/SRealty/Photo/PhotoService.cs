@@ -7,10 +7,7 @@ using Shared.SRealty.Photo.UploadPhoto;
 
 namespace Server.Features.SRealty.Photo;
 
-/// <summary>
-/// Keeps the photo metadata in the database and the image files in <see cref="IPhotoStorage"/> in step with
-/// each other.
-/// </summary>
+/// <summary>Keeps photo metadata in the database and image files in <see cref="IPhotoStorage"/> in step.</summary>
 public sealed class PhotoService(AppDbContext appDbContext, IPhotoStorage photoStorage)
 {
     // --- Get ---
@@ -33,7 +30,7 @@ public sealed class PhotoService(AppDbContext appDbContext, IPhotoStorage photoS
             .FirstOrDefaultAsync(p => p.Id == photoId, cancellationToken);
     }
 
-    /// <summary>Photo with the given identifier, provided it really belongs to the given advert. Tracked.</summary>
+    /// <summary>Photo with the given identifier on the given advert, or null. Tracked.</summary>
     public async Task<SrealityAdvertPhotoEntity?> FindPhotoByAdvertIdAndIdAsync(Guid advertId, Guid photoId,
         CancellationToken cancellationToken = default)
     {
@@ -41,7 +38,7 @@ public sealed class PhotoService(AppDbContext appDbContext, IPhotoStorage photoS
             .FirstOrDefaultAsync(p => p.Id == photoId && p.SrealityAdvertId == advertId, cancellationToken);
     }
 
-    /// <summary>Photo the agency knows under the given key, so a repeated import finds its own image. The key is unique only within one advert.</summary>
+    /// <summary>Photo of the advert the agency knows under the given key, or null. Tracked.</summary>
     public async Task<SrealityAdvertPhotoEntity?> FindPhotoByRkIdAsync(Guid advertId, string photoRkId,
         CancellationToken cancellationToken = default)
     {
@@ -53,8 +50,8 @@ public sealed class PhotoService(AppDbContext appDbContext, IPhotoStorage photoS
     // --- Create / Update / Delete ---
 
     /// <summary>
-    /// Files the image in the store and records its metadata against the advert, placed at the end of the gallery.
-    /// A repeated import under an agency key the advert already carries replaces that photo instead of adding another.
+    /// Files the image in the store and appends its metadata to the gallery; an agency key the advert already
+    /// carries replaces that photo instead.
     /// </summary>
     public async Task<SrealityAdvertPhotoEntity> AddPhotoAsync(SrealityAdvertEntity advert, Stream content,
         UploadPhotoRequest request, string? photoRkId = null, CancellationToken cancellationToken = default)
@@ -101,10 +98,7 @@ public sealed class PhotoService(AppDbContext appDbContext, IPhotoStorage photoS
         return photo;
     }
 
-    /// <summary>
-    /// Changes the metadata of an existing photo, and its image when a stream is sent along. The agency key is
-    /// only ever assigned, never cleared, so a request that omits it leaves the key in place.
-    /// </summary>
+    /// <summary>Updates photo metadata, and the image when a stream is sent; an omitted agency key is kept.</summary>
     public async Task<SrealityAdvertPhotoEntity> UpdatePhotoAsync(SrealityAdvertPhotoEntity photo, Stream? content,
         EditPhotoRequest request, CancellationToken cancellationToken = default)
     {
@@ -125,7 +119,7 @@ public sealed class PhotoService(AppDbContext appDbContext, IPhotoStorage photoS
         return photo;
     }
 
-    /// <summary>Puts the gallery into the given order and returns the photos as they now stand.</summary>
+    /// <summary>Reorders the gallery and returns the photos in their new order.</summary>
     public async Task<List<SrealityAdvertPhotoEntity>> ReorderPhotosAsync(Guid advertId, List<Guid> orderedPhotoIds,
         CancellationToken cancellationToken = default)
     {
@@ -148,7 +142,7 @@ public sealed class PhotoService(AppDbContext appDbContext, IPhotoStorage photoS
         return reordered;
     }
 
-    /// <summary>Removes one photo together with its image file and closes the gap it leaves in the gallery order.</summary>
+    /// <summary>Removes a photo and its image file, closing the gap in the gallery order.</summary>
     public async Task DeletePhotoAsync(SrealityAdvertPhotoEntity photo, CancellationToken cancellationToken = default)
     {
         appDbContext.SrealityAdvertPhotos.Remove(photo);
@@ -161,7 +155,7 @@ public sealed class PhotoService(AppDbContext appDbContext, IPhotoStorage photoS
         await photoStorage.DeleteAsync(photo.StoragePath, cancellationToken);
     }
 
-    /// <summary>Removes every photo of an advert together with the image files.</summary>
+    /// <summary>Removes every photo of an advert, image files included.</summary>
     public async Task DeleteAdvertPhotosAsync(Guid advertId, CancellationToken cancellationToken = default)
     {
         await appDbContext.SrealityAdvertPhotos

@@ -15,24 +15,18 @@ namespace Server.Features.SRealty.Photo.UploadPhoto;
 /// <summary>Adds a photo to an advert.</summary>
 public static class UploadPhoto
 {
-    /// <summary>
-    /// Registers the three upload routes. Identifiers are never mixed: the advert is named by its portal
-    /// identifier, or the whole path speaks in the keys the agency uses.
-    /// </summary>
+    /// <summary>Registers the two upload routes; a path is all portal identifiers or all agency keys.</summary>
     public static void MapUploadPhoto(this IEndpointRouteBuilder group)
     {
         group.MapPost("/{advertId:guid}/photo", UploadPhotoByIdAsync)
-            .WithName("UploadPhoto");
-
-        group.MapPost("/rk/{advertRkId}/photo", UploadPhotoByRkIdAsync)
-            .WithName("UploadPhotoByAdvertRkId");
+            .WithName(nameof(UploadPhotoByIdAsync));
 
         group.MapPost("/rk/{advertRkId}/photo/rk/{photoRkId}", UploadPhotoByRkIdAsync)
-            .WithName("UploadPhotoByAdvertRkIdWithRkId");
+            .WithName(nameof(UploadPhotoByRkIdAsync));
     }
 
     /// <summary>Uploads to the advert the portal knows under <paramref name="advertId"/>.</summary>
-    private static async Task<IResult> UploadPhotoByIdAsync(
+    internal static async Task<IResult> UploadPhotoByIdAsync(
         Guid advertId,
         IFormFile file,
         [FromForm] UploadPhotoRequest request,
@@ -52,10 +46,10 @@ public static class UploadPhoto
         return await UploadResolvedAsync(agent, advert, null, file, request, photoService, cancellationToken);
     }
 
-    /// <summary>Uploads to the advert the caller agency knows under <paramref name="advertRkId"/>.</summary>
-    private static async Task<IResult> UploadPhotoByRkIdAsync(
+    /// <summary>Uploads to the advert the caller's agency knows under <paramref name="advertRkId"/>.</summary>
+    internal static async Task<IResult> UploadPhotoByRkIdAsync(
         string advertRkId,
-        string? photoRkId,
+        string photoRkId,
         IFormFile file,
         [FromForm] UploadPhotoRequest request,
         ClaimsPrincipal principal,
@@ -80,7 +74,7 @@ public static class UploadPhoto
         return await UploadResolvedAsync(agent, advert, photoRkId, file, request, photoService, cancellationToken);
     }
 
-    /// <summary>Everything both routes do once the advert is in hand.</summary>
+    /// <summary>Shared core of both routes.</summary>
     private static async Task<IResult> UploadResolvedAsync(
         RealtyAgentEntity agent,
         SrealityAdvertEntity? advert,

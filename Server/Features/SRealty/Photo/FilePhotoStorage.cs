@@ -4,15 +4,14 @@ using Microsoft.Extensions.Options;
 namespace Server.Features.SRealty.Photo;
 
 /// <summary>
-/// Keeps the images as ordinary files on disk, one folder per advert: {RootPath}/{advertId}/{photoId}.jpg.
-/// Every upload is validated, scaled down, stripped of metadata and re-encoded as JPEG, so what lands on disk
-/// is never the caller's bytes.
+/// Keeps the images as files on disk, {RootPath}/{advertId}/{photoId}.jpg. Every upload is validated, scaled down,
+/// stripped of metadata and re-encoded as JPEG.
 /// </summary>
 public sealed class FilePhotoStorage : IPhotoStorage
 {
     private const string Extension = ".jpg";
 
-    /// <summary>Process-wide ceiling on the pixel cache ImageMagick keeps in RAM; past it the cache spills to disk.</summary>
+    /// <summary>Process-wide ceiling on ImageMagick's in-memory pixel cache.</summary>
     private const ulong MagickMemoryLimitBytes = 512UL * 1024 * 1024;
 
     private static readonly MagickFormat[] AcceptedFormats =
@@ -33,12 +32,12 @@ public sealed class FilePhotoStorage : IPhotoStorage
         Directory.CreateDirectory(_rootPath);
     }
 
-    /// <summary>Path the database holds for a photo, relative to the root so the root can move.</summary>
+    /// <summary>Path stored in the database for a photo, relative to the root.</summary>
     public static string GetRelativePath(Guid advertId, Guid photoId)
         => $"{advertId:D}/{photoId:D}{Extension}";
 
     /// <summary>
-    /// Validates, normalizes and writes an image, returning the path it can be read back by.
+    /// Validates, normalizes and writes an image, returning its stored path.
     /// Throws <see cref="InvalidPhotoException"/> when the content is not an accepted image.
     /// </summary>
     public async Task<string> SaveAsync(Guid advertId, Guid photoId, Stream content, CancellationToken cancellationToken = default)
@@ -94,7 +93,7 @@ public sealed class FilePhotoStorage : IPhotoStorage
         return relativePath;
     }
 
-    /// <summary>Opens an image for reading, or returns null when nothing is stored under that path.</summary>
+    /// <summary>Opens an image for reading, or null when nothing is stored under that path.</summary>
     public Task<Stream?> OpenReadAsync(string storagePath, CancellationToken cancellationToken = default)
     {
         var fullPath = ResolveFullPath(storagePath);
@@ -107,7 +106,7 @@ public sealed class FilePhotoStorage : IPhotoStorage
         return Task.FromResult<Stream?>(stream);
     }
 
-    /// <summary>Removes the image stored under the given path, and the advert folder once it is empty.</summary>
+    /// <summary>Removes the image under the given path, and the advert folder once empty.</summary>
     public Task DeleteAsync(string storagePath, CancellationToken cancellationToken = default)
     {
         var fullPath = ResolveFullPath(storagePath);
@@ -122,7 +121,7 @@ public sealed class FilePhotoStorage : IPhotoStorage
         return Task.CompletedTask;
     }
 
-    /// <summary>Removes every image of an advert in one go, folder included.</summary>
+    /// <summary>Removes every image of an advert, folder included.</summary>
     public Task DeleteAdvertAsync(Guid advertId, CancellationToken cancellationToken = default)
     {
         var advertDirectory = ResolveFullPath(advertId.ToString("D"));
@@ -134,7 +133,7 @@ public sealed class FilePhotoStorage : IPhotoStorage
         return Task.CompletedTask;
     }
 
-    /// <summary>Buffers the upload, refusing it once it grows past the configured ceiling.</summary>
+    /// <summary>Buffers the upload, refusing it once it exceeds the configured ceiling.</summary>
     private async Task<byte[]> ReadUploadAsync(Stream content, CancellationToken cancellationToken)
     {
         using var buffer = new MemoryStream();
@@ -180,7 +179,7 @@ public sealed class FilePhotoStorage : IPhotoStorage
         image.Settings.Interlace = Interlace.Jpeg;
     }
 
-    /// <summary>Turns a stored path into an absolute one and refuses anything that would escape the root.</summary>
+    /// <summary>Turns a stored path into an absolute one, refusing paths that escape the root.</summary>
     private string ResolveFullPath(string relativePath)
     {
         if (string.IsNullOrWhiteSpace(relativePath) || Path.IsPathRooted(relativePath))

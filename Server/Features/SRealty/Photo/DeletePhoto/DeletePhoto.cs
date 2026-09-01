@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using ImageMagick;
 using Server.Features.RealtyAgent;
 using Server.Features.RealtyAgent.Entity;
 using Server.Features.SRealty.Advert;
@@ -13,10 +14,7 @@ namespace Server.Features.SRealty.Photo.DeletePhoto;
 /// <summary>Removes a photo from an advert.</summary>
 public static class DeletePhoto
 {
-    /// <summary>
-    /// Registers the two delete routes. Identifiers are never mixed: the whole path speaks either in portal
-    /// identifiers or in the keys the agency uses.
-    /// </summary>
+    /// <summary>Registers the two delete routes; a path is all portal identifiers or all agency keys.</summary>
     public static void MapDeletePhoto(this IEndpointRouteBuilder group)
     {
         group.MapDelete("/{advertId:guid}/photo/{photoId:guid}", DeletePhotoByIdAsync)
@@ -26,8 +24,8 @@ public static class DeletePhoto
             .WithName("DeletePhotoByRkId");
     }
 
-    /// <summary>Deletes the photo the portal knows under <paramref name="photoId"/> on the advert it knows under <paramref name="advertId"/>.</summary>
-    private static async Task<IResult> DeletePhotoByIdAsync(
+    /// <summary>Deletes a photo, addressed by portal identifiers.</summary>
+    internal static async Task<IResult> DeletePhotoByIdAsync(
         Guid advertId,
         Guid photoId,
         ClaimsPrincipal principal,
@@ -46,8 +44,8 @@ public static class DeletePhoto
         return await DeleteResolvedAsync(agent, advert, photoId, null, photoService, cancellationToken);
     }
 
-    /// <summary>Deletes the photo the caller agency knows under <paramref name="photoRkId"/> on the advert it knows under <paramref name="advertRkId"/>.</summary>
-    private static async Task<IResult> DeletePhotoByRkIdAsync(
+    /// <summary>Deletes a photo, addressed by agency keys.</summary>
+    internal static async Task<IResult> DeletePhotoByRkIdAsync(
         string advertRkId,
         string photoRkId,
         ClaimsPrincipal principal,
@@ -72,7 +70,7 @@ public static class DeletePhoto
         return await DeleteResolvedAsync(agent, advert, null, photoRkId, photoService, cancellationToken);
     }
 
-    /// <summary>Everything both routes do once the advert is in hand.</summary>
+    /// <summary>Shared core of both routes.</summary>
     private static async Task<IResult> DeleteResolvedAsync(
         RealtyAgentEntity agent,
         SrealityAdvertEntity? advert,

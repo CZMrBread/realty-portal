@@ -4,10 +4,7 @@ using Shared.SRealty.Photo;
 
 namespace Server.Features.SRealty.Photo.Entity;
 
-/// <summary>
-/// A photo belonging to an advert. The image itself lives in the store behind <see cref="IPhotoStorage"/>;
-/// this entity holds only the metadata.
-/// </summary>
+/// <summary>Metadata of an advert photo; the image itself lives behind <see cref="IPhotoStorage"/>.</summary>
 public class SrealityAdvertPhotoEntity : ITimeStampedEntity
 {
     public Guid Id { get; set; } = Guid.CreateVersion7();
@@ -18,10 +15,10 @@ public class SrealityAdvertPhotoEntity : ITimeStampedEntity
     /// <summary>Path or key the image is filed under in the photo store.</summary>
     public required string StoragePath { get; set; }
 
-    /// <summary>Key of the photo in the agency own system, so that a repeated import can recognise the same image.</summary>
+    /// <summary>Key of the photo in the agency's own system.</summary>
     public string? PhotoRkId { get; set; }
 
-    /// <summary>Position in the gallery, where zero is the leading photo.</summary>
+    /// <summary>Zero-based position in the gallery.</summary>
     public int Order { get; set; }
 
     public PhotoRoomTypeEnum? RoomType { get; set; }

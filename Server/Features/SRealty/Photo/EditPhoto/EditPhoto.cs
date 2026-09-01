@@ -12,24 +12,21 @@ using Shared.SRealty.Photo.EditPhoto;
 
 namespace Server.Features.SRealty.Photo.EditPhoto;
 
-/// <summary>Changes the metadata of a photo, and its image file when one is sent along.</summary>
+/// <summary>Changes a photo's metadata, and its image when one is sent.</summary>
 public static class EditPhoto
 {
-    /// <summary>
-    /// Registers the two edit routes. Identifiers are never mixed: the whole path speaks either in portal
-    /// identifiers or in the keys the agency uses.
-    /// </summary>
+    /// <summary>Registers the two edit routes; a path is all portal identifiers or all agency keys.</summary>
     public static void MapEditPhoto(this IEndpointRouteBuilder group)
     {
         group.MapPut("/{advertId:guid}/photo/{photoId:guid}", EditPhotoByIdAsync)
-            .WithName("EditPhoto");
+            .WithName(nameof(EditPhotoByIdAsync));
 
         group.MapPut("/rk/{advertRkId}/photo/rk/{photoRkId}", EditPhotoByRkIdAsync)
-            .WithName("EditPhotoByRkId");
+            .WithName(nameof(EditPhotoByRkIdAsync));
     }
 
-    /// <summary>Edits the photo the portal knows under <paramref name="photoId"/> on the advert it knows under <paramref name="advertId"/>.</summary>
-    private static async Task<IResult> EditPhotoByIdAsync(
+    /// <summary>Edits a photo, addressed by portal identifiers.</summary>
+    internal static async Task<IResult> EditPhotoByIdAsync(
         Guid advertId,
         Guid photoId,
         IFormFile? file,
@@ -51,8 +48,8 @@ public static class EditPhoto
             cancellationToken);
     }
 
-    /// <summary>Edits the photo the caller agency knows under <paramref name="photoRkId"/> on the advert it knows under <paramref name="advertRkId"/>.</summary>
-    private static async Task<IResult> EditPhotoByRkIdAsync(
+    /// <summary>Edits a photo, addressed by agency keys.</summary>
+    internal static async Task<IResult> EditPhotoByRkIdAsync(
         string advertRkId,
         string photoRkId,
         IFormFile? file,
@@ -80,7 +77,7 @@ public static class EditPhoto
             cancellationToken);
     }
 
-    /// <summary>Everything both routes do once the advert is in hand. Without a <paramref name="file"/> only the metadata changes.</summary>
+    /// <summary>Shared core of both routes; without a <paramref name="file"/> only the metadata changes.</summary>
     private static async Task<IResult> EditResolvedAsync(
         RealtyAgentEntity agent,
         SrealityAdvertEntity? advert,

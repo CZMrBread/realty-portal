@@ -6,17 +6,18 @@ using Server.Features.SRealty.Advert.GetFilteredAdverts;
 using Server.Features.SRealty.Advert.UpdateAdvert;
 using Server.Features.SRealty.Photo.DeletePhoto;
 using Server.Features.SRealty.Photo.EditPhoto;
+using Server.Features.SRealty.Photo.GetPhotos;
 using Server.Features.SRealty.Photo.UploadPhoto;
 
 namespace Server.Features.SRealty;
 
-/// <summary>Collects every route of the SRealty feature under one group.</summary>
+/// <summary>Route group of the SRealty feature.</summary>
 public static class SRealtyEndpoints
 {
-    /// <summary>Path every route of the feature hangs under.</summary>
+    /// <summary>Path prefix of every route of the feature.</summary>
     public const string Prefix = "/srealty";
 
-    /// <summary>Path the advert routes hang under, relative to <see cref="Prefix"/>. Photos hang under the advert too, since they belong to one.</summary>
+    /// <summary>Path of the advert and photo routes, relative to <see cref="Prefix"/>.</summary>
     public const string AdvertPrefix = "/advert";
 
     /// <summary>OpenAPI tag of the whole feature.</summary>
@@ -44,6 +45,7 @@ public static class SRealtyEndpoints
         var photoGroup = group.MapGroup(AdvertPrefix).WithTags(PhotoTag)
             .RequireAuthorization(AgentPolicies.AgentOnly)
             .DisableAntiforgery();
+        photoGroup.MapGetPhotos();
         photoGroup.MapUploadPhoto();
         photoGroup.MapEditPhoto();
         photoGroup.MapDeletePhoto();
