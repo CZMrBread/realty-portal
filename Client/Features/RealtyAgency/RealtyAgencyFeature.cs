@@ -1,11 +1,12 @@
 namespace Client.Features.RealtyAgency;
 
-/// <summary>Wires up the RealtyAgency slice. The counterpart of the server MapRealtyAgencyEndpoints.</summary>
+/// <summary>Wires up the RealtyAgency slice; counterpart of the server MapRealtyAgencyEndpoints.</summary>
 public static class RealtyAgencyFeature
 {
     public static IServiceCollection AddRealtyAgencyFeature(this IServiceCollection services, Uri serverApi)
     {
-        services.AddScoped<RealtyAgencyApiClient>(_ => new RealtyAgencyApiClient(new HttpClient { BaseAddress = serverApi }));
+        // the authenticated client registered by the User feature, so the write routes carry the caller's token
+        services.AddScoped<RealtyAgencyApiClient>(sp => new RealtyAgencyApiClient(sp.GetRequiredService<HttpClient>()));
         return services;
     }
 }

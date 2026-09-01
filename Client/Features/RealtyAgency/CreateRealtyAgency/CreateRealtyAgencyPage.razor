@@ -1,7 +1,8 @@
 @page "/agency/create"
 @using Client.Features.RealtyAgency
-@using Shared.RealtyAgency
+@using Shared.RealtyAgency.CreateRealtyAgency
 @inject RealtyAgencyApiClient RealtyAgencies
+@inject AuthStateService AuthState
 @inject NavigationManager Navigation
 
 <PageTitle>Register an agency</PageTitle>
@@ -13,9 +14,48 @@
                 <div class="card-body">
                     <h1 class="h4 card-title mb-3">Register a realty agency</h1>
 
-                    @if (error is not null)
+                    @if (!AuthState.IsAuthenticated)
                     {
-                        <div class="alert alert-danger" role="alert">@error</div>
+                        <p>You have to be signed in to register an agency.</p>
+                        <a class="btn btn-primary" href="login?returnUrl=agency%2Fcreate">Sign in</a>
+                    }
+                    else if (!AuthState.IsAgent)
+                    {
+                        <p>Only a realty agent can register an agency. Take on an agent profile first.</p>
+                        <a class="btn btn-primary" href="agent/become">Become an agent</a>
+                    }
+                    else if (AuthState.AgencyId is not null)
+                    {
+                        <p class="mb-3">You already belong to an agency, so you cannot found another one.</p>
+                        <a class="btn btn-primary" href="agency/@AuthState.AgencyId">Go to your agency</a>
+                    }
+                    else
+                    {
+                        <p>You will join the new agency as its administrator.</p>
+
+                        <BootstrapEditForm Model="agency" OnValidSubmit="SubmitAsync">
+                            <DataAnnotationsValidator/>
+
+                            <FloatingText Label="Name" @bind-Value="agency.Name"/>
+
+                            <FloatingText Label="Registration number (IČO)" autocomplete="off"
+                                          @bind-Value="agency.RegistrationNumber"/>
+
+                            <FloatingText Label="Email" Type="email" @bind-Value="agency.Email"/>
+
+                            @if (error is not null)
+                            {
+                                <div class="alert alert-danger" role="alert">@error</div>
+                            }
+
+                            <button class="btn btn-primary" type="submit" disabled="@busy">
+                                @if (busy)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                }
+                                Register the agency
+                            </button>
+                        </BootstrapEditForm>
                     }
                 </div>
             </div>
@@ -24,9 +64,28 @@
 </div>
 
 @code {
-    private readonly RealtyAgencyDto agency = new();
+    private readonly CreateRealtyAgencyRequest agency = new();
     private string? error;
     private bool busy;
 
-    private Task SubmitAsync() => throw new NotImplementedException();
+    protected override async Task OnInitializedAsync() => await AuthState.InitializeAsync();
+
+    /// <summary>Creates the agency and forces a token refresh; the founder's admin role travels in the token.</summary>
+    private async Task SubmitAsync()
+    {
+        busy = true;
+        error = null;
+
+        var (response, failure) = await RealtyAgencies.CreateAgencyAsync(agency);
+        if (response is null)
+        {
+            error = failure ?? "The agency could not be registered.";
+            busy = false;
+            return;
+        }
+
+        await AuthState.TryRefreshAsync(force: true);
+        busy = false;
+        Navigation.NavigateTo($"agency/{response.Id}");
+    }
 }

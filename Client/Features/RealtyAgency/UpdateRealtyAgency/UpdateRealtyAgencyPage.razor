@@ -1,6 +1,6 @@
 @page "/agency/{Id:guid}/edit"
 @using Client.Features.RealtyAgency
-@using Shared.RealtyAgency
+@using Shared.RealtyAgency.UpdateRealtyAgency
 @inject RealtyAgencyApiClient RealtyAgencies
 @inject NavigationManager Navigation
 
@@ -17,6 +17,31 @@
                     {
                         <div class="alert alert-danger" role="alert">@error</div>
                     }
+
+                    @if (agency is not null)
+                    {
+                        <BootstrapEditForm Model="agency" OnValidSubmit="SubmitAsync">
+                            <DataAnnotationsValidator/>
+
+                            <FloatingText Label="Name" @bind-Value="agency.Name"/>
+
+                            <FloatingText Label="Registration number (IČO)" autocomplete="off"
+                                          @bind-Value="agency.RegistrationNumber"/>
+
+                            <FloatingText Label="Email" Type="email" @bind-Value="agency.Email"/>
+
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary" type="submit" disabled="@busy">
+                                    @if (busy)
+                                    {
+                                        <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                    }
+                                    Save
+                                </button>
+                                <a class="btn btn-outline-secondary" href="agency/@Id">Cancel</a>
+                            </div>
+                        </BootstrapEditForm>
+                    }
                 </div>
             </div>
         </div>
@@ -27,13 +52,44 @@
     [Parameter]
     public Guid Id { get; set; }
 
-    private RealtyAgencyDto? agency;
+    private UpdateRealtyAgencyRequest? agency;
     private string? error;
     private bool busy;
 
     protected override Task OnParametersSetAsync() => LoadAsync();
 
-    private Task LoadAsync() => throw new NotImplementedException();
+    private async Task LoadAsync()
+    {
+        error = null;
+        var (response, failure) = await RealtyAgencies.GetAgencyAsync(Id);
+        if (response is null)
+        {
+            error = failure ?? "The agency could not be loaded.";
+            return;
+        }
 
-    private Task SubmitAsync() => throw new NotImplementedException();
+        agency = new UpdateRealtyAgencyRequest
+        {
+            Name = response.Name,
+            RegistrationNumber = response.RegistrationNumber,
+            Email = response.Email
+        };
+    }
+
+    private async Task SubmitAsync()
+    {
+        busy = true;
+        error = null;
+
+        var (response, failure) = await RealtyAgencies.UpdateAgencyAsync(Id, agency!);
+        busy = false;
+
+        if (response is null)
+        {
+            error = failure ?? "The agency could not be saved.";
+            return;
+        }
+
+        Navigation.NavigateTo($"agency/{Id}");
+    }
 }

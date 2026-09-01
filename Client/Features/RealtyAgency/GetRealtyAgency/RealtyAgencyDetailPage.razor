@@ -1,7 +1,11 @@
 @page "/agency/{Id:guid}"
 @using Client.Features.RealtyAgency
-@using Shared.RealtyAgency
+@using Client.Features.RealtyAgent
+@using Shared.RealtyAgency.GetRealtyAgency
+@using Shared.RealtyAgent
 @inject RealtyAgencyApiClient RealtyAgencies
+@inject RealtyAgentApiClient RealtyAgents
+@inject AuthStateService AuthState
 @inject NavigationManager Navigation
 
 <PageTitle>Realty agency</PageTitle>
@@ -16,15 +20,18 @@
     {
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h4 mb-0">@agency.Name</h1>
-            <div class="d-flex gap-2">
-                <a class="btn btn-outline-primary" href="agency/@Id/edit">Edit</a>
-                @if (!confirmingDelete)
-                {
-                    <button class="btn btn-danger" type="button" disabled="@busy" @onclick="() => confirmingDelete = true">
-                        Delete
-                    </button>
-                }
-            </div>
+            @if (isAdminOfThisAgency)
+            {
+                <div class="d-flex gap-2">
+                    <a class="btn btn-outline-primary" href="agency/@Id/edit">Edit</a>
+                    @if (!confirmingDelete)
+                    {
+                        <button class="btn btn-danger" type="button" disabled="@busy" @onclick="() => confirmingDelete = true">
+                            Delete
+                        </button>
+                    }
+                </div>
+            }
         </div>
 
         @if (confirmingDelete)
@@ -45,6 +52,48 @@
                 </div>
             </div>
         }
+
+        <dl class="row mb-4">
+            <dt class="col-sm-3">Registration number (IČO)</dt>
+            <dd class="col-sm-9">@agency.RegistrationNumber</dd>
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@agency.Email</dd>
+        </dl>
+
+        @if (agents is not null)
+        {
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 mb-0">Agents</h2>
+                @if (isAdminOfThisAgency)
+                {
+                    <a class="btn btn-outline-primary btn-sm" href="agent/create">Add an agent</a>
+                }
+            </div>
+
+            @if (agents.Count == 0)
+            {
+                <p class="text-body-secondary">The agency has no agents yet.</p>
+            }
+            else
+            {
+                <div class="list-group">
+                    @foreach (var agent in agents)
+                    {
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                           href="agent/@agent.UserId">
+                            <span>
+                                <strong>@(agent.UserName ?? agent.UserId.ToString())</strong>
+                                @if (agent.RealtyAgentRkId is not null)
+                                {
+                                    <span class="text-body-secondary ms-2">(@agent.RealtyAgentRkId)</span>
+                                }
+                            </span>
+                            <span class="badge text-bg-secondary">@agent.AgentRole</span>
+                        </a>
+                    }
+                </div>
+            }
+        }
     }
 </div>
 
@@ -52,15 +101,50 @@
     [Parameter]
     public Guid Id { get; set; }
 
-    private RealtyAgencyDto? agency;
+    private GetRealtyAgencyResponse? agency;
+    private List<RealtyAgentDto>? agents;
+    private bool isAdminOfThisAgency;
     private string? error;
     private bool busy;
     private bool confirmingDelete;
 
     protected override Task OnParametersSetAsync() => LoadAsync();
 
-    private Task LoadAsync() => throw new NotImplementedException();
+    private async Task LoadAsync()
+    {
+        error = null;
+        await AuthState.InitializeAsync();
+        isAdminOfThisAgency = AuthState.IsAgencyAdmin && AuthState.AgencyId == Id;
 
-    /// <summary>Deletes the agency and returns to the list. Only reachable after the confirmation, so a stray click cannot delete anything.</summary>
-    private Task DeleteAsync() => throw new NotImplementedException();
+        var (response, failure) = await RealtyAgencies.GetAgencyAsync(Id);
+        if (response is null)
+        {
+            error = failure ?? "The agency could not be loaded.";
+            return;
+        }
+
+        agency = response;
+
+        // the agent list is agency-internal, so it is only asked for by the agency's own people
+        if (AuthState.AgencyId == Id)
+        {
+            var (agentPage, _) = await RealtyAgents.GetAgentsAsync(Id, 1, 100);
+            agents = agentPage?.Items;
+        }
+    }
+
+    /// <summary>Deletes the agency and returns to the list; reachable only after confirmation.</summary>
+    private async Task DeleteAsync()
+    {
+        busy = true;
+        error = await RealtyAgencies.DeleteAgencyAsync(Id);
+        busy = false;
+
+        if (error is null)
+        {
+            // membership and the admin role travel in the token, which no longer matches
+            await AuthState.TryRefreshAsync(force: true);
+            Navigation.NavigateTo("agency");
+        }
+    }
 }

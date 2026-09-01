@@ -1,6 +1,6 @@
 @page "/agency"
 @using Client.Features.RealtyAgency
-@using Shared.RealtyAgency
+@using Shared.RealtyAgency.GetRealtyAgency
 @using Shared.Shared
 @inject RealtyAgencyApiClient RealtyAgencies
 
@@ -12,14 +12,48 @@
         <a class="btn btn-primary" href="agency/create">Register an agency</a>
     </div>
 
+    <form class="d-flex gap-2 mb-4" @onsubmit="SearchAsync">
+        <input class="form-control" type="search" placeholder="Search by name" @bind="name"/>
+        <button class="btn btn-outline-primary" type="submit" disabled="@busy">Search</button>
+    </form>
+
     @if (error is not null)
     {
         <div class="alert alert-danger" role="alert">@error</div>
     }
+
+    @if (busy && agencies is null)
+    {
+        <div class="text-center py-5">
+            <span class="spinner-border" aria-hidden="true"></span>
+        </div>
+    }
+    else if (agencies is { Items.Count: 0 })
+    {
+        <p class="text-body-secondary py-4">No agencies match the search.</p>
+    }
+    else if (agencies is not null)
+    {
+        <div class="list-group mb-4">
+            @foreach (var agency in agencies.Items)
+            {
+                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                   href="agency/@agency.Id">
+                    <span>
+                        <strong>@agency.Name</strong>
+                        <span class="text-body-secondary ms-2">IČO @agency.RegistrationNumber</span>
+                    </span>
+                    <span class="text-body-secondary">@agency.Email</span>
+                </a>
+            }
+        </div>
+
+        <PaginationNav Page="@agencies.Page" TotalPages="@agencies.TotalPages" PageChanged="ChangePageAsync"/>
+    }
 </div>
 
 @code {
-    private PagedResult<RealtyAgencyDto>? agencies;
+    private PagedResult<GetRealtyAgencyResponse>? agencies;
     private string? name;
     private int page = 1;
     private const int PageSize = 20;
@@ -28,5 +62,33 @@
 
     protected override Task OnInitializedAsync() => LoadAsync();
 
-    private Task LoadAsync() => throw new NotImplementedException();
+    private Task SearchAsync()
+    {
+        page = 1;
+        return LoadAsync();
+    }
+
+    private Task ChangePageAsync(int number)
+    {
+        page = number;
+        return LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        busy = true;
+        error = null;
+
+        var (response, failure) = await RealtyAgencies.GetAgenciesAsync(name, page, PageSize);
+        if (response is null)
+        {
+            error = failure ?? "The agencies could not be loaded.";
+        }
+        else
+        {
+            agencies = response;
+        }
+
+        busy = false;
+    }
 }
