@@ -4,13 +4,10 @@ using Shared.User.Register;
 
 namespace Server.Tests;
 
-/// <summary>Creates accounts over the real endpoints, so that a test starts from a signed-in caller.</summary>
+/// <summary>Creates accounts over the real endpoints.</summary>
 public static class TestAccounts
 {
-    /// <summary>
-    /// Registers an account and returns what the server handed back, tokens included. Registration signs the
-    /// new account in, so no separate sign-in is needed.
-    /// </summary>
+    /// <summary>Registers an account and returns the response, tokens included.</summary>
     public static async Task<RegisterUserResponse> RegisterAsync(HttpClient client, string userName)
     {
         var response = await client.PostAsJsonAsync("api/user/register", new RegisterUserRequest

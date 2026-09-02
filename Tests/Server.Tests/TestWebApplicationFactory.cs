@@ -9,15 +9,10 @@ using Server.Infrastructure.Database;
 
 namespace Server.Tests;
 
-/// <summary>
-/// Boots the real API pipeline (endpoints, filters, auth) with the Aspire Npgsql DbContext swapped for an
-/// isolated SQLite database per factory. SQLite is used rather than the in-memory provider because it is a
-/// relational one: it enforces the keys and indexes the model declares, and it translates the bulk statements
-/// the token service is written in, which the in-memory provider refuses.
-/// </summary>
+/// <summary>Boots the real API pipeline against an isolated in-memory SQLite database per factory.</summary>
 public class TestWebApplicationFactory : WebApplicationFactory<Program>
 {
-    /// <summary>A SQLite in-memory database lives exactly as long as a connection to it is held open, so this one stays open for the lifetime of the factory and every context is handed the same connection.</summary>
+    /// <summary>Kept open for the factory's lifetime; the in-memory database lives only while it is open.</summary>
     private readonly SqliteConnection connection = new("DataSource=:memory:");
 
     public TestWebApplicationFactory()
