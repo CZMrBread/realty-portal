@@ -43,6 +43,19 @@
 
                             <FloatingText Label="Email" Type="email" @bind-Value="agency.Email"/>
 
+                            <FloatingText Label="Phone" Type="tel" autocomplete="off" @bind-Value="agency.PhoneNumber"/>
+
+                            <FloatingText Label="Street and number" autocomplete="off" @bind-Value="agency.Street"/>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <FloatingText Label="Postal code" autocomplete="off" @bind-Value="agency.PostalCode"/>
+                                </div>
+                                <div class="col-8">
+                                    <FloatingText Label="City" autocomplete="off" @bind-Value="agency.City"/>
+                                </div>
+                            </div>
+
                             @if (error is not null)
                             {
                                 <div class="alert alert-danger" role="alert">@error</div>

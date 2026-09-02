@@ -58,6 +58,10 @@
             <dd class="col-sm-9">@agency.RegistrationNumber</dd>
             <dt class="col-sm-3">Email</dt>
             <dd class="col-sm-9">@agency.Email</dd>
+            <dt class="col-sm-3">Phone</dt>
+            <dd class="col-sm-9">@(agency.PhoneNumber ?? "—")</dd>
+            <dt class="col-sm-3">Address</dt>
+            <dd class="col-sm-9">@(AddressLine(agency) ?? "—")</dd>
         </dl>
 
         @if (agents is not null)
@@ -82,7 +86,7 @@
                         <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                            href="agent/@agent.UserId">
                             <span>
-                                <strong>@(agent.UserName ?? agent.UserId.ToString())</strong>
+                                <strong>@(agent.Name ?? agent.UserId.ToString())</strong>
                                 @if (agent.RealtyAgentRkId is not null)
                                 {
                                     <span class="text-body-secondary ms-2">(@agent.RealtyAgentRkId)</span>
@@ -125,12 +129,16 @@
 
         agency = response;
 
-        // the agent list is agency-internal, so it is only asked for by the agency's own people
-        if (AuthState.AgencyId == Id)
-        {
-            var (agentPage, _) = await RealtyAgents.GetAgentsAsync(Id, 1, 100);
-            agents = agentPage?.Items;
-        }
+        var (agentPage, _) = await RealtyAgents.GetAgentsAsync(null, Id, 1, 100);
+        agents = agentPage?.Items;
+    }
+
+    /// <summary>Street, postal code and city on one line, or null when none is set.</summary>
+    private static string? AddressLine(GetRealtyAgencyResponse agency)
+    {
+        var parts = new[] { agency.Street, string.Join(' ', new[] { agency.PostalCode, agency.City }.Where(p => !string.IsNullOrWhiteSpace(p))) }
+            .Where(p => !string.IsNullOrWhiteSpace(p)).ToList();
+        return parts.Count == 0 ? null : string.Join(", ", parts);
     }
 
     /// <summary>Deletes the agency and returns to the list; reachable only after confirmation.</summary>

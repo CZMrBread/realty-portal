@@ -18,4 +18,18 @@ public sealed record CreateRealtyAgencyRequest
     [EmailAddress]
     [MaxLength(256)]
     public string? Email { get; set; }
+
+    [Phone]
+    [MaxLength(32)]
+    public string? PhoneNumber { get; set; }
+
+    /// <summary>Street and house number of the office.</summary>
+    [MaxLength(200)]
+    public string? Street { get; set; }
+
+    [MaxLength(100)]
+    public string? City { get; set; }
+
+    [MaxLength(16)]
+    public string? PostalCode { get; set; }
 }

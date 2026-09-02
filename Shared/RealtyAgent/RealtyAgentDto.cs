@@ -8,6 +8,21 @@ public sealed record RealtyAgentDto
     /// <summary>Identifier of the agent's user account, and of the agent.</summary>
     public Guid UserId { get; set; }
 
+    /// <summary>Full name shown to the public and searched by the agent list.</summary>
+    [Required]
+    [MaxLength(200)]
+    public string? Name { get; set; }
+
+    /// <summary>Public contact email; independent of the account email.</summary>
+    [EmailAddress]
+    [MaxLength(256)]
+    public string? Email { get; set; }
+
+    /// <summary>Public contact phone number.</summary>
+    [Phone]
+    [MaxLength(32)]
+    public string? PhoneNumber { get; set; }
+
     public AgentRoleEnum AgentRole { get; set; }
 
     /// <summary>Null while the agent belongs to no agency.</summary>

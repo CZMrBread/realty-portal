@@ -30,6 +30,19 @@
 
                             <FloatingText Label="Email" Type="email" @bind-Value="agency.Email"/>
 
+                            <FloatingText Label="Phone" Type="tel" autocomplete="off" @bind-Value="agency.PhoneNumber"/>
+
+                            <FloatingText Label="Street and number" autocomplete="off" @bind-Value="agency.Street"/>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <FloatingText Label="Postal code" autocomplete="off" @bind-Value="agency.PostalCode"/>
+                                </div>
+                                <div class="col-8">
+                                    <FloatingText Label="City" autocomplete="off" @bind-Value="agency.City"/>
+                                </div>
+                            </div>
+
                             <div class="d-flex gap-2">
                                 <button class="btn btn-primary" type="submit" disabled="@busy">
                                     @if (busy)
@@ -72,7 +85,11 @@
         {
             Name = response.Name,
             RegistrationNumber = response.RegistrationNumber,
-            Email = response.Email
+            Email = response.Email,
+            PhoneNumber = response.PhoneNumber,
+            Street = response.Street,
+            City = response.City,
+            PostalCode = response.PostalCode
         };
     }
 

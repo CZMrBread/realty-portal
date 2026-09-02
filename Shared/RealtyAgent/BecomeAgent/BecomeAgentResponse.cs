@@ -1,4 +1,3 @@
-
 namespace Shared.RealtyAgent.BecomeAgent;
 
 /// <summary>The newly created agent profile.</summary>
@@ -6,6 +5,15 @@ public sealed record BecomeAgentResponse
 {
     /// <summary>Identifier of the agent's user account, and of the agent.</summary>
     public Guid UserId { get; set; }
+
+    /// <summary>Full name shown to the public.</summary>
+    public string? Name { get; set; }
+
+    /// <summary>Public contact email.</summary>
+    public string? Email { get; set; }
+
+    /// <summary>Public contact phone number.</summary>
+    public string? PhoneNumber { get; set; }
 
     public AgentRoleEnum AgentRole { get; set; }
 
