@@ -7,7 +7,7 @@ using Server.Infrastructure.Database;
 namespace Server.Features.Ruian;
 
 /// <summary>
-/// Replaces the RUIAN tables on start-up from the CSV files embedded under Features/Ruian/Data.
+/// Adds the RUIAN rows missing from the database on start-up from the CSV files embedded under Features/Ruian/Data.
 /// Data: regions <c>Code,Name</c>, districts <c>Code,Name,RegionCode</c>, municipalities <c>Code,Name,DistrictCode</c>.
 /// </summary>
 public static class RuianImporter
@@ -34,13 +34,13 @@ public static class RuianImporter
             })
             .ToList();
 
-        await appDbContext.RuianMunicipalities.ExecuteDeleteAsync(cancellationToken);
-        await appDbContext.RuianDistricts.ExecuteDeleteAsync(cancellationToken);
-        await appDbContext.RuianRegions.ExecuteDeleteAsync(cancellationToken);
+        var existingRegions = await appDbContext.RuianRegions.Select(r => r.Code).ToHashSetAsync(cancellationToken);
+        var existingDistricts = await appDbContext.RuianDistricts.Select(d => d.Code).ToHashSetAsync(cancellationToken);
+        var existingMunicipalities = await appDbContext.RuianMunicipalities.Select(m => m.Code).ToHashSetAsync(cancellationToken);
 
-        appDbContext.RuianRegions.AddRange(regions);
-        appDbContext.RuianDistricts.AddRange(districts);
-        appDbContext.RuianMunicipalities.AddRange(municipalities);
+        appDbContext.RuianRegions.AddRange(regions.Where(r => !existingRegions.Contains(r.Code)));
+        appDbContext.RuianDistricts.AddRange(districts.Where(d => !existingDistricts.Contains(d.Code)));
+        appDbContext.RuianMunicipalities.AddRange(municipalities.Where(m => !existingMunicipalities.Contains(m.Code)));
         await appDbContext.SaveChangesAsync(cancellationToken);
 
         logger.LogInformation(
