@@ -31,6 +31,14 @@
                         <FloatingText Label="Email of the account" Type="email" autocomplete="off"
                                       @bind-Value="email"/>
 
+                        <FloatingText Label="Full name" autocomplete="off" @bind-Value="agent.Name"/>
+
+                        <FloatingText Label="Public email" Type="email" autocomplete="off"
+                                      Help="Shown on the agent's adverts, optional." @bind-Value="agent.Email"/>
+
+                        <FloatingText Label="Public phone" Type="tel" autocomplete="off"
+                                      Help="Shown on the agent's adverts, optional." @bind-Value="agent.PhoneNumber"/>
+
                         <FloatingSelect TValue="AgentRoleEnum" Label="Role" @bind-Value="agent.AgentRole">
                             @foreach (var role in Enum.GetValues<AgentRoleEnum>())
                             {

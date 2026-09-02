@@ -28,6 +28,19 @@ public sealed class RealtyAgencyEntity : ITimeStampedEntity
     [MaxLength(256)]
     public required string Email { get; set; }
 
+    [MaxLength(32)]
+    public string? PhoneNumber { get; set; }
+
+    /// <summary>Street and house number of the office.</summary>
+    [MaxLength(200)]
+    public string? Street { get; set; }
+
+    [MaxLength(100)]
+    public string? City { get; set; }
+
+    [MaxLength(16)]
+    public string? PostalCode { get; set; }
+
     /// <summary>Agents of the agency.</summary>
     [JsonIgnore]
     public List<RealtyAgentEntity> Agents { get; set; } = [];

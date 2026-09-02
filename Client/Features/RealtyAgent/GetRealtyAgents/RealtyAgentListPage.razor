@@ -1,0 +1,94 @@
+@page "/agent"
+@using Client.Features.RealtyAgent
+@using Shared.RealtyAgent
+@using Shared.Shared
+@inject RealtyAgentApiClient RealtyAgents
+
+<PageTitle>Realty agents</PageTitle>
+
+<div class="container py-5">
+    <h1 class="h4 mb-4">Realty agents</h1>
+
+    <form class="d-flex gap-2 mb-4" @onsubmit="SearchAsync">
+        <input class="form-control" type="search" placeholder="Search by name" @bind="name"/>
+        <button class="btn btn-outline-primary" type="submit" disabled="@busy">Search</button>
+    </form>
+
+    @if (error is not null)
+    {
+        <div class="alert alert-danger" role="alert">@error</div>
+    }
+
+    @if (busy && agents is null)
+    {
+        <div class="text-center py-5">
+            <span class="spinner-border" aria-hidden="true"></span>
+        </div>
+    }
+    else if (agents is { Items.Count: 0 })
+    {
+        <p class="text-body-secondary py-4">No agents match the search.</p>
+    }
+    else if (agents is not null)
+    {
+        <div class="list-group mb-4">
+            @foreach (var agent in agents.Items)
+            {
+                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                   href="agent/@agent.UserId">
+                    <span>
+                        <strong>@(agent.Name ?? agent.UserId.ToString())</strong>
+                        @if (!string.IsNullOrWhiteSpace(agent.Email))
+                        {
+                            <span class="text-body-secondary ms-2">@agent.Email</span>
+                        }
+                    </span>
+                    <span class="text-body-secondary">@agent.PhoneNumber</span>
+                </a>
+            }
+        </div>
+
+        <PaginationNav Page="@agents.Page" TotalPages="@agents.TotalPages" PageChanged="ChangePageAsync"/>
+    }
+</div>
+
+@code {
+    private PagedResult<RealtyAgentDto>? agents;
+    private string? name;
+    private int page = 1;
+    private const int PageSize = 20;
+    private string? error;
+    private bool busy;
+
+    protected override Task OnInitializedAsync() => LoadAsync();
+
+    private Task SearchAsync()
+    {
+        page = 1;
+        return LoadAsync();
+    }
+
+    private Task ChangePageAsync(int number)
+    {
+        page = number;
+        return LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        busy = true;
+        error = null;
+
+        var (response, failure) = await RealtyAgents.GetAgentsAsync(name, null, page, PageSize);
+        if (response is null)
+        {
+            error = failure ?? "The agents could not be loaded.";
+        }
+        else
+        {
+            agents = response;
+        }
+
+        busy = false;
+    }
+}

@@ -79,6 +79,9 @@ public static class CreateRealtyAgent
             existing.RealtyAgencyId = agencyId;
             existing.RealtyAgentRkId = request.RealtyAgentRkId;
             existing.AgentRole = request.AgentRole;
+            existing.Name = request.Name!;
+            existing.Email = request.Email;
+            existing.PhoneNumber = request.PhoneNumber;
             agent = await realtyAgentService.UpdateAgentAsync(existing, cancellationToken);
         }
         else
@@ -86,13 +89,16 @@ public static class CreateRealtyAgent
             agent = await realtyAgentService.CreateAgentAsync(new RealtyAgentEntity
             {
                 UserId = request.UserId,
+                Name = request.Name!,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
                 AgentRole = request.AgentRole,
                 RealtyAgencyId = agencyId,
                 RealtyAgentRkId = request.RealtyAgentRkId
             }, cancellationToken);
         }
 
-        return TypedResults.CreatedAtRoute(Entity.RealtyAgentMapper.ToDto(agent), nameof(GetRealtyAgent.GetRealtyAgent.GetRealtyAgentByIdAsync),
+        return TypedResults.CreatedAtRoute(agent.ToDto(), nameof(GetRealtyAgent.GetRealtyAgent.GetRealtyAgentByIdAsync),
             new { agentId = agent.UserId });
     }
 }

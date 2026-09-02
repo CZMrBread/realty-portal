@@ -65,14 +65,33 @@ public sealed class RealtyAgentService(AppDbContext appDbContext)
         return await query.ToListAsync(cancellationToken);
     }
 
-    /// <summary>One page of the agents of the given agency.</summary>
-    public async Task<PagedResult<RealtyAgentEntity>> GetAgencyAgentsPageAsync(Guid agencyId, int page, int pageSize,
-        CancellationToken cancellationToken = default)
+    /// <summary>One page of agents, narrowed by name and agency when given. Untracked.</summary>
+    public async Task<PagedResult<RealtyAgentEntity>> SearchAgentsAsync(string? name, Guid? agencyId, int page,
+        int pageSize, CancellationToken cancellationToken = default)
     {
-        var query = appDbContext.RealtyAgents.Include(agentEntity => agentEntity.User)
-            .Where(agentEntity => agentEntity.RealtyAgencyId == agencyId)
-            .OrderBy(agentEntity => agentEntity.RealtyAgentRkId).Skip((page - 1) * pageSize).Take(pageSize);
-        return await query.ToPagedResultAsync(page, pageSize, cancellationToken);
+        var query = appDbContext.RealtyAgents.AsNoTracking().Include(a => a.User).AsQueryable();
+        if (agencyId is { } id)
+        {
+            query = query.Where(a => a.RealtyAgencyId == id);
+        }
+
+        var key = name?.ToSearchKey();
+        IOrderedQueryable<RealtyAgentEntity> ordered;
+        if (!string.IsNullOrWhiteSpace(key))
+        {
+            query = query.Where(a => EF.Functions.TrigramsAreWordSimilar(key, a.SearchName));
+            ordered = query
+                .OrderByDescending(a => EF.Functions.TrigramsWordSimilarity(key, a.SearchName))
+                .ThenBy(a => a.Name);
+        }
+        else
+        {
+            ordered = query.OrderBy(a => a.Name);
+        }
+
+        var totalCount = await query.CountAsync(cancellationToken);
+        var items = await ordered.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+        return new PagedResult<RealtyAgentEntity>(items, page, pageSize, totalCount);
     }
 
     // --- Create / Update / Delete ---
@@ -81,15 +100,17 @@ public sealed class RealtyAgentService(AppDbContext appDbContext)
     public async Task<RealtyAgentEntity> CreateAgentAsync(RealtyAgentEntity agent,
         CancellationToken cancellationToken = default)
     {
+        agent.SearchName = agent.Name.ToSearchKey();
         appDbContext.RealtyAgents.Add(agent);
         await appDbContext.SaveChangesAsync(cancellationToken);
         return agent;
     }
 
-    /// <summary>Saves the tracked changes to an agent.</summary>
+    /// <summary>Saves the tracked changes to an agent and re-derives the search name.</summary>
     public async Task<RealtyAgentEntity> UpdateAgentAsync(RealtyAgentEntity agent,
         CancellationToken cancellationToken = default)
     {
+        agent.SearchName = agent.Name.ToSearchKey();
         appDbContext.RealtyAgents.Update(agent);
         await appDbContext.SaveChangesAsync(cancellationToken);
         return agent;

@@ -54,5 +54,5 @@ public static class GetRealtyAgent
     private static IResult Respond(RealtyAgentEntity? agent)
         => agent is null
             ? AgentErrors.NotFound.ToResult()
-            : TypedResults.Ok(Entity.RealtyAgentMapper.ToDto(agent));
+            : TypedResults.Ok(agent.ToDto());
 }

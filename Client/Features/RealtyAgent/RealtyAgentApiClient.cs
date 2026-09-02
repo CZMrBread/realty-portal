@@ -37,16 +37,25 @@ public sealed class RealtyAgentApiClient(HttpClient httpClient)
         return await ReadAgentAsync(response, cancellationToken);
     }
 
-    /// <summary>Reads one page of an agency's agents; only an agent of that agency may call.</summary>
-    public async Task<(PagedResult<RealtyAgentDto>? Response, string? Error)> GetAgentsAsync(Guid agencyId,
-        int page, int pageSize, CancellationToken cancellationToken = default)
+    /// <summary>Reads one page of agents, narrowed by name and agency when given.</summary>
+    public async Task<(PagedResult<RealtyAgentDto>? Response, string? Error)> GetAgentsAsync(string? name,
+        Guid? agencyId, int page, int pageSize, CancellationToken cancellationToken = default)
     {
         var query = new Dictionary<string, string?>
         {
-            ["agencyId"] = agencyId.ToString(),
             ["page"] = page.ToString(),
             ["pageSize"] = pageSize.ToString()
         };
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            query["name"] = name;
+        }
+
+        if (agencyId is { } id)
+        {
+            query["agencyId"] = id.ToString();
+        }
+
         var response = await httpClient.GetAsync(QueryHelpers.AddQueryString("realty-agent", query),
             cancellationToken);
         return response.IsSuccessStatusCode

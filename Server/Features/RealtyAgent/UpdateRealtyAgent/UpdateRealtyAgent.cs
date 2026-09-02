@@ -5,7 +5,7 @@ using Shared.RealtyAgent;
 
 namespace Server.Features.RealtyAgent.UpdateRealtyAgent;
 
-/// <summary>Updates an agent's role and agency key.</summary>
+/// <summary>Updates an agent's public profile, role and agency key.</summary>
 public static class UpdateRealtyAgent
 {
     /// <summary>Registers the update routes: by identifier and by agency key.</summary>
@@ -63,7 +63,8 @@ public static class UpdateRealtyAgent
     }
 
     /// <summary>
-    /// Updates the resolved agent; admin of the agent's agency only. A role change reaches the token on refresh.
+    /// Updates the resolved agent. An admin of the agent's agency changes everything; the agent themselves only
+    /// their public profile. A role change reaches the token on refresh.
     /// </summary>
     private static async Task<IResult> UpdateResolvedAsync(
         RealtyAgentEntity? agent,
@@ -77,28 +78,35 @@ public static class UpdateRealtyAgent
             return AgentErrors.NotFound.ToResult();
         }
 
-        if (agent.RealtyAgencyId is not { } agencyId || agencyId != caller.RealtyAgencyId)
+        var isAdmin = agent.RealtyAgencyId is { } agencyId && caller.IsAdminOf(agencyId);
+        if (!isAdmin && agent.UserId != caller.UserId)
         {
-            return AgentErrors.NotOwned.ToResult();
+            return agent.RealtyAgencyId is null || agent.RealtyAgencyId != caller.RealtyAgencyId
+                ? AgentErrors.NotOwned.ToResult()
+                : AgentErrors.NotAgencyAdmin.ToResult();
         }
 
-        if (!caller.IsAdminOf(agencyId))
+        if (!isAdmin)
         {
-            return AgentErrors.NotAgencyAdmin.ToResult();
+            agent.Name = request.Name!;
+            agent.Email = request.Email;
+            agent.PhoneNumber = request.PhoneNumber;
+            await realtyAgentService.UpdateAgentAsync(agent, cancellationToken);
+            return TypedResults.Ok(agent.ToDto());
         }
 
         if (request.RealtyAgentRkId is not null && request.RealtyAgentRkId != agent.RealtyAgentRkId)
         {
-            var holder = await realtyAgentService.FindAgentByRkIdAsync(agencyId, request.RealtyAgentRkId,
-                cancellationToken);
+            var holder = await realtyAgentService.FindAgentByRkIdAsync(agent.RealtyAgencyId!.Value,
+                request.RealtyAgentRkId, cancellationToken);
             if (holder is not null && holder.UserId != agent.UserId)
             {
                 return AgentErrors.RkIdTaken.ToResult();
             }
         }
 
-        Entity.RealtyAgentMapper.UpdateEntity(request, agent);
+        request.UpdateEntity(agent);
         await realtyAgentService.UpdateAgentAsync(agent, cancellationToken);
-        return TypedResults.Ok(Entity.RealtyAgentMapper.ToDto(agent));
+        return TypedResults.Ok(agent.ToDto());
     }
 }

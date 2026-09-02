@@ -39,6 +39,9 @@ public static class BecomeAgent
         var agent = await realtyAgentService.CreateAgentAsync(new RealtyAgentEntity
         {
             UserId = user.Id,
+            Name = request.Name!,
+            Email = request.Email,
+            PhoneNumber = request.PhoneNumber,
             AgentRole = AgentRoleEnum.Agent,
             RegistrationNumber = request.RegistrationNumber!
         }, cancellationToken);
@@ -46,6 +49,9 @@ public static class BecomeAgent
         return TypedResults.Ok(new BecomeAgentResponse
         {
             UserId = agent.UserId,
+            Name = agent.Name,
+            Email = agent.Email,
+            PhoneNumber = agent.PhoneNumber,
             AgentRole = agent.AgentRole,
             RealtyAgencyId = agent.RealtyAgencyId,
             RealtyAgentRkId = agent.RealtyAgentRkId,

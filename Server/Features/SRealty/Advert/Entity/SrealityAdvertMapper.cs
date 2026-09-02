@@ -29,6 +29,7 @@ public static partial class SrealityAdvertMapper
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityDistrict))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.SearchVector))]
     [MapperIgnoreSource(nameof(SrealityAdvertDto.AdvertId))] // the internal identifier is assigned by the portal
+    [MapperIgnoreSource(nameof(SrealityAdvertDto.RealtyAgencyName))]
     public static partial SrealityAdvertEntity ToEntity(
         this SrealityAdvertDto dto, Guid? realtyAgencyId, DateTimeOffset expiresAt);
 
@@ -49,16 +50,17 @@ public static partial class SrealityAdvertMapper
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityDistrict))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.SearchVector))]
     [MapperIgnoreSource(nameof(SrealityAdvertDto.AdvertId))]
+    [MapperIgnoreSource(nameof(SrealityAdvertDto.RealtyAgencyName))]
     public static partial void UpdateEntity(this SrealityAdvertDto dto, SrealityAdvertEntity entity);
 
     // --- entity -> DTO (detail responses and the edit form) ---
 
     [MapProperty(nameof(SrealityAdvertEntity.Id), nameof(SrealityAdvertDto.AdvertId))]
+    [MapProperty("Agency.Name", nameof(SrealityAdvertDto.RealtyAgencyName))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.RealtyAgencyId))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.ExpiresAt))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.CreatedAt))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.UpdatedAt))]
-    [MapperIgnoreSource(nameof(SrealityAdvertEntity.Agency))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.Seller))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.Photos))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.LocalityMunicipalityCode))]

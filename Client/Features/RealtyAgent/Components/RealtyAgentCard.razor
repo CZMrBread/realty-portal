@@ -1,0 +1,32 @@
+@using Shared.RealtyAgent
+
+@* Public contact card of an agent; the name links to the agent detail. *@
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-person-circle fs-2 text-body-secondary" aria-hidden="true"></i>
+            <div class="min-w-0">
+                <a class="fw-semibold text-decoration-none d-block text-truncate" href="agent/@Agent.UserId">
+                    @(Agent.Name ?? Agent.UserName ?? Agent.UserId.ToString())
+                </a>
+                @if (!string.IsNullOrWhiteSpace(Agent.Email))
+                {
+                    <a class="small d-block text-truncate" href="mailto:@Agent.Email">
+                        <i class="bi bi-envelope me-1" aria-hidden="true"></i>@Agent.Email
+                    </a>
+                }
+                @if (!string.IsNullOrWhiteSpace(Agent.PhoneNumber))
+                {
+                    <a class="small d-block text-truncate" href="tel:@Agent.PhoneNumber">
+                        <i class="bi bi-telephone me-1" aria-hidden="true"></i>@Agent.PhoneNumber
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] [EditorRequired] public RealtyAgentDto Agent { get; set; } = default!;
+}

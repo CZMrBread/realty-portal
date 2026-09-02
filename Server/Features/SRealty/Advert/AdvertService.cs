@@ -20,7 +20,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
     public async Task<SrealityAdvertEntity?> FindAdvertByIdAsync(Guid advertId,
         CancellationToken cancellationToken = default)
     {
-        return await appDbContext.SrealityAdverts
+        return await appDbContext.SrealityAdverts.Include(a => a.Agency)
             .FirstOrDefaultAsync(a => a.Id == advertId, cancellationToken);
     }
 
@@ -37,7 +37,7 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
     public async Task<PagedResult<SrealityAdvertEntity>> GetAdvertsAsync(AdvertFilter filter, AdvertSortEnum sort,
         int page, int pageSize, CancellationToken cancellationToken = default)
     {
-        var query = ApplyFilter(appDbContext.SrealityAdverts.AsNoTracking(), filter);
+        var query = ApplyFilter(appDbContext.SrealityAdverts.AsNoTracking().Include(a => a.Agency), filter);
         var totalCount = await query.CountAsync(cancellationToken);
         var items = await ApplySort(query, sort)
             .Skip((page - 1) * pageSize)

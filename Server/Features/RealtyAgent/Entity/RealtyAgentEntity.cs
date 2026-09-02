@@ -17,6 +17,23 @@ public class RealtyAgentEntity
     [JsonIgnore]
     public ApplicationUser User { get; set; } = null!;
 
+    /// <summary>Full name shown to the public.</summary>
+    [MaxLength(200)]
+    public required string Name { get; set; }
+
+    /// <summary>Search key derived from <see cref="Name"/>; backs the trigram index.</summary>
+    [MaxLength(200)]
+    public string SearchName { get; set; } = string.Empty;
+
+    /// <summary>Public contact email; independent of the account email.</summary>
+    [EmailAddress]
+    [MaxLength(256)]
+    public string? Email { get; set; }
+
+    /// <summary>Public contact phone number.</summary>
+    [MaxLength(32)]
+    public string? PhoneNumber { get; set; }
+
     /// <summary>Role of the agent within their agency.</summary>
     public AgentRoleEnum AgentRole { get; set; }
 

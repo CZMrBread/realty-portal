@@ -34,8 +34,16 @@
                         <BootstrapEditForm Model="request" OnValidSubmit="BecomeAgentAsync">
                             <DataAnnotationsValidator/>
 
+                            <FloatingText Label="Full name" autocomplete="name" @bind-Value="request.Name"/>
+
                             <FloatingText Label="Registration number (IČO)" autocomplete="off"
                                           @bind-Value="request.RegistrationNumber"/>
+
+                            <FloatingText Label="Public email" Type="email" autocomplete="off"
+                                          Help="Shown on your adverts, optional." @bind-Value="request.Email"/>
+
+                            <FloatingText Label="Public phone" Type="tel" autocomplete="off"
+                                          Help="Shown on your adverts, optional." @bind-Value="request.PhoneNumber"/>
 
                             @if (error is not null)
                             {
