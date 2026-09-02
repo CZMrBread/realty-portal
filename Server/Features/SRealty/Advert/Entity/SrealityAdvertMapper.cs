@@ -27,6 +27,8 @@ public static partial class SrealityAdvertMapper
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityMunicipality))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityDistrictCode))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityDistrict))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityAddressPointCode))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityAddressPoint))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.SearchVector))]
     [MapperIgnoreSource(nameof(SrealityAdvertDto.AdvertId))] // the internal identifier is assigned by the portal
     [MapperIgnoreSource(nameof(SrealityAdvertDto.RealtyAgencyName))]
@@ -48,6 +50,8 @@ public static partial class SrealityAdvertMapper
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityMunicipality))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityDistrictCode))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityDistrict))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityAddressPointCode))]
+    [MapperIgnoreTarget(nameof(SrealityAdvertEntity.LocalityAddressPoint))]
     [MapperIgnoreTarget(nameof(SrealityAdvertEntity.SearchVector))]
     [MapperIgnoreSource(nameof(SrealityAdvertDto.AdvertId))]
     [MapperIgnoreSource(nameof(SrealityAdvertDto.RealtyAgencyName))]
@@ -67,6 +71,8 @@ public static partial class SrealityAdvertMapper
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.LocalityMunicipality))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.LocalityDistrictCode))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.LocalityDistrict))]
+    [MapperIgnoreSource(nameof(SrealityAdvertEntity.LocalityAddressPointCode))]
+    [MapperIgnoreSource(nameof(SrealityAdvertEntity.LocalityAddressPoint))]
     [MapperIgnoreSource(nameof(SrealityAdvertEntity.SearchVector))]
     public static partial SrealityAdvertDto ToDto(this SrealityAdvertEntity entity);
 

@@ -1,0 +1,199 @@
+@using Shared.Ruian
+@using Shared.Ruian.GetAddressPoints
+@inject RuianApiClient Ruian
+
+@*
+    Picks an address from the RUIAN register one level at a time, each select filled from the one above:
+    region, district, municipality, municipality part, street, house number. Every change is reported through
+    Changed with whatever is chosen so far.
+*@
+
+@if (!string.IsNullOrWhiteSpace(Current))
+{
+    <p class="form-text mb-3">Zadaná adresa: @Current</p>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingSelect TValue="int?" Label="Kraj" @bind-Value="regionCode" @bind-Value:after="OnRegionChangedAsync">
+            <option value="">— vyberte —</option>
+            @foreach (var region in regions)
+            {
+                <option value="@region.Code">@region.Name</option>
+            }
+        </FloatingSelect>
+    </div>
+    <div class="col-md-4">
+        <FloatingSelect TValue="int?" Label="Okres" disabled="@(districts.Count == 0)"
+                        @bind-Value="districtCode" @bind-Value:after="OnDistrictChangedAsync">
+            <option value="">— vyberte —</option>
+            @foreach (var district in districts)
+            {
+                <option value="@district.Code">@district.Name</option>
+            }
+        </FloatingSelect>
+    </div>
+    <div class="col-md-4">
+        <FloatingSelect TValue="int?" Label="Obec" disabled="@(municipalities.Count == 0)"
+                        @bind-Value="municipalityCode" @bind-Value:after="OnMunicipalityChangedAsync">
+            <option value="">— vyberte —</option>
+            @foreach (var municipality in municipalities)
+            {
+                <option value="@municipality.Code">@municipality.Name</option>
+            }
+        </FloatingSelect>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <FloatingSelect TValue="int?" Label="Část obce" disabled="@(parts.Count == 0)"
+                        @bind-Value="partCode" @bind-Value:after="OnPartChangedAsync">
+            <option value="">— nevyplněno —</option>
+            @foreach (var part in parts)
+            {
+                <option value="@part.Code">@part.Name</option>
+            }
+        </FloatingSelect>
+    </div>
+    <div class="col-md-4">
+        <FloatingSelect TValue="int?" Label="Ulice" disabled="@(streets.Count == 0)"
+                        Help="@(municipalityCode is not null && streets.Count == 0 ? "Obec nemá pojmenované ulice." : null)"
+                        @bind-Value="streetCode" @bind-Value:after="OnStreetChangedAsync">
+            <option value="">— nevyplněno —</option>
+            @foreach (var street in streets)
+            {
+                <option value="@street.Code">@street.Name</option>
+            }
+        </FloatingSelect>
+    </div>
+    <div class="col-md-4">
+        <FloatingSelect TValue="int?" Label="Číslo domu" disabled="@(addressPoints.Count == 0)"
+                        @bind-Value="addressPointCode" @bind-Value:after="OnAddressPointChangedAsync">
+            <option value="">— nevyplněno —</option>
+            @foreach (var point in addressPoints)
+            {
+                <option value="@point.Code">@point.Label</option>
+            }
+        </FloatingSelect>
+    </div>
+</div>
+
+@code {
+    /// <summary>Address chosen before, shown as text until a new one is picked.</summary>
+    [Parameter] public string? Current { get; set; }
+
+    /// <summary>Fires after every choice with the levels chosen so far.</summary>
+    [Parameter] public EventCallback<RuianAddressSelection> Changed { get; set; }
+
+    private List<RuianPlaceDto> regions = [];
+    private List<RuianPlaceDto> districts = [];
+    private List<RuianPlaceDto> municipalities = [];
+    private List<RuianPlaceDto> parts = [];
+    private List<RuianPlaceDto> streets = [];
+    private List<RuianAddressPointDto> addressPoints = [];
+
+    private int? regionCode;
+    private int? districtCode;
+    private int? municipalityCode;
+    private int? partCode;
+    private int? streetCode;
+    private int? addressPointCode;
+
+    protected override async Task OnInitializedAsync()
+    {
+        regions = await Ruian.GetRegionsAsync();
+    }
+
+    private async Task OnRegionChangedAsync()
+    {
+        districtCode = null;
+        districts = regionCode is { } code ? await Ruian.GetDistrictsAsync(code) : [];
+        await OnDistrictChangedAsync();
+    }
+
+    private async Task OnDistrictChangedAsync()
+    {
+        municipalityCode = null;
+        municipalities = districtCode is { } code ? await Ruian.GetMunicipalitiesAsync(code) : [];
+        await OnMunicipalityChangedAsync();
+    }
+
+    private async Task OnMunicipalityChangedAsync()
+    {
+        partCode = null;
+        streetCode = null;
+        addressPointCode = null;
+        addressPoints = [];
+        if (municipalityCode is { } code)
+        {
+            parts = await Ruian.GetMunicipalityPartsAsync(code);
+            streets = await Ruian.GetStreetsAsync(code);
+            if (parts.Count == 1)
+            {
+                partCode = parts[0].Code;
+                await LoadStreetlessPointsAsync();
+            }
+        }
+        else
+        {
+            parts = [];
+            streets = [];
+        }
+
+        await NotifyAsync();
+    }
+
+    private async Task OnPartChangedAsync()
+    {
+        addressPointCode = null;
+        await LoadStreetlessPointsAsync();
+        await NotifyAsync();
+    }
+
+    private async Task OnStreetChangedAsync()
+    {
+        addressPointCode = null;
+        addressPoints = streetCode is { } code ? await Ruian.GetAddressPointsAsync(code, null) : [];
+        await NotifyAsync();
+    }
+
+    private async Task OnAddressPointChangedAsync()
+    {
+        // choosing a house on a street settles the part it lies in
+        if (Find(addressPoints, addressPointCode) is { } point && partCode is null)
+        {
+            partCode = point.MunicipalityPartCode;
+        }
+
+        await NotifyAsync();
+    }
+
+    /// <summary>In a municipality without streets the house numbers hang off the part.</summary>
+    private async Task LoadStreetlessPointsAsync()
+    {
+        if (streets.Count == 0 && partCode is { } code)
+        {
+            addressPoints = await Ruian.GetAddressPointsAsync(null, code);
+        }
+        else if (streetCode is null)
+        {
+            addressPoints = [];
+        }
+    }
+
+    private Task NotifyAsync()
+        => Changed.InvokeAsync(new RuianAddressSelection(
+            Find(regions, regionCode),
+            Find(districts, districtCode),
+            Find(municipalities, municipalityCode),
+            Find(parts, partCode),
+            Find(streets, streetCode),
+            Find(addressPoints, addressPointCode)));
+
+    private static RuianPlaceDto? Find(List<RuianPlaceDto> places, int? code)
+        => code is null ? null : places.Find(p => p.Code == code);
+
+    private static RuianAddressPointDto? Find(List<RuianAddressPointDto> points, int? code)
+        => code is null ? null : points.Find(p => p.Code == code);
+}

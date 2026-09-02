@@ -1,3 +1,9 @@
+using Server.Features.Ruian.GetAddressPoints;
+using Server.Features.Ruian.GetDistricts;
+using Server.Features.Ruian.GetMunicipalities;
+using Server.Features.Ruian.GetMunicipalityParts;
+using Server.Features.Ruian.GetRegions;
+using Server.Features.Ruian.GetStreets;
 using Server.Features.Ruian.ImportAddressPoints;
 
 namespace Server.Features.Ruian;
@@ -19,6 +25,12 @@ public static class RuianEndpoints
     {
         var group = app.MapGroup(Prefix).WithTags(Tag);
 
+        group.MapGetRegions();
+        group.MapGetDistricts();
+        group.MapGetMunicipalities();
+        group.MapGetMunicipalityParts();
+        group.MapGetStreets();
+        group.MapGetAddressPoints();
         group.MapImportAddressPoints();
     }
 }

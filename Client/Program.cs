@@ -1,6 +1,7 @@
 using Client;
 using Client.Features.RealtyAgency;
 using Client.Features.RealtyAgent;
+using Client.Features.Ruian;
 using Client.Features.SRealty;
 using Client.Features.User;
 using Microsoft.AspNetCore.Components.Web;
@@ -17,5 +18,6 @@ builder.Services.AddUserFeature(serverApi);
 builder.Services.AddRealtyAgencyFeature(serverApi);
 builder.Services.AddRealtyAgentFeature(serverApi);
 builder.Services.AddSRealtyFeature(serverApi);
+builder.Services.AddRuianFeature(serverApi);
 
 await builder.Build().RunAsync();

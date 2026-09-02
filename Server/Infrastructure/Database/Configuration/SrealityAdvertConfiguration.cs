@@ -33,6 +33,7 @@ public sealed class SrealityAdvertConfiguration : IEntityTypeConfiguration<Sreal
         // the listing narrowed by place
         builder.HasIndex(a => a.LocalityMunicipalityCode);
         builder.HasIndex(a => a.LocalityDistrictCode);
+        builder.HasIndex(a => a.LocalityAddressPointCode);
 
         // adverts of one agency or one agent
         builder.HasIndex(a => a.RealtyAgencyId);
@@ -56,6 +57,12 @@ public sealed class SrealityAdvertConfiguration : IEntityTypeConfiguration<Sreal
             .WithMany()
             .HasForeignKey(a => a.LocalityMunicipalityCode)
             .OnDelete(DeleteBehavior.Restrict);
+
+        // SetNull: the monthly address import may drop a point; the advert then keeps its text address
+        builder.HasOne(a => a.LocalityAddressPoint)
+            .WithMany()
+            .HasForeignKey(a => a.LocalityAddressPointCode)
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasOne(a => a.LocalityDistrict)
             .WithMany()

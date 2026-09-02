@@ -1,27 +1,16 @@
 @inherits AdvertFormSection
+@using Client.Features.Ruian.Components
+@using Shared.Ruian
 
-@* SrealityAdvertDto.Location.cs: address, position on the map and what surrounds the property. *@
+@*
+    SrealityAdvertDto.Location.cs: address, position on the map and what surrounds the property.
+    The address is picked from the RUIAN register; the server re-checks the code and fills the names from it.
+*@
 
-<div class="row">
-    <div class="col-md-4">
-        <FloatingText Label="Obec" @bind-Value="Model.LocalityCity"/>
-    </div>
-    <div class="col-md-4">
-        <FloatingText Label="Část obce" @bind-Value="Model.LocalityCityPart"/>
-    </div>
-    <div class="col-md-4">
-        <FloatingText Label="Ulice" @bind-Value="Model.LocalityStreet"/>
-    </div>
-</div>
+<RuianAddressPicker Current="@CurrentAddress" Changed="OnAddressChanged"/>
 
 <div class="row">
-    <div class="col-md-4">
-        <FloatingText Label="Číslo popisné" @bind-Value="Model.LocalityCp"/>
-    </div>
-    <div class="col-md-4">
-        <FloatingText Label="Číslo orientační" @bind-Value="Model.LocalityCo"/>
-    </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <FloatingNumber Label="Přesnost zobrazení na mapě" @bind-Value="Model.LocalityInaccuracyLevel"
                         Help="Jak přesně smí být nemovitost na mapě ukázána."/>
     </div>
@@ -30,19 +19,10 @@
 <div class="row">
     <div class="col-md-6">
         <FloatingNumber Label="Zeměpisná šířka" step="any" @bind-Value="Model.LocalityLatitude"
-                        Help="Vyplňuje se společně se zeměpisnou délkou."/>
+                        Help="Nevyplněnou doplní server z adresního místa."/>
     </div>
     <div class="col-md-6">
         <FloatingNumber Label="Zeměpisná délka" step="any" @bind-Value="Model.LocalityLongitude"/>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-3">
-        <FloatingNumber Label="Kód RÚIAN" @bind-Value="Model.LocalityRuian"/>
-    </div>
-    <div class="col-md-3">
-        <EnumSelect TEnum="RuianLevelEnum" Label="Úroveň RÚIAN" @bind-Value="Model.LocalityRuianLevel"/>
     </div>
 </div>
 
@@ -60,3 +40,36 @@
 
 <EnumCheckBoxGroup Label="Typ komunikace" @bind-Value="Model.RoadType"/>
 <EnumCheckBoxGroup Label="Dopravní dostupnost" @bind-Value="Model.Transport"/>
+
+@code {
+    /// <summary>The model's address on one line, or null while it has none.</summary>
+    private string? CurrentAddress
+    {
+        get
+        {
+            var number = string.Join("/", new[] { Model.LocalityCp, Model.LocalityCo }.Where(n => !string.IsNullOrWhiteSpace(n)));
+            var street = string.Join(" ", new[] { Model.LocalityStreet, number }.Where(n => !string.IsNullOrWhiteSpace(n)));
+            var parts = new[] { Model.LocalityCity, Model.LocalityCityPart, street }.Where(n => !string.IsNullOrWhiteSpace(n)).ToList();
+            return parts.Count == 0 ? null : string.Join(", ", parts);
+        }
+    }
+
+    /// <summary>Copies the chosen levels into the model; the server overwrites the names from the register anyway.</summary>
+    private void OnAddressChanged(RuianAddressSelection selection)
+    {
+        Model.LocalityCity = selection.Municipality?.Name;
+        Model.LocalityCityPart = selection.Part?.Name;
+        Model.LocalityStreet = selection.Street?.Name;
+        Model.LocalityRuian = selection.Code;
+        Model.LocalityRuianLevel = selection.Level;
+
+        var point = selection.AddressPoint;
+        Model.LocalityCp = point is { HouseNumberType: HouseNumberTypeEnum.Descriptive } ? point.HouseNumber.ToString() : null;
+        Model.LocalityCo = point?.OrientationNumber is { } number ? $"{number}{point.OrientationLetter}" : null;
+        if (point is { Latitude: not null, Longitude: not null })
+        {
+            Model.LocalityLatitude = point.Latitude;
+            Model.LocalityLongitude = point.Longitude;
+        }
+    }
+}

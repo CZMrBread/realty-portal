@@ -79,6 +79,13 @@ public static class CreateAdvert
         var expiration = request.AdvertLifetime!.Value.ToExpiration(DateTimeOffset.UtcNow);
         var advert = request.ToEntity(agent.RealtyAgencyId, expiration);
         advert.AdvertRkId = advertRkId;
+
+        var localityErrors = await advertService.ResolveLocalityAsync(advert, cancellationToken);
+        if (localityErrors.Count > 0)
+        {
+            return TypedResults.ValidationProblem(localityErrors);
+        }
+
         advert = await advertService.CreateAdvertAsync(advert, cancellationToken);
 
         return TypedResults.Ok(new CreateAdvertResponse(advert.ToDto()));

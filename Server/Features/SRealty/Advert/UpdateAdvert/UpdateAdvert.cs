@@ -113,6 +113,13 @@ public static class UpdateAdvert
         }
 
         request.UpdateEntity(advert);
+
+        var localityErrors = await advertService.ResolveLocalityAsync(advert, cancellationToken);
+        if (localityErrors.Count > 0)
+        {
+            return TypedResults.ValidationProblem(localityErrors);
+        }
+
         advert = await advertService.UpdateAdvertAsync(advert, cancellationToken);
 
         return TypedResults.Ok(advert.ToDto());
