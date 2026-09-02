@@ -7,7 +7,7 @@ using Shared.SRealty.Advert;
 using Shared.SRealty.Advert.CreateAdvert;
 using Shared.SRealty.Advert.ListAdverts;
 
-namespace Client.Features.SRealty;
+namespace Client.Features.SRealty.Advert;
 
 /// <summary>Talks to the /srealty/advert endpoints.</summary>
 public sealed class AdvertApiClient(HttpClient httpClient)

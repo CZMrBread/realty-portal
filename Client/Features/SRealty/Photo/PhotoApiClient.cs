@@ -1,11 +1,12 @@
 using System.Globalization;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using Client.Features.SRealty.Advert;
 using Client.Infrastructure;
 using Shared.SRealty.Photo.GetPhotos;
 using Shared.SRealty.Photo.UploadPhoto;
 
-namespace Client.Features.SRealty;
+namespace Client.Features.SRealty.Photo;
 
 /// <summary>Talks to the photo endpoints under /srealty/advert.</summary>
 public sealed class PhotoApiClient(HttpClient httpClient)

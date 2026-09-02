@@ -1,3 +1,6 @@
+using Client.Features.SRealty.Advert;
+using Client.Features.SRealty.Photo;
+
 namespace Client.Features.SRealty;
 
 /// <summary>Wires up the SRealty slice; counterpart of the server MapSRealtyEndpoints.</summary>

@@ -1,7 +1,7 @@
 using Shared.SRealty.Advert.Enums;
 using Shared.SRealty.Advert.ListAdverts;
 
-namespace Client.Features.SRealty.ListAdverts;
+namespace Client.Features.SRealty.Advert.ListAdverts;
 
 /// <summary>Mutable twin of <see cref="AdvertFilter"/> that the search form binds to.</summary>
 public sealed class AdvertFilterModel
