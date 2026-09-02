@@ -20,6 +20,10 @@ public sealed partial record SrealityAdvertDto : IValidatableObject
     [JsonPropertyName("advert_rkid")]
     public string? AdvertRkId { get; set; }
 
+    /// <summary>Name of the agency the advert is published under; output only.</summary>
+    [JsonPropertyName("realty_agency_name")]
+    public string? RealtyAgencyName { get; set; }
+
     /// <summary>Selling agent by portal identifier; exactly one of SellerId and SellerRkId must be set.</summary>
     [RequiredIfValue(nameof(SellerRkId), [null])]
     [JsonPropertyName("seller_id")]

@@ -74,7 +74,7 @@
         await AuthState.InitializeAsync();
         if (AuthState.AgencyId is { } agencyId)
         {
-            var (page, _) = await RealtyAgents.GetAgentsAsync(agencyId, 1, 100);
+            var (page, _) = await RealtyAgents.GetAgentsAsync(null, agencyId, 1, 100);
             agents = page?.Items ?? [];
         }
         else if (AuthState.Claims is { } claims && AuthState.IsAgent)
@@ -92,7 +92,7 @@
     }
 
     private static string AgentLabel(RealtyAgentDto agent)
-        => agent.UserName is { Length: > 0 } name
+        => agent.Name is { Length: > 0 } name
             ? agent.RealtyAgentRkId is { Length: > 0 } key ? $"{name} ({key})" : name
             : agent.RealtyAgentRkId ?? agent.UserId.ToString();
 }

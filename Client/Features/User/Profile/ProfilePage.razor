@@ -83,6 +83,35 @@
                         }
                         else
                         {
+                            <BootstrapEditForm Model="agent" OnValidSubmit="SaveAgentAsync">
+                                <DataAnnotationsValidator/>
+
+                                <FloatingText Label="Full name" autocomplete="name" @bind-Value="agent.Name"/>
+
+                                <FloatingText Label="Public email" Type="email" autocomplete="off"
+                                              Help="Shown on your adverts, optional." @bind-Value="agent.Email"/>
+
+                                <FloatingText Label="Public phone" Type="tel" autocomplete="off"
+                                              Help="Shown on your adverts, optional." @bind-Value="agent.PhoneNumber"/>
+
+                                @if (agentError is not null)
+                                {
+                                    <div class="alert alert-danger" role="alert">@agentError</div>
+                                }
+                                @if (agentSaved)
+                                {
+                                    <div class="alert alert-success" role="alert">The agent profile has been saved.</div>
+                                }
+
+                                <button class="btn btn-primary mb-3" type="submit" disabled="@busy">
+                                    @if (busy)
+                                    {
+                                        <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                    }
+                                    Save
+                                </button>
+                            </BootstrapEditForm>
+
                             <dl class="row mb-3">
                                 <dt class="col-sm-4">Role</dt>
                                 <dd class="col-sm-8">@agent.AgentRole</dd>
@@ -158,8 +187,10 @@
     private RealtyAgentDto? agent;
     private string? agencyName;
     private string? detailsError;
+    private string? agentError;
     private string? passwordError;
     private bool detailsSaved;
+    private bool agentSaved;
     private bool passwordChanged;
     private bool busy;
 
@@ -209,6 +240,27 @@
         {
             detailsSaved = true;
             await AuthState.TryRefreshAsync(force: true);
+        }
+
+        busy = false;
+    }
+
+    /// <summary>Saves the agent's public profile through the agent update route.</summary>
+    private async Task SaveAgentAsync()
+    {
+        busy = true;
+        agentError = null;
+        agentSaved = false;
+
+        var (response, failure) = await RealtyAgents.UpdateAgentAsync(agent!.UserId, agent);
+        if (response is null)
+        {
+            agentError = failure ?? "The agent profile could not be saved.";
+        }
+        else
+        {
+            agent = response;
+            agentSaved = true;
         }
 
         busy = false;

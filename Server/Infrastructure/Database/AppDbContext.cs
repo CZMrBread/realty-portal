@@ -39,10 +39,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
         // full-text search is a PostgreSQL feature; the tests run the same model on SQLite, which has no tsvector
         if (Database.IsNpgsql())
         {
-            // builder.HasPostgresExtension("unaccent");
+            builder.HasPostgresExtension("unaccent");
             builder.HasPostgresExtension("pg_trgm");
             RealtyAgencyConfiguration.ConfigureSearchName(builder.Entity<RealtyAgencyEntity>());
-            // SrealityAdvertConfiguration.ConfigureSearchVector(builder.Entity<SrealityAdvertEntity>());
+            RealtyAgentConfiguration.ConfigureSearchName(builder.Entity<RealtyAgentEntity>());
+            SrealityAdvertConfiguration.ConfigureSearchVector(builder.Entity<SrealityAdvertEntity>());
         }
         else
         {

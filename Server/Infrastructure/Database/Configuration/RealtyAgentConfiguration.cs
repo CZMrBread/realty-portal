@@ -30,4 +30,10 @@ public sealed class RealtyAgentConfiguration : IEntityTypeConfiguration<RealtyAg
             .IsUnique()
             .HasFilter("\"RealtyAgentRkId\" IS NOT NULL");
     }
+
+    /// <summary>Trigram index for the name search; PostgreSQL-only.</summary>
+    public static void ConfigureSearchName(EntityTypeBuilder<RealtyAgentEntity> builder)
+    {
+        builder.HasIndex(a => a.SearchName).HasMethod("gin").HasOperators("gin_trgm_ops");
+    }
 }
