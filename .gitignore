@@ -7,3 +7,5 @@ riderModule.iml
 realty-portal.sln.DotSettings.user
 # uploaded photos (see PhotoStorage:RootPath)
 /Server/data/
+# downloaded RUIAN address point zips (see Ruian:AddressDataPath)
+/Server/Features/Ruian/Data/Addresses/

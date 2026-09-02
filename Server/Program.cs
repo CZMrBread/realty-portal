@@ -87,6 +87,10 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RealtyAgencyService>();
 builder.Services.AddScoped<RealtyAgentService>();
 builder.Services.AddScoped<RuianService>();
+builder.Services.AddOptions<RuianOptions>()
+    .BindConfiguration(RuianOptions.SectionName);
+builder.Services.AddHttpClient<RuianAddressDownloader>(client => client.Timeout = TimeSpan.FromMinutes(10));
+builder.Services.AddScoped<RuianAddressImporter>();
 builder.Services.AddScoped<AdvertService>();
 builder.Services.AddOptions<PhotoStorageOptions>()
     .BindConfiguration(PhotoStorageOptions.SectionName)
@@ -103,11 +107,15 @@ if (!app.Environment.IsEnvironment("Testing"))
     await dbContext.Database.MigrateAsync();
 }
 
+// the register sync copies through PostgreSQL; the tests run on SQLite and do not need it
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    await RuianImporter.ImportAsync(dbContext, logger);
+    if (dbContext.Database.IsNpgsql())
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        await RuianImporter.ImportAsync(dbContext, logger);
+    }
 }
 
 using (var scope = app.Services.CreateScope())
@@ -139,6 +147,7 @@ if (app.Environment.IsDevelopment())
 apiGroup.MapUserEndpoints();
 apiGroup.MapRealtyAgencyEndpoints();
 apiGroup.MapRealtyAgentEndpoints();
+apiGroup.MapRuianEndpoints();
 apiGroup.MapSRealtyEndpoints();
 app.Run();
 

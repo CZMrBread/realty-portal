@@ -30,6 +30,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<RuianRegionEntity> RuianRegions { get; set; }
     public DbSet<RuianDistrictEntity> RuianDistricts { get; set; }
     public DbSet<RuianMunicipalityEntity> RuianMunicipalities { get; set; }
+    public DbSet<RuianMunicipalityPartEntity> RuianMunicipalityParts { get; set; }
+    public DbSet<RuianStreetEntity> RuianStreets { get; set; }
+    public DbSet<RuianAddressPointEntity> RuianAddressPoints { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

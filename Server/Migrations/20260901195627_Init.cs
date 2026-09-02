@@ -15,7 +15,16 @@ namespace Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:PostgresExtension:pg_trgm", ",,");
+                .Annotation("Npgsql:PostgresExtension:pg_trgm", ",,")
+                .Annotation("Npgsql:PostgresExtension:unaccent", ",,");
+
+            // the unaccent extension ships only a dictionary; the text search configuration the SearchVector
+            // generated column names has to be created by hand before the table below refers to it
+            migrationBuilder.Sql("""
+                CREATE TEXT SEARCH CONFIGURATION unaccent ( COPY = simple );
+                ALTER TEXT SEARCH CONFIGURATION unaccent
+                    ALTER MAPPING FOR hword, hword_part, word WITH unaccent, simple;
+                """);
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
@@ -433,6 +442,8 @@ namespace Server.Migrations
                     LocalityMunicipalityCode = table.Column<int>(type: "integer", nullable: true),
                     LocalityDistrictCode = table.Column<int>(type: "integer", nullable: true),
                     SearchVector = table.Column<NpgsqlTsVector>(type: "tsvector", nullable: true)
+                        .Annotation("Npgsql:TsVectorConfig", "unaccent")
+                        .Annotation("Npgsql:TsVectorProperties", new[] { "Description", "LocalityCity", "LocalityCityPart", "LocalityStreet" })
                 },
                 constraints: table =>
                 {
@@ -611,6 +622,12 @@ namespace Server.Migrations
                 filter: "\"AdvertRkId\" IS NOT NULL AND \"RealtyAgencyId\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SrealityAdverts_SearchVector",
+                table: "SrealityAdverts",
+                column: "SearchVector")
+                .Annotation("Npgsql:IndexMethod", "GIN");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SrealityAdverts_SellerId",
                 table: "SrealityAdverts",
                 column: "SellerId");
@@ -668,6 +685,8 @@ namespace Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "RuianRegions");
+
+            migrationBuilder.Sql("DROP TEXT SEARCH CONFIGURATION unaccent;");
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using NpgsqlTypes;
@@ -13,9 +14,11 @@ using Server.Infrastructure.Database;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260902153956_SearchParams")]
+    partial class SearchParams
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,64 +244,6 @@ namespace Server.Migrations
                     b.ToTable("RealtyAgents");
                 });
 
-            modelBuilder.Entity("Server.Features.Ruian.Entity.RuianAddressPointEntity", b =>
-                {
-                    b.Property<int>("Code")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("CityDistrictCode")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("CityDistrictName")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<int>("HouseNumber")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("HouseNumberType")
-                        .HasColumnType("integer");
-
-                    b.Property<double?>("Latitude")
-                        .HasColumnType("double precision");
-
-                    b.Property<double?>("Longitude")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("MunicipalityCode")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MunicipalityPartCode")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("OrientationLetter")
-                        .HasMaxLength(1)
-                        .HasColumnType("character varying(1)");
-
-                    b.Property<int?>("OrientationNumber")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("character varying(5)");
-
-                    b.Property<int?>("StreetCode")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Code");
-
-                    b.HasIndex("MunicipalityCode");
-
-                    b.HasIndex("MunicipalityPartCode");
-
-                    b.HasIndex("StreetCode");
-
-                    b.HasIndex("Latitude", "Longitude");
-
-                    b.ToTable("RuianAddressPoints");
-                });
-
             modelBuilder.Entity("Server.Features.Ruian.Entity.RuianDistrictEntity", b =>
                 {
                     b.Property<int>("Code")
@@ -346,33 +291,6 @@ namespace Server.Migrations
                     b.ToTable("RuianMunicipalities");
                 });
 
-            modelBuilder.Entity("Server.Features.Ruian.Entity.RuianMunicipalityPartEntity", b =>
-                {
-                    b.Property<int>("Code")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MunicipalityCode")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("SearchName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Code");
-
-                    b.HasIndex("MunicipalityCode");
-
-                    b.HasIndex("SearchName");
-
-                    b.ToTable("RuianMunicipalityParts");
-                });
-
             modelBuilder.Entity("Server.Features.Ruian.Entity.RuianRegionEntity", b =>
                 {
                     b.Property<int>("Code")
@@ -386,33 +304,6 @@ namespace Server.Migrations
                     b.HasKey("Code");
 
                     b.ToTable("RuianRegions");
-                });
-
-            modelBuilder.Entity("Server.Features.Ruian.Entity.RuianStreetEntity", b =>
-                {
-                    b.Property<int>("Code")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MunicipalityCode")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("SearchName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Code");
-
-                    b.HasIndex("MunicipalityCode");
-
-                    b.HasIndex("SearchName");
-
-                    b.ToTable("RuianStreets");
                 });
 
             modelBuilder.Entity("Server.Features.SRealty.Advert.Entity.SrealityAdvertEntity", b =>
@@ -1130,32 +1021,6 @@ namespace Server.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Server.Features.Ruian.Entity.RuianAddressPointEntity", b =>
-                {
-                    b.HasOne("Server.Features.Ruian.Entity.RuianMunicipalityEntity", "Municipality")
-                        .WithMany()
-                        .HasForeignKey("MunicipalityCode")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Server.Features.Ruian.Entity.RuianMunicipalityPartEntity", "MunicipalityPart")
-                        .WithMany()
-                        .HasForeignKey("MunicipalityPartCode")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Server.Features.Ruian.Entity.RuianStreetEntity", "Street")
-                        .WithMany()
-                        .HasForeignKey("StreetCode")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Municipality");
-
-                    b.Navigation("MunicipalityPart");
-
-                    b.Navigation("Street");
-                });
-
             modelBuilder.Entity("Server.Features.Ruian.Entity.RuianDistrictEntity", b =>
                 {
                     b.HasOne("Server.Features.Ruian.Entity.RuianRegionEntity", "Region")
@@ -1176,28 +1041,6 @@ namespace Server.Migrations
                         .IsRequired();
 
                     b.Navigation("District");
-                });
-
-            modelBuilder.Entity("Server.Features.Ruian.Entity.RuianMunicipalityPartEntity", b =>
-                {
-                    b.HasOne("Server.Features.Ruian.Entity.RuianMunicipalityEntity", "Municipality")
-                        .WithMany()
-                        .HasForeignKey("MunicipalityCode")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Municipality");
-                });
-
-            modelBuilder.Entity("Server.Features.Ruian.Entity.RuianStreetEntity", b =>
-                {
-                    b.HasOne("Server.Features.Ruian.Entity.RuianMunicipalityEntity", "Municipality")
-                        .WithMany()
-                        .HasForeignKey("MunicipalityCode")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Municipality");
                 });
 
             modelBuilder.Entity("Server.Features.SRealty.Advert.Entity.SrealityAdvertEntity", b =>
