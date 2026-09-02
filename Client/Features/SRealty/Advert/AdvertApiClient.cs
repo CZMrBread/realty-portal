@@ -89,6 +89,8 @@ public sealed class AdvertApiClient(HttpClient httpClient)
         }
 
         Append(query, nameof(AdvertFilter.Search), filter.Search);
+        Append(query, nameof(AdvertFilter.RealtyAgencyId), filter.RealtyAgencyId?.ToString());
+        Append(query, nameof(AdvertFilter.SellerId), filter.SellerId?.ToString());
     }
 
     private static void Append(List<KeyValuePair<string, string?>> query, string name, string? value)

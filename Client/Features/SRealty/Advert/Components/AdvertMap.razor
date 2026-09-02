@@ -21,7 +21,7 @@
     {
         if (firstRender)
         {
-            module = await Js.InvokeAsync<IJSObjectReference>("import", "./Features/SRealty/Components/AdvertMap.razor.js");
+            module = await Js.InvokeAsync<IJSObjectReference>("import", "./Features/SRealty/Advert/Components/AdvertMap.razor.js");
             mapId = await module.InvokeAsync<int>("create", element, Markers);
             shown = Markers;
         }

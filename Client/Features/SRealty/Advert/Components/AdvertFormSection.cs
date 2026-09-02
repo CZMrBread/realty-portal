@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Shared.SRealty.Advert;
 
-namespace Client.Features.SRealty.Components;
+namespace Client.Features.SRealty.Advert.Components;
 
 /// <summary>Base of one advert form section: the edited advert and the field visibility rule.</summary>
 public abstract class AdvertFormSection : ComponentBase

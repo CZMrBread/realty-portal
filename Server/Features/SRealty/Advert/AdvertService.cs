@@ -46,25 +46,6 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
         return new PagedResult<SrealityAdvertEntity>(items, page, pageSize, totalCount);
     }
 
-    /// <summary>One page of an agency's adverts.</summary>
-    public async Task<PagedResult<SrealityAdvertEntity>> GetAgencyAdvertsAsync(Guid realtyAgencyId, int page,
-        int pageSize,
-        CancellationToken cancellationToken = default)
-    {
-        var query = appDbContext.SrealityAdverts.AsNoTracking()
-            .Where(a => a.RealtyAgencyId == realtyAgencyId).Skip((page - 1) * pageSize).Take(pageSize);
-        return await query.ToPagedResultAsync(page, pageSize, cancellationToken);
-    }
-
-    /// <summary>One page of the adverts an agent sells.</summary>
-    public async Task<PagedResult<SrealityAdvertEntity>> GetSellerAdvertsAsync(Guid sellerId, int page, int pageSize,
-        CancellationToken cancellationToken = default)
-    {
-        var query = appDbContext.SrealityAdverts.AsNoTracking()
-            .Where(a => a.SellerId == sellerId).Skip((page - 1) * pageSize).Take(pageSize);
-        return await query.ToPagedResultAsync(page, pageSize, cancellationToken);
-    }
-
     // --- Create / Update / Delete ---
 
     /// <summary>Stores a new advert after placing it in its municipality.</summary>
@@ -196,6 +177,16 @@ public sealed class AdvertService(AppDbContext appDbContext, IOutputCacheStore o
             var search = filter.Search.Trim();
             query = query.Where(a => a.SearchVector!.Matches(
                 EF.Functions.PlainToTsQuery(SrealityAdvertConfiguration.TextSearchConfiguration, search)));
+        }
+
+        if (filter.RealtyAgencyId is { } realtyAgencyId)
+        {
+            query = query.Where(a => a.RealtyAgencyId == realtyAgencyId);
+        }
+
+        if (filter.SellerId is { } sellerId)
+        {
+            query = query.Where(a => a.SellerId == sellerId);
         }
 
         return query;

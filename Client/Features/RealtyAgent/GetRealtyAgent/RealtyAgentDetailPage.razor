@@ -1,7 +1,12 @@
 @page "/agent/{Id:guid}"
 @using Client.Features.RealtyAgent
+@using Client.Features.SRealty.Advert
+@using Client.Features.SRealty.Advert.ListAdverts
 @using Shared.RealtyAgent
+@using Shared.Shared
+@using Shared.SRealty.Advert.ListAdverts
 @inject RealtyAgentApiClient RealtyAgents
+@inject AdvertApiClient Adverts
 @inject AuthStateService AuthState
 @inject NavigationManager Navigation
 
@@ -73,6 +78,25 @@
                 }
             </dd>
         </dl>
+
+        <h2 class="h5 mb-3">Adverts</h2>
+        @if (adverts is { Items.Count: 0 })
+        {
+            <p class="text-body-secondary">The agent has no adverts yet.</p>
+        }
+        else if (adverts is not null)
+        {
+            <div class="row row-cols-1 row-cols-md-2 g-3 mb-4">
+                @foreach (var advert in adverts.Items)
+                {
+                    <div class="col">
+                        <AdvertCard Advert="advert"/>
+                    </div>
+                }
+            </div>
+
+            <PaginationNav Page="@adverts.Page" TotalPages="@adverts.TotalPages" PageChanged="ChangeAdvertPageAsync"/>
+        }
     }
 </div>
 
@@ -103,6 +127,26 @@
         agent = response;
         canManage = AuthState.IsAgencyAdmin && AuthState.AgencyId is { } adminAgency
             && agent.RealtyAgencyId == adminAgency;
+
+        advertPage = 1;
+        await LoadAdvertsAsync();
+    }
+
+    private const int AdvertPageSize = 20;
+    private PagedResult<SrealityAdvertDto>? adverts;
+    private int advertPage = 1;
+
+    private Task ChangeAdvertPageAsync(int number)
+    {
+        advertPage = number;
+        return LoadAdvertsAsync();
+    }
+
+    private async Task LoadAdvertsAsync()
+    {
+        var (response, _) = await Adverts.GetFilteredAdvertsAsync(new AdvertFilter { SellerId = Id },
+            AdvertSortEnum.Newest, advertPage, AdvertPageSize);
+        adverts = response;
     }
 
     /// <summary>Deletes the agent profile and returns to their agency; reachable only after confirmation.</summary>

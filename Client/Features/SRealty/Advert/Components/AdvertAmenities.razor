@@ -1,0 +1,82 @@
+@using Shared.SRealty.Advert
+
+@* Amenities of an advert on the detail page; a yes-no item is listed only when it is yes. *@
+
+@if (HasAny)
+{
+    <div class="card">
+        <div class="card-body">
+            <h2 class="h6 mb-3">Vybavení</h2>
+            <dl class="row mb-0 small">
+                @if (Advert.Balcony)
+                {
+                    <dt class="col-6">Balkon</dt>
+                    <dd class="col-6 text-end mb-1">@Area(Advert.BalconyArea)</dd>
+                }
+                @if (Advert.Loggia)
+                {
+                    <dt class="col-6">Lodžie</dt>
+                    <dd class="col-6 text-end mb-1">@Area(Advert.LoggiaArea)</dd>
+                }
+                @if (Advert.Terrace)
+                {
+                    <dt class="col-6">Terasa</dt>
+                    <dd class="col-6 text-end mb-1">@Area(Advert.TerraceArea)</dd>
+                }
+                @if (Advert.Cellar)
+                {
+                    <dt class="col-6">Sklep</dt>
+                    <dd class="col-6 text-end mb-1">@Area(Advert.CellarArea)</dd>
+                }
+                @if (Advert.Basin)
+                {
+                    <dt class="col-6">Bazén</dt>
+                    <dd class="col-6 text-end mb-1">@Area(Advert.BasinArea)</dd>
+                }
+                @if (Advert.Garage)
+                {
+                    <dt class="col-6">Garáž</dt>
+                    <dd class="col-6 text-end mb-1">@Count(Advert.GarageCount)</dd>
+                }
+                @if (Advert.ParkingLots)
+                {
+                    <dt class="col-6">Parkování</dt>
+                    <dd class="col-6 text-end mb-1">@Count(Advert.Parking)</dd>
+                }
+                @if (Advert.FtvPanels)
+                {
+                    <dt class="col-6">Fotovoltaické panely</dt>
+                    <dd class="col-6 text-end mb-1">Ano</dd>
+                }
+                @if (Advert.SolarPanels)
+                {
+                    <dt class="col-6">Solární panely</dt>
+                    <dd class="col-6 text-end mb-1">Ano</dd>
+                }
+                @if (Advert.Furnished is { } furnished)
+                {
+                    <dt class="col-6">Zařízení</dt>
+                    <dd class="col-6 text-end mb-1">@furnished.GetLocalizedDisplayName()</dd>
+                }
+                @if (Advert.Elevator is { } elevator)
+                {
+                    <dt class="col-6">Výtah</dt>
+                    <dd class="col-6 text-end mb-1">@elevator.GetLocalizedDisplayName()</dd>
+                }
+            </dl>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] [EditorRequired] public SrealityAdvertDto Advert { get; set; } = default!;
+
+    private bool HasAny
+        => Advert.Balcony || Advert.Loggia || Advert.Terrace || Advert.Cellar || Advert.Basin || Advert.Garage
+           || Advert.ParkingLots || Advert.FtvPanels || Advert.SolarPanels
+           || Advert.Furnished is not null || Advert.Elevator is not null;
+
+    private static string Area(int? squareMetres) => squareMetres is { } area ? $"{area} m²" : "Ano";
+
+    private static string Count(int? count) => count is { } n ? n.ToString() : "Ano";
+}

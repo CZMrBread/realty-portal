@@ -43,4 +43,10 @@ public sealed record AdvertFilter
 
     /// <summary>Words to find in the description and address; all must appear, accents ignored.</summary>
     public string? Search { get; init; }
+
+    /// <summary>Agency the adverts are published under.</summary>
+    public Guid? RealtyAgencyId { get; init; }
+
+    /// <summary>Agent selling the adverts.</summary>
+    public Guid? SellerId { get; init; }
 }

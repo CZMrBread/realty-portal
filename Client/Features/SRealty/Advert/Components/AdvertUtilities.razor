@@ -1,0 +1,50 @@
+@using Shared.SRealty.Advert
+
+@* Utilities and heating of an advert on the detail page; only the filled-in items are listed. *@
+
+@{
+    var rows = Rows().ToList();
+}
+@if (rows.Count > 0)
+{
+    <div class="card">
+        <div class="card-body">
+            <h2 class="h6 mb-3">Sítě a topení</h2>
+            <dl class="row mb-0 small">
+                @foreach (var (label, value) in rows)
+                {
+                    <dt class="col-6">@label</dt>
+                    <dd class="col-6 text-end mb-1">@value</dd>
+                }
+            </dl>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] [EditorRequired] public SrealityAdvertDto Advert { get; set; } = default!;
+
+    /// <summary>Label and value of every utility the advert has filled in, in the order of the form.</summary>
+    private IEnumerable<(string Label, string Value)> Rows()
+    {
+        if (Labels(Advert.Electricity) is { } electricity) yield return ("Elektřina", electricity);
+        if (Advert.CircuitBreaker is { } breaker) yield return ("Jistič", breaker.GetLocalizedDisplayName());
+        if (Advert.PhaseDistribution is { } phases) yield return ("Počet fází", phases.GetLocalizedDisplayName());
+        if (Labels(Advert.Gas) is { } gas) yield return ("Plyn", gas);
+        if (Labels(Advert.Water) is { } water) yield return ("Voda", water);
+        if (Labels(Advert.WellType) is { } well) yield return ("Typ studny", well);
+        if (Labels(Advert.Gully) is { } gully) yield return ("Odpad", gully);
+        if (Labels(Advert.Heating) is { } heating) yield return ("Topení", heating);
+        if (Labels(Advert.HeatingElement) is { } element) yield return ("Topná tělesa", element);
+        if (Labels(Advert.HeatingSource) is { } source) yield return ("Zdroj tepla", source);
+        if (Labels(Advert.WaterHeatSource) is { } waterHeat) yield return ("Ohřev vody", waterHeat);
+        if (Labels(Advert.Telecommunication) is { } telecommunication) yield return ("Telekomunikace", telecommunication);
+        if (Labels(Advert.InternetConnectionType) is { } internet) yield return ("Připojení k internetu", internet);
+        if (!string.IsNullOrWhiteSpace(Advert.InternetConnectionProvider)) yield return ("Poskytovatel internetu", Advert.InternetConnectionProvider);
+        if (Advert.InternetConnectionSpeed is { } speed) yield return ("Rychlost připojení", $"{speed} Mb/s");
+    }
+
+    /// <summary>Comma-separated labels of the chosen values, or null when none is chosen.</summary>
+    private static string? Labels<T>(ICollection<T>? values) where T : struct, Enum
+        => values is { Count: > 0 } ? string.Join(", ", values.Select(v => v.GetLocalizedDisplayName())) : null;
+}

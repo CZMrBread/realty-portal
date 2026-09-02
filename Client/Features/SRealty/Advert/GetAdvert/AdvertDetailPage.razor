@@ -4,6 +4,7 @@
 @using Client.Features.RealtyAgent
 @using Client.Features.RealtyAgent.Components
 @using Client.Features.SRealty
+@using Client.Features.SRealty.Advert.Components
 @using Client.Features.SRealty.Photo
 @using Shared.RealtyAgency.GetRealtyAgency
 @using Shared.RealtyAgent
@@ -66,38 +67,7 @@
             </div>
 
             <div class="col-12 col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="h6 mb-3">Parametry</h2>
-                        <dl class="row mb-0 small">
-                            @if (advert.AdvertType is { } type)
-                            {
-                                <dt class="col-6">Typ</dt>
-                                <dd class="col-6 text-end mb-1">@type.GetLocalizedDisplayName()</dd>
-                            }
-                            @if (advert.AdvertSubtype is { } subtype)
-                            {
-                                <dt class="col-6">Podtyp</dt>
-                                <dd class="col-6 text-end mb-1">@subtype.GetLocalizedDisplayName()</dd>
-                            }
-                            @if (advert.UsableArea is { } usable)
-                            {
-                                <dt class="col-6">Užitná plocha</dt>
-                                <dd class="col-6 text-end mb-1">@usable m²</dd>
-                            }
-                            @if (advert.EstateArea is { } estate)
-                            {
-                                <dt class="col-6">Plocha pozemku</dt>
-                                <dd class="col-6 text-end mb-1">@estate m²</dd>
-                            }
-                            @if (!string.IsNullOrWhiteSpace(advert.AdvertPriceTextNote))
-                            {
-                                <dt class="col-6">Poznámka k ceně</dt>
-                                <dd class="col-6 text-end mb-1">@advert.AdvertPriceTextNote</dd>
-                            }
-                        </dl>
-                    </div>
-                </div>
+
 
                 @if (seller is not null || agency is not null)
                 {
@@ -108,6 +78,7 @@
                             <RealtyAgentCard Agent="seller"/>
                         </div>
                     }
+
                     @if (agency is not null)
                     {
                         <RealtyAgencyCard Agency="agency"/>
@@ -115,12 +86,23 @@
                 }
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <AdvertParameters Advert="@advert"/>
+            </div>
+            <div class="col-12 col-lg-4">
+                <AdvertAmenities Advert="@advert"/>
+            </div>
+            <div class="col-12 col-lg-4">
+                <AdvertUtilities Advert="@advert"/>
+            </div>
+        </div>
         @if (advert is { LocalityLatitude: { } latitude, LocalityLongitude: { } longitude })
         {
             <h2 class="h5 mt-4 mb-3">Poloha</h2>
             <div class="mb-4">
-                <AdvertMap Markers="@(new[] { new AdvertMapMarker(latitude, longitude, AdvertDisplay.Title(advert), null) })"/>
+                <AdvertMap
+                    Markers="@(new[] { new AdvertMapMarker(latitude, longitude, AdvertDisplay.Title(advert), null) })"/>
             </div>
         }
     }
@@ -173,4 +155,5 @@
             (agency, _) = await RealtyAgencies.GetAgencyAsync(agencyId);
         }
     }
+
 }

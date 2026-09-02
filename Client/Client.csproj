@@ -22,6 +22,26 @@
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertAmenitiesSection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertAreasSection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertAuctionSection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertAvailabilitySection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertBuildingSection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertCoreSection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertEnergySection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertForm.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertFormCard.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertLocationSection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertMap.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertOwnershipSection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertParameters.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertPresentationSection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertPriceSection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Advert\Components\AdvertUtilitiesSection.razor" />
+      <AdditionalFiles Include="Features\SRealty\Photo\Components\PhotoGallery.razor" />
+    </ItemGroup>
+
     <Target Name="CopyBootstrapFromNode" BeforeTargets="Build">
         <!-- Cleaning -->
         <RemoveDir Directories="wwwroot\lib"/>

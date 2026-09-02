@@ -1,0 +1,38 @@
+@using Shared.SRealty.Advert
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="h6 mb-3">Parametry</h2>
+        <dl class="row mb-0 small">
+            @if (Advert.AdvertType is { } type)
+            {
+                <dt class="col-6">Typ</dt>
+                <dd class="col-6 text-end mb-1">@type.GetLocalizedDisplayName()</dd>
+            }
+            @if (Advert.AdvertSubtype is { } subtype)
+            {
+                <dt class="col-6">Podtyp</dt>
+                <dd class="col-6 text-end mb-1">@subtype.GetLocalizedDisplayName()</dd>
+            }
+            @if (Advert.UsableArea is { } usable)
+            {
+                <dt class="col-6">Užitná plocha</dt>
+                <dd class="col-6 text-end mb-1">@usable m²</dd>
+            }
+            @if (Advert.EstateArea is { } estate)
+            {
+                <dt class="col-6">Plocha pozemku</dt>
+                <dd class="col-6 text-end mb-1">@estate m²</dd>
+            }
+            @if (!string.IsNullOrWhiteSpace(Advert.AdvertPriceTextNote))
+            {
+                <dt class="col-6">Poznámka k ceně</dt>
+                <dd class="col-6 text-end mb-1">@Advert.AdvertPriceTextNote</dd>
+            }
+        </dl>
+    </div>
+</div>
+
+@code {
+    [Parameter] [EditorRequired] public SrealityAdvertDto Advert { get; set; }
+}
