@@ -70,7 +70,6 @@ public sealed partial record SrealityAdvertDto
     public bool TenantNotPayCommission { get; set; } = false;
 
     [EnumValue(typeof(LeaseTypeEnum))]
-    [RequiredIfValue(nameof(AdvertFunction), AdvertFunctionEnum.Rent)]
     [JsonPropertyName("lease_type_cb")]
     public LeaseTypeEnum? LeaseType { get; set; }
 }

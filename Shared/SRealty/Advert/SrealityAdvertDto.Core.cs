@@ -109,6 +109,12 @@ public sealed partial record SrealityAdvertDto : IValidatableObject
                 "Číslo bytové jednotky lze zadat pouze u kategorie Byty.",
                 [nameof(ApartmentNumber)]);
         }
+        if (LeaseType is not null && LeaseType.Value.IsValidForType(AdvertFunction!.Value))
+        {
+            yield return new ValidationResult(
+                "Nevalidní typ nájmu pro danou funkci inzerátu.",
+                [nameof(LeaseType)]);
+        }
 
         if (AdvertFunction == AdvertFunctionEnum.Sell
             && Ownership == OwnershipTypeEnum.Cooperative

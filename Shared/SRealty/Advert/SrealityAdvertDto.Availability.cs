@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using Shared.Shared.Attributes;
+using Shared.SRealty.Advert.Enums;
 
 namespace Shared.SRealty.Advert;
 
@@ -6,6 +8,7 @@ public sealed partial record SrealityAdvertDto
 {
     /// <summary>Date from which the property can be handed over.</summary>
     [JsonPropertyName("ready_date")]
+    [RequiredIfValue(nameof(AdvertFunction), [AdvertFunctionEnum.Rent])]
     public DateOnly? ReadyDate { get; set; }
 
     [JsonPropertyName("sale_date")]

@@ -25,10 +25,12 @@ public sealed partial record SrealityAdvertDto
     /// <summary>Numerator of the ownership share on offer; the denominator is ShareDenominator.</summary>
     [Range(1, int.MaxValue)]
     [JsonPropertyName("share_numerator")]
+    [RequiredIfValue(nameof(AdvertFunction), AdvertFunctionEnum.Shares)]
     public int? ShareNumerator { get; set; }
 
     [Range(1, int.MaxValue)]
     [JsonPropertyName("share_denominator")]
+    [RequiredIfValue(nameof(AdvertFunction), AdvertFunctionEnum.Shares)]
     public int? ShareDenominator { get; set; }
 
     /// <summary>Numerator of the share in the common areas; the denominator is ShareCommonAreaDenominator.</summary>

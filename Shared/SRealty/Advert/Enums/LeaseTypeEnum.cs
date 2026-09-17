@@ -6,8 +6,10 @@ namespace Shared.SRealty.Advert.Enums;
 public enum LeaseTypeEnum
 {
     [LocalizedDisplayName(DisplayNameCz = "Nájem", DisplayNameEn = "Lease")]
+    [ValidForType<AdvertFunctionEnum>(AdvertFunctionEnum.Rent)]
     Lease = 1,
 
     [LocalizedDisplayName(DisplayNameCz = "Podnájem", DisplayNameEn = "Sublease")]
+    [ValidForType<AdvertFunctionEnum>(AdvertFunctionEnum.Rent)]
     Sublease = 2
 }
