@@ -175,9 +175,15 @@ public sealed partial class AdvertService(AppDbContext appDbContext, IOutputCach
 
         if (!string.IsNullOrWhiteSpace(filter.Search))
         {
-            var search = filter.Search.Trim();
-            query = query.Where(a => a.SearchVector!.Matches(
-                EF.Functions.PlainToTsQuery(SrealityAdvertConfiguration.TextSearchConfiguration, search)));
+            var terms = Regex.Split(filter.Search, @"[^\p{L}\p{N}]+")
+                .Where(t => t.Length > 0)
+                .Select(t => t + ":*");
+            var tsQuery = string.Join(" & ", terms);
+            if (tsQuery.Length > 0)
+            {
+                query = query.Where(a => a.SearchVector!.Matches(
+                    EF.Functions.ToTsQuery(SrealityAdvertConfiguration.TextSearchConfiguration, tsQuery)));
+            }
         }
 
         if (filter.RealtyAgencyId is { } realtyAgencyId)
