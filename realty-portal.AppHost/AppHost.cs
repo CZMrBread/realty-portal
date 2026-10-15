@@ -17,7 +17,11 @@ var ruianImportKey = builder.AddParameter("ruian-import-key", new GenerateParame
 var api = builder.AddProject<Projects.Server>("backend-api")
     .WithReference(db)
     .WaitFor(db)
-    .WithReference(redis)
+    .WithReference(redis).WithUrlForEndpoint("http", url =>
+    {
+        url.Url += "/scalar";
+        url.DisplayText = "Scalar (OpenAPI UI)";
+    })
     .WithEnvironment("Ruian__ImportKey", ruianImportKey)
     .WithExternalHttpEndpoints();
 
